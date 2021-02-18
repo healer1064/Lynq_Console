@@ -16,7 +16,7 @@ export default function Home() {
         </div>
       </header>
       <div className="plans-wrp">
-        <h1>Join Hundreds of expert than use already <b>Linq</b></h1>
+        <h1>Join Hundreds of experts than use <b>Linq</b></h1>
         <div className="plans-card">
           <div className="plans-card__title">Early Bird Special Plan</div>
           <div className="plans-card__free">
@@ -89,10 +89,10 @@ export default function Home() {
           </div>
           <div className="plans-pricing__card">
             <div className="plans-pricing__card-type">
-              Premium
+              Silver
             </div>
             <div className="plans-pricing__card-price">
-              $29.9
+              $9.9
             </div>
             <hr/>
             <ul>
@@ -102,16 +102,16 @@ export default function Home() {
               <li>Payment module</li>
               <li>16% commission added on top of the session price</li>
             </ul>
-            <a href="#" className="plans-pricing__card-btn active">
-              BUY PACKAGE
+            <a href="#" className="plans-pricing__card-btn">
+              available soon
             </a>
           </div>
           <div className="plans-pricing__card">
             <div className="plans-pricing__card-type">
-              Silver
+              Premium
             </div>
             <div className="plans-pricing__card-price">
-              $9.9
+              $29.9
             </div>
             <hr/>
             <ul>
