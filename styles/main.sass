@@ -1,0 +1,537 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointPhone: 519px
+
+*
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+body
+  background: #FFF
+  margin: 0
+  font-family: 'Montserrat'
+
+.header
+  width: 100%
+  height: 90px
+  position: absolute
+  top: 0
+  left: 0
+  border-bottom: 1px solid #D9E0E9
+  padding: 0 64px
+  @include flex
+  align-items: center
+  justify-content: space-between
+  &-logo
+    height: 42px
+    img
+      height: 100%
+      width: auto
+  .burger-menu
+    display: none
+.plans
+  &-wrp
+    width: 100%
+    max-width: 1110px
+    @include flex
+    flex-direction: column
+    align-items: center
+    margin: 90px auto 0
+    padding-top: 55px
+    padding-bottom: 76px
+    h1
+      margin: 0 0 32px
+      font-weight: 600
+      font-size: 32px
+      line-height: 39px
+      color: $black
+      b
+        font-weight: inherit
+        color: $lavender
+  &-card
+    width: 100%
+    max-width: 640px
+    background: #F8F8FF
+    border: 1px solid #D9E0E9
+    border-radius: 5px
+    padding: 40px 56px 56px
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    &__title
+      font-weight: bold
+      font-size: 40px
+      line-height: 49px
+      color: $black
+      margin-bottom: 24px
+    &__free
+      @include flex
+      align-items: center
+      margin-bottom: 32px
+      .circle
+        width: 24px
+        height: 24px
+        border: 2px solid $grey
+        margin-right: 14px
+        border-radius: 100%
+      span
+        font-size: 18px
+        line-height: 22px
+        text-decoration-line: line-through
+        color: $grey
+        margin-right: 8px
+      strong
+        font-weight: bold
+        font-size: 40px
+        line-height: 49px
+        color: $lavender
+        margin-top: 10px
+    ul
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      padding: 0
+      margin: 0 0 40px
+      max-width: 64%
+      li
+        padding: 0
+        margin: 0
+        list-style-type: none
+        @include flex
+        align-items: flex-start
+        margin-bottom: 16px
+        font-size: 16px
+        line-height: 24px
+        color: $black
+        span
+          margin-left: 16px
+    &__next
+      width: 100%
+      padding: 16px 0
+      @include flex
+      justify-content: center
+      align-items: center
+      background: #39BDCD
+      border-radius: 5px
+      text-decoration: none
+      margin-bottom: 16px
+      &:hover
+        img
+          transform: translateX(25%)
+      span
+        font-weight: 600
+        font-size: 16px
+        line-height: 20px
+        color: #FFF
+        margin-right: 8px
+      img
+        transition: all 0.2s ease-in-out
+    &__seeother
+      @include flex
+      align-items: center
+      cursor: pointer
+      span
+        margin-right: 8px
+        font-weight: 600
+        font-size: 12px
+        line-height: 15px
+        color: $blue
+  &-pricing
+    margin-top: 64px
+    @include flex
+    flex-direction: column
+    align-items: center
+    h2
+      font-weight: 600
+      font-size: 40px
+      line-height: 64px
+      text-align: center
+      color: $black
+      margin: 0 0 16px
+    p
+      margin: 0 0 48px
+      font-size: 16px
+      line-height: 130%
+      color: $grey
+    &__switch
+      @include flex
+      align-items: center
+      margin-bottom: 32px
+      span
+        font-size: 18px
+        line-height: 150%
+        color: $grey
+        &.active
+          color: $black
+          font-weight: 600
+    &__toggle
+      margin: 0 32px
+      cursor: pointer
+      user-select: none
+      .toggle-control
+        width: 92px
+        height: 48px
+        display: block
+        border-radius: 60px
+        background: #7E88F4
+        position: relative
+        &::after
+          transition: all 0.2s ease-in-out
+          content: ''
+          width: 40px
+          height: 40px
+          display: block
+          border-radius: 50%
+          position: absolute
+          left: 4px
+          top: 4px
+          background: #FFF
+      input
+        display: none
+        &:checked + .toggle-control
+          &::after
+            left: 48px
+    &__row
+      width: 100%
+      @include flex
+      flex-wrap: wrap
+      margin-bottom: 95px
+    &__card
+      width: calc(100% / 3 - 24px)
+      margin: 0 12px
+      padding: 40px
+      background: #FFF
+      border: 2px solid #D9E0E9
+      border-radius: 12px
+      @include flex
+      flex-direction: column
+      align-items: center
+      transition: all 0.2s ease-in-out
+      &:hover
+        box-shadow: 4px 24px 32px rgba(126, 138, 246, 0.1)
+      &-type
+        font-weight: 500
+        font-size: 18px
+        line-height: 130%
+        text-align: center
+        color: $grey
+      &-price
+        font-weight: bold
+        font-size: 42px
+        line-height: 64px
+        color: $black
+      hr
+        width: 100%
+        display: block
+        height: 1px
+        border: 0
+        padding: 0
+        border-top: 1px solid rgba(217, 224, 233, 0.8)
+        margin: 16px 0 24px
+      ul
+        width: 100%
+        margin: 0
+        padding: 0
+        flex: 1 auto
+        li
+          list-style-type: none
+          margin: 0 0 8px
+          padding: 0 0 0 16px
+          position: relative
+          font-size: 16px
+          line-height: 150%
+          color: #7A7A7A
+          &::before
+            content: ''
+            position: absolute
+            left: 0
+            top: 8px
+            width: 8px
+            height: 8px
+            border-radius: 100%
+            background: #39BDCD
+      &-btn
+        width: 100%
+        max-width: 201px
+        text-align: center
+        text-transform: uppercase
+        padding: 16px 0
+        background: #C1C1C1
+        border-radius: 5px
+        text-decoration: none
+        font-weight: 600
+        font-size: 16px
+        line-height: 20px
+        color: #FFF
+        margin-top: 40px
+        &.active
+          background: #39BDCD
+.signup
+  @include flex
+  min-height: 100vh
+  &-left
+    width: 51.11%
+    background: #F8F8FF
+    min-height: 100vh
+    padding: 48px 98px 82px
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    justify-content: center
+    h1
+      width: 94%
+      margin-left: 10px
+      margin: 0 0 97px 10px
+      color: #2B2B32
+      font-size: 32px
+      line-height: 39px
+  &-art
+    width: 100%
+    img
+      width: 100%
+  &-form
+    width: calc(100% - 51.11%)
+    @include flex
+    flex-direction: column
+    justify-content: center
+    align-items: flex-start
+    padding: 48px 64px 79px 80px
+    min-height: 100vh
+    &__logo
+      height: 60px
+      margin-bottom: 32px
+      img
+        height: 100%
+        width: auto
+    form
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      width: 100%
+      h2
+        margin: 0 0 8px
+        font-weight: 700
+        font-size: 28px
+        line-height: 34px
+        color: $black
+      p
+        margin: 0 0 32px
+        font-size: 16px
+        line-height: 24px
+        color: $grey
+    &__inp
+      width: 100%
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      margin-bottom: 24px
+      position: relative
+      strong
+        font-weight: 600
+        font-size: 14px
+        line-height: 17px
+        color: $black
+        margin-bottom: 16px
+      input
+        width: 100%
+        padding: 14px 24px
+        background-color: #FFF
+        border: 1px solid #C0C0C9
+        border-radius: 6px
+        &:focus
+          outline: none
+          &::placeholder
+            font-family: 'Montserrat'
+            color: $super-grey
+            font-size: 14px
+            line-height: 22px
+      .show-password
+        position: absolute
+        bottom: 13px
+        right: 24px
+        cursor: pointer
+        height: 20px
+        width: 20px
+    &__terms
+      @include flex
+      align-items: center
+      position: relative
+      cursor: pointer
+      user-select: none
+      margin-bottom: 24px
+      span
+        margin-left: 32px
+        font-size: 14px
+        line-height: 24px
+        color: $black-2
+      input
+        position: absolute
+        opacity: 0
+        height: 0
+        width: 0
+        &:checked ~ .checkmark
+          background: $lavender
+          border-color: $lavender
+          &::after
+            display: block
+      .checkmark
+        position: absolute
+        top: 3px
+        left: 3px
+        height: 18px
+        width: 18px
+        background: #FFF
+        border: 2px solid #A6A8B5
+        border-radius: 4px
+        &::after
+          content: ""
+          position: absolute
+          display: none
+          left: 4px
+          top: 1px
+          width: 4px
+          height: 7px
+          border: solid white
+          border-width: 0 2px 2px 0
+          -webkit-transform: rotate(45deg)
+          -ms-transform: rotate(45deg)
+          transform: rotate(45deg)
+    &__btn
+      width: 100%
+      background: $lavender
+      border-radius: 6px
+      border: none
+      cursor: pointer
+      padding: 16px 0
+      margin-bottom: 24px
+      font-weight: bold
+      font-size: 16px
+      line-height: 20px
+      color: #FFF
+    &__login
+      align-self: center
+      font-size: 16px
+      line-height: 24px
+      color: $black
+      a
+        text-decoration: none
+        font-weight: 600
+        color: $lavender
+
+@media (max-width: $breakpointPhone)
+  .header
+    padding: 0 16px
+    .burger-menu
+      display: block
+      height: 24px
+  .plans
+    &-wrp
+      padding: 48px 16px 39px
+      h1
+        font-size: 28px
+        line-height: 34px
+    &-card
+      padding: 24px 16px
+      &__title
+        font-size: 24px
+        line-height: 29px
+        margin-bottom: 22px
+      &__free
+        margin-bottom: 20px
+      ul
+        max-width: calc(100% - 17px)
+        margin-bottom: 16px
+      &__next
+        span
+          margin-right: 4px
+    &-pricing
+      margin-top: 48px
+      h2
+        font-size: 28px
+        line-height: 130%
+        margin-bottom: 8px
+      p
+        margin-bottom: 24px
+      &__switch
+        margin-bottom: 20px
+        span
+          font-size: 14px
+      &__toggle
+        margin: 0 16px
+        .toggle-control
+          width: 46px
+          height: 24px
+          &::after
+            width: 20px
+            height: 20px
+            left: 2px
+            top: 2px
+        input:checked + .toggle-control
+          &::after
+            left: 24px
+      &__card
+        width: 100%
+        margin: 24px 0 0
+        min-height: 547px
+        padding: 32px 32px 40px
+        &-price
+          font-size: 32px
+        ul
+          width: calc(100% - 17px)
+          align-self: flex-start
+  .signup
+    &-left
+      display: none
+    &-form
+      width: 100%
+      padding: 40px 16px 119px
+      justify-content: flex-start
+      &__logo
+        height: 42px
+        margin-bottom: 34px
+      form
+        h2
+          font-size: 22px
+          line-height: 27px
+          margin-bottom: 12px
+        p
+          font-size: 14px
+          line-height: 24px
+          margin-bottom: 40px
+      &__inp
+        strong
+          margin-bottom: 12px
+        input
+          padding: 16px
+        .show-password
+          right: 14px
+          bottom: 16px
+          height: 16px
+          width: 16px
+      &__terms
+        span
+          line-height: 130%
+      &__btn
+        font-size: 14px
+        line-height: 17px
+        padding: 16px 0 15px
+        margin-bottom: 15px
+      &__login
+        font-size: 14px
+        line-height: 24px
