@@ -15,6 +15,7 @@ $super-grey: #C9C9C9
 $blue: #2889F0
 
 // Breakpoints
+$breakpointLaptop: 1399px
 $breakpointPhone: 519px
 
 *
@@ -53,7 +54,7 @@ body
     @include flex
     flex-direction: column
     align-items: center
-    margin: 55px auto 0
+    margin: 0 auto
     padding-top: 55px
     padding-bottom: 76px
     h1
@@ -937,6 +938,157 @@ body
         background: $lavender
         color: #FFF
         font-weight: 600
+
+@media (max-width: $breakpointLaptop)
+  .plans
+    &-wrp
+      padding-top: 32px
+      h1
+        font-size: 28px
+        line-height: 34px
+    &-card
+      max-width: 556px
+      padding: 32px 48px 64px
+      &__title
+        font-size: 28px
+        line-height: 34px
+        margin-bottom: 32px
+      &__free
+        strong
+          margin-top: 0
+          font-size: 32px
+          line-height: 39px
+        span
+          font-size: 16px
+          line-height: 20px
+      ul
+        max-width: 75%
+        margin-bottom: 16px
+        li
+          font-size: 14px
+      &__next
+        span
+          font-size: 14px
+          line-height: 17px
+        img
+          height: 17px
+    &-pricing
+      margin-top: 48px
+      h2
+        font-size: 36px
+        line-height: 56px
+      p
+        margin-bottom: 32px
+      &__switch
+        margin-bottom: 24px
+      &__card
+        padding: 40px 30px
+  .signup
+    &-left
+      h1
+        font-size: 24px
+        line-height: 32px
+        margin-bottom: 64px
+    &-form
+      form
+        h2
+          font-size: 24px
+          line-height: 30px
+        p
+          margin-bottom: 24px
+          font-size: 14px
+          line-height: 22px
+      &__inp
+        margin-bottom: 16px
+        strong
+          margin-bottom: 10px
+      &__logo
+        height: 50px
+        margin-bottom: 24px
+      &__terms
+        margin-bottom: 16px
+  .side
+    &-nav
+      nav
+        margin-top: 24px
+        a
+          padding: 16px 0 16px 16px
+          span
+            font-size: 14px
+            line-height: 18px
+          img
+            height: 19px
+        .space
+          height: 45px
+      &__profile
+        margin: 24px 0
+        padding-left: 18px
+  .content-wrp
+    padding: 0 32px
+  .settings
+    &-types
+      margin-top: 32px
+      margin-bottom: 24px
+  .setup
+    &-table
+      &__title
+        padding: 16px 24px
+      &__day
+        margin-top: 16px
+        span
+          font-size: 16px
+          line-height: 17px
+      &__col
+        padding: 8px 0
+        .time__row
+          input[type="time"]
+            padding: 10px 0 9px
+      &__add
+        margin-top: 16px
+      &__row
+        min-height: 56px
+    &-notifications
+      &__card
+        span
+          font-size: 16px
+          line-height: 20px
+  .events
+    &-row
+      &__card
+        strong
+          font-size: 16px
+          line-height: 20px
+          margin-bottom: 32px
+        .btm
+          span
+            font-size: 14px
+            line-height: 18px
+            &.duration
+              margin-bottom: 4px
+    &-edit
+      h2
+        font-size: 20px
+        line-height: 25px
+      &__name
+        strong
+          margin-bottom: 10px
+        input
+          height: 48px
+      &__inner
+        strong
+          font-size: 14px
+          line-height: 18px
+        .radios__custom
+          input[type="text"]
+            padding-top: 12px
+            padding-bottom: 12px
+        .radios__predefined
+          span
+            font-size: 14px
+            line-height: 22px
+      &__btns
+        button
+          line-height: 48px
 
 @media (max-width: $breakpointPhone)
   .header
