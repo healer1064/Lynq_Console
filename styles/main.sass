@@ -507,7 +507,7 @@ body
     margin: 0 20px
     cursor: pointer
     padding-bottom: 8px
-    font-weight: 600
+    font-weight: 500
     font-size: 18px
     line-height: 22px
     color: #B1B6BD
@@ -515,6 +515,7 @@ body
     &.active
       color: $lavender
       border-color: $lavender
+      font-weight: bold
   &__mobile
     display: none
 .setup
@@ -1076,12 +1077,12 @@ body
       width: 251px
       nav
         a
-          padding: 13px 0 13px 46px
+          padding: 13px 0 13px 24px
         .space
           height: 48px
       &__profile
         margin: 24px 0 40px
-        padding-left: 46px
+        padding-left: 24px
   .content-wrp
     padding: 0 75px 0 32px
     width: calc(100% - 251px)
@@ -1133,6 +1134,9 @@ body
         width: 16px
       &__row
         min-height: 41px
+        &.available
+          .setup-table__day
+            margin-top: 19px
     &-notifications
       width: calc(100% - 72.22%)
       &__card
@@ -1415,6 +1419,7 @@ body
         .unavailable
           font-size: 16px
           margin-left: 11px
+          margin-top: 7px
         .time__row
           width: 100%
           padding-right: 13px
@@ -1491,6 +1496,9 @@ body
             margin-bottom: 12px
           &__predefined
             width: 100%
+            justify-content: space-between
+            label
+              margin-right: 0
             span
               font-size: 14px
               margin-left: 24px

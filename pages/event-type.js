@@ -60,6 +60,18 @@ export default function Setup() {
     setEvents(newArr)
   }
 
+  const activeItemsHandler = (index) => {
+    console.log(index);
+    let newActiveArr = events.map((item, i) => {
+      if(index == i) {
+        return { ...item, isActive: !events[index].isActive}
+      } else {
+        return item
+      }
+    })
+    setEvents(newActiveArr)
+  }
+
   return (
     <>
       <Head>
@@ -143,11 +155,11 @@ export default function Setup() {
                       </div>
                       <label className="events-row__toggle">
                         {card.isActive ? (
-                          <input type="checkbox" checked/>
+                          <input type="checkbox" checked />
                         ) : (
-                          <input type="checkbox"/>
+                          <input type="checkbox" />
                         )}
-                        <div className="toggle-control"></div>
+                        <div className="toggle-control" onClick={() => activeItemsHandler(index)}></div>
                       </label>
                     </div>
                     <div className="see__more" onClick={() => showActionsHandle(index)}>

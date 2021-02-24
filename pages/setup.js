@@ -86,7 +86,7 @@ export default function Setup() {
                   <img src="/img/setup-add.svg" alt=""/>
                 </div>
               </div>
-              <div className="setup-table__row">
+              <div className="setup-table__row available">
                 <div className="setup-table__day">
                   <img src="/img/setup-check-available.svg" alt=""/>
                   <span>mon</span>
@@ -113,7 +113,7 @@ export default function Setup() {
                   <img src="/img/setup-add.svg" alt=""/>
                 </div>
               </div>
-              <div className="setup-table__row">
+              <div className="setup-table__row available">
                 <div className="setup-table__day">
                   <img src="/img/setup-check-available.svg" alt=""/>
                   <span>tue</span>
@@ -132,7 +132,7 @@ export default function Setup() {
                   <img src="/img/setup-add.svg" alt=""/>
                 </div>
               </div>
-              <div className="setup-table__row">
+              <div className="setup-table__row available">
                 <div className="setup-table__day">
                   <img src="/img/setup-check-available.svg" alt=""/>
                   <span>wed</span>
@@ -151,7 +151,7 @@ export default function Setup() {
                   <img src="/img/setup-add.svg" alt=""/>
                 </div>
               </div>
-              <div className="setup-table__row">
+              <div className="setup-table__row available">
                 <div className="setup-table__day">
                   <img src="/img/setup-check-available.svg" alt=""/>
                   <span>thu</span>
@@ -170,7 +170,7 @@ export default function Setup() {
                   <img src="/img/setup-add.svg" alt=""/>
                 </div>
               </div>
-              <div className="setup-table__row">
+              <div className="setup-table__row available">
                 <div className="setup-table__day">
                   <img src="/img/setup-check-available.svg" alt=""/>
                   <span>fri</span>
