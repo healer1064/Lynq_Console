@@ -15,6 +15,7 @@ $super-grey: #C9C9C9
 $blue: #2889F0
 
 // Breakpoints
+$breakpointLaptop: 1399px
 $breakpointPhone: 519px
 
 *
@@ -25,14 +26,15 @@ $breakpointPhone: 519px
 body
   background: #FFF
   margin: 0
-  font-family: 'Montserrat'
+  font-family: 'Open Sans'
 
 .header
   width: 100%
   height: 90px
-  position: absolute
+  position: sticky
   top: 0
-  left: 0
+  z-index: 2
+  background: #FFF
   border-bottom: 1px solid #D9E0E9
   padding: 0 64px
   @include flex
@@ -52,7 +54,7 @@ body
     @include flex
     flex-direction: column
     align-items: center
-    margin: 90px auto 0
+    margin: 0 auto
     padding-top: 55px
     padding-bottom: 76px
     h1
@@ -355,13 +357,14 @@ body
         background-color: #FFF
         border: 1px solid #C0C0C9
         border-radius: 6px
+        font-family: 'Open Sans'
         &:focus
           outline: none
-          &::placeholder
-            font-family: 'Montserrat'
-            color: $super-grey
-            font-size: 14px
-            line-height: 22px
+        &::placeholder
+          font-family: 'Open Sans'
+          color: $super-grey
+          font-size: 14px
+          line-height: 22px
       .show-password
         position: absolute
         bottom: 13px
@@ -434,6 +437,844 @@ body
         text-decoration: none
         font-weight: 600
         color: $lavender
+.page-wrp
+  width: 100%
+  @include flex
+  align-items: stretch
+  min-height: calc(100vh - 90px)
+.side-nav
+  width: 17.78%
+  min-height: calc(100vh - 90px)
+  @include flex
+  flex-direction: column
+  justify-content: space-between
+  background: $lavender
+  nav
+    width: 100%
+    @include flex
+    flex-direction: column
+    margin-top: 46px
+    a
+      width: 100%
+      padding: 16px 0 16px 35px
+      @include flex
+      align-items: center
+      text-decoration: none
+      &.active
+        background: #717BE4
+      img
+        height: 21px
+        margin-right: 8px
+      span
+        font-size: 16px
+        line-height: 20px
+        color: #FFF
+    .space
+      height: 80px
+  &__profile
+    margin: 48px 0
+    padding-left: 35px
+    @include flex
+    align-items: center
+    &-pic
+      height: 21px
+      width: 21px
+      border-radius: 100%
+      overflow: hidden
+      margin-right: 8px
+      img
+        height: 100%
+        width: 100%
+        object-fit: cover
+    span
+      font-weight: 400
+      font-size: 16px
+      line-height: 24px
+      color: #F6FAF9
+      margin-right: 17px
+.content-wrp
+  width: calc(100% - 17.78%)
+  min-height: calc(100vh - 90px)
+  background: #FFF
+  padding: 0 64px 0 32px
+.settings-types
+  margin: 48px auto 32px
+  @include flex
+  margin-left: calc(19% - 20px)
+  .option
+    margin: 0 20px
+    cursor: pointer
+    padding-bottom: 8px
+    font-weight: 500
+    font-size: 18px
+    line-height: 22px
+    color: #B1B6BD
+    border-bottom: 2px solid #FFF
+    &.active
+      color: $lavender
+      border-color: $lavender
+      font-weight: bold
+  &__mobile
+    display: none
+.setup
+  &-wrp
+    width: 100%
+    @include flex
+    align-items: flex-start
+    flex-wrap: wrap
+    margin-bottom: 75px
+  &-table
+    @include flex
+    flex-direction: column
+    width: calc(72.06% - 32px)
+    margin-right: 32px
+    background: #FFF
+    border: 1px solid #D9E0E9
+    box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.04)
+    border-radius: 5px
+    &__title
+      padding: 24px
+      font-weight: 500
+      font-size: 16px
+      line-height: 20px
+      color: $black
+    &__row
+      min-height: 72px
+      @include flex
+      align-items: flex-start
+      padding: 0 24px
+      border-top: 1px solid #D9E0E9
+    &__day
+      width: 15.91%
+      @include flex
+      align-items: center
+      margin-top: 24px
+      span
+        text-transform: uppercase
+        margin-left: 4px
+        font-weight: 500
+        font-size: 18px
+        line-height: 22px
+        color: $black
+    &__col
+      flex: 1
+      padding: 16px 0
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      .unavailable
+        margin-top: 9px
+        font-size: 18px
+        line-height: 22px
+        color: $grey
+      .time__row
+        @include flex
+        align-items: center
+        margin-bottom: 12px
+        &:last-child
+          margin-bottom: 0
+        input[type="time"]
+          border: 1px solid #838383
+          border-radius: 5px
+          padding: 12px 0 11px
+          width: 98px
+          font-family: 'Open Sans'
+          text-align: center
+          font-size: 14px
+          line-height: 17px
+          color: $black
+          &:focus
+            outline: none
+          &::-webkit-calendar-picker-indicator
+            background: none
+            display: none
+        .line
+          width: 8px
+          height: 1px
+          background: $grey
+          margin: 0 12px
+        .trash
+          cursor: pointer
+          margin-left: 16px
+    &__add
+      height: 24px
+      width: 24px
+      margin-top: 24px
+      cursor: pointer
+      img
+        height: 100%
+        width: 100%
+  &-notifications
+    @include flex
+    flex-direction: column
+    width: calc(100% - 72.06%)
+    &__card
+      width: 100%
+      background: #FFF
+      border: 1px solid #D9E0E9
+      border-radius: 5px
+      padding: 16px 24px
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      margin-bottom: 16px
+      &:last-child
+        margin-bottom: 0
+      .title
+        margin-bottom: 11px
+        @include flex
+        align-items: center
+        strong
+          margin-left: 8px
+          font-weight: 600
+          font-size: 16px
+          line-height: 20px
+          color: $black
+      span
+        margin-bottom: 8px
+        font-size: 18px
+        line-height: 22px
+        color: $black
+        &:last-child
+          margin-bottom: 0
+.events
+  &-wrp
+    width: 100%
+    margin-bottom: 90px
+  &-row
+    width: calc(100% - 17px)
+    @include flex
+    flex-wrap: wrap
+    &__card
+      width: calc(100% / 3 - (24px * 2) / 3)
+      margin-right: 24px
+      padding: 20px 24px 32px
+      position: relative
+      margin-bottom: 24px
+      border: 1px solid #D9E0E9
+      box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.04)
+      border-radius: 5px
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      &:nth-child(3n)
+        margin-right: 0
+      .see__more
+        cursor: pointer
+        width: 24px
+        height: 24px
+        position: absolute
+        top: 16px
+        right: 16px
+        img
+          height: 100%
+          width: 100%
+      .actions__popup
+        display: none
+        background: #FFF
+        position: absolute
+        top: 38px
+        right: -92px
+        border: 1px solid #D9E0E9
+        box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16)
+        border-radius: 5px
+        z-index: 1
+        &.show
+          display: block
+        span
+          @include flex
+          align-items: center
+          cursor: pointer
+          margin-bottom: 8px
+          font-size: 14px
+          line-height: 17px
+          color: #5C5C5C
+          &:last-child
+            margin-bottom: 0
+          img
+            margin-right: 8px
+        &-wrp
+          @include flex
+          flex-direction: column
+          align-items: flex-start
+          position: relative
+          padding: 16px 32px 16px 12px
+          .close
+            display: none
+            position: absolute
+            top: 8px
+            right: 8px
+      strong
+        font-weight: 600
+        font-size: 18px
+        line-height: 22px
+        margin-bottom: 40px
+        width: calc(100% - 24px)
+      .btm
+        @include flex
+        align-items: center
+        justify-content: space-between
+        width: 100%
+        span
+          display: block
+          font-weight: 500
+          font-size: 16px
+          line-height: 20px
+          color: $black-2
+          &.duration
+            margin-bottom: 8px
+    &__toggle
+      cursor: pointer
+      user-select: none
+      .toggle-control
+        width: 64px
+        height: 32px
+        display: block
+        border-radius: 60px
+        background: #CBCCCB
+        position: relative
+        &::after
+          transition: all 0.2s ease-in-out
+          content: ''
+          width: 28px
+          height: 28px
+          display: block
+          border-radius: 50%
+          position: absolute
+          left: 2px
+          top: 2px
+          background: #FFF
+      input
+        display: none
+        &:checked + .toggle-control
+          background: #18B315
+          &::after
+            left: 34px
+  &-edit
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    h2
+      margin: 0 0 24px
+      font-weight: 600
+      font-size: 24px
+      line-height: 29px
+      color: $black
+    &__inner
+      @include flex
+      flex-wrap: wrap
+      width: 100%
+      strong
+        font-weight: 600
+        font-size: 16px
+        line-height: 20px
+        color: $black
+      textarea
+        width: 100%
+        border: 1px solid #9FA8B5
+        border-radius: 5px
+        padding: 8px 16px
+        font-family: 'Open Sans'
+        font-size: 14px
+        line-height: 24px
+        resize: none
+        &::placeholder
+          font-family: 'Open Sans'
+          font-size: 14px
+          line-height: 24px
+          color: $super-grey
+        &:focus
+          outline: none
+      .description
+        padding-right: 16px
+        strong
+          margin-bottom: 12px
+        textarea
+          height: 100%
+        .count
+          position: absolute
+          bottom: 8px
+          right: 16px
+          font-size: 12px
+          line-height: 24px
+          color: $super-grey
+      .need
+        padding-left: 16px
+        strong
+          margin-bottom: 12px
+        textarea
+          height: 100%
+        .count
+          position: absolute
+          bottom: 8px
+          right: 16px
+          font-size: 12px
+          line-height: 24px
+          color: $super-grey
+      .policy
+        padding-left: 16px
+        strong
+          margin-bottom: 12px
+        textarea
+          flex: 1
+      .radios
+        padding-right: 16px
+        strong
+          margin-bottom: 16px
+        &__predefined
+          @include flex
+          align-items: center
+          width: calc(100% - 19px)
+          justify-content: space-between
+          margin-bottom: 24px
+          span
+            margin-left: 36px
+            font-size: 16px
+            line-height: 24px
+            color: $grey
+        &__custom
+          width: 100%
+          input[type="text"]
+            margin-left: 40px
+            flex: 1
+            padding: 14px 24px
+            border-radius: 5px
+            border: 1px solid #9FA8B5
+            font-family: 'Open Sans'
+            font-size: 14px
+            line-height: 22px
+            &:focus
+              outline: none
+            &::placeholder
+              font-size: 14px
+              line-height: 22px
+              color: $super-grey
+        label
+          @include flex
+          align-items: center
+          position: relative
+          cursor: pointer
+          .checkmark
+            position: absolute
+            top: 50%
+            left: 0
+            transform: translateY(-50%)
+            width: 24px
+            height: 24px
+            border-radius: 100%
+            background: $grey
+            &::after
+              content: ''
+              position: absolute
+              left: 2px
+              top: 2px
+              width: 20px
+              height: 20px
+              border-radius: 100%
+              background: #FFF
+        input[type="radio"]
+          opacity: 0
+          position: absolute
+          cursor: pointer
+          &:checked ~ .checkmark
+            background: $lavender
+            &::after
+              height: 12px
+              width: 12px
+              top: 6px
+              left: 6px
+    &__name
+      width: 100%
+      margin-bottom: 24px
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      strong
+        margin-bottom: 12px
+      input
+        width: 100%
+        border: 1px solid #9FA8B5
+        border-radius: 5px
+        padding: 0 16px
+        height: 52px
+        &:focus
+          outline: none
+    &__col
+      width: 50%
+      @include flex
+      flex-direction: column
+      align-items: flex-start
+      margin-bottom: 24px
+    &__description__textarea
+      width: 100%
+      height: 220px
+      position: relative
+    &__needs__textarea
+      width: 100%
+      height: 220px
+      position: relative
+    &__btns
+      align-self: flex-end
+      @include flex
+      margin-top: 8px
+      button
+        font-size: 16px
+        line-height: 52px
+        width: 146px
+        text-align: center
+        border: 1px solid $lavender
+        border-radius: 5px
+        cursor: pointer
+        font-family: 'Open Sans'
+        &:focus
+          outline: none
+      &-cancel
+        font-weight: 500
+        color: $lavender
+        background: #FFF
+        margin-right: 24px
+      &-save
+        background: $lavender
+        color: #FFF
+        font-weight: 600
+
+@media (max-width: $breakpointLaptop)
+  .header
+    height: 66px
+    &-logo
+      height: 34px
+  .plans
+    &-wrp
+      padding-top: 32px
+      max-width: 1010px
+      h1
+        font-size: 26px
+        line-height: 27px
+        margin-bottom: 24px
+    &-card
+      max-width: 498px
+      padding: 32px 40px 40px
+      &__title
+        font-size: 24px
+        line-height: 29px
+        margin-bottom: 24px
+      &__free
+        margin-bottom: 24px
+        .circle
+          width: 19px
+          height: 19px
+        strong
+          margin-top: 0
+          font-size: 24px
+          line-height: 29px
+        span
+          font-size: 14px
+          line-height: 17px
+      ul
+        max-width: 75%
+        margin-bottom: 20px
+        li
+          font-size: 14px
+          margin-bottom: 12px
+          img
+            width: 21px
+          span
+            margin-left: 12px
+      &__next
+        span
+          font-size: 14px
+          line-height: 17px
+        img
+          height: 17px
+    &-pricing
+      margin-top: 90px
+      h2
+        font-size: 22px
+        line-height: 27px
+        margin-bottom: 18px
+      p
+        font-size: 14px
+        margin-bottom: 32px
+      &__switch
+        span
+          font-size: 16px
+      &__toggle
+        margin: 0 24px
+        .toggle-control
+          height: 32px
+          width: 61px
+          &::after
+            width: 26px
+            height: 26px
+            top: 3px
+            left: 3px
+        input:checked ~ .toggle-control
+          &::after
+            left: 32px
+      &__card
+        padding: 32px 24px 24px
+        &-type
+          font-size: 16px
+          margin-bottom: 8px
+        &-price
+          font-size: 28px
+          line-height: 34px
+        hr
+          margin: 24px 0
+        ul
+          li
+            font-size: 14px
+        &-btn
+          font-size: 14px
+          line-height: 17px
+          margin-top: 24px
+  .signup
+    &-left
+      width: 48.83%
+      justify-content: flex-start
+      align-items: center
+      padding: 86px 82px 0 87px
+      h1
+        font-size: 28px
+        line-height: 34px
+        margin-bottom: 57px
+        margin-left: 0
+        width: 100%
+    &-art
+      max-width: 420px
+    &-form
+      width: calc(100% - 48.83%)
+      padding: 48px 87px 48px 32px
+      justify-content: flex-start
+      form
+        h2
+          font-size: 22px
+          line-height: 27px
+        p
+          margin-bottom: 16px
+          font-size: 13px
+          line-height: 24px
+      &__inp
+        margin-bottom: 16px
+        strong
+          margin-bottom: 10px
+      &__logo
+        height: 44px
+        margin-bottom: 24px
+      &__btn
+        padding: 14px 0
+        font-size: 14px
+        line-height: 17px
+        margin-bottom: 16px
+      &__login
+        font-size: 13px
+  .side
+    &-nav
+      min-height: calc(100vh - 66px)
+      width: 251px
+      nav
+        margin-top: 32px
+        a
+          padding: 11px 0 11px 24px
+          img
+            height: 16px
+            width: 16px
+          span
+            font-size: 15px
+        .space
+          height: 48px
+      &__profile
+        margin: 24px 0 40px
+        padding-left: 24px
+        span
+          font-size: 15px
+          margin-right: 4px
+        &-pic
+          height: 18px
+          width: 18px
+  .content-wrp
+    padding: 0 75px 0 32px
+    width: calc(100% - 251px)
+    min-height: calc(100vh - 66px)
+  .settings
+    &-types
+      margin-top: 24px
+      margin-bottom: 24px
+      margin-left: calc(21% - 24px)
+      .option
+        margin: 0 24px
+        font-size: 16px
+        line-height: 20px
+        padding-bottom: 6px
+  .setup
+    &-table
+      width: calc(72.22% - 32px)
+      &__title
+        padding: 16px 24px
+      &__day
+        margin-top: 12px
+        width: 14.66%
+        img
+          height: 16px
+        span
+          font-size: 14px
+          line-height: 16px
+          margin-left: 8px
+      &__col
+        padding: 12px 0
+        .time__row
+          margin-bottom: 8px
+          input[type="time"]
+            padding: 8px 0
+            width: 81px
+            font-size: 12px
+            line-height: 15px
+          .line
+            margin: 0 8px
+          .trash
+            height: 16px
+        .unavailable
+          margin-top: 0
+          font-size: 14px
+          line-height: 17px
+      &__add
+        margin-top: 13px
+        height: 16px
+        width: 16px
+      &__row
+        min-height: 41px
+        &.available
+          .setup-table__day
+            margin-top: 19px
+    &-notifications
+      width: calc(100% - 72.22%)
+      &__card
+        padding: 16px
+        span
+          font-size: 14px
+          line-height: 17px
+  .events
+    &-row
+      &__card
+        width: calc(100% / 3 - (16px *2) / 3)
+        margin-right: 16px
+        margin-bottom: 16px
+        padding: 16px 16px 24px
+        strong
+          font-size: 14px
+          line-height: 17px
+          margin-bottom: 24px
+          width: calc(100% - 16px)
+        .see__more
+          width: 16px
+          height: 16px
+        .btm
+          span
+            font-size: 13px
+            line-height: 16px
+            &.duration
+              margin-bottom: 4px
+        .actions__popup
+          right: -86px
+          top: 41px
+          &-wrp
+            padding: 12px 28px 12px 12px
+          span
+            font-size: 13px
+            line-height: 16px
+            margin-bottom: 12px
+      &__toggle
+        .toggle-control
+          width: 48px
+          height: 24px
+          &::after
+            width: 20px
+            height: 20px
+        input:checked + .toggle-control
+          &::after
+            left: 25px
+    &-edit
+      h2
+        font-size: 18px
+        line-height: 22px
+        margin-bottom: 16px
+      &__name
+        margin-bottom: 16px
+        input
+          height: 44px
+          font-size: 13px
+          line-height: 16px
+      &__col
+        margin-bottom: 16px
+      &__inner
+        strong
+          font-size: 14px
+          line-height: 17px
+        textarea
+          padding: 16px
+          font-size: 13px
+          line-height: 16px
+          &::placeholder
+            font-size: 13px
+            line-height: 16px
+        .description
+          padding-right: 8px
+          .count
+            font-size: 10px
+            line-height: 24px
+            bottom: 4px
+        .need
+          padding-left: 8px
+          .count
+            font-size: 10px
+            line-height: 24px
+            bottom: 4px
+        .policy
+          padding-left: 8px
+        .radios
+          padding-right: 8px
+          strong
+            margin-bottom: 12px
+          label
+            .checkmark
+              width: 16px
+              height: 16px
+              &::after
+                width: 14px
+                height: 14px
+                left: 1px
+                top: 1px
+          input[type="radio"]:checked ~ .checkmark
+            &::after
+              width: 8px
+              height: 8px
+              left: 4px
+              top: 4px
+        .radios__custom
+          input[type="text"]
+            padding-top: 12px
+            padding-bottom: 12px
+            margin-left: 32px
+        .radios__predefined
+          width: 100%
+          justify-content: flex-start
+          label
+            margin-right: 32px
+            &:last-child
+              margin-right: 0
+          span
+            font-size: 14px
+            line-height: 22px
+            margin-left: 24px
+      &__description__textarea
+        height: 97px
+      &__needs__textarea
+        height: 97px
+      &__btns
+        button
+          font-size: 14px
+          line-height: 45px
 
 @media (max-width: $breakpointPhone)
   .header
@@ -443,6 +1284,7 @@ body
       height: 24px
   .plans
     &-wrp
+      margin-top: 0
       padding: 48px 16px 39px
       h1
         font-size: 28px
@@ -536,3 +1378,180 @@ body
       &__login
         font-size: 14px
         line-height: 24px
+  .side-nav
+    display: none
+  .content-wrp
+    width: 100%
+    padding: 0 16px
+  .settings-types
+    display: none
+    &__mobile
+      display: block
+      margin: 32px 0
+      select
+        width: 100%
+        height: 48px
+        background-color: #F4F5FA
+        border-radius: 5px
+        border: none
+        font-family: 'Open Sans'
+        padding: 0 24px
+        font-weight: 500
+        font-size: 16px
+        line-height: 20px
+        color: $black
+        -moz-appearance: none
+        -webkit-appearance: none
+        background-image: url('../public/img/setup-select-arr.svg')
+        background-repeat: no-repeat
+        background-position: top 16px right 24px
+  .setup
+    &-wrp
+      margin-bottom: 66px
+    &-table
+      width: 100%
+      margin: 0 0 32px
+      &__title
+        padding: 16px
+      &__row
+        min-height: 54px
+        padding: 0 16px
+      &__day
+        width: 29%
+        margin-top: 17px
+        img
+          height: 21px
+          width: 21px
+        span
+          font-size: 16px
+          line-height: 20px
+      &__col
+        .unavailable
+          font-size: 16px
+          margin-left: 11px
+          margin-top: 7px
+        .time__row
+          width: 100%
+          padding-right: 13px
+          input[type="time"]
+            width: auto
+            flex: 1
+            padding: 8px 0
+            font-size: 11px
+            line-height: 13px
+          .line
+            margin: 0 4px
+          .trash
+            @include flex
+            height: 12px
+            margin-left: 4px
+            img
+              width: 12px
+              height: 12px
+      &__add
+        margin-top: 16px
+        height: 21px
+        width: 21px
+    &-notifications
+      width: 100%
+      &__card
+        margin-bottom: 12px
+        padding: 16px
+        span
+          font-size: 16px
+          line-height: 20px
+  .events
+    &-wrp
+      margin-bottom: 24px
+    &-row
+      width: 100%
+      &__card
+        width: 100%
+        margin: 0 0 12px
+        .actions__popup
+          top: 45px
+          right: 22px
+          &-wrp
+            .close
+              display: block
+    &-edit
+      margin-bottom: 64px
+      h2
+        font-size: 22px
+        line-height: 27px
+      &__inner
+        strong
+          font-size: 14px
+          line-height: 17px
+        textarea
+          padding: 16px 12px
+          font-size: 11px
+          line-height: 13px
+          &::placeholder
+            font-size: 11px
+            line-height: 13px
+        .description
+          padding: 0
+          .count
+            font-size: 10px
+            line-height: 12px
+        .need
+          padding: 0
+          .count
+            font-size: 10px
+            line-height: 12px
+        .radios
+          padding: 0
+          strong
+            margin-bottom: 12px
+          &__predefined
+            width: 100%
+            justify-content: space-between
+            label
+              margin-right: 0
+            span
+              font-size: 14px
+              margin-left: 24px
+          label
+            .checkmark
+              width: 16px
+              height: 16px
+              &::after
+                top: 1px
+                left: 1px
+                width: 14px
+                height: 14px
+          input[type="radio"]:checked ~ .checkmark
+            &::after
+              width: 8px
+              height: 8px
+              left: 4px
+              top: 4px
+          &__custom
+            input[type="text"]
+              margin-left: 28px
+              padding: 12px 16px
+        .policy
+          padding: 0
+          textarea
+            height: 140px
+            flex: none
+      &__name
+        input
+          height: 48px
+          padding: 0 12px
+      &__col
+        width: 100%
+      &__description__textarea
+        height: 140px
+      &__needs__textarea
+        height: 140px
+      &__btns
+        width: 100%
+        justify-content: space-between
+        margin-top: 16px
+        button
+          width: calc(50% - 15px/2)
+          font-size: 14px
+          line-height: 48px
+          text-transform: uppercase
