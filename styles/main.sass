@@ -972,6 +972,7 @@ body
       color: white
       font-size: 12px
       margin-top: 20px
+      cursor: pointer
     .payment-final-account-note
       font-size: 12px
       color: #fa1317
@@ -1022,6 +1023,96 @@ body
           font-size: 12px
           background-color: #18b315
           border-radius: 3px
+
+.new-appointment
+  h3
+    color: #303030
+    font-size: 18px
+    font-weight: bold
+    margin-top: 24px
+    margin-bottom: 0px
+  p
+    color: #303030
+    font-size: 14px
+    font-weight: normal
+    margin-top: 16px
+    margin-bottom: 0px
+  div
+    margin-top: 32px
+    h3
+      color: #303030
+      font-size: 16px
+      font-weight: 600
+      margin-bottom: 8px
+    textarea
+      border-radius: 5px
+      border: 1px solid #9FA8B5
+      min-height: 140px
+      max-height: auto
+      width: 75%
+      resize: none
+      padding: 8px
+      &:focus
+        border: 1px solid #9FA8B5
+        outline: none
+  button
+    height: 43px
+    background-color: #7e88f4
+    border-radius: 5px
+    border: none
+    outline: none
+    padding: 0 30px
+    color: white
+    font-size: 12px
+    margin-top: 16px
+    font-weight: bold
+    text-transform: uppercase
+    cursor: pointer
+.new-appointment-modal
+  position: fixed
+  left: 0
+  top: 0
+  height: 100vh
+  width: 100vw
+  background-color: rgba(0,0,0,0.25)
+  // filter: blur(4px)
+  z-index: 10
+  display: flex
+  align-items: center
+  justify-content: center
+  div
+    background: white
+    width: 426px
+    height: 313px
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    position: relative
+    border-radius: 5px
+    .new-appointment-modal-close
+      position: absolute
+      right: 24px
+      top: 16px
+      cursor: pointer
+    p
+      color: #303030
+      font-size: 16px
+      font-weight: normal
+      margin-top: -20px
+      margin-bottom: 32px
+    button
+      height: 43px
+      background-color: #7e88f4
+      border-radius: 5px
+      border: none
+      outline: none
+      padding: 0 30px
+      color: white
+      font-size: 12px
+      font-weight: bold
+      text-transform: uppercase
+      cursor: pointer
 
 @media (max-width: $breakpointLaptop)
   .header
@@ -1682,3 +1773,33 @@ body
             align-items: center
             span
               font-weight: 600
+  .new-appointment
+    h3
+      font-size: 22px
+      font-weight: 600
+    div
+      margin-top: 38px
+      h3
+        font-size: 14px
+        margin-bottom: 12px
+      textarea
+        width: 100%
+    button
+      height: 40px
+      font-weight: 500
+  .new-appointment-modal
+    div
+      width: 247px
+      height: 266px
+      .new-appointment-modal-close
+        display: none
+      img
+        height: 64px
+        width: 64px
+      p
+        font-size: 14px
+        margin-top: 0px
+        width: 70%
+        text-align: center
+      button
+        height: 40px
