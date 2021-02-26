@@ -939,6 +939,90 @@ body
         color: #FFF
         font-weight: 600
 
+.payment
+  h3
+    font-size: 18px
+    color: #303030
+    line-height: 25px
+  .request-payment
+    box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
+    padding: 24px
+    width: 75%
+    border-radius: 10px
+    border: 1px solid #d9e0e9
+    .payment-temporary-balance
+      font-weight: bold
+      font-size: 14px
+      color: #303030
+    .payment-final-balance
+      font-weight: bold
+      font-size: 14px
+      color: #303030
+    .payment-final-note
+      display: block
+      font-size: 12px
+      color: #838383
+    button
+      height: 43px
+      background-color: #7e88f4
+      border-radius: 5px
+      border: none
+      outline: none
+      padding: 0 24px
+      color: white
+      font-size: 12px
+      margin-top: 20px
+    .payment-final-account-note
+      font-size: 12px
+      color: #fa1317
+      margin-left: 16px
+  .payment-history
+    box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
+    padding: 24px
+    width: 75%
+    margin-top: 12px
+    border-radius: 10px
+    border: 1px solid #d9e0e9
+    .payment-history-table-head
+      display: flex
+      align-items: center
+      border-bottom: 1px solid #D9E0E9
+      p
+        width: 30%
+        color: #838383
+        font-size: 14px
+        font-weight: 600
+        margin-bottom: 8px
+      span
+        width: 10%
+        color: #838383
+        font-size: 14px
+        font-weight: 600
+    .payment-history-table-body
+      display: flex
+      align-items: center
+      border-bottom: 1px solid #D9E0E9
+      p
+        width: 30%
+        color: #303030
+        font-size: 14px
+        font-weight: 400
+        margin-bottom: 8px
+      div
+        width: 10%
+        display: flex
+        align-items: center
+        span
+          color: #303030
+          font-size: 14px
+          padding: 4px 12px
+          font-weight: 700
+          text-transform: uppercase
+          color: white
+          font-size: 12px
+          background-color: #18b315
+          border-radius: 3px
+
 @media (max-width: $breakpointLaptop)
   .header
     height: 66px
@@ -1555,3 +1639,46 @@ body
           font-size: 14px
           line-height: 48px
           text-transform: uppercase
+  .payment
+    .request-payment
+      padding: 16px
+      width: 100%
+      .payment-temporary-balance
+        font-size: 16px
+      .payment-final-balance
+        font-size: 16px
+      .payment-final-note
+        font-weight: normal
+        font-size: 12px
+      button
+        height: 40px
+        font-size: 12px
+        margin-top: 30px
+      .payment-final-account-note
+        display: block
+        margin-left: 0
+        margin-top: 10px
+    .payment-history
+      padding: 16px
+      width: 100%
+      .payment-histroy-wrap
+        overflow-x: scroll
+        .payment-history-table-head
+          p
+            width: 40%
+            font-size: 12px
+            font-weight: 500
+          span
+            width: 10%
+            font-size: 12px
+            font-weight: 500
+        .payment-history-table-body
+          p
+            width: 40%
+            font-weight: 500
+          div
+            width: 10%
+            display: flex
+            align-items: center
+            span
+              font-weight: 600
