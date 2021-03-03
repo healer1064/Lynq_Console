@@ -1,0 +1,543 @@
+.public_screen
+    width: 100%
+    display: flex
+    justify-content: space-between
+    padding: 48px 88px
+    background: #f4f5fa
+    min-height: calc( 100vh - 70px )
+
+    .more
+        display: flex
+        align-items: center
+        margin: 32px 0
+        cursor: pointer
+        span
+            font-weight: 600
+            font-size: 12px
+            line-height: 16px
+            color: #2889F0
+            margin-right: 4px
+        img
+            margin-bottom: -2px
+
+    .public_screen_left
+        width: 69%
+        background: #fff
+        background: #FFFFFF
+        border-radius: 10px
+        padding: 40px
+        .public_screen_head
+            display: flex
+            align-items: center
+            flex-direction: row
+            border-bottom: 1px solid #D9E0E9
+            padding-bottom: 32px
+            .public_screen_head_img
+                position: relative
+                margin-right: 24px
+                .profile_img
+                    width: 80px
+                    height: 80px
+                    background: #E1E1DF
+                    border-radius: 50%
+                .profile_img_online
+                    position: absolute
+                    width: 16px
+                    height: 16px
+                    background: #219653
+                    border-radius: 50%
+                    right: 3px
+                    top: 62px
+            .head_content
+                .name
+                    display: flex
+                    align-items: center
+                    margin-bottom: 8px
+                    h3
+                        margin: 0
+                        font-weight: 600
+                        font-size: 22px
+                        line-height: 30px
+                        color: #303030
+                    p
+                        margin: 0
+                        font-weight: normal
+                        font-size: 12px
+                        line-height: 16px
+                        color: #5C5C5C
+                    span
+                        margin: 0 8px
+                        margin-top: -3px
+                        color: #838383
+                        font-size: 20px
+                        font-weight: 300
+                    img
+                        width: 18px
+                        margin-right: 12px
+                        cursor: pointer
+                .tags
+                    display: flex
+                    align-items: center
+                    p
+                        margin: 0
+                        font-weight: normal
+                        font-size: 13px
+                        line-height: 24px
+                        color: #7E88F4
+                        margin-right: 12px
+        .public_screen_body
+            padding: 24px 0
+            h3
+                margin: 0
+                font-weight: 600
+                font-size: 16px
+                line-height: 24px
+                color: #303030
+                margin-bottom: 16px
+            p
+                margin: 0
+                font-weight: normal
+                font-size: 13px
+                line-height: 18px
+                color: #5C5C5C
+            .specialities
+                display: flex
+                width: 60%
+                flex-wrap: wrap
+                div
+                    width: 50%
+                    display: flex
+                    align-items: center
+                    margin-bottom: 12px
+                    img
+                        margin-right: 8px
+                        width: 8px
+                        height: 8px
+                    p
+                        margin: 0
+                        font-weight: normal
+                        font-size: 13px
+                        line-height: 18px
+                        color: #5C5C5C
+
+
+    .public_screen_right
+        width: 29%
+        .book_session
+            width: 100%
+            background: #fff
+            padding: 32px 24px
+            height: 244px
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 10px
+            h3
+                font-weight: 600
+                font-size: 22px
+                line-height: 30px
+                color: #303030
+                margin: 0
+                margin-bottom: 16px
+            select
+                width: 100%
+                height: 35px
+                border: 1px solid #D9E0E9
+                box-sizing: border-box
+                border-radius: 3px
+                font-weight: 600
+                font-size: 14px
+                line-height: 19px
+                color: #303030
+                padding: 0 10px
+                &:focus
+                    outline: none
+
+    .public_screen2_right
+        width: 29%
+        .book_session
+            width: 100%
+            background: #fff
+            padding: 32px 24px
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 10px
+            h3
+                font-weight: 600
+                font-size: 22px
+                line-height: 30px
+                color: #303030
+                margin: 0
+                margin-bottom: 16px
+            select
+                width: 100%
+                height: 35px
+                border: 1px solid #D9E0E9
+                box-sizing: border-box
+                border-radius: 3px
+                font-weight: 600
+                font-size: 14px
+                line-height: 19px
+                color: #303030
+                padding: 0 10px
+                &:focus
+                    outline: none
+            .info
+                margin-top: 12px
+                h6
+                    margin: 0
+                    font-weight: 600
+                    font-size: 13px
+                    line-height: 18px
+                    color: #303030
+                    margin-bottom: 8px
+                    span
+                        font-weight: 400
+            .booking_calendar
+                width: 100%
+                margin-top: 12px
+                margin-bottom: 16px
+                .calendar_head
+                    display: flex
+                    align-items: center
+                    justify-content: space-between
+                    margin-bottom: 4px
+                    div
+                        width: 24px
+                        height: 24px
+                        background: #FAFAFA
+                        display: flex
+                        align-items: center
+                        justify-content: center
+                        cursor: pointer
+                    img
+                        width: 8px
+                .calendar_body
+                    border: 1px solid #D9E0E9
+                    box-sizing: border-box
+                    border-radius: 5px
+                    .table_head
+                        height: 50px
+                        background: #FAFAFA
+                        border-bottom: 1px solid #D9E0E9
+                        display: grid
+                        grid-template-columns: 25% 25% 25% 25%
+                        div
+                            display: flex
+                            flex-direction: column
+                            align-items: center
+                            justify-content: center
+                            h6
+                                margin: 0
+                                font-weight: 600
+                                font-size: 12px
+                                line-height: 16px
+                                color: #303030
+                                margin-bottom: 3px
+                            p
+                                margin: 0
+                                font-weight: normal
+                                font-size: 10px
+                                line-height: 14px
+                                color: #303030
+                    .table_body
+                        height: 152px
+                        background: #fff
+                        display: grid
+                        grid-template-columns: 25% 25% 25% 25%
+                        overflow-y: scroll
+                        
+                        &::-webkit-scrollbar 
+                            width: 5px
+                        &::-webkit-scrollbar-track
+                            background: transparent
+                        &::-webkit-scrollbar-thumb 
+                            background: #E46698
+                            border-radius: 50px
+                        div
+                            height: 100%
+                            display: flex
+                            flex-wrap: nowrap
+                            flex-direction: column
+                            align-items: center
+                            
+                            div
+                                height: 26px
+                                width: 90%
+                                background: #FAFAFA
+                                border-radius: 2px
+                                margin: 6px 0
+                                display: flex
+                                justify-content: center
+                                align-items: center
+                                cursor: pointer
+                                p
+                                    margin: 0
+                                    font-weight: 600
+                                    font-size: 10px
+                                    line-height: 14px
+                                    color: #5C5C5C
+                            .active
+                                background: #C0175B
+                                p
+                                    color: white
+            button
+                width: 100%
+                height: 47px
+                background: linear-gradient(89.93deg, #8B1847 -24.64%, #D91765 117.58%)
+                border-radius: 5px
+                border: none
+                outline: none
+                font-weight: bold
+                font-size: 14px
+                line-height: 19px
+                color: #FFFFFF
+                &:focus
+                    border: none
+                    outline: none
+        .needs
+            background: #FFFFFF
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 10px
+            padding: 24px
+            margin: 16px 0
+            h3
+                font-weight: 600
+                font-size: 16px
+                line-height: 22px
+                color: #303030
+                margin: 0
+                margin-bottom: 12px
+            p
+                font-weight: normal
+                font-size: 13px
+                line-height: 18px
+                color: #5C5C5C
+                margin: 0
+                margin-bottom: 8px
+        .learn
+            background: #FFFFFF
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 10px
+            padding: 24px
+            h3
+                font-weight: 600
+                font-size: 16px
+                line-height: 22px
+                color: #303030
+                margin: 0
+                margin-bottom: 12px
+            p
+                font-weight: normal
+                font-size: 13px
+                line-height: 18px
+                color: #5C5C5C
+                margin: 0
+
+    .public_screen3_right
+        width: 29%
+        .order_summary
+            padding: 24px
+            background: #FFFFFF
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 10px
+            h3
+                margin: 0
+                margin-bottom: 12px
+                font-weight: 600
+                font-size: 22px
+                line-height: 30px
+                color: #303030
+            p
+                margin: 0
+                font-weight: 600
+                font-size: 13px
+                line-height: 18px
+                color: #303030
+                margin-bottom: 6px
+            .border
+                height: 1px
+                width: 100%
+                background: #D9E0E9
+                margin: 20px 0
+            .info
+                div
+                    display: flex
+                    align-items: center
+                    justify-content: space-between
+                    margin-bottom: 12px
+                p
+                    margin: 0
+                    margin-bottom: 0
+                    font-weight: normal
+                    font-size: 13px
+                    line-height: 18px
+                    color: #303030
+                h6
+                    margin: 0
+                    font-weight: bold
+                    font-size: 14px
+                    line-height: 19px
+                    color: #303030
+            .price
+                display: flex
+                align-items: center
+                justify-content: space-between
+                h6
+                    margin: 0
+                    font-weight: bold
+                    font-size: 13px
+                    line-height: 18px
+                    color: #303030
+        .personal_information
+            padding: 24px
+            background: #FFFFFF
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 5px
+            margin-top: 32px
+            h6
+                margin: 0
+                font-weight: 600
+                font-size: 16px
+                line-height: 22px
+                color: #303030
+                margin-bottom: 24px
+            div
+                display: flex
+                flex-direction: column
+                label
+                    font-weight: 600
+                    font-size: 14px
+                    line-height: 19px
+                    color: #303030
+                input
+                    width: 100%
+                    margin-top: 8px
+                    margin-bottom: 16px
+                    height: 44px
+                    border: 1px solid #C0C0C9
+                    box-sizing: border-box
+                    border-radius: 5px
+                    padding: 0 10px
+                    &:focus
+                        outline: none
+            button
+                height: 47px
+                width: 100%
+                margin-top: 8px
+                background: linear-gradient(89.93deg, #8B1847 -24.64%, #D91765 117.58%)
+                border-radius: 5px
+                display: flex
+                align-items: center
+                justify-content: center
+                color: #fff
+                font-weight: bold
+                font-size: 14px
+                line-height: 19px
+                color: #FFFFFF
+                border: none
+                outline: none
+                cursor: pointer
+                &:focus
+                    border: none
+                    outline: none
+        .payment_details
+            background: #FFFFFF
+            box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
+            border-radius: 10px
+            margin-top: 32px
+            padding: 24px
+            h6
+                margin: 0
+                font-weight: 600
+                font-size: 16px
+                line-height: 22px
+                color: #303030
+                margin-bottom: 24px
+            .card_number_container
+                display: flex
+                flex-direction: column
+                margin-bottom: 16px
+                label
+                    font-weight: 600
+                    font-size: 14px
+                    line-height: 19px
+                    color: #303030
+                div
+                    width: 100%
+                    display: flex
+                    align-items: center
+                    height: 44px
+                    border: 1px solid #C0C0C9
+                    box-sizing: border-box
+                    border-radius: 5px
+                    padding: 0 10px
+                    margin-top: 8px
+                    input
+                        flex-grow: 1
+                        outline: none
+                        border: none
+                        padding-right: 10px
+                        &:focus
+                            outline: none
+                            border: none
+                    img
+                        width: 32px
+            .input_container
+                display: flex
+                align-items: center
+                justify-content: space-between
+                margin-bottom: 16px
+                div
+                    width: 49.5%
+                    label
+                        font-weight: 600
+                        font-size: 14px
+                        line-height: 19px
+                        color: #303030
+                    input
+                        height: 44px
+                        border: 1px solid #C0C0C9
+                        box-sizing: border-box
+                        border-radius: 5px
+                        margin-top: 8px
+            .checkbox_container
+                display: flex
+                align-items: center
+                margin-bottom: 16px
+                label
+                    margin-left: 10px
+                    font-size: 12px
+                    line-height: 24px
+                    display: flex
+                    align-items: center
+                    color: #5C5C5C
+            button
+                height: 47px
+                width: 100%
+                background: linear-gradient(89.93deg, #8B1847 -24.64%, #D91765 117.58%)
+                border-radius: 5px
+                border: none
+                outline: none
+                font-weight: bold
+                font-size: 14px
+                line-height: 19px
+                color: #FFFFFF
+                margin-bottom: 12px
+                &:focus
+                    border: none
+                    outline: none
+            .stripe
+                background: #32364e
+                color: white
+                padding: 12px 15px
+                display: inline-block
+                border-radius: 5px
+                font-size: 10px
+                font-weight: 300
+                span
+                    font-weight: bold
+                    font-size: 16px
+                    margin-left: 5px
+
+
+
+
+                                

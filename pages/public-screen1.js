@@ -1,10 +1,14 @@
 // libraries
 import Head from "next/head";
 
+// styles
+import styles from "../styles/PublicScreen.module.sass";
+
 // components
 import Navbar from "../components/Navbar";
-import PublicScreenAbout from "../components/PublicScreen/PublicScreenAbout";
 import PublicScreenDropdown from "../components/PublicScreen1/PublicScreenDropwdown";
+import PublicScreenLeftbar from "../components/PublicScreen/PublicScreenLeftbar";
+import PublicScreenRightbar from "../components/PublicScreen/PublicScreenRightbar";
 
 const PublicScreen1 = () => {
   return (
@@ -18,14 +22,9 @@ const PublicScreen1 = () => {
         />
       </Head>
       <Navbar />
-      <div className="public-screen">
-        <div className="public-screen-gradient" />
-        <PublicScreenAbout />
-        <div className="public-screen-1-hr" />
-        <div className="public-screen-1-body">
-          <h3>Book a session</h3>
-          <PublicScreenDropdown />
-        </div>
+      <div className={styles.public_screen}>
+        <PublicScreenLeftbar />
+        <PublicScreenRightbar />
       </div>
     </>
   );

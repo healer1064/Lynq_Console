@@ -61,7 +61,7 @@ const Account = () => {
                   <h6>Your Current Plan</h6>
                   <p>EARLY BIRD</p>
                   <h6>Processing Fees On Payments</h6>
-                  <p>2,9%</p>
+                  <p>2.9%</p>
                   <h6>Example On $10 Ticket</h6>
                   <p>You will be paid $10 - $0.29 =$9.71</p>
                 </div>

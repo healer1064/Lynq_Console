@@ -87,7 +87,7 @@ const AddPaymentMethod = () => {
                     </div>
                     <div>
                       <input type="radio" />
-                      <label>Paypal</label>
+                      {/* <label>Paypal</label> */}
                       <img
                         src="/img/add-payment-method-paypal.png"
                         alt="card"

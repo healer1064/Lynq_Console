@@ -33,33 +33,35 @@ const EditProfile = () => {
                   <button>Delete</button>
                 </div>
               </div>
-              <div className={styles.edit_profile_name_container}>
-                <div>
-                  <label>First Name</label>
-                  <input />
-                </div>
-                <div>
-                  <label>Last Name</label>
-                  <input />
-                </div>
-              </div>
               <div>
-                <label>Location</label>
+                <label>First Name</label>
                 <input />
               </div>
               <div>
-                <label>Category</label>
+                <label>Last Name</label>
                 <input />
               </div>
               <div>
-                <label>About</label>
-                <textarea></textarea>
+                <label>City</label>
+                <select>
+                  <option>New York</option>
+                  <option>Washington DC</option>
+                </select>
               </div>
-              <h3>Public Profile</h3>
               <div>
-                <label>Email</label>
+                <label>State</label>
                 <input />
               </div>
+              <div>
+                <label>
+                  Main Categories <span>(Choose upto 3)</span>
+                </label>
+                <select>
+                  <option>Category 1</option>
+                  <option>Category 2</option>
+                </select>
+              </div>
+              <h3>Social Information</h3>
               <div>
                 <label>Facebook</label>
                 <input />
@@ -72,9 +74,27 @@ const EditProfile = () => {
                 <label>Youtube</label>
                 <input />
               </div>
+              <h3>Social Information</h3>
               <div>
-                <label>Your Personal Website</label>
-                <input />
+                <label>General presentation</label>
+                <textarea></textarea>
+              </div>
+              <div>
+                <label>What to expect</label>
+                <textarea></textarea>
+              </div>
+              <div>
+                <label>
+                  Specialities <span>(Press enter after each speciality)</span>
+                </label>
+                <textarea></textarea>
+              </div>
+              <div>
+                <label>
+                  Certifications{" "}
+                  <span>(Press enter after each speciality)</span>
+                </label>
+                <textarea></textarea>
               </div>
               <div className={styles.text_uppercase}>
                 <button>Save Profile</button>

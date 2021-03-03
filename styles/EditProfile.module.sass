@@ -7,7 +7,7 @@
         line-height: 25px
         color: #303030
         margin: 0
-        margin-top: 12px
+        margin-top: 32px
         margin-bottom: 24px
     .edit_profile_img_container
         display: flex
@@ -37,19 +37,29 @@
         &:last-child
             background: #E7E9ED
             color: #838383
-    .edit_profile_name_container
-        width: 100%
-        display: flex
-        justify-content: space-between
-        div
-            width: 49.5%
     label
         font-weight: 600
         font-size: 14px
         line-height: 19px
         color: #303030
+        span
+            font-size: 12px
+            font-weight: 300
     input
-        width: 100%
+        display: block
+        width: 50%
+        height: 44px
+        border: 1px solid #C0C0C9
+        box-sizing: border-box
+        border-radius: 5px
+        margin-top: 8px
+        margin-bottom: 16px
+        padding: 0 10px
+        &:focus
+            outline: none
+    select
+        display: block
+        width: 50%
         height: 44px
         border: 1px solid #C0C0C9
         box-sizing: border-box
@@ -60,8 +70,9 @@
         &:focus
             outline: none
     textarea
-        width: 100%
-        height: 114px
+        display: block
+        width: 50%
+        height: 122px
         border: 1px solid #C0C0C9
         box-sizing: border-box
         border-radius: 5px
@@ -102,17 +113,20 @@
             padding: 10px 24px
             margin-right: 12px
             margin-bottom: 12px
-        .edit_profile_name_container
-            flex-direction: column
-            div
-                width: 100%
         label
             line-height: 17px
         input
+            width: 100%
+            height: 48px
+            margin-top: 12px
+            margin-bottom: 24px
+        select
+            width: 100%
             height: 48px
             margin-top: 12px
             margin-bottom: 24px
         textarea
+            width: 100%
             height: 140px
             margin-top: 12px
             margin-bottom: 24px
