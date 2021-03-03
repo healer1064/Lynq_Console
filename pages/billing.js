@@ -79,43 +79,51 @@ const billing = () => {
                 </div>
                 <div className="billing-info-body">
                   <div className="billing-info-body-headings">
-                    <p>Default</p>
-                    <p>Type</p>
-                    <p>Payment Method</p>
-                    <p className="billing-heading">Description</p>
-                    <p className="billing-heading">Address</p>
-                    <p>Action</p>
-                  </div>
-                  <div className="billing-info-body-data">
-                    <div>
-                      <img src="/img/billing-done.png" alt="done" />
-                    </div>
-                    <div>
-                      <img src="/img/billing-card.png" alt="card" />
-                    </div>
-                    <div>
-                      <p>Credit Card</p>
-                    </div>
-                    <div className="billing-heading">
-                      <p>**************3047 (Exp: 03/25)</p>
-                    </div>
-                    <div className="billing-heading">
-                      <p>89 Murray street, New York 10007 US</p>
-                    </div>
-                    <div
-                      className="center"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setMore(true);
-                      }}
-                    >
-                      <img src="/img/billing-more.png" alt="more" />
-                      {more && (
-                        <div className="billing-more-options">
-                          <p>Edit</p>
-                        </div>
-                      )}
-                    </div>
+                    <table className="billing-info-body">
+                      <thead className="billing-info-body-head">
+                        <tr>
+                          <th className="billing-th-info padding">Default</th>
+                          <th className="billing-th-info">Type</th>
+                          <th className="billing-th-payment ">
+                            Payment Method
+                          </th>
+                          <th className="billing-th-desc-addr">Description</th>
+                          <th className="billing-th-desc-addr">Address</th>
+                          <th className="billing-th-info">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody className="billing-info-body-data">
+                        <tr>
+                          <td className="billing-th-info">
+                            <img src="/img/billing-done.png" alt="done" />
+                          </td>
+                          <td className="billing-th-info">
+                            <img src="/img/billing-card.png" alt="card" />
+                          </td>
+                          <td className="billing-th-payment">Credit Card</td>
+                          <td className="billing-th-desc-addr">
+                            **************3047 (Exp: 03/25)
+                          </td>
+                          <td className="billing-th-desc-addr">
+                            89 Murray street, New York 10007 US
+                          </td>
+                          <td
+                            className="billing-th-info center"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setMore(true);
+                            }}
+                          >
+                            <img src="/img/billing-more.png" alt="more" />
+                            {more && (
+                              <div className="billing-more-options">
+                                <p>Edit</p>
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

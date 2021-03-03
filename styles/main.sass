@@ -2394,7 +2394,7 @@ body
 
   .billing-content-side-nav
     height: 98px !important
-  
+
   .billing-info
     width: 100%
     border: 1px solid #d9e0e9
@@ -2430,43 +2430,48 @@ body
       .mobile
         display: none
     .billing-info-body
+      width: 100%
       .billing-info-body-headings
-        display: flex
-        align-items: center
-        padding-bottom: 8px
+        padding-bottom: 15px
         border-bottom: 1px solid #d9e0e9
-        p
-          margin: 0
-          margin: 0 10px
-          width: 12%
-          text-align: center
-          color: #838383
-          line-height: 19px
-          font-size: 14px
-          font-weight: 600
-          
-        .billing-heading
-          width: 30%
-      .billing-info-body-data
-        display: flex
-        padding-top: 16px
-        padding-bottom: 8px
-        border-bottom: 1px solid #d9e0e9
-        div
-          margin: 0 10px
-          width: 12%
-          // overflow: hidden
-          display: flex
-          justify-content: center
-          align-items: flex-start
-          img
-            width: 20px
-          p
+        .billing-info-body-head
+          th
             margin: 0
-            color: #303030
+            width: 100%
+            color: #838383
             line-height: 19px
             font-size: 14px
-            font-weight: normal
+            font-weight: 600
+            border-bottom: 1px solid #d9e0e9
+            padding-bottom: 10px
+          tr
+            .billing-th-info
+              width: 10%
+            .billing-th-payment
+              width: 16%
+              text-align: left
+            .billing-th-desc-addr
+              width: 27%
+              text-align: left
+              padding-left: 12px
+        .billing-info-body-data
+          tr
+            td
+              margin: 0
+              color: #303030
+              line-height: 19px
+              font-size: 14px
+              font-weight: normal
+              text-align: center
+              padding-top: 20px
+            .billing-th-payment
+                width: 16%
+                text-align: left !important
+            .billing-th-desc-addr
+              text-align: left
+              padding-left: 12px
+            .padding
+              padding-left: 12px
         .center
             align-items: center
             cursor: pointer
@@ -2491,9 +2496,6 @@ body
                 line-height: 16px
                 font-size: 13px
                 font-weight: normal
-        .billing-heading
-          width: 30%
-          text-align: center
   .edit-credit-card
     background: #fafafa
     width: 481px
@@ -4216,36 +4218,30 @@ body
         .billing-info-body
           overflow-x: scroll
           .billing-info-body-headings
-            display: grid
-            grid-template-columns: 100px 100px 100px 200px 200px 100px
-            p
-              margin: 0
-              width: 100%
-              line-height: 15px
-              font-size: 12px
-              font-weight: 500
-            .billing-heading
-              width: 100%
-          .billing-info-body-data
-            display: grid
-            grid-template-columns: 100px 100px 100px 200px 200px 100px
-            padding-bottom: 16px
-            overflow-y: visible
-            div
-              margin: 0
-              display: flex
-              justify-content: center
-              align-items: flex-start
-              width: 100%
-              img
-                width: 20px
-                margin: 0
-              p
-                margin: 0
-                color: #303030
-                line-height: 19px
-                font-size: 14px
-                font-weight: normal
+            padding-bottom: 15px
+            .billing-info-body-head
+              tr
+                .billing-th-info
+                  width: 70px
+                  min-width: 70px 
+                .billing-th-payment
+                  width: 130px
+                  min-width: 130px
+                .billing-th-desc-addr
+                  width: 200px
+                  min-width: 200px
+            .billing-info-body-data
+              tr
+                td
+                  padding-top: 10px
+                .billing-th-payment
+                  width: 130px
+                  min-width: 130px
+                .billing-th-desc-addr
+                  width: 200px
+                  min-width: 200px
+                .padding
+                  padding-left: 12px
             .center
                 align-items: center
                 cursor: pointer
@@ -4253,8 +4249,8 @@ body
                 .billing-more-options
                   position: absolute
                   z-index: 100000
-                  top: 15px
-                  right: 70px
+                  top: 34px
+                  right: 30px
                   background: white
                   width: 100px
                   height: 33px

@@ -1,0 +1,119 @@
+.edit_profile
+    width: 100%
+    padding: 24px 0
+    h3
+        font-weight: bold
+        font-size: 18px
+        line-height: 25px
+        color: #303030
+        margin: 0
+        margin-bottom: 12px
+    .edit_profile_img_container
+        display: flex
+        align-items: center
+        margin-bottom: 24px
+        .edit_profile_img
+            width: 80px
+            height: 80px
+            background: #E1E1DF
+            border-radius: 50%
+            margin-right: 24px
+    button
+        background: #7E88F4
+        border-radius: 5px
+        border: none
+        outline: none
+        font-weight: bold
+        font-size: 12px
+        line-height: 16px
+        color: #FFFFFF
+        padding: 12px 24px
+        margin-right: 16px
+        cursor: pointer
+        &:focus
+            border: none
+            outline: none
+        &:last-child
+            background: #E7E9ED
+            color: #838383
+    .edit_profile_name_container
+        width: 100%
+        display: flex
+        justify-content: space-between
+        div
+            width: 49.5%
+    label
+        font-weight: 600
+        font-size: 14px
+        line-height: 19px
+        color: #303030
+    input
+        width: 100%
+        height: 44px
+        border: 1px solid #C0C0C9
+        box-sizing: border-box
+        border-radius: 5px
+        margin-top: 8px
+        margin-bottom: 16px
+        padding: 0 10px
+        &:focus
+            outline: none
+    textarea
+        width: 100%
+        height: 114px
+        border: 1px solid #C0C0C9
+        box-sizing: border-box
+        border-radius: 5px
+        margin-top: 8px
+        margin-bottom: 16px
+        resize: none
+        padding: 10px
+        &:focus
+            outline: none
+    .edit_profile_name_container
+        display: flex
+    .text_uppercase
+        button
+            text-transform: uppercase
+
+@media (max-width: 519px)
+    .edit_profile
+        padding: 32px 0
+        h3
+            font-weight: 600
+            font-size: 22px
+            line-height: 27px
+            margin-bottom: 24px
+        .edit_profile_img_container
+            display: flex
+            align-items: center
+            margin-bottom: 24px
+            .edit_profile_img
+                width: 96px
+                height: 96px
+            .edit_profile_btn_container
+                display: flex
+                flex-direction: column
+        button
+            font-weight: 600
+            font-size: 10px
+            line-height: 16px
+            padding: 10px 24px
+            margin-right: 12px
+            margin-bottom: 12px
+        .edit_profile_name_container
+            flex-direction: column
+            div
+                width: 100%
+        label
+            line-height: 17px
+        input
+            height: 48px
+            margin-top: 12px
+            margin-bottom: 24px
+        textarea
+            height: 140px
+            margin-top: 12px
+            margin-bottom: 24px
+        .edit_profile_name_container
+            display: flex
