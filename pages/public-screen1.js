@@ -6,7 +6,6 @@ import styles from "../styles/PublicScreen.module.sass";
 
 // components
 import Navbar from "../components/Navbar";
-import PublicScreenDropdown from "../components/PublicScreen1/PublicScreenDropwdown";
 import PublicScreenLeftbar from "../components/PublicScreen/PublicScreenLeftbar";
 import PublicScreenRightbar from "../components/PublicScreen/PublicScreenRightbar";
 
