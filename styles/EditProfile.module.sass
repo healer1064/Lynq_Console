@@ -1,6 +1,44 @@
 .edit_profile
     width: 100%
     padding: 24px 0
+
+    .edit_profile_dropdown
+        display: flex
+        align-items: center
+        width: 50%
+        height: 44px
+        border: 1px solid #C0C0C9
+        box-sizing: border-box
+        border-radius: 5px
+        cursor: pointer
+        position: relative
+        overflow: hidden
+        margin-top: 8px
+        margin-bottom: 16px
+        select
+            width: 100%
+            padding: 0 10px
+            background: transparent
+            height: 44px
+            flex-grow: 1
+            font-weight: 600
+            font-size: 14px
+            line-height: 19px
+            color: #303030
+            padding-right: 10px
+            -webkit-appearance: none
+            -moz-appearance: none
+            text-indent: 1px
+            text-overflow: ''
+            border: none
+            cursor: pointer
+            overflow: hidden
+            z-index: 10
+            &:focus
+                outline: none
+        img
+            position: absolute
+            right: 10px
     h3
         font-weight: bold
         font-size: 18px
@@ -57,18 +95,18 @@
         padding: 0 10px
         &:focus
             outline: none
-    select
-        display: block
-        width: 50%
-        height: 44px
-        border: 1px solid #C0C0C9
-        box-sizing: border-box
-        border-radius: 5px
-        margin-top: 8px
-        margin-bottom: 16px
-        padding: 0 10px
-        &:focus
-            outline: none
+    // select
+    //     display: block
+    //     width: 50%
+    //     height: 44px
+    //     border: 1px solid #C0C0C9
+    //     box-sizing: border-box
+    //     border-radius: 5px
+    //     margin-top: 8px
+    //     margin-bottom: 16px
+    //     padding: 0 10px
+    //     &:focus
+    //         outline: none
     textarea
         display: block
         width: 50%
@@ -91,6 +129,35 @@
 @media (max-width: 519px)
     .edit_profile
         padding: 32px 0
+        .edit_profile_dropdown
+            width: 100%
+            height: 48px
+            margin-top: 12px
+            margin-bottom: 24px
+            select
+                width: 100%
+                padding: 0 10px
+                background: transparent
+                height: 44px
+                flex-grow: 1
+                font-weight: 600
+                font-size: 14px
+                line-height: 19px
+                color: #303030
+                padding-right: 10px
+                -webkit-appearance: none
+                -moz-appearance: none
+                text-indent: 1px
+                text-overflow: ''
+                border: none
+                cursor: pointer
+                overflow: hidden
+                z-index: 10
+                &:focus
+                    outline: none
+            img
+                position: absolute
+                right: 10px
         h3
             font-weight: 600
             font-size: 22px
@@ -120,11 +187,11 @@
             height: 48px
             margin-top: 12px
             margin-bottom: 24px
-        select
-            width: 100%
-            height: 48px
-            margin-top: 12px
-            margin-bottom: 24px
+        // select
+        //     width: 100%
+        //     height: 48px
+        //     margin-top: 12px
+        //     margin-bottom: 24px
         textarea
             width: 100%
             height: 140px

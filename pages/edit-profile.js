@@ -7,6 +7,10 @@ import styles from "../styles/EditProfile.module.sass";
 // components
 import Navbar from "../components/Navbar";
 import Leftbar from "../components/Leftbar";
+import EditProfileDropdown from "../components/EditProfile/EditProfileDropdown";
+
+const cities = ["New York", "Washington DC"];
+const categories = ["Category 1", "Category 2"];
 
 const EditProfile = () => {
   return (
@@ -43,10 +47,7 @@ const EditProfile = () => {
               </div>
               <div>
                 <label>City</label>
-                <select>
-                  <option>New York</option>
-                  <option>Washington DC</option>
-                </select>
+                <EditProfileDropdown data={cities} />
               </div>
               <div>
                 <label>State</label>
@@ -56,10 +57,7 @@ const EditProfile = () => {
                 <label>
                   Main Categories <span>(Choose upto 3)</span>
                 </label>
-                <select>
-                  <option>Category 1</option>
-                  <option>Category 2</option>
-                </select>
+                <EditProfileDropdown data={categories} />
               </div>
               <h3>Social Information</h3>
               <div>

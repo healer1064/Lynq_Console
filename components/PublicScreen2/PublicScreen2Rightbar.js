@@ -1,19 +1,19 @@
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
+import PublicScreenDropdown from "../PublicScreen/PublicScreenDropdown";
 
 // components
 import PublicScreenMore from "../PublicScreen/PublicScreenMore";
 import PublicScreen2Calendar from "./PublicScreen2Calendar";
+
+const arr = ["Meditation 60 min", "Select the type of session"];
 
 const PublicScreen2Rightbar = () => {
   return (
     <div className={styles.public_screen2_right}>
       <div className={styles.book_session}>
         <h3>Book a session</h3>
-        <select>
-          <option>Meditation 60 min</option>
-          <option>Select the type of session</option>
-        </select>
+        <PublicScreenDropdown data={arr} />
         <div className={styles.info}>
           <h6>
             Length: <span>1 hr</span>
