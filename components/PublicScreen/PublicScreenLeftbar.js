@@ -1,33 +1,14 @@
+// styles
 import styles from "../../styles/PublicScreen.module.sass";
+
+// components
+import PublicScreenHead from "./PublicScreenHead";
 import PublicScreenMore from "./PublicScreenMore";
 
 const PublicScreenLeftbar = () => {
   return (
     <div className={styles.public_screen_left}>
-      <div className={styles.public_screen_head}>
-        <div className={styles.public_screen_head_img}>
-          <div className={styles.profile_img} />
-          <div className={styles.profile_img_online} />
-        </div>
-        <div className={styles.head_content}>
-          <div className={styles.name}>
-            <h3>Alex Caruso</h3>
-            <span>|</span>
-            <p>Los Angeles, CA</p>
-            <span>|</span>
-            <div>
-              <img src="/img/public-screen-facebook.svg" alt="facebook" />
-              <img src="/img/public-screen-instagram.svg" alt="instagram" />
-              <img src="/img/public-screen-youtube.svg" alt="youtube" />
-            </div>
-          </div>
-          <div className={styles.tags}>
-            <p>#Meditation</p>
-            <p>#Fitness</p>
-            <p>#Yoga</p>
-          </div>
-        </div>
-      </div>
+      <PublicScreenHead />
       <div className={styles.public_screen_body}>
         <h3>About:</h3>
         <p>

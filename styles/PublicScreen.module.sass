@@ -6,6 +6,27 @@
     background: #f4f5fa
     min-height: calc( 100vh - 70px )
 
+    .public_screen_button
+        background: #7E88F4
+        border-radius: 5px
+        border: none
+        outline: none
+        font-weight: 700
+        font-size: 14px
+        line-height: 19px
+        color: #FFFFFF
+        padding: 12px 32px
+        cursor: pointer
+        &:focus
+            border: none
+            outline: none
+
+    .border
+        height: 1px
+        width: 100%
+        background: #D9E0E9
+        margin: 18px 0
+
     .more
         display: flex
         align-items: center
@@ -19,6 +40,93 @@
             margin-right: 4px
         img
             margin-bottom: -2px
+
+    .cancelled
+                padding: 0 20px
+                font-weight: normal
+                font-size: 16px
+                line-height: 22px
+                color: #303030
+                margin: 0
+                margin-top: 40px
+                margin-left: 10px
+    .appointment
+        width: 100%
+        padding: 0 40px
+        p
+            margin: 0
+            font-weight: normal
+            font-size: 16px
+            line-height: 22px
+            color: #303030
+            margin-bottom: 16px
+        .appointment_info
+            display: flex
+            width: 100%
+            background: #FAFAFA
+            border-radius: 5px
+            padding: 32px
+            margin-bottom: 24px
+            div
+                width: 50%
+                &:last-child
+                    border-left: 1px solid #D9E0E9
+                    display: flex
+                    align-items: center
+                    justify-content: flex-end
+                    padding-right: 120px
+                h6
+                    margin: 0
+                    font-weight: 600
+                    font-size: 18px
+                    line-height: 25px
+                    color: #303030
+                    margin-bottom: 14px
+                p
+                    margin: 0
+                    font-weight: 600
+                    font-size: 13px
+                    line-height: 18px
+                    color: #303030
+                    margin-bottom: 8px
+                h5
+                    margin: 0
+                    margin-top: 24px
+                    font-weight: bold
+                    font-size: 16px
+                    line-height: 22px
+                    color: #303030
+        .other
+            display: flex
+            width: 100%
+            justify-content: space-between
+            .box
+                width: 49.5%
+                background: #FFFFFF
+                border: 1px solid #D9E0E9
+                box-sizing: border-box
+                border-radius: 5px
+                padding: 24px 32px
+                display: flex
+                flex-direction: column
+                justify-content: space-between
+                h6
+                    margin: 0
+                    font-weight: 600
+                    font-size: 16px
+                    line-height: 24px
+                    color: #303030
+                    margin-bottom: 16px
+                p
+                    margin: 0
+                    font-weight: normal
+                    font-size: 13px
+                    line-height: 18px
+                    color: #5C5C5C
+                    margin-bottom: 8px
+                    width: 60%
+                div
+                
 
     .public_screen_left
         width: 69%
@@ -352,11 +460,6 @@
                 line-height: 18px
                 color: #303030
                 margin-bottom: 6px
-            .border
-                height: 1px
-                width: 100%
-                background: #D9E0E9
-                margin: 20px 0
             .info
                 div
                     display: flex
@@ -536,8 +639,258 @@
                     font-weight: bold
                     font-size: 16px
                     margin-left: 5px
+    .public_screen_5
+        width: 100%
+        background: #fff
+        background: #FFFFFF
+        border-radius: 10px
+        padding: 40px
+        .public_screen_head
+            display: flex
+            align-items: center
+            flex-direction: row
+            border-bottom: 1px solid #D9E0E9
+            padding-bottom: 32px
+            .public_screen_head_img
+                position: relative
+                margin-right: 24px
+                .profile_img
+                    width: 80px
+                    height: 80px
+                    background: #E1E1DF
+                    border-radius: 50%
+                .profile_img_online
+                    position: absolute
+                    width: 16px
+                    height: 16px
+                    background: #219653
+                    border-radius: 50%
+                    right: 3px
+                    top: 62px
+            .head_content
+                .name
+                    display: flex
+                    align-items: center
+                    margin-bottom: 8px
+                    h3
+                        margin: 0
+                        font-weight: 600
+                        font-size: 22px
+                        line-height: 30px
+                        color: #303030
+                    p
+                        margin: 0
+                        font-weight: normal
+                        font-size: 12px
+                        line-height: 16px
+                        color: #5C5C5C
+                    span
+                        margin: 0 8px
+                        margin-top: -3px
+                        color: #838383
+                        font-size: 20px
+                        font-weight: 300
+                    img
+                        width: 18px
+                        margin-right: 12px
+                        cursor: pointer
+                .tags
+                    display: flex
+                    align-items: center
+                    p
+                        margin: 0
+                        font-weight: normal
+                        font-size: 13px
+                        line-height: 24px
+                        color: #7E88F4
+                        margin-right: 12px
+        .public_screen_body
+            padding: 24px 0
+            display: flex
+            .order_summary_container
+                .order_summary
+                    width: 424px
+                    background: #FAFAFA
+                    padding: 24px 32px
+                    padding-bottom: 65px
+                    border-radius: 5px
+                    margin-right: 32px
+                    h3
+                        margin: 0
+                        font-weight: bold
+                        font-size: 22px
+                        line-height: 30px
+                        color: #303030
+                        margin-bottom: 24px
+                    p
+                        margin: 0
+                        font-weight: 600
+                        font-size: 13px
+                        line-height: 18px
+                        color: #303030
+                        margin-bottom: 8px
+                    div
+                        display: flex
+                        align-items: center
+                        justify-content: space-between
+                        margin-bottom: 12px
+                        p
+                            font-weight: normal
+                            font-size: 13px
+                            line-height: 18px
+                            color: #303030
+                            margin: 0
+                        h6
+                            margin: 0
+                            font-weight: bold
+                            font-size: 14px
+                            line-height: 19px
+                            color: #303030
+                        .total_price
+                            font-size: 13px
+            .congrats
+                flex-grow: 1
+                .main
+                    padding: 56px 32px
+                    padding-bottom: 90px
+                    border: 1px solid #D9E0E9
+                    box-sizing: border-box
+                    border-radius: 5px
+                    h3
+                        margin: 0
+                        font-weight: bold
+                        font-size: 22px
+                        line-height: 30px
+                        color: #7E88F4
+                        margin-bottom: 24px
+                    p
+                        margin: 0
+                        font-weight: normal
+                        font-size: 14px
+                        line-height: 19px
+                        color: #5C5C5C
+                        margin-bottom: 24px
+                p
+                    margin: 0
+                    font-weight: normal
+                    font-size: 16px
+                    line-height: 22px
+                    color: #5C5C5C
+                    margin-top: 24px
+                    margin-bottom: 16px
+                    width: 55%
+                .form
+                    width: 588px
+                    textarea
+                        width: 100%
+                        height: 154px
+                        border: 1px solid #D9E0E9
+                        box-sizing: border-box
+                        border-radius: 5px
+                        resize: none
+                        padding: 10px
+                        margin-bottom: 24px
+                        &:focus
+                            outline: none
+                    div
+                        display: flex
+                        justify-content: flex-end
+            .cancellation
+                flex-grow: 1
+                .main
+                    padding: 24px 32px
+                    border: 1px solid #D9E0E9
+                    border-radius: 5px
+                    h3
+                        margin: 0
+                        font-weight: bold
+                        font-size: 22px
+                        line-height: 30px
+                        color: #303030
+                        margin-bottom: 24px
+                    p
+                        width: 60%
+                        margin: 0
+                        font-weight: normal
+                        font-size: 13px
+                        line-height: 18px
+                        color: #5C5C5C
+                        margin-bottom: 80px
+                    button
+                        background: #EF7888
+                        border-radius: 5px
+                        border: none
+                        outline: none
+                        font-weight: 700
+                        font-size: 14px
+                        line-height: 19px
+                        color: #FFFFFF
+                        padding: 12px 32px
+                        cursor: pointer
+                        margin-bottom: 62px
+                        &:focus
+                            border: none
+                            outline: none
 
 
-
-
-                                
+.public_screen_modal
+        background: rgba(0, 0, 0, 0.25)
+        position: fixed
+        width: 100vw
+        height: 100vh
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+        z-index: 100000
+        display: flex
+        align-items: center
+        justify-content: center
+        div
+            width: 676px
+            height: 232px
+            left: 345px
+            top: 299px
+            background: #FFFFFF
+            box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16)
+            padding: 32px
+            border-radius: 5px
+            display: flex
+            flex-direction: column
+            img
+                align-self: flex-end
+                // right: 24px
+                // top: 24px
+                z-index: 100
+                margin-bottom: -15px
+                cursor: pointer
+            h6
+                margin: 0
+                font-weight: 600
+                font-size: 24px
+                line-height: 33px
+                color: #303030
+                margin-bottom: 16px
+            p
+                margin: 0
+                font-weight: normal
+                font-size: 16px
+                line-height: 22px
+                color: #303030
+                margin-bottom: 32px
+            button
+                background: #EF7888
+                border-radius: 5px
+                border: none
+                outline: none
+                font-weight: 700
+                font-size: 14px
+                line-height: 19px
+                color: #FFFFFF
+                align-self: flex-start
+                padding: 12px 32px
+                cursor: pointer
+                margin-bottom: 62px
+                &:focus
+                    border: none
+                    outline: none
