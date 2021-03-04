@@ -129,7 +129,7 @@
                 
 
     .public_screen_left
-        width: 69%
+        flex-grow: 1
         background: #fff
         background: #FFFFFF
         border-radius: 10px
@@ -230,9 +230,10 @@
 
 
     .public_screen_right
-        width: 29%
+        width: 376px
+        margin-left: 30px
         .book_session
-            width: 100%
+            width: 376px
             background: #fff
             padding: 32px 24px
             height: 244px
@@ -256,13 +257,18 @@
                 line-height: 19px
                 color: #303030
                 padding: 0 10px
+                -webkit-appearance: none
+                -moz-appearance: none
+                text-indent: 1px
+                text-overflow: ''
                 &:focus
                     outline: none
 
     .public_screen2_right
-        width: 29%
+        width: 376px
+        margin-left: 30px
         .book_session
-            width: 100%
+            width: 376px
             background: #fff
             padding: 32px 24px
             box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
@@ -299,7 +305,7 @@
                     span
                         font-weight: 400
             .booking_calendar
-                width: 100%
+                width: 328px
                 margin-top: 12px
                 margin-bottom: 16px
                 .calendar_head
@@ -440,8 +446,10 @@
                 margin: 0
 
     .public_screen3_right
-        width: 29%
+        width: 376px
+        margin-left: 30px
         .order_summary
+            width: 376px
             padding: 24px
             background: #FFFFFF
             box-shadow: 2px 4px 16px rgba(64, 64, 64, 0.12)
@@ -564,7 +572,7 @@
                     line-height: 19px
                     color: #303030
                 div
-                    width: 100%
+                    width: 328px
                     display: flex
                     align-items: center
                     height: 44px
@@ -588,19 +596,26 @@
                 align-items: center
                 justify-content: space-between
                 margin-bottom: 16px
+                width: 328px
                 div
-                    width: 49.5%
+                    width: 156px
                     label
+                        margin: 0
                         font-weight: 600
                         font-size: 14px
                         line-height: 19px
                         color: #303030
                     input
+                        width: 156px
                         height: 44px
                         border: 1px solid #C0C0C9
                         box-sizing: border-box
                         border-radius: 5px
+                        margin: 0
                         margin-top: 8px
+                        padding: 0 8px
+                        &:focus
+                            outline: none
             .checkbox_container
                 display: flex
                 align-items: center
@@ -630,7 +645,7 @@
             .stripe
                 background: #32364e
                 color: white
-                padding: 12px 15px
+                padding: 8px 15px
                 display: inline-block
                 border-radius: 5px
                 font-size: 10px

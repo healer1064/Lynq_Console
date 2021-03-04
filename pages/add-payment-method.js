@@ -83,13 +83,13 @@ const AddPaymentMethod = () => {
                     <div>
                       <input type="radio" />
                       <label>Credit Card</label>
-                      <img src="/img/add-payment-method-card.jpg" alt="card" />
+                      <img src="/img/add-payment-method-card.svg" alt="card" />
                     </div>
                     <div>
                       <input type="radio" />
                       {/* <label>Paypal</label> */}
                       <img
-                        src="/img/add-payment-method-paypal.png"
+                        src="/img/add-payment-method-paypal.svg"
                         alt="card"
                       />
                     </div>

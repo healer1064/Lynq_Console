@@ -74,7 +74,7 @@ const EditProfile = () => {
                 <label>Youtube</label>
                 <input />
               </div>
-              <h3>Social Information</h3>
+              <h3>About</h3>
               <div>
                 <label>General presentation</label>
                 <textarea></textarea>

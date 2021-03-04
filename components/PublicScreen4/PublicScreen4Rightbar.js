@@ -25,7 +25,7 @@ const PublicScreen4Rightbar = () => {
         </div>
       </div>
       <div className={styles.payment_details}>
-        <h6>Personal Information</h6>
+        <h6>Payment Details</h6>
         <div className={styles.card_number_container}>
           <label>Card Number</label>
           <div>
@@ -39,7 +39,7 @@ const PublicScreen4Rightbar = () => {
             <input />
           </div>
           <div>
-            <label>Exp Date</label>
+            <label>CVV</label>
             <input />
           </div>
         </div>

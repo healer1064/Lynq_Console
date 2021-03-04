@@ -95,10 +95,10 @@ const billing = () => {
                       <tbody className="billing-info-body-data">
                         <tr>
                           <td className="billing-th-info">
-                            <img src="/img/billing-done.png" alt="done" />
+                            <img src="/img/billing-done.svg" alt="done" />
                           </td>
                           <td className="billing-th-info">
-                            <img src="/img/billing-card.png" alt="card" />
+                            <img src="/img/billing-card.svg" alt="card" />
                           </td>
                           <td className="billing-th-payment">Credit Card</td>
                           <td className="billing-th-desc-addr">

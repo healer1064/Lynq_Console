@@ -18,7 +18,9 @@ const PublicScreen2Rightbar = () => {
           <h6>
             Length: <span>1 hr</span>
           </h6>
-          <h6>Price: $50</h6>
+          <h6>
+            Price: <span>$50</span>
+          </h6>
         </div>
         <PublicScreen2Calendar />
         <button>Book</button>
