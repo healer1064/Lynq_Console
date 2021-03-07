@@ -23,7 +23,7 @@ const PublicScreen5 = () => {
       <Navbar />
       <div className={styles.public_screen}>
         <div className={styles.public_screen_5}>
-          <PublicScreenHead />
+          {/* <PublicScreenHead /> */}
           <div className={styles.public_screen_body}>
             <div className={styles.order_summary_container}>
               <div className={styles.order_summary}>

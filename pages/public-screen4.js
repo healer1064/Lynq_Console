@@ -22,8 +22,8 @@ const PublicScreen4 = () => {
       </Head>
       <Navbar />
       <div className={styles.public_screen}>
-        <PublicScreenLeftbar />
-        <PublicScreen4Rightbar />
+        {/* <PublicScreenLeftbar />
+        <PublicScreen4Rightbar /> */}
       </div>
     </>
   );

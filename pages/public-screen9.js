@@ -22,7 +22,7 @@ const PublicScreen9 = () => {
       <Navbar />
       <div className={styles.public_screen}>
         <div className={styles.public_screen_5}>
-          <PublicScreenHead />
+          {/* <PublicScreenHead /> */}
           <div className={styles.public_screen_body}>
             <p className={styles.cancelled}>
               Your appointment has been cancelled

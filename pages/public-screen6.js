@@ -24,7 +24,7 @@ const PublicScreen6 = () => {
       <Navbar />
       <div className={styles.public_screen}>
         <div className={styles.public_screen_5}>
-          <PublicScreenHead />
+          {/* <PublicScreenHead /> */}
           <div className={styles.public_screen_body}>
             <div className={styles.appointment}>
               <p>Hello, here is an invitation for our next appointment</p>
