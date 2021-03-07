@@ -5,18 +5,13 @@ import styles from "../../styles/PublicScreen.module.sass";
 import PublicScreenHead from "./PublicScreenHead";
 import PublicScreenMore from "./PublicScreenMore";
 
-const PublicScreenLeftbar = () => {
+const PublicScreenLeftbar = ({ profile }) => {
   return (
     <div className={styles.public_screen_left}>
-      <PublicScreenHead />
+      <PublicScreenHead data={profile} />
       <div className={styles.public_screen_body}>
         <h3>About:</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bibendum
-          fringilla adipiscing sed posuere sed null viverra nulla elit. Volutpat
-          sagittis orci arcu parturient purus aliquam dictumst elit. Tempus,
-          libero ipsum viverra mauris fusce ac volutpat, iaculis sit. adipi
-        </p>
+        <p>{profile.about}</p>
         <PublicScreenMore />
         <h3>What to expect:</h3>
         <p>

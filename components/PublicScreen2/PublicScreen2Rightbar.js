@@ -4,7 +4,7 @@ import PublicScreenDropdown from "../PublicScreen/PublicScreenDropdown";
 
 // components
 import PublicScreenMore from "../PublicScreen/PublicScreenMore";
-import PublicScreen2Calendar from "./PublicScreen2Calendar";
+// import PublicScreen2Calendar from "./PublicScreen2Calendar";
 
 const arr = ["Meditation 60 min", "Select the type of session"];
 
@@ -22,7 +22,7 @@ const PublicScreen2Rightbar = () => {
             Price: <span>$50</span>
           </h6>
         </div>
-        <PublicScreen2Calendar />
+        {/* <PublicScreen2Calendar /> */}
         <button>Book</button>
       </div>
       <div className={styles.needs}>
