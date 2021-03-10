@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // libraries
 import Head from "next/head";
 import useSWR from "swr";
@@ -9,12 +11,75 @@ import styles from "../../styles/PublicScreen.module.sass";
 import Navbar from "../../components/Navbar";
 import PublicScreenLeftbar from "../../components/PublicScreen/PublicScreenLeftbar";
 import PublicScreenRightbar from "../../components/PublicScreen/PublicScreenRightbar";
+import PublicScreen3Rightbar from "../../components/PublicScreen3/PublicScreen3Rightbar";
 
 // utils
 import fetcher from "../../utils/fetcher";
 
 const Profile = ({ slug }) => {
+  const [activity, setActicity] = useState(null);
+  const [bookOrder, setBookOrder] = useState(false);
+  const [slots, setSlots] = useState([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+
   const { data, error } = useSWR(["/api/profile", slug], fetcher);
+
+  // const { data: bookReq, error: bookErr } = useSWR(
+  //   bookOrder
+  //     ? [
+  //         "/api/profile/request",
+  //         JSON.stringify({
+  //           slug: slug,
+  //           params: {
+  //             activity_id: "string",
+  //             start_date: "string",
+  //             first_name: "string",
+  //             last_name: "string",
+  //             email: "string",
+  //           },
+  //         }),
+  //       ]
+  //     : null,
+  //   fetcher
+  // );
+
+  const handleActivity = (_activity) => {
+    setActicity(_activity);
+    setSlotsLoading(true);
+
+    // check avaliblity
+    async function check_availabliity() {
+      const response = await fetch("/api/profile-availability", {
+        headers: new Headers({
+          data: JSON.stringify({ id: _activity.id, slug: slug }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    check_availabliity()
+      .then((res) => {
+        setSlots(res);
+        setSlotsLoading(false);
+      })
+      .catch((err) => {
+        console.log("availablity error", err);
+        setSlotsLoading(false);
+      });
+  };
+
+  const handleStartTime = (_time) => {
+    console.log("start time", _time);
+  };
+
+  const handleBook = (flag) => {
+    setBookOrder(flag);
+  };
+
+  const confirmOrder = (_userData) => {
+    console.log("user", _userData);
+  };
 
   if (!data) {
     return <h1>Loading...</h1>;
@@ -33,7 +98,19 @@ const Profile = ({ slug }) => {
       <Navbar />
       <div className={styles.public_screen}>
         <PublicScreenLeftbar profile={data.profile} />
-        <PublicScreenRightbar data={data.activities} />
+        {!bookOrder ? (
+          <PublicScreenRightbar
+            activity={activity}
+            data={data.activities}
+            slots={slots}
+            onHandle={handleActivity}
+            onBook={handleBook}
+            loading={slotsLoading}
+            handleTime={handleStartTime}
+          />
+        ) : (
+          <PublicScreen3Rightbar onHandle={confirmOrder} />
+        )}
       </div>
     </>
   );

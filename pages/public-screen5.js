@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 // styles
 import styles from "../styles/PublicScreen.module.sass";
@@ -10,6 +11,8 @@ import PublicScreenHead from "../components/PublicScreen/PublicScreenHead";
 import PublicScreenButton from "../components/PublicScreen/PublicScreenButton";
 
 const PublicScreen5 = () => {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -58,7 +61,12 @@ const PublicScreen5 = () => {
                   <br />
                   Have a great session.
                 </p>
-                <PublicScreenButton text="Back to homepage" />
+                <PublicScreenButton
+                  text="Back to homepage"
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                />
               </div>
               <p>
                 If you need to share some information ahead of the appointment,

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import useSWR from "swr";
-
 import styles from "../../styles/PublicScreen.module.sass";
 import PublicScreenDropdown from "./PublicScreenDropdown";
 
@@ -8,49 +6,71 @@ import PublicScreenDropdown from "./PublicScreenDropdown";
 import PublicScreenMore from "./PublicScreenMore";
 import PublicScreen2Calendar from "./PublicScreen2Calendar";
 
-// utils
-import fetcher from "../../utils/fetcher";
+const PublicScreenRightbar = ({
+  activity,
+  data,
+  slots,
+  onHandle,
+  onBook,
+  loading,
+  handleTime,
+}) => {
+  const [timeError, setTimeError] = useState(false);
+  const [time, setTime] = useState("");
 
-const PublicScreenRightbar = ({ data }) => {
-  const [activity, setActicity] = useState(null);
-
-  // const { data: result, error } = useSWR(
-  //   [
-  //     activity !== null ? "/api/profile-availability" : null,
-  //     activity !== null
-  //       ? {
-  //           test: "hello from avaialv",
-  //         }
-  //       : null,
-  //   ],
-  //   fetcher
-  // );
-
-  const handleActivity = (_activity) => {
-    setActicity(_activity);
+  const handleClick = () => {
+    if (time !== "") {
+      handleTime(time);
+      onBook(true);
+      setTimeError(false);
+    } else {
+      setTimeError(true);
+    }
   };
 
   return (
     <div className={styles.public_screen2_right}>
       <div className={styles.book_session}>
         <h3>Book a session</h3>
-        <PublicScreenDropdown data={data} onHandle={handleActivity} />
-        {activity !== null && (
-          <>
-            <div className={styles.info}>
-              <h6>
-                Length: <span>{activity.duration}</span>
-              </h6>
-              <h6>
-                Price: <span>{activity.price}</span>
-              </h6>
-            </div>
-            <PublicScreen2Calendar />
-            <button>Book</button>
-          </>
+        <PublicScreenDropdown data={data} onHandle={onHandle} />
+        {!loading ? (
+          slots.length > 0 && (
+            <>
+              <div className={styles.info}>
+                <h6>
+                  Length: <span>{activity.duration}</span>
+                </h6>
+                <h6>
+                  Price: <span>{activity.price}</span>
+                </h6>
+              </div>
+              {slots !== undefined && (
+                <>
+                  <PublicScreen2Calendar
+                    slots={slots}
+                    setTime={setTime}
+                    setError={setTimeError}
+                  />
+                  <button onClick={handleClick}>Book</button>
+                  {timeError && (
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "red",
+                      }}
+                    >
+                      * Select Time
+                    </span>
+                  )}
+                </>
+              )}
+            </>
+          )
+        ) : (
+          <p>Loading...</p>
         )}
       </div>
-      {activity !== null && (
+      {slots.length > 0 && (
         <>
           <div className={styles.needs}>
             <h3>What you need to bring</h3>

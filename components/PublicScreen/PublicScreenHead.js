@@ -9,7 +9,7 @@ const PublicScreenHead = ({ data }) => {
       </div>
       <div className={styles.head_content}>
         <div className={styles.name}>
-          <h3>{data.slug}</h3>
+          <h3>{data.name}</h3>
           <span>|</span>
           <p>{data.location}</p>
           <span>|</span>

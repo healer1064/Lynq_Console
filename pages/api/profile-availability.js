@@ -7,15 +7,13 @@ let config = {
 };
 
 export default async (req, res) => {
-  const data = req.headers.data;
+  const _data = JSON.parse(req.headers.data);
 
-  console.log(data);
+  const response = await fetch(
+    `https://reb00t.uc.r.appspot.com/profile/${_data.slug}/availability?start=2020-10-20&end=2020-10-30&activity_id=${_data.id}`,
+    config
+  );
+  const data = await response.json();
 
-  // const response = await fetch(
-  //   'https://reb00t.uc.r.appspot.com/profile/chuck-noris/availability',
-  //   config
-  // );
-  // const data = await response.json();
-
-  res.status(200).json({ msg: "okay" });
+  res.status(200).json(data);
 };

@@ -1,7 +1,30 @@
+import { useState } from "react";
+import { format, compareAsc } from "date-fns";
+
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
 
-const PublicScreen2Calendar = () => {
+// Fake Data
+import TimeSlots from "../../utils/data/SlotsFakeData";
+
+const PublicScreen2Calendar = ({ slots, setTime, setError }) => {
+  const [index, setIndex] = useState(-1);
+  const [jIndex, setJIndex] = useState(-1);
+
+  const getDates = () => {
+    const dates = TimeSlots.map((slot) => ({
+      name: slot.day_name,
+      date: slot.date,
+    }));
+    return dates;
+  };
+
+  const getTimes = () => {
+    const times = TimeSlots.map((slot) => slot.slots);
+
+    return times;
+  };
+
   return (
     <div className={styles.booking_calendar}>
       <div className={styles.calendar_head}>
@@ -14,83 +37,32 @@ const PublicScreen2Calendar = () => {
       </div>
       <div className={styles.calendar_body}>
         <div className={styles.table_head}>
-          <div>
-            <h6>Mon</h6>
-            <p>29 Mar</p>
-          </div>
-          <div>
-            <h6>Tue</h6>
-            <p>30 Mar</p>
-          </div>
-          <div>
-            <h6>Wed</h6>
-            <p>31 Mar</p>
-          </div>
-          <div>
-            <h6>Thu</h6>
-            <p>1 Apr</p>
-          </div>
+          {getDates().map((slot, i) => (
+            <div key={i}>
+              <h6>{slot.name}</h6>
+              <p>{slot.date}</p>
+            </div>
+          ))}
         </div>
         <div className={styles.table_body}>
-          <div>
-            <div>
-              <p>9:00 AM</p>
+          {getTimes().map((times, i) => (
+            <div key={i}>
+              {times.map((item, j) => (
+                <div
+                  key={j}
+                  onClick={() => {
+                    setIndex(i);
+                    setJIndex(j);
+                    setTime(item.time);
+                    setError(false);
+                  }}
+                  className={index === i && jIndex === j ? styles.active : ""}
+                >
+                  <p>{item.time}</p>
+                </div>
+              ))}
             </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div className={styles.active}>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-          </div>
-          <div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-            <div>
-              <p>9:00 AM</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
