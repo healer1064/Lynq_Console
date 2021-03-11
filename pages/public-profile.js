@@ -16,7 +16,7 @@ const EditProfile = () => {
   return (
     <>
       <Head>
-        <title>Edit Profile</title>
+        <title>Public Profile</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
@@ -25,7 +25,7 @@ const EditProfile = () => {
       </Head>
       <Navbar />
       <div className="page-wrp">
-        <Leftbar />
+        <Leftbar active="profile" />
         <div className="content-wrp">
           <div className={styles.edit_profile}>
             <h3>Public Profile</h3>

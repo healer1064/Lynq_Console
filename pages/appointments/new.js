@@ -1,19 +1,23 @@
 // libraries
-import Head from 'next/head'
+import Head from "next/head";
 
 // components
-import Navbar from '../components/Navbar'
-import Leftbar from '../components/Leftbar'
-import AppointmentNewShare from '../components/AppointmentNew/AppointmentNewShare'
-import AppointmentNewButtons from '../components/AppointmentNew/AppointmentNewButtons'
-import AppointmentNewTime from '../components/AppointmentNew/AppointmentNewTime'
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
+import AppointmentNewShare from "../../components/AppointmentNew/AppointmentNewShare";
+import AppointmentNewButtons from "../../components/AppointmentNew/AppointmentNewButtons";
+import AppointmentNewTime from "../../components/AppointmentNew/AppointmentNewTime";
 
-export default function Setup() {
+export default function AppointmentNew() {
   return (
     <>
       <Head>
+        <title>New Appointment</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Navbar />
       <div className="page-wrp">
@@ -45,5 +49,5 @@ export default function Setup() {
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -1,15 +1,18 @@
 // libraries
 import Head from "next/head";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 // components
-import Navbar from "../components/Navbar";
-import Leftbar from "../components/Leftbar";
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
 
 const billing = () => {
   // state
   const [more, setMore] = useState(false);
   const [card, setCard] = useState(false);
+
+  const router = useRouter();
   return (
     <div
       onClick={() => {
@@ -31,8 +34,13 @@ const billing = () => {
         <div className="content-wrp">
           <div className="account">
             <div className="account-tab">
-              <p>Account</p>
-              <p className="active">Billing</p>
+              <p onClick={() => router.push("/account")}>Account</p>
+              <p
+                onClick={() => router.push("/account/billing")}
+                className="active"
+              >
+                Billing
+              </p>
             </div>
             <div className="account-content">
               <div className="account-content-side-nav billing-content-side-nav">
@@ -55,7 +63,9 @@ const billing = () => {
                     Payment Methods <span>/ 1</span>
                   </h3>
                   <div>
-                    <button>Add Credit Card</button>
+                    <button onClick={() => router.push("/account/add")}>
+                      Add Credit Card
+                    </button>
                     <button>Connect to Paypal</button>
                   </div>
                   <div className="mobile">
@@ -117,7 +127,13 @@ const billing = () => {
                             <img src="/img/billing-more.png" alt="more" />
                             {more && (
                               <div className="billing-more-options">
-                                <p>Edit</p>
+                                <p
+                                  onClick={() =>
+                                    router.push("/account/edit-card")
+                                  }
+                                >
+                                  Edit
+                                </p>
                               </div>
                             )}
                           </td>

@@ -1,16 +1,19 @@
 // libraries
 import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 // components
-import Navbar from "../components/Navbar";
-import Leftbar from "../components/Leftbar";
-import AccountEditInputContainer from "../components/AccountEdit/AccountEditInputContainer";
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
 
-const AccountEdit = () => {
+const Account = () => {
+  const router = useRouter();
+
   return (
     <>
       <Head>
-        <title>Account Edit</title>
+        <title>Account</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
@@ -23,8 +26,10 @@ const AccountEdit = () => {
         <div className="content-wrp">
           <div className="account">
             <div className="account-tab">
-              <p className="active">Account</p>
-              <p>Billing</p>
+              <p onClick={() => router.push("/account")} className="active">
+                Account
+              </p>
+              <p onClick={() => router.push("/account/billing")}>Billing</p>
             </div>
             <div className="account-content">
               <div className="account-content-side-nav">
@@ -62,64 +67,62 @@ const AccountEdit = () => {
                   <h6>Your Current Plan</h6>
                   <p>EARLY BIRD</p>
                   <h6>Processing Fees On Payments</h6>
-                  <p>2,9%</p>
+                  <p>2.9%</p>
                   <h6>Example On $10 Ticket</h6>
                   <p>You will be paid $10 - $0.29 =$9.71</p>
                 </div>
                 <div className="account-personal">
                   <h3>
-                    Personal Information <span>Cancel</span>
+                    Personal Information{" "}
+                    <Link href="/account/edit">
+                      <span>Edit</span>
+                    </Link>
                   </h3>
-                  <div className="account-edit-profile-img-container">
-                    <h6>Add an image</h6>
-                    <input type="file" />
-                    <button>Submit Image</button>
-                  </div>
-                  <AccountEditInputContainer label="First Name" type="text" />
-                  <AccountEditInputContainer label="Last Name" type="text" />
-                  <AccountEditInputContainer
-                    label="Email Address"
-                    type="text"
-                  />
-                  <AccountEditInputContainer label="Address" type="text" />
-                  <AccountEditInputContainer label="City" type="text" />
-                  <AccountEditInputContainer label="Zip Code" type="text" />
-                  <AccountEditInputContainer label="Phone Number" type="text" />
-                  <button>Save My Personal Information</button>
+                  <h6>Profile Picture</h6>
+                  <h6>First Name</h6>
+                  <p>Tom</p>
+                  <h6>Last Name</h6>
+                  <p>Brody</p>
+                  <h6>Email Address</h6>
+                  <p>Tomtom123@gmail.com</p>
+                  <h6>Address</h6>
+                  <h6>City</h6>
+                  <h6>Zip code</h6>
+                  <h6>Phone Number</h6>
                 </div>
                 <div className="account-business">
                   <h3>
-                    Business and Payments <span>Cancel</span>
+                    Business and Payments{" "}
+                    <Link href="/account/edit">
+                      <span>Edit</span>
+                    </Link>
                   </h3>
-                  <AccountEditInputContainer
-                    label="Business Name"
-                    type="text"
-                  />
-                  <AccountEditInputContainer label="Bank Name" type="text" />
-                  <AccountEditInputContainer label="IBAN" type="text" />
-                  <AccountEditInputContainer
-                    label="Account Number"
-                    type="text"
-                  />
-                  <button>Save My Personal Information</button>
+                  <div>
+                    <h6>Business Name</h6>
+                    <p>Not defined</p>
+                    <h6>Bank Name</h6>
+                    <p>Not defined</p>
+                    <h6>IBAN</h6>
+                    <p>Not defined</p>
+                    <h6>Account Number</h6>
+                    <p>Not defined</p>
+                    <h6>Routing Number</h6>
+                    <p>Not defined</p>
+                  </div>
                 </div>
                 <div className="account-password">
                   <h3>
-                    Change Password <span>Cancel</span>
+                    Change Password{" "}
+                    <Link href="/account/edit">
+                      <span>Edit</span>
+                    </Link>
                   </h3>
-                  <AccountEditInputContainer
-                    label="Previous Password"
-                    type="password"
-                  />
-                  <AccountEditInputContainer
-                    label="New Password"
-                    type="password"
-                  />
-                  <AccountEditInputContainer
-                    label="Repeat Password"
-                    type="password"
-                  />
-                  <button>Update My Password</button>
+                  <div>
+                    <p>
+                      For editing your password, you need to remember the
+                      previous one.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -130,4 +133,4 @@ const AccountEdit = () => {
   );
 };
 
-export default AccountEdit;
+export default Account;

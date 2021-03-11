@@ -1,33 +1,41 @@
 // libraries
-import Head from 'next/head'
-import { useState } from 'react'
+import Head from "next/head";
+import { useState } from "react";
 
 // components
-import Navbar from '../components/Navbar'
-import Leftbar from '../components/Leftbar'
-import AppointmentsNewClearModal from '../components/AppointmentsNewClear/AppointmentsNewClearModal'
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
+import AppointmentsNewClearModal from "../../components/AppointmentsNewClear/AppointmentsNewClearModal";
 
-export default function Setup() {
+export default function AppointmentRequest() {
   // state
-  const [modalShow, setModalShow] = useState(false)
+  const [modalShow, setModalShow] = useState(false);
 
   return (
     <>
       <Head>
+        <title>Appointment Request</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Navbar />
       <div className="page-wrp">
         <Leftbar active="appointments" />
         <div className="content-wrp">
           <div className="appointment-request">
-            {modalShow && <AppointmentsNewClearModal setModalShow={setModalShow} />}
+            {modalShow && (
+              <AppointmentsNewClearModal setModalShow={setModalShow} />
+            )}
             <a href="#" className="appointment-request__back">
               Back
             </a>
             <h2>Appointment Request</h2>
-            <span className="received__time">Received 12 hours, 31 min ago</span>
+            <span className="received__time">
+              Received 12 hours, 31 min ago
+            </span>
             <div className="info__col">
               <strong>Event type</strong>
               <p>Full Moon Meditation</p>
@@ -63,5 +71,5 @@ export default function Setup() {
         </div>
       </div>
     </>
-  )
+  );
 }

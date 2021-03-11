@@ -1,10 +1,15 @@
-const NewAppointmentButton = () => {
-    return (
-        <div className="appointments-top__btn">
-            <img src="/img/appointments-btn-plus.svg" alt="" />
-            <span>New Appointment</span>
-        </div>
-    )
-}
+// libraries
+import Link from "next/link";
 
-export default NewAppointmentButton
+const NewAppointmentButton = () => {
+  return (
+    <Link href="/appointments/new">
+      <div className="appointments-top__btn">
+        <img src="/img/appointments-btn-plus.svg" alt="" />
+        <span>New Appointment</span>
+      </div>
+    </Link>
+  );
+};
+
+export default NewAppointmentButton;

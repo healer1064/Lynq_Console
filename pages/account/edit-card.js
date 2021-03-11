@@ -3,8 +3,8 @@ import Head from "next/head";
 import { useState } from "react";
 
 // components
-import Navbar from "../components/Navbar";
-import Leftbar from "../components/Leftbar";
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
 
 const EditCreditCard = () => {
   return (
@@ -23,8 +23,13 @@ const EditCreditCard = () => {
         <div className="content-wrp">
           <div className="account">
             <div className="account-tab">
-              <p>Account</p>
-              <p className="active">Billing</p>
+              <p onClick={() => router.push("/account")}>Account</p>
+              <p
+                onClick={() => router.push("/account/billing")}
+                className="active"
+              >
+                Billing
+              </p>
             </div>
             <div className="account-content">
               <div className="account-content-side-nav billing-content-side-nav">

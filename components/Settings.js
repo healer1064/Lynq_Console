@@ -1,20 +1,62 @@
+// libraries
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+
 const Settings = ({ active }) => {
+  const [mobileView, setMobileView] = useState(active);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (mobileView === "setup") {
+      router.push("/settings/setup");
+    }
+    if (mobileView === "eventtype") {
+      router.push("/settings/event-type");
+    }
+    if (mobileView === "eventtypeedit") {
+      router.push("/settings/event-type-edit");
+    }
+    if (mobileView === "callsync") {
+      router.push("/settings/call-sync");
+    }
+  }, [mobileView]);
+
   return (
     <>
       <div className="settings-types">
-        <div className={`option ${active === "setup" && "active"}`}>Set Up</div>
-        <div className={`option ${active === "eventtype" && "active"}`}>Event Type</div>
-        <div className={`option ${active === "callsync" && "active"}`}>Call Sync</div>
+        <div
+          onClick={() => router.push("/settings/setup")}
+          className={`option ${active === "setup" && "active"}`}
+        >
+          Set Up
+        </div>
+        <div
+          onClick={() => router.push("/settings/event-type")}
+          className={`option ${
+            (active === "eventtype" || active === "eventtypeedit") && "active"
+          }`}
+        >
+          Event Type
+        </div>
+        <div
+          onClick={() => router.push("/settings/call-sync")}
+          className={`option ${active === "callsync" && "active"}`}
+        >
+          Call Sync
+        </div>
       </div>
       <div className="settings-types__mobile">
-        <select name="" id="">
-          <option value="" selected={active === "setup" ? true : false}>Set Up</option>
-          <option value="" selected={active === "eventtype" ? true : false}>Event Type</option>
-          <option value="" selected={active === "callsync" ? true : false}>Call Sync</option>
+        <select
+          onChange={(e) => setMobileView(e.target.value)}
+          value={mobileView}
+        >
+          <option value="setup">Set Up</option>
+          <option value="eventtype">Event Type</option>
+          <option value="callsync">Call Sync</option>
         </select>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;
