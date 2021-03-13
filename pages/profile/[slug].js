@@ -19,10 +19,10 @@ import fetcher from "../../utils/fetcher";
 const Profile = ({ slug }) => {
   const [activity, setActicity] = useState(null);
   const [bookOrder, setBookOrder] = useState(false);
-  const [slots, setSlots] = useState([]);
+  const [slots, setSlots] = useState(null);
   const [slotsLoading, setSlotsLoading] = useState(false);
 
-  const { data, error } = useSWR(["/api/profile", slug], fetcher);
+  const { data, error } = useSWR(["/api/profile/profile", slug], fetcher);
 
   // const { data: bookReq, error: bookErr } = useSWR(
   //   bookOrder
@@ -49,7 +49,7 @@ const Profile = ({ slug }) => {
 
     // check avaliblity
     async function check_availabliity() {
-      const response = await fetch("/api/profile-availability", {
+      const response = await fetch("/api/profile/profile-availability", {
         headers: new Headers({
           data: JSON.stringify({ id: _activity.id, slug: slug }),
         }),
@@ -60,6 +60,7 @@ const Profile = ({ slug }) => {
 
     check_availabliity()
       .then((res) => {
+        console.log("avaialble", res);
         setSlots(res);
         setSlotsLoading(false);
       })

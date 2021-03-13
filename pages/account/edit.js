@@ -10,6 +10,100 @@ import AccountEditInputContainer from "../../components/AccountEdit/AccountEditI
 const AccountEdit = () => {
   const router = useRouter();
 
+  const updateProfile = () => {
+    // change raw data with useState variables
+    const _reqData = {
+      fullname: "string",
+      email: "qazi222@test.com",
+      address: "string",
+      city: "string",
+      zipCode: "string",
+      phoneNumber: "string",
+      profilePicture: "string",
+    };
+
+    const token = localStorage.getItem("linqToken");
+
+    async function update() {
+      const response = await fetch("/api/account/profile-update", {
+        headers: new Headers({
+          data: JSON.stringify({ token, _reqData }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    update()
+      .then((res) => {
+        console.log("profile updates", res);
+      })
+      .catch((err) => {
+        console.log("profile update error", err);
+      });
+  };
+
+  const updateBusiness = () => {
+    // change raw data with useState variables
+    const _reqData = {
+      id: "string",
+      accountID: "string",
+      businessName: "LinqToAll",
+      bankName: "string",
+      iban: "string",
+      accountNumber: "string",
+      routingNumber: "string",
+    };
+
+    const token = localStorage.getItem("linqToken");
+
+    async function update() {
+      const response = await fetch("/api/account/business-update", {
+        headers: new Headers({
+          data: JSON.stringify({ token, _reqData }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    update()
+      .then((res) => {
+        console.log("business updates", res);
+      })
+      .catch((err) => {
+        console.log("business update error", err);
+      });
+  };
+
+  const updatePassword = () => {
+    // change raw data with useState variables
+    const _reqData = {
+      oldPassword: "string",
+      newPassword: "string",
+    };
+
+    const token = localStorage.getItem("linqToken");
+
+    async function update() {
+      const response = await fetch("/api/account/password-update", {
+        headers: new Headers({
+          data: JSON.stringify({ token, _reqData }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    update()
+      .then((res) => {
+        console.log("password updates", res);
+      })
+      .catch((err) => {
+        console.log("password update error", err);
+      });
+  };
+
   return (
     <>
       <Head>
@@ -90,7 +184,9 @@ const AccountEdit = () => {
                   <AccountEditInputContainer label="City" type="text" />
                   <AccountEditInputContainer label="Zip Code" type="text" />
                   <AccountEditInputContainer label="Phone Number" type="text" />
-                  <button>Save My Personal Information</button>
+                  <button onClick={updateProfile}>
+                    Save My Personal Information
+                  </button>
                 </div>
                 <div className="account-business">
                   <h3>
@@ -106,7 +202,9 @@ const AccountEdit = () => {
                     label="Account Number"
                     type="text"
                   />
-                  <button>Save My Personal Information</button>
+                  <button onClick={updateBusiness}>
+                    Save My Personal Information
+                  </button>
                 </div>
                 <div className="account-password">
                   <h3>
@@ -124,7 +222,7 @@ const AccountEdit = () => {
                     label="Repeat Password"
                     type="password"
                   />
-                  <button>Update My Password</button>
+                  <button onClick={updatePassword}>Update My Password</button>
                 </div>
               </div>
             </div>

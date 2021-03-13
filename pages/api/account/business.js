@@ -1,5 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 let config = {
   method: "GET",
   headers: {
@@ -9,10 +7,10 @@ let config = {
 };
 
 export default async (req, res) => {
-  const slug = req.headers.data;
+  const token = req.headers.token;
 
   const response = await fetch(
-    `https://reb00t.uc.r.appspot.com/profile/${slug}`,
+    `https://reb00t.uc.r.appspot.com/account/business?t=${token}`,
     config
   );
   const data = await response.json();

@@ -1,4 +1,5 @@
 // libraries
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -9,6 +10,41 @@ import Leftbar from "../../components/Leftbar";
 
 const Account = () => {
   const router = useRouter();
+  const [profile, setProfile] = useState(null);
+  const [business, setBusiness] = useState(null);
+
+  useEffect(() => {
+    getProfileData();
+    getBusinessData();
+  }, []);
+
+  const getProfileData = async () => {
+    const token = localStorage.getItem("linqToken");
+
+    const response = await fetch("/api/account/profile", {
+      headers: new Headers({ "Content-Type": "application/json", token }),
+    });
+
+    const data = await response.json();
+
+    setProfile(data);
+  };
+
+  const getBusinessData = async () => {
+    const token = localStorage.getItem("linqToken");
+
+    const response = await fetch("/api/account/business", {
+      headers: new Headers({ "Content-Type": "application/json", token }),
+    });
+
+    const data = await response.json();
+
+    setBusiness(data);
+  };
+
+  if (!profile || !business) return <h1>Loading...</h1>;
+
+  console.log(business);
 
   return (
     <>
@@ -80,11 +116,11 @@ const Account = () => {
                   </h3>
                   <h6>Profile Picture</h6>
                   <h6>First Name</h6>
-                  <p>Tom</p>
+                  <p>{profile.firstname}</p>
                   <h6>Last Name</h6>
-                  <p>Brody</p>
+                  <p>{profile.lastname}</p>
                   <h6>Email Address</h6>
-                  <p>Tomtom123@gmail.com</p>
+                  <p>{profile.email}</p>
                   <h6>Address</h6>
                   <h6>City</h6>
                   <h6>Zip code</h6>
@@ -99,15 +135,15 @@ const Account = () => {
                   </h3>
                   <div>
                     <h6>Business Name</h6>
-                    <p>Not defined</p>
+                    <p>{business.businessName || "null"}</p>
                     <h6>Bank Name</h6>
-                    <p>Not defined</p>
+                    <p>{business.bankName || "null"}</p>
                     <h6>IBAN</h6>
-                    <p>Not defined</p>
+                    <p>{business.iban || "null"}</p>
                     <h6>Account Number</h6>
-                    <p>Not defined</p>
+                    <p>{business.accountNumber || "null"}</p>
                     <h6>Routing Number</h6>
-                    <p>Not defined</p>
+                    <p>{business.routingNumber || "null"}</p>
                   </div>
                 </div>
                 <div className="account-password">

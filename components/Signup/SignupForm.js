@@ -1,7 +1,13 @@
 // libraries
 import { useState } from "react";
 
-const SignupForm = ({ setShowPassword, showPassword, router }) => {
+const SignupForm = ({
+  setShowPassword,
+  showPassword,
+  router,
+  signUp,
+  loading,
+}) => {
   // states
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,7 +24,15 @@ const SignupForm = ({ setShowPassword, showPassword, router }) => {
   const handleForm = (e) => {
     e.preventDefault();
     if (validate()) {
-      router.push("/settings/call-sync");
+      // router.push("/settings/call-sync");
+      let name = fullName.split(" ");
+      signUp({
+        firstName: name[0],
+        lastName: name[1],
+        email: email,
+        password: password,
+        toc: terms,
+      });
     }
   };
 
@@ -133,7 +147,9 @@ const SignupForm = ({ setShowPassword, showPassword, router }) => {
           * Required
         </span>
       )}
-      <button className="signup-form__btn">Sign Up</button>
+      <button className="signup-form__btn">
+        {!loading ? "Sign Up" : "Loading..."}
+      </button>
       <span className="signup-form__login">
         Already have an account? <a href="#">Log In</a>
       </span>

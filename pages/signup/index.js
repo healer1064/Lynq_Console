@@ -9,7 +9,36 @@ import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const onSignUp = (_data) => {
+    console.log(_data);
+    setLoading(true);
+
+    async function signUpReq() {
+      const response = await fetch("/api/account/signup", {
+        headers: new Headers({
+          data: JSON.stringify(_data),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    signUpReq()
+      .then((res) => {
+        console.log("res", res);
+        localStorage.setItem("linqToken", res.token);
+        setLoading(false);
+        router.push("/account");
+      })
+      .catch((err) => {
+        console.log("signup error", err);
+        setLoading(false);
+        router.push("/account");
+      });
+  };
 
   return (
     <>
@@ -35,6 +64,8 @@ export default function Signup() {
             setShowPassword={setShowPassword}
             showPassword={showPassword}
             router={router}
+            signUp={onSignUp}
+            loading={loading}
           />
         </div>
       </div>

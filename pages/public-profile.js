@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import useSWR from "swr";
 
 // styles
 import styles from "../styles/EditProfile.module.sass";

@@ -34,7 +34,7 @@ const PublicScreenRightbar = ({
         <h3>Book a session</h3>
         <PublicScreenDropdown data={data} onHandle={onHandle} />
         {!loading ? (
-          slots.length > 0 && (
+          slots !== null && (
             <>
               <div className={styles.info}>
                 <h6>
@@ -70,7 +70,7 @@ const PublicScreenRightbar = ({
           <p>Loading...</p>
         )}
       </div>
-      {slots.length > 0 && (
+      {slots !== null && (
         <>
           <div className={styles.needs}>
             <h3>What you need to bring</h3>
