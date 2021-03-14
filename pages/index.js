@@ -3,7 +3,7 @@ import Head from "next/head";
 
 // components
 import Navbar from "../components/Navbar";
-import Plans from "../components/Home/Plans";
+import Plans from "../components/Plans/Plans";
 
 export default function Home() {
   return (

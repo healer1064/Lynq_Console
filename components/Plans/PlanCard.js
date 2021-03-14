@@ -1,9 +1,30 @@
-const PlanCard = ({ pricing, setPricing }) => {
+const PlanCard = ({
+  pricing,
+  setPricing,
+  plan,
+  setPlan,
+  checkPlan,
+  error,
+  setError,
+}) => {
+  const handleChange = (e) => {
+    if (!plan) {
+      setError(false);
+    }
+    setPlan(e.target.checked);
+  };
+
   return (
     <div className="plans-card">
       <div className="plans-card__title">Early Bird Special Plan</div>
       <div className="plans-card__free">
-        <div className="circle"></div>
+        <input
+          checked={plan}
+          onChange={(e) => handleChange(e)}
+          type="checkbox"
+          className="circle"
+        />
+        {/* <HomeSelect /> */}
         <span>$99/year</span>
         <strong>FREE</strong>
       </div>
@@ -29,10 +50,22 @@ const PlanCard = ({ pricing, setPricing }) => {
           <span>10% commission added on top of the session price</span>
         </li>
       </ul>
-      <a href="#" className="plans-card__next">
+      <div onClick={checkPlan} className="plans-card__next">
         <span>NEXT</span>
         <img src="/img/arrow-next.svg" alt="" />
-      </a>
+      </div>
+      {error && (
+        <span
+          style={{
+            color: "red",
+            fontSize: "12px",
+            marginBottom: "20px",
+            marginTop: "-10px",
+          }}
+        >
+          Please select a plan
+        </span>
+      )}
       <div
         onClick={() => setPricing(!pricing)}
         className="plans-card__seeother"

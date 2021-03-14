@@ -1,65 +1,24 @@
-import React from "react";
+// libraries
 import Head from "next/head";
+
+// components
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
 
 const home = () => {
   return (
     <>
       <Head>
+        <title>Home - Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
       </Head>
-      <header className="header">
-        <a href="#" className="header-logo">
-          <img src="/img/linq-logo.png" alt="" />
-        </a>
-        <div className="burger-menu">
-          <img src="/img/burger-menu.svg" alt="" />
-        </div>
-      </header>
+      <Navbar />
       <div className="page-wrp">
-        <div className="side-nav">
-          <nav>
-            <a href="#">
-              <img src="/img/nav-home.svg" alt="" />
-              <span>Home</span>
-            </a>
-            <a href="#" className="active">
-              <img src="/img/nav-appointments.svg" alt="" />
-              <span>Appointments</span>
-            </a>
-            <a href="#">
-              <img src="/img/nav-profile.svg" alt="" />
-              <span>Public Profile</span>
-            </a>
-            <div className="space"></div>
-            <a href="#">
-              <img src="/img/nav-settings.svg" alt="" />
-              <span>Settings</span>
-            </a>
-            <a href="#">
-              <img src="/img/nav-clients.svg" alt="" />
-              <span>Clients</span>
-            </a>
-            <a href="#">
-              <img src="/img/nav-payments.svg" alt="" />
-              <span>Payment</span>
-            </a>
-            <a href="#">
-              <img src="/img/nav-contact.svg" alt="" />
-              <span>Contact</span>
-            </a>
-          </nav>
-          <div className="side-nav__profile">
-            <div className="side-nav__profile-pic">
-              <img src="/img/profile-pic.png" alt="" />
-            </div>
-            <span>John doe</span>
-            <img src="/img/nav-profile-arr.svg" alt="" />
-          </div>
-        </div>
+        <Leftbar active="" />
         <div className="home-wrp">
           <div className="notifications__col">
             <div className="confirm__email">
@@ -127,7 +86,7 @@ const home = () => {
                 John.regiani@gmail.com
               </div>
             </div>
-            <div className="home-stats">
+            <div className="home-stats" style={{ paddingBottom: "50px" }}>
               <div className="home-stats__switch">
                 <div className="option">Today</div>
                 <div className="option">Weekly</div>

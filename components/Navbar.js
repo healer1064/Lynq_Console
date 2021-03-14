@@ -1,14 +1,14 @@
 // libraries
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Navbar = () => {
-  const router = useRouter();
-
   return (
     <header className="header">
-      <a href="#" className="header-logo " onClick={() => router.push("/")}>
-        <img src="/img/linq-logo.svg" alt="" />
-      </a>
+      <Link href="/home">
+        <a className="header-logo ">
+          <img src="/img/lynq-logo.png" alt="" />
+        </a>
+      </Link>
       <div className="burger-menu">
         <img src="/img/burger-menu.svg" alt="" />
       </div>

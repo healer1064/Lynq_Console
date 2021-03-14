@@ -1,5 +1,6 @@
 // libraries
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 // components
 import PlanCard from "./PlanCard";
@@ -8,13 +9,34 @@ import PricingSwitch from "./PricingSwitch";
 
 const Plans = () => {
   const [pricing, setPricing] = useState(false);
+  const [plan, setPlan] = useState(false);
+  const [error, setError] = useState(false);
+
+  const router = useRouter();
+
+  const checkPlan = () => {
+    if (plan) {
+      setError(false);
+      router.push("/signup");
+    } else {
+      setError(true);
+    }
+  };
 
   return (
     <div className="plans-wrp">
       <h1>
-        Join Hundreds of experts than use <b>Linq</b>
+        Join Hundreds of experts than use <b>Lynq</b>
       </h1>
-      <PlanCard pricing={pricing} setPricing={setPricing} />
+      <PlanCard
+        pricing={pricing}
+        setPricing={setPricing}
+        checkPlan={checkPlan}
+        plan={plan}
+        setPlan={setPlan}
+        error={error}
+        setError={setError}
+      />
       {pricing && (
         <>
           <div className="plans-pricing">
@@ -37,7 +59,7 @@ const Plans = () => {
             />
             <PricingCard
               title="Silver"
-              price="$9.9"
+              price="$9.99"
               data={[
                 "Unlimited event types",
                 "Unlimited clients",
@@ -49,7 +71,7 @@ const Plans = () => {
             />
             <PricingCard
               title="Premium"
-              price="$29.9"
+              price="$29.99"
               data={[
                 "Unlimited event types",
                 "Unlimited clients",

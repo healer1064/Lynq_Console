@@ -174,6 +174,7 @@ body
       border-radius: 5px
       text-decoration: none
       margin-bottom: 16px
+      cursor: pointer
       &:hover
         img
           transform: translateX(25%)
@@ -482,10 +483,13 @@ body
   width: 100%
   @include flex
   align-items: stretch
-  min-height: calc(100vh - 90px)
+  justify-content: flex-end
+  height: calc(100vh - 90px)
 .side-nav
   width: 17.78%
-  min-height: calc(100vh - 90px)
+  position: fixed
+  left: 0
+  height: calc(100vh - 90px)
   @include flex
   flex-direction: column
   justify-content: space-between
@@ -2659,9 +2663,198 @@ body
           font-size: 13px
           line-height: 18px
           color: #5c5c5c
+
+.home
+  &-wrp
+    width: calc(100% - 17.78%)
+    min-height: calc(100vh - 90px)
+    background: #FFF
+    @include flex
+    flex-direction: column
+    
+    .notifications__col
+      position: sticky
+      top: 90px
+      width: 100%
+      @include flex
+      flex-direction: column
+      z-index: 1
+      .confirm__email
+        width: 100%
+        padding: 18px 59px 18px 32px
+        background: $blue
+        @include flex
+        align-items: center
+        justify-content: space-between
+        flex-wrap: wrap
+        font-size: 14px
+        line-height: 17px
+        color: #FFF
+        a
+          font-weight: 600
+          color: #FFF
+      .session
+        width: 100%
+        padding: 8px 41px 8px 32px
+        background: #39BDCD
+        @include flex
+        align-items: center
+        justify-content: space-between
+        span
+          font-size: 14px
+          line-height: 17px
+          color: #FFF
+        a
+          width: 142px
+          border: 1px solid #EF7888
+          cursor: pointer
+          font-weight: bold
+          font-size: 12px
+          line-height: 37px
+          border-radius: 5px
+          text-decoration: none
+          text-align: center
+          &.access__live
+            background: #FFF
+            color: #EF7888
+          &.start__live
+            background: #EF7888
+            color: #FFF
+
+  &-cnt
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    padding: 0 64px 0 32px
+    margin-top: 35px
+    margin-bottom: 128px
+    &__date
+      font-weight: 800
+      font-size: 32px
+      line-height: 39px
+      color: $black
+      margin-bottom: 32px
+    h2
+      margin: 0 0 8px
+      font-weight: 600
+      font-size: 24px
+      line-height: 29px
+      color: $black
+  &-stats
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    margin-top: 64px
+    &__select
+      display: none
+    &__switch
+      margin-bottom: 40px
+      @include flex
+      background: #F4F5FA
+      border-radius: 5px
+      .option
+        padding: 14px 24px
+        cursor: pointer
+        font-size: 16px
+        line-height: 20px
+        color: $grey
+        border-radius: 5px
+        &.active
+          box-shadow: 0px 6px 20px rgba(181, 181, 181, 0.42)
+          background: #FFF
+          color: $black
+    &__row
+      width: 100%
+      @include flex
+      justify-content: space-between
+      flex-wrap: wrap
+      .card
+        position: relative
+        width: calc(100% / 3 - (24px * 2) / 3)
+        border: #FFF
+        border: 1px solid #D9E0E9
+        box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.08)
+        border-radius: 5px
+        height: 190px
+        @include flex
+        flex-direction: column
+        align-items: flex-start
+        padding: 24px
+        .icon
+          position: absolute
+          height: 32px
+          width: 32px
+          top: 16px
+          right: 24px
+          img
+            height: 100%
+            width: 100%
+        .title
+          font-weight: 600
+          font-size: 24px
+          line-height: 29px
+          color: $black-2
+          margin-bottom: 32px
+        .num
+          align-self: center
+          font-weight: bold
+          font-size: 40px
+          line-height: 49px
+          color: $black
         
             
 @media (max-width: $breakpointLaptop)
+  .home
+    &-wrp
+      width: calc(100% - 240px)
+      min-height: calc(100vh - 66px)
+      .notifications__col
+        top: 66px
+        .confirm__email
+          padding: 12px 53px 12px 32px
+          font-size: 12px
+          line-height: 16px
+        .session
+          span
+            font-size: 12px
+            line-height: 16px
+          a
+            line-height: 32px
+    &-cnt
+      padding: 0 32px
+      margin-top: 24px
+      &__date
+        font-size: 22px
+        line-height: 30px
+        margin-bottom: 8px
+      h2
+        margin-bottom: 12px
+        font-size: 18px
+        line-height: 25px
+    &-stats
+      margin-top: 40px
+      &__switch
+        margin-bottom: 32px
+        .option
+          padding: 12px 29px
+          font-size: 14px
+          line-height: 17px
+      &__row
+        .card
+          height: 153px
+          .icon
+            height: 24px
+            width: 24px
+            top: 24px
+          .title
+            font-size: 18px
+            line-height: 25px
+            margin-bottom: 12px
+          .num
+            font-size: 32px
+            line-height: 44px
   .header
     height: 66px
     &-logo
@@ -4373,3 +4566,65 @@ body
               font-size: 16px
               line-height: 20px
               color: #303030
+  .home
+    &-wrp
+      width: 100%
+      .notifications__col
+        .confirm__email
+          padding: 16px
+          line-height: 15px
+        .session
+          padding: 6px 12px
+          a
+            font-size: 10px
+            min-width: 105px
+            width: auto
+            margin-left: 4px
+    &-cnt
+      padding: 0 16px
+      margin-top: 32px
+      margin-bottom: 40px
+      &__date
+        line-height: 27px
+        margin-bottom: 12px
+      h2
+        line-height: 22px
+    &-stats
+      margin-top: 34px
+      &__switch
+        display: none
+      &__select
+        display: block
+        width: 100%
+        margin-bottom: 40px
+        height: 48px
+        padding: 0 24px
+        border: none
+        background-color: #F4F5FA
+        background-image: url('../public/img/home-select-arrow.svg')
+        background-repeat: no-repeat
+        background-position: top 16px right 24px
+        font-size: 16px
+        line-height: 20px
+        color: $black
+        -moz-appearance: none
+        -webkit-appearance: none
+        &::-ms-expand
+          display: none
+        &:focus
+          outline: none
+      &__row
+        flex-wrap: wrap
+        .card
+          width: 100%
+          margin-bottom: 16px
+          height: 173px
+          .icon
+            width: 32px
+            height: 32px
+            top: 16px
+          .title
+            line-height: 22px
+            margin-bottom: 32px
+          .num
+            line-height: 39px 

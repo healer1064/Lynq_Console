@@ -2,42 +2,38 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const SignupForm = ({ setShowPassword, showPassword, signUp, loading }) => {
+const LoginForm = ({ setShowPassword, showPassword }) => {
   // states
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [terms, setTerms] = useState(false);
 
   const [errors, setErrors] = useState({
-    nameError: false,
     emailError: false,
     passwordError: false,
-    termsError: false,
   });
 
   const handleForm = (e) => {
     e.preventDefault();
     if (validate()) {
-      let name = fullName.split(" ");
-      signUp({
-        firstName: name[0],
-        lastName: name[1],
-        email: email,
-        password: password,
-        toc: terms,
-      });
+      //   let name = fullName.split(" ");
+      //   signUp({
+      //     firstName: name[0],
+      //     lastName: name[1],
+      //     email: email,
+      //     password: password,
+      //     toc: terms,
+      //   });
+      alert("done");
     }
   };
 
   const validate = () => {
-    if (fullName !== "" && email !== "" && password !== "" && terms === true) {
+    if (email !== "" && password) {
       setErrors({
         ...errors,
-        nameError: false,
         emailError: false,
         passwordError: false,
-        termsError: false,
       });
 
       return true;
@@ -45,10 +41,8 @@ const SignupForm = ({ setShowPassword, showPassword, signUp, loading }) => {
 
     setErrors({
       ...errors,
-      nameError: fullName === "" ? true : false,
       emailError: email === "" ? true : false,
       passwordError: password === "" ? true : false,
-      termsError: terms === false ? true : false,
     });
 
     return false;
@@ -56,25 +50,8 @@ const SignupForm = ({ setShowPassword, showPassword, signUp, loading }) => {
 
   return (
     <form onSubmit={handleForm}>
-      <h2>Sign Up</h2>
-      <p>To Access the panel Register with following information</p>
-      <div className="signup-form__inp">
-        <strong>Full Name</strong>
-        <input
-          value={fullName}
-          onChange={(e) => {
-            setFullName(e.target.value);
-            if (errors.nameError) {
-              setErrors({ ...errors, nameError: false });
-            }
-          }}
-          type="text"
-          placeholder="Enter your full name"
-        />
-        {errors.nameError && (
-          <span style={{ color: "red", fontSize: "0.8rem" }}>* Required</span>
-        )}
-      </div>
+      <h2>Login</h2>
+      <p>To Access the panel Login with your credentials</p>
       <div className="signup-form__inp">
         <strong>Email</strong>
         <input
@@ -122,44 +99,23 @@ const SignupForm = ({ setShowPassword, showPassword, signUp, loading }) => {
           checked={terms}
           onChange={(e) => {
             setTerms(e.target.checked);
-            if (errors.termsError) {
-              setErrors({ ...errors, termsError: false });
-            }
           }}
         />
         <div className="checkmark"></div>
-        <span>
-          I have read, and I accept the{" "}
-          <Link href="/terms&conditions">
-            <strong style={{ fontWeight: "bold", cursor: "pointer" }}>
-              Terms and Conditions.
-            </strong>
-          </Link>
-        </span>
+        <span>Keep Me Logged In</span>
       </label>
-      {errors.termsError && (
-        <span
-          style={{
-            color: "red",
-            fontSize: "0.8rem",
-            marginTop: "-26px",
-            marginBottom: "26px",
-          }}
-        >
-          * Required
-        </span>
-      )}
       <button className="signup-form__btn">
-        {!loading ? "Sign Up" : "Loading..."}
+        {/* {!loading ? "Sign Up" : "Loading..."} */}
+        Login
       </button>
       <span className="signup-form__login">
-        Already have an account?{" "}
-        <Link href="/login">
-          <a>Log In</a>
+        Don't have an account?{" "}
+        <Link href="/signup">
+          <a>Sign Up</a>
         </Link>
       </span>
     </form>
   );
 };
 
-export default SignupForm;
+export default LoginForm;

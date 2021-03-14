@@ -2,6 +2,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 // components
 import SignupForm from "../../components/Signup/SignupForm";
@@ -31,12 +32,12 @@ export default function Signup() {
         console.log("res", res);
         localStorage.setItem("linqToken", res.token);
         setLoading(false);
-        router.push("/account");
+        router.push("/home");
       })
       .catch((err) => {
         console.log("signup error", err);
         setLoading(false);
-        router.push("/account");
+        router.push("/home");
       });
   };
 
@@ -53,17 +54,14 @@ export default function Signup() {
       <div className="signup">
         <SignupLeftbar />
         <div className="signup-form">
-          <a
-            href="#"
-            className="signup-form__logo"
-            onClick={() => router.push("/")}
-          >
-            <img src="/img/linq-logo-big.svg" alt="" />
-          </a>
+          <Link href="/">
+            <a className="signup-form__logo">
+              <img src="/img/lynq-logo.png" alt="" />
+            </a>
+          </Link>
           <SignupForm
             setShowPassword={setShowPassword}
             showPassword={showPassword}
-            router={router}
             signUp={onSignUp}
             loading={loading}
           />
