@@ -1,10 +1,10 @@
 // styles
 import styles from "../../styles/EditProfile.module.sass";
 
-const PublicScreenDropdown = ({ data }) => {
+const PublicScreenDropdown = ({ data, state, setState }) => {
   return (
     <div className={styles.edit_profile_dropdown}>
-      <select>
+      <select value={state} onChange={(e) => setState(e.target.value)}>
         {data.map((item, index) => {
           return <option key={index}>{item}</option>;
         })}

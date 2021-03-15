@@ -7,44 +7,8 @@ import AppointmentsTop from "../../components/Appointments/AppointmentsTop";
 import Leftbar from "../../components/Leftbar";
 import AppointmentsList from "../../components/Appointments/AppointmentsList";
 
-const appointments = [
-  {
-    day: "Thursday",
-    date: "January 28, 2021",
-    appointments: "0",
-    status: "active",
-  },
-  {
-    day: "Friday",
-    date: "January 29, 2021",
-    appointments: "2",
-    status: "active",
-  },
-  {
-    day: "Thursday",
-    date: "January 28, 2021",
-    appointments: "0",
-    status: "active",
-  },
-  {
-    day: "Friday",
-    date: "January 29, 2021",
-    appointments: "2",
-    status: "active",
-  },
-  {
-    day: "Thursday",
-    date: "January 28, 2021",
-    appointments: "0",
-    status: "active",
-  },
-  {
-    day: "Friday",
-    date: "January 29, 2021",
-    appointments: "2",
-    status: "inactive",
-  },
-];
+// fake data
+import { appointments } from "../../utils/data/appointmentsFake";
 
 export default function Appointments() {
   return (

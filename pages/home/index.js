@@ -1,14 +1,17 @@
 // libraries
 import Head from "next/head";
+import { useState } from "react";
 
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
-import { useState } from "react";
+import EmailConfirmation from "../../components/Home/EmailConfirmation";
+import AppointmentCard from "../../components/Home/AppointmentCard";
 import Stats from "../../components/Home/Stats";
 
 // mockup data
 import data from "../../utils/data";
+import { appointments } from "../../utils/data/homefake";
 
 const home = () => {
   const [index, setIndex] = useState(1);
@@ -29,13 +32,7 @@ const home = () => {
         <Leftbar active="" />
         <div className="home-wrp">
           <div className="notifications__col">
-            <div className="confirm__email">
-              <span>
-                Please confirm your email address. A confirmation email was sent
-                to IlhamdanShalima@gmail.com
-              </span>
-              <a href="#">Resend Confirmation</a>
-            </div>
+            <EmailConfirmation />
             <div className="session">
               <span>Current live session | 08:00 AM - 09:00 AM</span>
               <a href="#" className="access__live">
@@ -54,46 +51,9 @@ const home = () => {
           <div className="home-cnt">
             <div className="home-cnt__date">Wednesday, February 10, 2021</div>
             <h2>Today’s Session</h2>
-            <div className="appointments-col__event blue">
-              <div className="title">Meditation 30 Min</div>
-              <div className="det">
-                Wednesday, 24, 2021
-                <div className="line"></div>
-                <b>10:00 AM - 11:00 AM</b>
-                <div className="line"></div>
-                <b>60 Min</b>
-              </div>
-              <div className="client">
-                Client: John Regiani
-                <div className="line"></div>
-                John.regiani@gmail.com
-              </div>
-            </div>
-            <div className="appointments-col__event red">
-              <div className="title">Event in your google calendar</div>
-              <div className="det">
-                Wednesday, 24, 2021
-                <div className="line"></div>
-                <b>10:00 AM - 11:00 AM</b>
-                <div className="line"></div>
-                <b>60 Min</b>
-              </div>
-            </div>
-            <div className="appointments-col__event blue">
-              <div className="title">Meditation 30 Min</div>
-              <div className="det">
-                Wednesday, 24, 2021
-                <div className="line"></div>
-                <b>10:00 AM - 11:00 AM</b>
-                <div className="line"></div>
-                <b>60 Min</b>
-              </div>
-              <div className="client">
-                Client: John Regiani
-                <div className="line"></div>
-                John.regiani@gmail.com
-              </div>
-            </div>
+            {appointments.map((item, index) => (
+              <AppointmentCard key={index} data={item} />
+            ))}
             <div className="home-stats" style={{ paddingBottom: "50px" }}>
               <div className="home-stats__switch">
                 <div

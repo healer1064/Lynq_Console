@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import { useState } from "react";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -9,6 +10,14 @@ import AppointmentNewButtons from "../../components/AppointmentNew/AppointmentNe
 import AppointmentNewTime from "../../components/AppointmentNew/AppointmentNewTime";
 
 export default function AppointmentNew() {
+  // states
+  const [eventType, setEventType] = useState("");
+  const [duration, setDuration] = useState("");
+  const [price, setPrice] = useState();
+  const [day, setDay] = useState();
+  const [time, setTime] = useState();
+  const [email, setEmail] = useState("");
+
   return (
     <>
       <Head>
@@ -27,23 +36,47 @@ export default function AppointmentNew() {
             <h2>Appointment</h2>
             <label>
               <strong>Event Type</strong>
-              <select name="" id=""></select>
+              <select
+                value={eventType}
+                onChange={(e) => setEventType(e.target.value)}
+              >
+                <option>Select Event Type</option>
+                <option value="option 1">Option 1</option>
+                <option value="option 2">Option 2</option>
+                <option value="option 3">Option 3</option>
+              </select>
             </label>
             <label>
               <strong>Duration (in minutes)</strong>
-              <input type="text" placeholder="Example: 120 Min" />
+              <input
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+                type="text"
+                placeholder="Example: 120 Min"
+              />
             </label>
             <label className="small">
               <strong>Price</strong>
-              <input type="text" />
+              <input
+                type="number"
+                min="1"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </label>
             <label className="small">
               <strong>Day</strong>
-              <select name="" id=""></select>
+              <select value={day} onChange={(e) => setDay(e.target.value)}>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
             </label>
             <strong>Time</strong>
-            <AppointmentNewTime />
-            <AppointmentNewShare />
+            <AppointmentNewTime time={time} setTime={setTime} />
+            <AppointmentNewShare email={email} setEmail={setEmail} />
             <AppointmentNewButtons />
           </div>
         </div>

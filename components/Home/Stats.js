@@ -1,4 +1,4 @@
-import React from "react";
+// libraries
 import AnimatedNumber from "animated-number-react";
 
 const Stats = ({ stats }) => {
