@@ -2,6 +2,9 @@
 import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import LoginForm from "../../components/Login/LoginForm";
@@ -9,6 +12,33 @@ import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 
 const index = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const onSignIn = (_data) => {
+    setLoading(true);
+
+    async function signInReq() {
+      const response = await fetch("/api/account/signin", {
+        headers: new Headers({
+          data: JSON.stringify(_data),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    signInReq().then((res) => {
+      console.log("res", res);
+      setLoading(false);
+      if (res?.message === undefined) {
+        localStorage.setItem("linqToken", res.token);
+        router.push("/home");
+      } else {
+        toast.error(res.message);
+      }
+    });
+  };
 
   return (
     <>
@@ -20,6 +50,7 @@ const index = () => {
           rel="stylesheet"
         />
       </Head>
+      <ToastContainer />
       <div className="signup">
         <SignupLeftbar />
         <div className="signup-form">
@@ -31,8 +62,8 @@ const index = () => {
           <LoginForm
             setShowPassword={setShowPassword}
             showPassword={showPassword}
-            // signUp={onSignUp}
-            // loading={loading}
+            signIn={onSignIn}
+            loading={loading}
           />
         </div>
       </div>

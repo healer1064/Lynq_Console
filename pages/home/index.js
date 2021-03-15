@@ -4,8 +4,16 @@ import Head from "next/head";
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
+import { useState } from "react";
+import Stats from "../../components/Home/Stats";
+
+// mockup data
+import data from "../../utils/data";
 
 const home = () => {
+  const [index, setIndex] = useState(1);
+  const [stats, setStats] = useState(data.home.stats.today);
+
   return (
     <>
       <Head>
@@ -88,42 +96,52 @@ const home = () => {
             </div>
             <div className="home-stats" style={{ paddingBottom: "50px" }}>
               <div className="home-stats__switch">
-                <div className="option">Today</div>
-                <div className="option">Weekly</div>
-                <div className="option active">Monthly</div>
-                <div className="option">Yearly</div>
+                <div
+                  className={`option  ${index === 1 && "active"}`}
+                  onClick={() => {
+                    setIndex(1);
+                    setStats(data.home.stats.today);
+                  }}
+                >
+                  Today
+                </div>
+                <div
+                  className={`option  ${index === 2 && "active"}`}
+                  onClick={() => {
+                    setIndex(2);
+                    setStats(data.home.stats.weekly);
+                  }}
+                >
+                  Weekly
+                </div>
+                <div
+                  className={`option  ${index === 3 && "active"}`}
+                  onClick={() => {
+                    setIndex(3);
+                    setStats(data.home.stats.monthly);
+                  }}
+                >
+                  Monthly
+                </div>
+                <div
+                  className={`option  ${index === 4 && "active"}`}
+                  onClick={() => {
+                    setIndex(4);
+                    setStats(data.home.stats.yearly);
+                  }}
+                >
+                  Yearly
+                </div>
               </div>
-              <select name="" id="" className="home-stats__select">
+              {/* <select name="" id="" className="home-stats__select">
                 <option value="">Today</option>
                 <option value="">Weekly</option>
                 <option value="" selected>
                   Monthly
                 </option>
                 <option value="">Yearly</option>
-              </select>
-              <div className="home-stats__row">
-                <div className="card">
-                  <div className="icon">
-                    <img src="/img/home-stats-revenue.svg" alt="" />
-                  </div>
-                  <div className="title">Revenue</div>
-                  <div className="num">$4,350</div>
-                </div>
-                <div className="card">
-                  <div className="icon">
-                    <img src="/img/home-stats-session.svg" alt="" />
-                  </div>
-                  <div className="title">Session</div>
-                  <div className="num">33</div>
-                </div>
-                <div className="card">
-                  <div className="icon">
-                    <img src="/img/home-stats-request.svg" alt="" />
-                  </div>
-                  <div className="title">Request</div>
-                  <div className="num">36</div>
-                </div>
-              </div>
+              </select> */}
+              <Stats stats={stats} />
             </div>
           </div>
         </div>

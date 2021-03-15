@@ -7,11 +7,15 @@ import Link from "next/link";
 // components
 import SignupForm from "../../components/Signup/SignupForm";
 import SignupLeftbar from "../../components/Signup/SignupLeftbar";
+import Terms from "../../components/Terms";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
+  const toggle = () => setIsOpen(!isOpen);
 
   const onSignUp = (_data) => {
     console.log(_data);
@@ -37,7 +41,6 @@ export default function Signup() {
       .catch((err) => {
         console.log("signup error", err);
         setLoading(false);
-        router.push("/home");
       });
   };
 
@@ -64,8 +67,10 @@ export default function Signup() {
             showPassword={showPassword}
             signUp={onSignUp}
             loading={loading}
+            toggle={toggle}
           />
         </div>
+        {isOpen && <Terms toggle={toggle} />}
       </div>
     </>
   );

@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #FFF;
+  background: #fff;
   margin: 0;
   font-family: "Open Sans";
 }
@@ -16,8 +16,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 2;
-  background: #FFF;
-  border-bottom: 1px solid #D9E0E9;
+  background: #fff;
+  border-bottom: 1px solid #d9e0e9;
   padding: 0 64px;
   display: -webkit-box;
   display: -moz-box;
@@ -61,13 +61,13 @@ body {
 }
 .plans-wrp h1 b {
   font-weight: inherit;
-  color: #7E88F4;
+  color: #7e88f4;
 }
 .plans-card {
   width: 100%;
   max-width: 640px;
-  background: #F8F8FF;
-  border: 1px solid #D9E0E9;
+  background: #f8f8ff;
+  border: 1px solid #d9e0e9;
   border-radius: 5px;
   padding: 40px 56px 56px;
   display: -webkit-box;
@@ -112,7 +112,7 @@ body {
   font-weight: bold;
   font-size: 40px;
   line-height: 49px;
-  color: #7E88F4;
+  color: #7e88f4;
   margin-top: 10px;
 }
 .plans-card ul {
@@ -155,7 +155,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #39BDCD;
+  background: #39bdcd;
   border-radius: 5px;
   text-decoration: none;
   margin-bottom: 16px;
@@ -167,7 +167,7 @@ body {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #FFF;
+  color: #fff;
   margin-right: 8px;
 }
 .plans-card__next img {
@@ -187,7 +187,7 @@ body {
   font-weight: 600;
   font-size: 12px;
   line-height: 15px;
-  color: #2889F0;
+  color: #2889f0;
 }
 .plans-pricing {
   margin-top: 64px;
@@ -241,7 +241,7 @@ body {
   height: 48px;
   display: block;
   border-radius: 60px;
-  background: #7E88F4;
+  background: #7e88f4;
   position: relative;
 }
 .plans-pricing__toggle .toggle-control::after {
@@ -254,7 +254,7 @@ body {
   position: absolute;
   left: 4px;
   top: 4px;
-  background: #FFF;
+  background: #fff;
 }
 .plans-pricing__toggle input {
   display: none;
@@ -276,8 +276,8 @@ body {
   width: calc(100% / 3 - 24px);
   margin: 0 12px;
   padding: 40px;
-  background: #FFF;
-  border: 2px solid #D9E0E9;
+  background: #fff;
+  border: 2px solid #d9e0e9;
   border-radius: 12px;
   display: -webkit-box;
   display: -moz-box;
@@ -292,7 +292,7 @@ body {
   box-shadow: 4px 24px 32px rgba(126, 138, 246, 0.1);
 }
 .plans-pricing__card:hover .plans-pricing__card-btn {
-  background: #39BDCD;
+  background: #39bdcd;
 }
 .plans-pricing__card-type {
   font-weight: 500;
@@ -329,7 +329,7 @@ body {
   position: relative;
   font-size: 16px;
   line-height: 150%;
-  color: #7A7A7A;
+  color: #7a7a7a;
 }
 .plans-pricing__card ul li::before {
   content: "";
@@ -339,7 +339,7 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 100%;
-  background: #39BDCD;
+  background: #39bdcd;
 }
 .plans-pricing__card-btn {
   width: 100%;
@@ -347,13 +347,13 @@ body {
   text-align: center;
   text-transform: uppercase;
   padding: 16px 0;
-  background: #C1C1C1;
+  background: #c1c1c1;
   border-radius: 5px;
   text-decoration: none;
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #FFF;
+  color: #fff;
   margin-top: 40px;
   transition: all 0.2s ease-in-out;
 }
@@ -368,7 +368,7 @@ body {
 }
 .signup-left {
   width: 51.11%;
-  background: #F8F8FF;
+  background: #f8f8ff;
   min-height: 100vh;
   padding: 48px 98px 82px;
   display: -webkit-box;
@@ -384,7 +384,7 @@ body {
   width: 94%;
   margin-left: 10px;
   margin: 0 0 97px 10px;
-  color: #2B2B32;
+  color: #2b2b32;
   font-size: 32px;
   line-height: 39px;
 }
@@ -460,8 +460,8 @@ body {
 .signup-form__inp input {
   width: 100%;
   padding: 14px 24px;
-  background-color: #FFF;
-  border: 1px solid #C0C0C9;
+  background-color: #fff;
+  border: 1px solid #c0c0c9;
   border-radius: 6px;
   font-family: "Open Sans";
 }
@@ -470,7 +470,7 @@ body {
 }
 .signup-form__inp input::placeholder {
   font-family: "Open Sans";
-  color: #C9C9C9;
+  color: #c9c9c9;
   font-size: 14px;
   line-height: 22px;
 }
@@ -498,7 +498,7 @@ body {
   margin-left: 32px;
   font-size: 14px;
   line-height: 24px;
-  color: #5C5C5C;
+  color: #5c5c5c;
 }
 .signup-form__terms input {
   position: absolute;
@@ -507,8 +507,8 @@ body {
   width: 0;
 }
 .signup-form__terms input:checked ~ .checkmark {
-  background: #7E88F4;
-  border-color: #7E88F4;
+  background: #7e88f4;
+  border-color: #7e88f4;
 }
 .signup-form__terms input:checked ~ .checkmark::after {
   display: block;
@@ -519,8 +519,8 @@ body {
   left: 3px;
   height: 18px;
   width: 18px;
-  background: #FFF;
-  border: 2px solid #A6A8B5;
+  background: #fff;
+  border: 2px solid #a6a8b5;
   border-radius: 4px;
 }
 .signup-form__terms .checkmark::after {
@@ -539,7 +539,7 @@ body {
 }
 .signup-form__btn {
   width: 100%;
-  background: #7E88F4;
+  background: #7e88f4;
   border-radius: 6px;
   border: none;
   cursor: pointer;
@@ -548,7 +548,7 @@ body {
   font-weight: bold;
   font-size: 16px;
   line-height: 20px;
-  color: #FFF;
+  color: #fff;
 }
 .signup-form__login {
   align-self: center;
@@ -559,7 +559,7 @@ body {
 .signup-form__login a {
   text-decoration: none;
   font-weight: 600;
-  color: #7E88F4;
+  color: #7e88f4;
 }
 
 .page-wrp {
@@ -583,7 +583,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #7E88F4;
+  background: #7e88f4;
 }
 .side-nav nav {
   width: 100%;
@@ -607,7 +607,7 @@ body {
   text-decoration: none;
 }
 .side-nav nav a.active {
-  background: #717BE4;
+  background: #717be4;
 }
 .side-nav nav a img {
   height: 21px;
@@ -616,7 +616,7 @@ body {
 .side-nav nav a span {
   font-size: 16px;
   line-height: 20px;
-  color: #FFF;
+  color: #fff;
 }
 .side-nav nav .space {
   height: 80px;
@@ -647,14 +647,14 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  color: #F6FAF9;
+  color: #f6faf9;
   margin-right: 17px;
 }
 
 .content-wrp {
   width: calc(100% - 17.78%);
   min-height: calc(100vh - 90px);
-  background: #FFF;
+  background: #fff;
   padding: 0 64px 0 32px;
 }
 
@@ -674,12 +674,12 @@ body {
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
-  color: #B1B6BD;
-  border-bottom: 2px solid #FFF;
+  color: #b1b6bd;
+  border-bottom: 2px solid #fff;
 }
 .settings-types .option.active {
-  color: #7E88F4;
-  border-color: #7E88F4;
+  color: #7e88f4;
+  border-color: #7e88f4;
   font-weight: bold;
 }
 .settings-types__mobile {
@@ -706,8 +706,8 @@ body {
   flex-direction: column;
   width: calc(72.06% - 32px);
   margin-right: 32px;
-  background: #FFF;
-  border: 1px solid #D9E0E9;
+  background: #fff;
+  border: 1px solid #d9e0e9;
   box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.04);
   border-radius: 5px;
 }
@@ -727,7 +727,7 @@ body {
   display: flex;
   align-items: flex-start;
   padding: 0 24px;
-  border-top: 1px solid #D9E0E9;
+  border-top: 1px solid #d9e0e9;
 }
 .setup-table__day {
   width: 15.91%;
@@ -776,7 +776,7 @@ body {
 .setup-table__col .time__row:last-child {
   margin-bottom: 0;
 }
-.setup-table__col .time__row input[type=time] {
+.setup-table__col .time__row input[type="time"] {
   border: 1px solid #838383;
   border-radius: 5px;
   padding: 12px 0 11px;
@@ -787,10 +787,12 @@ body {
   line-height: 17px;
   color: #303030;
 }
-.setup-table__col .time__row input[type=time]:focus {
+.setup-table__col .time__row input[type="time"]:focus {
   outline: none;
 }
-.setup-table__col .time__row input[type=time]::-webkit-calendar-picker-indicator {
+.setup-table__col
+  .time__row
+  input[type="time"]::-webkit-calendar-picker-indicator {
   background: none;
   display: none;
 }
@@ -825,8 +827,8 @@ body {
 }
 .setup-notifications__card {
   width: 100%;
-  background: #FFF;
-  border: 1px solid #D9E0E9;
+  background: #fff;
+  border: 1px solid #d9e0e9;
   border-radius: 5px;
   padding: 16px 24px;
   display: -webkit-box;
@@ -886,7 +888,7 @@ body {
   padding: 20px 24px 32px;
   position: relative;
   margin-bottom: 24px;
-  border: 1px solid #D9E0E9;
+  border: 1px solid #d9e0e9;
   box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.04);
   border-radius: 5px;
   display: -webkit-box;
@@ -914,11 +916,11 @@ body {
 }
 .events-row__card .actions__popup {
   display: none;
-  background: #FFF;
+  background: #fff;
   position: absolute;
   top: 38px;
   right: -92px;
-  border: 1px solid #D9E0E9;
+  border: 1px solid #d9e0e9;
   box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16);
   border-radius: 5px;
   z-index: 1;
@@ -937,7 +939,7 @@ body {
   margin-bottom: 8px;
   font-size: 14px;
   line-height: 17px;
-  color: #5C5C5C;
+  color: #5c5c5c;
 }
 .events-row__card .actions__popup span:last-child {
   margin-bottom: 0;
@@ -984,7 +986,7 @@ body {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  color: #5C5C5C;
+  color: #5c5c5c;
 }
 .events-row__card .btm span.duration {
   margin-bottom: 8px;
@@ -998,7 +1000,7 @@ body {
   height: 32px;
   display: block;
   border-radius: 60px;
-  background: #CBCCCB;
+  background: #cbcccb;
   position: relative;
 }
 .events-row__toggle .toggle-control::after {
@@ -1011,13 +1013,13 @@ body {
   position: absolute;
   left: 2px;
   top: 2px;
-  background: #FFF;
+  background: #fff;
 }
 .events-row__toggle input {
   display: none;
 }
 .events-row__toggle input:checked + .toggle-control {
-  background: #18B315;
+  background: #18b315;
 }
 .events-row__toggle input:checked + .toggle-control::after {
   left: 34px;
@@ -1056,7 +1058,7 @@ body {
 }
 .events-edit__inner textarea {
   width: 100%;
-  border: 1px solid #9FA8B5;
+  border: 1px solid #9fa8b5;
   border-radius: 5px;
   padding: 8px 16px;
   font-family: "Open Sans";
@@ -1068,7 +1070,7 @@ body {
   font-family: "Open Sans";
   font-size: 14px;
   line-height: 24px;
-  color: #C9C9C9;
+  color: #c9c9c9;
 }
 .events-edit__inner textarea:focus {
   outline: none;
@@ -1088,7 +1090,7 @@ body {
   right: 16px;
   font-size: 12px;
   line-height: 24px;
-  color: #C9C9C9;
+  color: #c9c9c9;
 }
 .events-edit__inner .need {
   padding-left: 16px;
@@ -1105,7 +1107,7 @@ body {
   right: 16px;
   font-size: 12px;
   line-height: 24px;
-  color: #C9C9C9;
+  color: #c9c9c9;
 }
 .events-edit__inner .policy {
   padding-left: 16px;
@@ -1142,23 +1144,23 @@ body {
 .events-edit__inner .radios__custom {
   width: 100%;
 }
-.events-edit__inner .radios__custom input[type=text] {
+.events-edit__inner .radios__custom input[type="text"] {
   margin-left: 40px;
   flex: 1;
   padding: 14px 24px;
   border-radius: 5px;
-  border: 1px solid #9FA8B5;
+  border: 1px solid #9fa8b5;
   font-family: "Open Sans";
   font-size: 14px;
   line-height: 22px;
 }
-.events-edit__inner .radios__custom input[type=text]:focus {
+.events-edit__inner .radios__custom input[type="text"]:focus {
   outline: none;
 }
-.events-edit__inner .radios__custom input[type=text]::placeholder {
+.events-edit__inner .radios__custom input[type="text"]::placeholder {
   font-size: 14px;
   line-height: 22px;
-  color: #C9C9C9;
+  color: #c9c9c9;
 }
 .events-edit__inner .radios label {
   display: -webkit-box;
@@ -1188,17 +1190,17 @@ body {
   width: 20px;
   height: 20px;
   border-radius: 100%;
-  background: #FFF;
+  background: #fff;
 }
-.events-edit__inner .radios input[type=radio] {
+.events-edit__inner .radios input[type="radio"] {
   opacity: 0;
   position: absolute;
   cursor: pointer;
 }
-.events-edit__inner .radios input[type=radio]:checked ~ .checkmark {
-  background: #7E88F4;
+.events-edit__inner .radios input[type="radio"]:checked ~ .checkmark {
+  background: #7e88f4;
 }
-.events-edit__inner .radios input[type=radio]:checked ~ .checkmark::after {
+.events-edit__inner .radios input[type="radio"]:checked ~ .checkmark::after {
   height: 12px;
   width: 12px;
   top: 6px;
@@ -1220,7 +1222,7 @@ body {
 }
 .events-edit__name input {
   width: 100%;
-  border: 1px solid #9FA8B5;
+  border: 1px solid #9fa8b5;
   border-radius: 5px;
   padding: 0 16px;
   height: 52px;
@@ -1263,7 +1265,7 @@ body {
   line-height: 52px;
   width: 146px;
   text-align: center;
-  border: 1px solid #7E88F4;
+  border: 1px solid #7e88f4;
   border-radius: 5px;
   cursor: pointer;
   font-family: "Open Sans";
@@ -1273,13 +1275,13 @@ body {
 }
 .events-edit__btns-cancel {
   font-weight: 500;
-  color: #7E88F4;
-  background: #FFF;
+  color: #7e88f4;
+  background: #fff;
   margin-right: 24px;
 }
 .events-edit__btns-save {
-  background: #7E88F4;
-  color: #FFF;
+  background: #7e88f4;
+  color: #fff;
   font-weight: 600;
 }
 
@@ -1535,7 +1537,7 @@ body {
   .setup-table__col .time__row {
     margin-bottom: 8px;
   }
-  .setup-table__col .time__row input[type=time] {
+  .setup-table__col .time__row input[type="time"] {
     padding: 8px 0;
     width: 81px;
     font-size: 12px;
@@ -1575,7 +1577,7 @@ body {
   }
 
   .events-row__card {
-    width: calc(100% / 3 - (16px *2) / 3);
+    width: calc(100% / 3 - (16px * 2) / 3);
     margin-right: 16px;
     margin-bottom: 16px;
     padding: 16px 16px 24px;
@@ -1684,13 +1686,13 @@ body {
     left: 1px;
     top: 1px;
   }
-  .events-edit__inner .radios input[type=radio]:checked ~ .checkmark::after {
+  .events-edit__inner .radios input[type="radio"]:checked ~ .checkmark::after {
     width: 8px;
     height: 8px;
     left: 4px;
     top: 4px;
   }
-  .events-edit__inner .radios__custom input[type=text] {
+  .events-edit__inner .radios__custom input[type="text"] {
     padding-top: 12px;
     padding-bottom: 12px;
     margin-left: 32px;
@@ -1870,7 +1872,7 @@ body {
   .settings-types__mobile select {
     width: 100%;
     height: 48px;
-    background-color: #F4F5FA;
+    background-color: #f4f5fa;
     border-radius: 5px;
     border: none;
     font-family: "Open Sans";
@@ -1921,7 +1923,7 @@ body {
     width: 100%;
     padding-right: 13px;
   }
-  .setup-table__col .time__row input[type=time] {
+  .setup-table__col .time__row input[type="time"] {
     width: auto;
     flex: 1;
     padding: 8px 0;
@@ -2039,13 +2041,13 @@ body {
     width: 14px;
     height: 14px;
   }
-  .events-edit__inner .radios input[type=radio]:checked ~ .checkmark::after {
+  .events-edit__inner .radios input[type="radio"]:checked ~ .checkmark::after {
     width: 8px;
     height: 8px;
     left: 4px;
     top: 4px;
   }
-  .events-edit__inner .radios__custom input[type=text] {
+  .events-edit__inner .radios__custom input[type="text"] {
     margin-left: 28px;
     padding: 12px 16px;
   }
@@ -2075,7 +2077,7 @@ body {
     margin-top: 16px;
   }
   .events-edit__btns button {
-    width: calc(50% - 15px/2);
+    width: calc(50% - 15px / 2);
     font-size: 14px;
     line-height: 48px;
     text-transform: uppercase;
