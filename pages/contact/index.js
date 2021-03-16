@@ -9,6 +9,17 @@ import NewAppointmentModal from "../../components/NewAppointment/NewAppointmentM
 
 export default function Contact() {
   const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState(false);
+
+  const handleSubmit = () => {
+    if (message !== "") {
+      setMessageError(false);
+      setModal(true);
+    } else {
+      setMessageError(true);
+    }
+  };
 
   return (
     <>
@@ -27,14 +38,25 @@ export default function Contact() {
           <div className="new-appointment">
             <h3>Support</h3>
             <p>
-              At Linq, we are commited to providing you with a great and
+              At Lynq, we are commited to providing you with a great and
               reliable experience.
             </p>
             <div>
               <h3>Type your request</h3>
-              <textarea></textarea>
+              <textarea
+                value={message}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                  e.target.value !== "" && setMessageError(false);
+                }}
+              ></textarea>
             </div>
-            <button onClick={() => setModal(true)}>Send Request</button>
+            {messageError && (
+              <p style={{ color: "red", marginTop: "-0px" }}>
+                *Please type your request
+              </p>
+            )}
+            <button onClick={handleSubmit}>Send Request</button>
           </div>
         </div>
       </div>

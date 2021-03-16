@@ -1,12 +1,12 @@
 // libraries
 import Head from "next/head";
 // import { useState } from 'react'
-import ClientsTable from "../../components/Clients/ClientsTable";
 
 // components
-import NewClientButton from "../../components/Clients/NewClientButton";
 import Leftbar from "../../components/Leftbar";
 import Navbar from "../../components/Navbar";
+import NewClientButton from "../../components/Clients/NewClientButton";
+import ClientsTable from "../../components/Clients/ClientsTable";
 
 export default function Setup() {
   // states

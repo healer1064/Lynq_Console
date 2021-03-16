@@ -1,17 +1,52 @@
 // libraries
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
+import PersonalInformation from "../../components/Account/PersonalInformation";
+import BusinessPayments from "../../components/Account/BusinessPayments";
+import ChangePassword from "../../components/Account/ChangePassword";
 
 const Account = () => {
-  const router = useRouter();
+  // states
   const [profile, setProfile] = useState(null);
   const [business, setBusiness] = useState(null);
+  const [personalInfoShow, setPersonalInfoShow] = useState(false);
+  const [accountBusShow, setAccountBusShow] = useState(false);
+  const [passShow, setPassShow] = useState(false);
+
+  // personal info state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [zip, setZip] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [personalInfoError, setPersonalInfoError] = useState(false);
+
+  // business state
+  const [businessName, setBusinessName] = useState("");
+  const [bank, setBank] = useState("");
+  const [iban, setIban] = useState("");
+  const [account, setAccount] = useState("");
+
+  const [paymentsError, setPaymentsError] = useState(false);
+
+  // change password
+  const [prevPass, setPrevPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+
+  const [passCheck, setPassCheck] = useState(false);
+
+  const [passError, setPassError] = useState(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     getProfileData();
@@ -42,9 +77,134 @@ const Account = () => {
     setBusiness(data);
   };
 
-  if (!profile || !business) return <h1>Loading...</h1>;
+  const updateProfile = () => {
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      address !== "" &&
+      city !== "" &&
+      zip !== "" &&
+      phone !== ""
+    ) {
+      // change raw data with useState variables
+      setPersonalInfoError(false);
+      const _reqData = {
+        fullname: `${firstName} ${lastName}`,
+        email,
+        address,
+        city,
+        zipCode: zip,
+        phoneNumber: phone,
+        profilePicture: "string",
+      };
 
-  console.log(business);
+      const token = localStorage.getItem("linqToken");
+
+      async function update() {
+        const response = await fetch("/api/account/profile-update", {
+          headers: new Headers({
+            data: JSON.stringify({ token, _reqData }),
+          }),
+        });
+
+        return await response.json();
+      }
+
+      update()
+        .then((res) => {
+          console.log("profile updates", res);
+        })
+        .catch((err) => {
+          console.log("profile update error", err);
+        });
+    } else {
+      setPersonalInfoError(true);
+    }
+  };
+
+  const updateBusiness = () => {
+    // change raw data with useState variables
+    if (
+      businessName !== "" &&
+      bank !== "" &&
+      iban !== "" &&
+      accountNumber !== ""
+    ) {
+      setPaymentsError(false);
+      const _reqData = {
+        id: "string",
+        accountID: "string",
+        businessName: businessName,
+        bankName: bank,
+        iban,
+        accountNumber: account,
+        routingNumber: "string",
+      };
+
+      const token = localStorage.getItem("linqToken");
+
+      async function update() {
+        const response = await fetch("/api/account/business-update", {
+          headers: new Headers({
+            data: JSON.stringify({ token, _reqData }),
+          }),
+        });
+
+        return await response.json();
+      }
+
+      update()
+        .then((res) => {
+          console.log("business updates", res);
+        })
+        .catch((err) => {
+          console.log("business update error", err);
+        });
+    } else {
+      setPaymentsError(true);
+    }
+  };
+
+  const updatePassword = () => {
+    if (prevPass !== "" && newPass !== "" && confirmPass !== "") {
+      setPassError(false);
+      setPassCheck(false);
+      if (newPass === confirmPass) {
+        setPassCheck(false);
+        // change raw data with useState variables
+        const _reqData = {
+          oldPassword: prevPass,
+          newPassword: newPass,
+        };
+
+        const token = localStorage.getItem("linqToken");
+
+        async function update() {
+          const response = await fetch("/api/account/password-update", {
+            headers: new Headers({
+              data: JSON.stringify({ token, _reqData }),
+            }),
+          });
+
+          return await response.json();
+        }
+
+        update()
+          .then((res) => {
+            console.log("password updates", res);
+          })
+          .catch((err) => {
+            console.log("password update error", err);
+          });
+      } else {
+        setPassCheck(true);
+      }
+    } else {
+      setPassError(true);
+      setPassCheck(false);
+    }
+  };
 
   return (
     <>
@@ -60,109 +220,123 @@ const Account = () => {
       <div className="page-wrp">
         <Leftbar />
         <div className="content-wrp">
-          <div className="account">
-            <div className="account-tab">
-              <p onClick={() => router.push("/account")} className="active">
-                Account
-              </p>
-              <p onClick={() => router.push("/account/billing")}>Billing</p>
+          {!profile || !business ? (
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                style={{ width: "60px" }}
+                src="/img/loading.gif"
+                alt="loading"
+              />
             </div>
-            <div className="account-content">
-              <div className="account-content-side-nav">
-                <div>
-                  <img src="/img/account-send.svg" alt="current-plan" />
-                  <p>Current Plan</p>
-                </div>
-                <div>
+          ) : (
+            <div className="account">
+              <div className="account-tab">
+                <p onClick={() => router.push("/account")} className="active">
+                  Account
+                </p>
+                {/* <p onClick={() => router.push("/account/billing")}>Billing</p> */}
+              </div>
+              <div className="account-content">
+                <div className="account-content-side-nav">
+                  <div>
+                    <img src="/img/account-send.svg" alt="current-plan" />
+                    <p>Current Plan</p>
+                  </div>
+                  {/* <div>
                   <img src="/img/account-send.svg" alt="current-plan" />
                   <p>Informations</p>
-                </div>
-                <div>
-                  <img src="/img/account-send.svg" alt="current-plan" />
-                  <p>Business Infromation</p>
-                </div>
-                <div>
-                  <img src="/img/account-send.svg" alt="current-plan" />
-                  <p>Payments</p>
-                </div>
-                <div className="last">
-                  <img src="/img/account-send.svg" alt="current-plan" />
-                  <p>Change Password</p>
-                </div>
-              </div>
-              <select className="account-content-side-nav-mob">
-                <option>Current Plan</option>
-                <option>Informations</option>
-                <option>Business Infromation</option>
-                <option>Payments</option>
-                <option>Change Password</option>
-              </select>
-              <div className="account-info">
-                <div className="account-subscription">
-                  <h3>Subscription</h3>
-                  <h6>Your Current Plan</h6>
-                  <p>EARLY BIRD</p>
-                  <h6>Processing Fees On Payments</h6>
-                  <p>2.9%</p>
-                  <h6>Example On $10 Ticket</h6>
-                  <p>You will be paid $10 - $0.29 =$9.71</p>
-                </div>
-                <div className="account-personal">
-                  <h3>
-                    Personal Information{" "}
-                    <Link href="/account/edit">
-                      <span>Edit</span>
-                    </Link>
-                  </h3>
-                  <h6>Profile Picture</h6>
-                  <h6>First Name</h6>
-                  <p>{profile.firstname}</p>
-                  <h6>Last Name</h6>
-                  <p>{profile.lastname}</p>
-                  <h6>Email Address</h6>
-                  <p>{profile.email}</p>
-                  <h6>Address</h6>
-                  <h6>City</h6>
-                  <h6>Zip code</h6>
-                  <h6>Phone Number</h6>
-                </div>
-                <div className="account-business">
-                  <h3>
-                    Business and Payments{" "}
-                    <Link href="/account/edit">
-                      <span>Edit</span>
-                    </Link>
-                  </h3>
+                </div> */}
                   <div>
-                    <h6>Business Name</h6>
-                    <p>{business.businessName || "null"}</p>
-                    <h6>Bank Name</h6>
-                    <p>{business.bankName || "null"}</p>
-                    <h6>IBAN</h6>
-                    <p>{business.iban || "null"}</p>
-                    <h6>Account Number</h6>
-                    <p>{business.accountNumber || "null"}</p>
-                    <h6>Routing Number</h6>
-                    <p>{business.routingNumber || "null"}</p>
+                    <img src="/img/account-send.svg" alt="current-plan" />
+                    <p>Personal Information</p>
+                  </div>
+                  <div>
+                    <img src="/img/account-send.svg" alt="current-plan" />
+                    <p>Business & Payments</p>
+                  </div>
+                  <div className="last">
+                    <img src="/img/account-send.svg" alt="current-plan" />
+                    <p>Change Password</p>
                   </div>
                 </div>
-                <div className="account-password">
-                  <h3>
-                    Change Password{" "}
-                    <Link href="/account/edit">
-                      <span>Edit</span>
-                    </Link>
-                  </h3>
-                  <div>
-                    <p>
-                      For editing your password, you need to remember the
-                      previous one.
-                    </p>
+                <select className="account-content-side-nav-mob">
+                  <option>Current Plan</option>
+                  {/* <option>Informations</option> */}
+                  <option>Business Information</option>
+                  <option>Business & Payments</option>
+                  <option>Change Password</option>
+                </select>
+                <div className="account-info">
+                  <div className="account-subscription">
+                    <h3>Subscription</h3>
+                    <h6>Your Current Plan</h6>
+                    <p>EARLY BIRD</p>
+                    <h6>Processing Fees On Payments</h6>
+                    <p>2.9%</p>
+                    <h6>Example On $10 Ticket</h6>
+                    <p>You will be paid $10 - $0.29 =$9.71</p>
                   </div>
+                  <PersonalInformation
+                    profile={profile}
+                    setPersonalInfoShow={setPersonalInfoShow}
+                    personalInfoShow={personalInfoShow}
+                    updateProfile={updateProfile}
+                    firstName={firstName}
+                    lastName={lastName}
+                    email={email}
+                    address={address}
+                    city={city}
+                    zip={zip}
+                    phone={phone}
+                    setFirstName={setFirstName}
+                    setLastName={setLastName}
+                    setEmail={setEmail}
+                    setAddress={setAddress}
+                    setCity={setCity}
+                    setZip={setZip}
+                    setPhone={setPhone}
+                    personalInfoError={personalInfoError}
+                  />
+                  <BusinessPayments
+                    business={business}
+                    accountBusShow={accountBusShow}
+                    setAccountBusShow={setAccountBusShow}
+                    updateBusiness={updateBusiness}
+                    businessName={businessName}
+                    setBusinessName={setBusinessName}
+                    bank={bank}
+                    setBank={setBank}
+                    iban={iban}
+                    setIban={setIban}
+                    account={account}
+                    setAccount={setAccount}
+                    paymentsError={paymentsError}
+                  />
+                  <ChangePassword
+                    passShow={passShow}
+                    setPassShow={setPassShow}
+                    updatePassword={updatePassword}
+                    prevPass={prevPass}
+                    setPrevPass={setPrevPass}
+                    newPass={newPass}
+                    setNewPass={setNewPass}
+                    confirmPass={confirmPass}
+                    setConfirmPass={setConfirmPass}
+                    passError={passError}
+                    passCheck={passCheck}
+                  />
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

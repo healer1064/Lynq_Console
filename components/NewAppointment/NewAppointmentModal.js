@@ -11,7 +11,7 @@ const NewAppointmentModal = ({ setModal }) => {
           onClick={() => setModal(false)}
         />
         <img src="/img/new-appointment-success.png" alt="success" />
-        <p>Your message was sent to Linq's team</p>
+        <p>Your message was sent to Lynq's team</p>
       </div>
     </div>
   );
