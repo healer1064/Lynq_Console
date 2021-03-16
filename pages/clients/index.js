@@ -28,7 +28,7 @@ export default function Setup() {
         <div className="content-wrp">
           <div className="clients-wrp">
             <div className="clients-wrp__top">
-              <NewClientButton />
+              {/* <NewClientButton /> */}
               <input
                 type="text"
                 placeholder="Search"

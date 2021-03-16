@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import { useState } from "react";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -8,6 +9,9 @@ import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
 
 export default function Payment() {
+  // states
+  const [payment, setPayment] = useState(false);
+
   const paymentHistory = [
     {
       date: "02/10/2021",
@@ -51,7 +55,7 @@ export default function Payment() {
         <div className="content-wrp">
           <div className="payment">
             <h3>Payment</h3>
-            <RequestPayment />
+            <RequestPayment payment={payment} setPayment={setPayment} />
             <PaymentHistory data={paymentHistory} />
           </div>
         </div>
