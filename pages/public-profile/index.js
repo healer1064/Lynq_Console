@@ -1,15 +1,16 @@
 // libraries
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Head from "next/head";
 import useSWR from "swr";
 
 // styles
-import styles from "../styles/EditProfile.module.sass";
+import styles from "../../styles/EditProfile.module.sass";
 
 // components
-import Navbar from "../components/Navbar";
-import Leftbar from "../components/Leftbar";
-import EditProfileDropdown from "../components/EditProfile/EditProfileDropdown";
+import Navbar from "../../components/Navbar";
+import Leftbar from "../../components/Leftbar";
+import EditProfileDropdown from "../../components/EditProfile/EditProfileDropdown";
+import EditProfileDDCheck from "../../components/EditProfile/EditProfileDDCheck";
 
 const cities = ["New York", "Washington DC"];
 const cat = ["Category 1", "Category 2"];
@@ -18,6 +19,7 @@ const EditProfile = () => {
   // states
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [slug, setSlug] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [categories, setCategories] = useState([]);
@@ -28,6 +30,21 @@ const EditProfile = () => {
   const [whatToExpect, setWhatToExpect] = useState("");
   const [specialities, setSpecialities] = useState("");
   const [certifications, setCertifications] = useState("");
+  const [image, setImage] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+
+  const imgRef = useRef();
+
+  // upload image file
+  const handleImgUpload = (e) => {
+    setImageFile(e.target.files[0]);
+
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      setImage(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   return (
     <>
@@ -47,10 +64,35 @@ const EditProfile = () => {
             <h3>Public Profile</h3>
             <form>
               <div className={styles.edit_profile_img_container}>
-                <div className={styles.edit_profile_img} />
+                {image !== null ? (
+                  <img src={image} className={styles.edit_profile_img} />
+                ) : (
+                  <div className={styles.place_holder}>S</div>
+                )}
                 <div className={styles.edit_profile_btn_container}>
-                  <button>Upload Picture</button>
-                  <button>Delete</button>
+                  <input
+                    type="file"
+                    accept=".jpg, .jpeg, .png"
+                    ref={imgRef}
+                    style={{ display: "none" }}
+                    onChange={handleImgUpload}
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      imgRef.current.click();
+                    }}
+                  >
+                    Upload Picture
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      alert("no set yet");
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
               </div>
               <div>
@@ -70,6 +112,14 @@ const EditProfile = () => {
                 />
               </div>
               <div>
+                <label>Slug</label>
+                <input
+                  type="text"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                />
+              </div>
+              <div>
                 <label>City</label>
                 <EditProfileDropdown
                   data={cities}
@@ -85,15 +135,11 @@ const EditProfile = () => {
                   onChange={(e) => setState(e.target.value)}
                 />
               </div>
-              <div>
+              <div style={{ position: "relative" }}>
                 <label>
                   Main Categories <span>(Choose upto 3)</span>
                 </label>
-                <EditProfileDropdown
-                  data={cat}
-                  state={categories}
-                  setState={setCategories}
-                />
+                <EditProfileDDCheck />
               </div>
               <h3>Social Information</h3>
               <div>
