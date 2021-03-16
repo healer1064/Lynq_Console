@@ -1,12 +1,11 @@
 // libraries
 import { useRouter } from "next/router";
+import { useState } from "react";
 
-const EventListCard = ({
-  card,
-  index,
-  showActionsHandle,
-  activeItemsHandler,
-}) => {
+const EventListCard = ({ card, index, activeItemsHandler, setTab }) => {
+  // states
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
 
   return (
@@ -19,7 +18,7 @@ const EventListCard = ({
         </div>
         <label className="events-row__toggle">
           {card.isActive ? (
-            <input type="checkbox" checked />
+            <input type="checkbox" />
           ) : (
             <input type="checkbox" />
           )}
@@ -29,15 +28,12 @@ const EventListCard = ({
           ></div>
         </label>
       </div>
-      <div className="see__more" onClick={() => showActionsHandle(index)}>
+      <div className="see__more" onClick={() => setOpen(!open)}>
         <img src="/img/events-see-more.svg" alt="" />
       </div>
-      <div className={`actions__popup ${card.showActions ? "show" : ""}`}>
+      <div className={`actions__popup ${open ? "show" : ""}`}>
         <div className="actions__popup-wrp">
-          <div className="close" onClick={() => showActionsHandle(index)}>
-            <img src="/img/events-actions-close.svg" alt="" />
-          </div>
-          <span onClick={() => router.push("/settings/event-type-edit")}>
+          <span onClick={() => setTab("eventtypeedit")}>
             <img src="/img/events-edit-icon.svg" alt="" />
             Edit
           </span>

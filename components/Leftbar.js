@@ -24,7 +24,7 @@ const Leftbar = ({ active }) => {
           </a>
         </Link>
         <div className="space"></div>
-        <Link href="/settings/setup">
+        <Link href="/settings">
           <a className={active === "settings" && "active"}>
             <img src="/img/nav-settings.svg" alt="" />
             <span>Settings</span>

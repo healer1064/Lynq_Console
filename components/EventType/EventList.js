@@ -1,18 +1,24 @@
 // components
-import EventListCard from "./EventListCard"
+import EventListCard from "./EventListCard";
 
-const EventList = ({showActionsHandle, activeItemsHandler, events}) => {
-    return (
-        <div className="events-wrp">
-            <div className="events-row">
-              {events.map((card, index) => {
-                return (
-                  <EventListCard card={card} key={index} index={index} showActionsHandle={showActionsHandle} activeItemsHandler={activeItemsHandler} />
-                )
-              })}
-            </div>
-          </div>
-    )
-}
+const EventList = ({ activeItemsHandler, events, setTab }) => {
+  return (
+    <div className="events-wrp">
+      <div className="events-row">
+        {events.map((card, index) => {
+          return (
+            <EventListCard
+              card={card}
+              key={index}
+              index={index}
+              activeItemsHandler={activeItemsHandler}
+              setTab={setTab}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
-export default EventList
+export default EventList;
