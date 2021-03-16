@@ -45,7 +45,7 @@ const Leftbar = ({ active }) => {
         <Link href="/contact">
           <a className={active === "contact" && "active"}>
             <img src="/img/nav-contact.svg" alt="" />
-            <span>Contact</span>
+            <span>Support</span>
           </a>
         </Link>
       </nav>
@@ -55,7 +55,7 @@ const Leftbar = ({ active }) => {
             <img src="/img/profile-pic.png" alt="" />
           </div>
           <span>John doe</span>
-          <img src="/img/nav-profile-arr.svg" alt="" />
+          {/* <img src="/img/nav-profile-arr.svg" alt="" /> */}
         </div>
       </Link>
     </div>

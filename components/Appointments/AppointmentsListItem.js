@@ -1,5 +1,6 @@
 // libraries
 import { useState } from "react";
+import Fade from "react-reveal/Fade";
 
 // components
 import AppointmentCard from "../Home/AppointmentCard";
@@ -45,7 +46,9 @@ const AppointmentsListItem = ({ data }) => {
       {open &&
         userAppointments &&
         userAppointments.map((data, index) => (
-          <AppointmentCard key={index} data={data} />
+          <Fade key={index} duration={1000}>
+            <AppointmentCard data={data} />
+          </Fade>
         ))}
     </div>
   );
