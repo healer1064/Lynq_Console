@@ -1,7 +1,6 @@
 // libraries
 import { useState, useRef } from "react";
 import Head from "next/head";
-import useSWR from "swr";
 
 // styles
 import styles from "../../styles/EditProfile.module.sass";
@@ -11,9 +10,6 @@ import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
 import EditProfileDropdown from "../../components/EditProfile/EditProfileDropdown";
 import EditProfileDDCheck from "../../components/EditProfile/EditProfileDDCheck";
-
-const cities = ["New York", "Washington DC"];
-const cat = ["Category 1", "Category 2"];
 
 const EditProfile = () => {
   // states
@@ -121,10 +117,10 @@ const EditProfile = () => {
               </div>
               <div>
                 <label>City</label>
-                <EditProfileDropdown
-                  data={cities}
-                  state={city}
-                  setState={setCity}
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
               <div>
