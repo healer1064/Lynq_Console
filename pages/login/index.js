@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,7 +10,12 @@ import "react-toastify/dist/ReactToastify.css";
 import LoginForm from "../../components/Login/LoginForm";
 import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 
+// context
+import ProfileContext from "../../context/profile";
+
 const index = () => {
+  const { setToken } = useContext(ProfileContext);
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -32,7 +37,7 @@ const index = () => {
       console.log("res", res);
       setLoading(false);
       if (res?.message === undefined) {
-        localStorage.setItem("linqToken", res.token);
+        setToken(res.token);
         router.push("/home");
       } else {
         toast.error(res.message);
