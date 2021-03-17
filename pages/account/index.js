@@ -9,6 +9,7 @@ import Leftbar from "../../components/Leftbar";
 import PersonalInformation from "../../components/Account/PersonalInformation";
 import BusinessPayments from "../../components/Account/BusinessPayments";
 import ChangePassword from "../../components/Account/ChangePassword";
+import PageLoading from "../../components/common/PageLoading";
 
 const Account = () => {
   // states
@@ -221,21 +222,7 @@ const Account = () => {
         <Leftbar />
         <div className="content-wrp">
           {!profile || !business ? (
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img
-                style={{ width: "60px" }}
-                src="/img/loading.gif"
-                alt="loading"
-              />
-            </div>
+            <PageLoading />
           ) : (
             <div className="account">
               <div className="account-tab">

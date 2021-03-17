@@ -9,7 +9,7 @@ import Leftbar from "../../components/Leftbar";
 import EmailConfirmation from "../../components/Home/EmailConfirmation";
 import AppointmentCard from "../../components/Home/AppointmentCard";
 import Stats from "../../components/Home/Stats";
-import Modal from "../../components/common/Modal";
+// import Modal from "../../components/common/Modal";
 
 // mockup data
 import data from "../../utils/data";
