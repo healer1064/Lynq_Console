@@ -1,4 +1,4 @@
-const AppointmentCard = ({ data }) => {
+const AppointmentCard = ({ data, setIsOpen }) => {
   return (
     <div className={`appointments-col__event ${data.type}`}>
       <div className="title">{data.name}</div>
@@ -15,6 +15,11 @@ const AppointmentCard = ({ data }) => {
           <div className="line"></div>
           {data.clientEmail}
         </div>
+      )}
+      {data.type === "blue" && (
+        <button className="btnCancel" onClick={() => setIsOpen(true)}>
+          Cancel Appointment
+        </button>
       )}
     </div>
   );

@@ -9,6 +9,7 @@ import Leftbar from "../../components/Leftbar";
 import EmailConfirmation from "../../components/Home/EmailConfirmation";
 import AppointmentCard from "../../components/Home/AppointmentCard";
 import Stats from "../../components/Home/Stats";
+import Modal from "../../components/common/Modal";
 
 // mockup data
 import data from "../../utils/data";
@@ -17,6 +18,7 @@ import { appointments } from "../../utils/data/homefake";
 const home = () => {
   const [index, setIndex] = useState(1);
   const [stats, setStats] = useState(data.home.stats.today);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
@@ -29,6 +31,7 @@ const home = () => {
         />
       </Head>
       <Navbar />
+      {isOpen && <Modal setModal={setIsOpen} />}
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">
@@ -54,7 +57,11 @@ const home = () => {
               <div className="home-cnt__date">Wednesday, February 10, 2021</div>
               <h2>Today’s Session</h2>
               {appointments.map((item, index) => (
-                <AppointmentCard key={index} data={item} />
+                <AppointmentCard
+                  key={index}
+                  data={item}
+                  setIsOpen={setIsOpen}
+                />
               ))}
               <div className="home-stats" style={{ paddingBottom: "50px" }}>
                 <div className="home-stats__switch">

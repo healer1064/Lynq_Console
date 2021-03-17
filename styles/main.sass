@@ -550,6 +550,22 @@ body
   padding: 0 64px 0 32px
   @include flex
   flex-direction: column
+  .content-tabs
+    margin-top: 32px
+    padding: .5rem 0
+    display: flex
+    h3
+      font-size: 1.3rem
+      font-weight: 500
+      cursor: pointer
+      transition: all .15s ease-in-out
+      &:hover
+        color: #838383
+      &.active
+        color: #303030
+        font-weight: 700
+      &:first-child
+        margin-right: 5rem
 .settings-types
   margin: 48px auto 32px
   @include flex
@@ -1195,6 +1211,15 @@ body
         font-size: 14px
         line-height: 17px
         color: $black-2
+      .btnCancel
+        background: transparent
+        outline: none
+        border: 1px solid #838383
+        padding: .25rem .5rem
+        margin-top: 1rem
+        border-radius: 5px
+        cursor: pointer
+        color: #838383
   &-search
     &__col
       width: 100%

@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import { useState } from "react";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -11,6 +12,8 @@ import AppointmentsList from "../../components/Appointments/AppointmentsList";
 import { appointments } from "../../utils/data/appointmentsFake";
 
 export default function Appointments() {
+  const [tabIndex, setTabIndex] = useState(1);
+
   return (
     <>
       <Head>
@@ -25,8 +28,26 @@ export default function Appointments() {
       <div className="page-wrp">
         <Leftbar active="appointments" />
         <div className="content-wrp">
-          <AppointmentsTop />
-          <AppointmentsList data={appointments} />
+          <div className="content-tabs">
+            <h3
+              onClick={() => setTabIndex(1)}
+              className={tabIndex === 1 && "active"}
+            >
+              Scheduled
+            </h3>
+            <h3
+              onClick={() => setTabIndex(2)}
+              className={tabIndex === 2 && "active"}
+            >
+              Request
+            </h3>
+          </div>
+          {tabIndex === 1 && (
+            <>
+              <AppointmentsTop />
+              <AppointmentsList data={appointments} />
+            </>
+          )}
         </div>
       </div>
     </>
