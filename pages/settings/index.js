@@ -28,7 +28,7 @@ export default function Settings() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="settings" />
       <div className="page-wrp">
         <Leftbar active="settings" />
         <div className="content-wrp">

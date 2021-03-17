@@ -31,7 +31,7 @@ export default function Contact() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="contact" />
       <div className="page-wrp">
         <Leftbar active="contact" />
         <div className="content-wrp">
