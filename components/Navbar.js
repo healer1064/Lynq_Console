@@ -66,7 +66,7 @@ const Navbar = ({ active }) => {
                   <span>Payment</span>
                 </a>
               </Link>
-              <Link href="/contact">
+              <Link href="/support">
                 <a className={active === "contact" && "active"}>
                   <span>Support</span>
                 </a>

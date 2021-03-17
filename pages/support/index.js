@@ -15,7 +15,31 @@ export default function Contact() {
   const handleSubmit = () => {
     if (message !== "") {
       setMessageError(false);
-      setModal(true);
+
+      const _reqData = {
+        message: message,
+      };
+
+      const token = localStorage.getItem("linqToken");
+
+      async function support() {
+        const response = await fetch("/api/support", {
+          headers: new Headers({
+            data: JSON.stringify({ token, _reqData }),
+          }),
+        });
+
+        return await response.json();
+      }
+
+      support()
+        .then((res) => {
+          console.log("support request", res);
+          setModal(true);
+        })
+        .catch((err) => {
+          console.log("support request", err);
+        });
     } else {
       setMessageError(true);
     }
