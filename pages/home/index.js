@@ -30,8 +30,7 @@ const home = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
-      {isOpen && <Modal setModal={setIsOpen} />}
+      <Navbar active="" />
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">

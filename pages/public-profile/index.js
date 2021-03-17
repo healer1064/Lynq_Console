@@ -52,7 +52,7 @@ const EditProfile = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="profile" />
       <div className="page-wrp">
         <Leftbar active="profile" />
         <div className="content-wrp">

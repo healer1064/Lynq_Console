@@ -42,7 +42,7 @@ const Leftbar = ({ active }) => {
             <span>Payment</span>
           </a>
         </Link>
-        <Link href="/contact">
+        <Link href="/support">
           <a className={active === "contact" && "active"}>
             <img src="/img/nav-contact.svg" alt="" />
             <span>Support</span>

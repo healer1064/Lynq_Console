@@ -49,7 +49,7 @@ export default function Payment() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="payments" />
       <div className="page-wrp">
         <Leftbar active="payments" />
         <div className="content-wrp">

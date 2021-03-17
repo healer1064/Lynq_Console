@@ -22,7 +22,7 @@ export default function Setup() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="clients" />
       <div className="page-wrp">
         <Leftbar active="clients" />
         <div className="content-wrp">

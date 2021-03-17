@@ -21,7 +21,7 @@ export default function AppointmentRequest() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="appointments" />
       <div className="page-wrp">
         <Leftbar active="appointments" />
         <div className="content-wrp">

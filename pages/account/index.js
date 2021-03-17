@@ -216,7 +216,7 @@ const Account = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <Navbar active="account" />
       <div className="page-wrp">
         <Leftbar />
         <div className="content-wrp">
