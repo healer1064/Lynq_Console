@@ -9,7 +9,12 @@ import SignupForm from "../../components/Signup/SignupForm";
 import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 import Terms from "../../components/Terms";
 
+// context
+import ProfileContext from "../../context/profile";
+
 export default function Signup() {
+  const { setToken } = useContext(ProfileContext);
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +39,7 @@ export default function Signup() {
     signUpReq()
       .then((res) => {
         console.log("res", res);
-        localStorage.setItem("linqToken", res.token);
+        setToken(res.token);
         setLoading(false);
         router.push("/home");
       })
