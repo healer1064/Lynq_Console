@@ -1,6 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
