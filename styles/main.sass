@@ -1731,36 +1731,32 @@ body
     border-radius: 10px
     border: 1px solid #d9e0e9
     .payment-history-table-head
-      display: flex
-      align-items: center
+      display: grid
+      grid-template-columns: 1fr 1fr 1fr 1fr
       border-bottom: 1px solid #D9E0E9
       p
-        width: 30%
+        width: 100%
         color: #838383
         font-size: 14px
-        font-weight: 600
+        font-weight: 700
         margin-bottom: 8px
-      span
-        width: 10%
-        color: #838383
-        font-size: 14px
-        font-weight: 600
+        text-align: center
     .payment-history-table-body
-      display: flex
-      align-items: center
+      display: grid
+      grid-template-columns: 1fr 1fr 1fr 1fr
       border-bottom: 1px solid #D9E0E9
       p
-        width: 30%
+        width: 100%
         color: #303030
         font-size: 14px
         font-weight: 400
         margin-bottom: 8px
-      div
-        width: 10%
-        display: flex
-        align-items: center
+        text-align: center
         span
+          width: 70%
+          display: inline-block
           color: #303030
+          background: red
           font-size: 14px
           padding: 4px 12px
           font-weight: 700
@@ -4057,23 +4053,22 @@ body
       .payment-histroy-wrap
         overflow-x: scroll
         .payment-history-table-head
+          display: grid
+          grid-template-columns: 150px 150px 150px 150px
+          width: 600px
           p
-            width: 40%
-            font-size: 12px
-            font-weight: 500
-          span
-            width: 10%
+            width: 100%
             font-size: 12px
             font-weight: 500
         .payment-history-table-body
+          display: grid
+          grid-template-columns: 150px 150px 150px 150px
+          width: 600px
           p
-            width: 40%
+            width: 100%
             font-weight: 500
-          div
-            width: 10%
-            display: flex
-            align-items: center
             span
+              width: 80%
               font-weight: 600
   .new-appointment
     h3

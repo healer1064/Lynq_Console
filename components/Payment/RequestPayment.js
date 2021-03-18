@@ -1,8 +1,12 @@
-const RequestPayment = ({ payment, setPayment }) => {
+const RequestPayment = ({ payment, setPayment, data }) => {
   return (
     <div className="request-payment">
-      <p className="payment-temporary-balance">Temporary Balance: $289</p>
-      <p className="payment-final-balance">Final Balance: $237</p>
+      <p className="payment-temporary-balance">
+        Temporary Balance: ${data.temporary_balance}
+      </p>
+      <p className="payment-final-balance">
+        Final Balance: ${data.final_balance}
+      </p>
       <span className="payment-final-note">
         The final balance corresponds to the sessions that were performed at the
         date of the payment request
