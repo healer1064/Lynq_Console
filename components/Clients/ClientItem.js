@@ -1,20 +1,23 @@
-const ClientItem = () => {
+const ClientItem = ({ data }) => {
+  const { firstName, lastName, email, session, revenue } = data;
+
   return (
     <div className="row">
       <div className="col first__name">
-        <span>John</span>
+        <span>{firstName}</span>
       </div>
       <div className="col last__name">
-        <span>Brimbo</span>
+        <span>{lastName}</span>
       </div>
       <div className="col email">
-        <span>Jbrimbo@gmail.com</span>
+        <span>{email}</span>
       </div>
       <div className="col session">
-        <span>02/10/2021</span>
+        <span>{session}</span>
+        {/* <span>02/10/2021</span> */}
       </div>
       <div className="col revenue">
-        <strong>$589</strong>
+        <strong>${revenue}</strong>
       </div>
       {/* <div className="col actions">
                 <div className="action">

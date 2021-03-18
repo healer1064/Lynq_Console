@@ -1,8 +1,7 @@
+// components
 import ClientItem from "./ClientItem";
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-
-const ClientsTable = () => {
+const ClientsTable = ({ data }) => {
   return (
     <div className="clients-table">
       <div className="row head">
@@ -23,8 +22,8 @@ const ClientsTable = () => {
         </div>
         {/* <div className="col actions"></div> */}
       </div>
-      {arr.map((i) => {
-        return <ClientItem key={i} />;
+      {data.map((item, i) => {
+        return <ClientItem data={item} key={i} />;
       })}
     </div>
   );
