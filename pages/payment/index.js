@@ -1,6 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import useSWR from "swr";
 
 // components
@@ -14,12 +14,14 @@ import fetcher from "../../utils/fetcher";
 import PageLoading from "../../components/common/PageLoading";
 import EmptyData from "../../components/common/EmptyData";
 
+// context
+import ProfileContext from "../../context/profile";
+
 export default function Payment() {
+  const { token } = useContext(ProfileContext);
+
   // states
   const [payment, setPayment] = useState(false);
-
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb21ld2ViLm9yZyIsImlkIjoiMGNkMzhjNTctZWJlYi00MjQ5LThkNDMtOGExZTQyM2JhYTAyIn0.TKOttASFBDRooHPwiPr1HRhmXT2IrDKcqEGP2H5_BsM";
 
   const { data, error } = useSWR(["/api/payments", token], fetcher);
 

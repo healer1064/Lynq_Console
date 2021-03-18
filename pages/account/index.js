@@ -15,7 +15,7 @@ import PageLoading from "../../components/common/PageLoading";
 import ProfileContext from "../../context/profile";
 
 const Account = () => {
-  const { token, profile } = useContext(ProfileContext);
+  const { token } = useContext(ProfileContext);
 
   // states
   const [profile, setProfile] = useState(null);
