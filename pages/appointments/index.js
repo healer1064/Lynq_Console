@@ -1,6 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Fade from "react-reveal/Fade";
 
 // components
@@ -10,12 +10,17 @@ import Leftbar from "../../components/Leftbar";
 import AppointmentsList from "../../components/Appointments/AppointmentsList";
 import Requests from "../../components/Appointments/Requests";
 
+// context
+import ProfileContext from "../../context/profile";
+
 // fake data
 import { appointments } from "../../utils/data/appointmentsFake";
 
 export default function Appointments() {
-  const [tabIndex, setTabIndex] = useState(1);
+  const { token, profile } = useContext(ProfileContext);
+  console.log("home", { token, profile });
 
+  const [tabIndex, setTabIndex] = useState(1);
   return (
     <>
       <Head>

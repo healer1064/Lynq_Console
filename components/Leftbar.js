@@ -1,7 +1,7 @@
 // libraries
 import Link from "next/link";
 
-const Leftbar = ({ active }) => {
+const Leftbar = ({ active, profile }) => {
   return (
     <div className="side-nav">
       <nav>
@@ -54,7 +54,7 @@ const Leftbar = ({ active }) => {
           <div className="side-nav__profile-pic">
             <img src="/img/profile-pic.png" alt="" />
           </div>
-          <span>John doe</span>
+          <span>{profile?.fullname ?? "Username"}</span>
           {/* <img src="/img/nav-profile-arr.svg" alt="" /> */}
         </div>
       </Link>

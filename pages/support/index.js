@@ -6,15 +6,18 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
 import NewAppointmentModal from "../../components/NewAppointment/NewAppointmentModal";
+import Loading from "../../components/common/Loading";
 
 export default function Contact() {
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [messageError, setMessageError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = () => {
     if (message !== "") {
       setMessageError(false);
+      setLoading(true);
 
       const _reqData = {
         message: message,
@@ -28,16 +31,17 @@ export default function Contact() {
             data: JSON.stringify({ token, _reqData }),
           }),
         });
-
         return await response.json();
       }
 
       support()
         .then((res) => {
           console.log("support request", res);
+          setLoading(false);
           setModal(true);
         })
         .catch((err) => {
+          setLoading(false);
           console.log("support request", err);
         });
     } else {

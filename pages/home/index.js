@@ -1,6 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Fade from "react-reveal/Fade";
 
 // components
@@ -11,11 +11,17 @@ import AppointmentCard from "../../components/Home/AppointmentCard";
 import Stats from "../../components/Home/Stats";
 // import Modal from "../../components/common/Modal";
 
+// context
+import ProfileContext from "../../context/profile";
+
 // mockup data
 import data from "../../utils/data";
 import { appointments } from "../../utils/data/homefake";
 
 const home = () => {
+  const { token, profile } = useContext(ProfileContext);
+  console.log("home", { token, profile });
+
   const [index, setIndex] = useState(1);
   const [stats, setStats] = useState(data.home.stats.today);
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +36,7 @@ const home = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="" />
+      <Navbar active="" profile={profile} />
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">
