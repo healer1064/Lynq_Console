@@ -9,10 +9,10 @@ import Navbar from "../../components/Navbar";
 import AddNewButton from "../../components/common/AddNewButton";
 import ClientsTable from "../../components/Clients/ClientsTable";
 import PageLoading from "../../components/common/PageLoading";
+import EmptyData from "../../components/common/EmptyData";
 
 // utils
 import fetcher from "../../utils/fetcher";
-import EmptyData from "../../components/common/EmptyData";
 
 // context
 import ProfileContext from "../../context/profile";

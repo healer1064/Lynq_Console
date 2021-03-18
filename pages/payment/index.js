@@ -1,6 +1,7 @@
 // libraries
 import Head from "next/head";
 import { useState } from "react";
+import useSWR from "swr";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -8,36 +9,19 @@ import Leftbar from "../../components/Leftbar";
 import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
 
+// utils
+import fetcher from "../../utils/fetcher";
+import PageLoading from "../../components/common/PageLoading";
+import EmptyData from "../../components/common/EmptyData";
+
 export default function Payment() {
   // states
   const [payment, setPayment] = useState(false);
 
-  const paymentHistory = [
-    {
-      date: "02/10/2021",
-      transfer_number: "X92jj56",
-      amount: "$492.25",
-      status: "paid",
-    },
-    {
-      date: "02/10/2021",
-      transfer_number: "X92jj56",
-      amount: "$492.25",
-      status: "paid",
-    },
-    {
-      date: "02/10/2021",
-      transfer_number: "X92jj56",
-      amount: "$492.25",
-      status: "paid",
-    },
-    {
-      date: "02/10/2021",
-      transfer_number: "X92jj56",
-      amount: "$492.25",
-      status: "paid",
-    },
-  ];
+  const token =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb21ld2ViLm9yZyIsImlkIjoiMGNkMzhjNTctZWJlYi00MjQ5LThkNDMtOGExZTQyM2JhYTAyIn0.TKOttASFBDRooHPwiPr1HRhmXT2IrDKcqEGP2H5_BsM";
+
+  const { data, error } = useSWR(["/api/payments", token], fetcher);
 
   return (
     <>
@@ -52,12 +36,20 @@ export default function Payment() {
       <Navbar active="payments" />
       <div className="page-wrp">
         <Leftbar active="payments" />
-        <div className="content-wrp">
-          <div className="payment">
-            <h3>Payment</h3>
-            <RequestPayment payment={payment} setPayment={setPayment} />
-            <PaymentHistory data={paymentHistory} />
-          </div>
+        <div className="content-wrp ">
+          {!data ? (
+            <PageLoading />
+          ) : (
+            <div className="payment">
+              <h3>Payment</h3>
+              <RequestPayment
+                data={data}
+                payment={payment}
+                setPayment={setPayment}
+              />
+              <PaymentHistory data={data.transfer_history} />
+            </div>
+          )}
         </div>
       </div>
     </>

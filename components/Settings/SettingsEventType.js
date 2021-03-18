@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // components
-import EventList from "../EventType/EventList";
+import EventList from "./EventList";
 import AddNewButton from "../common/AddNewButton";
 
 const SettingsEventType = ({ data, setTab }) => {
