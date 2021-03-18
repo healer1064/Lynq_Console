@@ -1,27 +1,39 @@
+// libraries
+import { useEffect } from "react";
+
 // comonents
 import AccountEditInputContainer from "./AccountEditInputContainer";
+import Loading from "../common/Loading";
 
 const PersonalInformation = ({
   profile,
   setPersonalInfoShow,
   personalInfoShow,
   updateProfile,
-  firstName,
-  lastName,
+  name,
   email,
   address,
   city,
   zip,
   phone,
-  setFirstName,
-  setLastName,
+  setName,
   setEmail,
   setAddress,
   setCity,
   setZip,
   setPhone,
   personalInfoError,
+  loading,
 }) => {
+  useEffect(() => {
+    setName(profile.fullname);
+    setAddress(profile.address);
+    setEmail(profile.email);
+    setCity(profile.city);
+    setZip(profile.zipCode);
+    setPhone(profile.phoneNumber);
+  }, []);
+
   return (
     <div className="account-personal">
       <h3>
@@ -40,16 +52,10 @@ const PersonalInformation = ({
             <button>Submit Image</button>
           </div>
           <AccountEditInputContainer
-            label="First Name"
+            label="Name"
             type="text"
-            state={firstName}
-            setState={setFirstName}
-          />
-          <AccountEditInputContainer
-            label="Last Name"
-            type="text"
-            state={lastName}
-            setState={setLastName}
+            state={name}
+            setState={setName}
           />
           <AccountEditInputContainer
             label="Email Address"
@@ -92,21 +98,30 @@ const PersonalInformation = ({
               * Please fill all fields
             </p>
           )}
-          <button onClick={updateProfile}>Save My Personal Information</button>
+          <button
+            onClick={updateProfile}
+            style={{
+              position: "relative",
+            }}
+          >
+            {loading && <Loading />}Save My Personal Information
+          </button>
         </>
       ) : (
         <>
           <h6>Profile Picture</h6>
-          <h6>First Name</h6>
-          <p>{profile.firstname}</p>
-          <h6>Last Name</h6>
-          <p>{profile.lastname}</p>
+          <h6>Name</h6>
+          <p>{profile.fullname || "null"}</p>
           <h6>Email Address</h6>
-          <p>{profile.email}</p>
+          <p>{profile.email || "null"}</p>
           <h6>Address</h6>
+          <p>{profile.address || "null"}</p>
           <h6>City</h6>
+          <p>{profile.city || "null"}</p>
           <h6>Zip code</h6>
+          <p>{profile.zipCode || "null"}</p>
           <h6>Phone Number</h6>
+          <p>{profile.phoneNumber || "null"}</p>
         </>
       )}
     </div>

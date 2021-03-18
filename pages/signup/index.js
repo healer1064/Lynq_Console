@@ -3,6 +3,8 @@ import Head from "next/head";
 import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import SignupForm from "../../components/Signup/SignupForm";
@@ -45,6 +47,7 @@ export default function Signup() {
       })
       .catch((err) => {
         console.log("signup error", err);
+        toast.error(err.message);
         setLoading(false);
       });
   };
@@ -59,6 +62,7 @@ export default function Signup() {
           rel="stylesheet"
         />
       </Head>
+      <ToastContainer />
       <div className="signup">
         <SignupLeftbar />
         <div className="signup-form">

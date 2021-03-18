@@ -18,10 +18,11 @@ const Account = () => {
   const [personalInfoShow, setPersonalInfoShow] = useState(false);
   const [accountBusShow, setAccountBusShow] = useState(false);
   const [passShow, setPassShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // personal info state
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -52,7 +53,7 @@ const Account = () => {
   useEffect(() => {
     getProfileData();
     getBusinessData();
-  }, []);
+  }, [success]);
 
   const getProfileData = async () => {
     const token = localStorage.getItem("linqToken");
@@ -80,8 +81,7 @@ const Account = () => {
 
   const updateProfile = () => {
     if (
-      firstName !== "" &&
-      lastName !== "" &&
+      name !== "" &&
       email !== "" &&
       address !== "" &&
       city !== "" &&
@@ -90,8 +90,9 @@ const Account = () => {
     ) {
       // change raw data with useState variables
       setPersonalInfoError(false);
+      setLoading(true);
       const _reqData = {
-        fullname: `${firstName} ${lastName}`,
+        fullname: name,
         email,
         address,
         city,
@@ -114,9 +115,13 @@ const Account = () => {
 
       update()
         .then((res) => {
+          setLoading(false);
           console.log("profile updates", res);
+          setPersonalInfoShow(false);
+          setSuccess(!success);
         })
         .catch((err) => {
+          setLoading(false);
           console.log("profile update error", err);
         });
     } else {
@@ -126,13 +131,9 @@ const Account = () => {
 
   const updateBusiness = () => {
     // change raw data with useState variables
-    if (
-      businessName !== "" &&
-      bank !== "" &&
-      iban !== "" &&
-      accountNumber !== ""
-    ) {
+    if (businessName !== "" && bank !== "" && iban !== "" && account !== "") {
       setPaymentsError(false);
+      setLoading(true);
       const _reqData = {
         id: "string",
         accountID: "string",
@@ -157,9 +158,13 @@ const Account = () => {
 
       update()
         .then((res) => {
+          setLoading(false);
           console.log("business updates", res);
+          setAccountBusShow(false);
+          setSuccess(!success);
         })
         .catch((err) => {
+          setLoading(false);
           console.log("business update error", err);
         });
     } else {
@@ -174,6 +179,7 @@ const Account = () => {
       if (newPass === confirmPass) {
         setPassCheck(false);
         // change raw data with useState variables
+        setLoading(true);
         const _reqData = {
           oldPassword: prevPass,
           newPassword: newPass,
@@ -194,9 +200,12 @@ const Account = () => {
         update()
           .then((res) => {
             console.log("password updates", res);
+            setPassShow(false);
+            setLoading(false);
           })
           .catch((err) => {
             console.log("password update error", err);
+            setLoading(false);
           });
       } else {
         setPassCheck(true);
@@ -276,21 +285,20 @@ const Account = () => {
                     setPersonalInfoShow={setPersonalInfoShow}
                     personalInfoShow={personalInfoShow}
                     updateProfile={updateProfile}
-                    firstName={firstName}
-                    lastName={lastName}
+                    name={name}
                     email={email}
                     address={address}
                     city={city}
                     zip={zip}
                     phone={phone}
-                    setFirstName={setFirstName}
-                    setLastName={setLastName}
+                    setName={setName}
                     setEmail={setEmail}
                     setAddress={setAddress}
                     setCity={setCity}
                     setZip={setZip}
                     setPhone={setPhone}
                     personalInfoError={personalInfoError}
+                    loading={loading}
                   />
                   <BusinessPayments
                     business={business}
@@ -306,6 +314,7 @@ const Account = () => {
                     account={account}
                     setAccount={setAccount}
                     paymentsError={paymentsError}
+                    loading={loading}
                   />
                   <ChangePassword
                     passShow={passShow}
@@ -319,6 +328,7 @@ const Account = () => {
                     setConfirmPass={setConfirmPass}
                     passError={passError}
                     passCheck={passCheck}
+                    loading={loading}
                   />
                 </div>
               </div>

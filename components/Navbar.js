@@ -36,45 +36,45 @@ const Navbar = ({ active }) => {
           <Fade duration={1000}>
             <div className="mobile-nav-main-link">
               <Link href="/home">
-                <a className={active === "" && "active"}>
+                <a className={active === "" ? "active" : ""}>
                   <span>Home</span>
                 </a>
               </Link>
               <Link href="/appointments">
-                <a className={active === "appointments" && "active"}>
+                <a className={active === "appointments" ? "active" : ""}>
                   <span>Appointments</span>
                 </a>
               </Link>
               <Link href="/public-profile">
-                <a className={active === "profile" && "active"}>
+                <a className={active === "profile" ? "active" : ""}>
                   <span>Public Profile</span>
                 </a>
               </Link>
               <div className="space"></div>
               <Link href="/settings">
-                <a className={active === "settings" && "active"}>
+                <a className={active === "settings" ? "active" : ""}>
                   <span>Settings</span>
                 </a>
               </Link>
               <Link href="/clients">
-                <a className={active === "clients" && "active"}>
+                <a className={active === "clients" ? "active" : ""}>
                   <span>Clients</span>
                 </a>
               </Link>
               <Link href="/payment">
-                <a className={active === "payments" && "active"}>
+                <a className={active === "payments" ? "active" : ""}>
                   <span>Payment</span>
                 </a>
               </Link>
               <Link href="/support">
-                <a className={active === "contact" && "active"}>
+                <a className={active === "contact" ? "active" : ""}>
                   <span>Support</span>
                 </a>
               </Link>
             </div>
             <div className="mobile-nav-other-link">
               <Link href="/account">
-                <a className={active === "account" && "active"}>
+                <a className={active === "account" ? "active" : ""}>
                   <span>My Account</span>
                 </a>
               </Link>

@@ -1,7 +1,7 @@
 // libraries
 import { useState } from "react";
 
-const SettingsEventTypeEdit = ({ setTab }) => {
+const SettingsEventTypeAdd = ({ setTab }) => {
   // states
   const [descriptionCount, setDescriptionCount] = useState(0);
   const [needsCount, setNeedsCount] = useState(0);
@@ -11,11 +11,28 @@ const SettingsEventTypeEdit = ({ setTab }) => {
   const [duration, setDuration] = useState("");
   const [customDur, setCustomDur] = useState("");
   const [policy, setPolicy] = useState();
+  const [error, setError] = useState(false);
+
+  const handleSave = () => {
+    if (
+      eventName !== "" ||
+      desc !== "" ||
+      duration !== "" ||
+      (duration === "custom" && customDur !== "") ||
+      policy !== ""
+    ) {
+      console.log("true");
+      setError(false);
+    } else {
+      console.log("false");
+      setError(true);
+    }
+  };
 
   return (
     <div className="events-wrp">
       <div className="events-edit">
-        <h2>Edit Event Type</h2>
+        <h2>Add Event Type</h2>
         <div className="events-edit__inner">
           <div className="events-edit__name">
             <strong>Event Name*</strong>
@@ -29,7 +46,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
             <strong>Description*</strong>
             <div className="events-edit__description__textarea">
               <textarea
-                maxlength="100"
+                maxLength="100"
                 value={desc}
                 onChange={(e) => {
                   setDesc(e.target.value);
@@ -44,7 +61,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
             <strong>What people need to bring</strong>
             <div className="events-edit__needs__textarea">
               <textarea
-                maxlength="100"
+                maxLength="100"
                 value={needToBring}
                 onChange={(e) => {
                   setNeedsCount(e.target.value.length);
@@ -62,8 +79,8 @@ const SettingsEventTypeEdit = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  checked={duration === "15 min"}
-                  onClick={() => setDuration("15 min")}
+                  //   checked={duration === "15 min"}
+                  onChange={() => setDuration("15 min")}
                 />
                 <span>15 min</span>
                 <div className="checkmark"></div>
@@ -72,8 +89,8 @@ const SettingsEventTypeEdit = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  checked={duration === "30 min"}
-                  onClick={() => setDuration("30 min")}
+                  //   checked={duration === "30 min"}
+                  onChange={() => setDuration("30 min")}
                 />
                 <span>30 min</span>
                 <div className="checkmark"></div>
@@ -82,8 +99,8 @@ const SettingsEventTypeEdit = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  checked={duration === "45 min"}
-                  onClick={() => setDuration("45 min")}
+                  //   checked={duration === "45 min"}
+                  onChange={() => setDuration("45 min")}
                 />
                 <span>45 min</span>
                 <div className="checkmark"></div>
@@ -92,8 +109,8 @@ const SettingsEventTypeEdit = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  checked={duration === "90 min"}
-                  onClick={() => setDuration("90 min")}
+                  //   checked={duration === "90 min"}
+                  onChange={() => setDuration("90 min")}
                 />
                 <span>90 min</span>
                 <div className="checkmark"></div>
@@ -104,7 +121,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
               <input
                 name="duration"
                 type="radio"
-                checked={duration === "custom"}
+                // checked={duration === "custom"}
                 onClick={() => setDuration("custom")}
               />
               <div className="checkmark"></div>
@@ -130,6 +147,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
               onChange={(e) => setPolicy(e.target.value)}
             ></textarea>
           </div>
+          {error && <p style={{ color: "red" }}>*Please fill all fields</p>}
         </div>
         <div className="events-edit__btns">
           <button
@@ -138,11 +156,13 @@ const SettingsEventTypeEdit = ({ setTab }) => {
           >
             Cancel
           </button>
-          <button className="events-edit__btns-save">Save</button>
+          <button className="events-edit__btns-save" onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SettingsEventTypeEdit;
+export default SettingsEventTypeAdd;

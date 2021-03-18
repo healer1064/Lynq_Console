@@ -5,7 +5,7 @@ import useSWR from "swr";
 // components
 import Leftbar from "../../components/Leftbar";
 import Navbar from "../../components/Navbar";
-import NewClientButton from "../../components/Clients/NewClientButton";
+import AddNewButton from "../../components/common/AddNewButton";
 import ClientsTable from "../../components/Clients/ClientsTable";
 import PageLoading from "../../components/common/PageLoading";
 
@@ -42,7 +42,7 @@ export default function Clients() {
           ) : (
             <div className="clients-wrp">
               <div className="clients-wrp__top">
-                {/* <NewClientButton /> */}
+                {/* <AddNewButton title="New Client" /> */}
                 <input
                   type="text"
                   placeholder="Search"

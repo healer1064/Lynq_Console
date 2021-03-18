@@ -13,6 +13,7 @@ import SettingsCallSync from "../../components/Settings/SettingsCallSync";
 // fake data
 import { eventsData } from "../../utils/data/settingsFake";
 import SettingsEventTypeEdit from "../../components/Settings/SettingsEventTypeEdit";
+import SettingsEventTypeAdd from "../../components/Settings/SettingsEventTypeAdd";
 
 export default function Settings() {
   // states
@@ -39,8 +40,10 @@ export default function Settings() {
             <SettingsEventType data={eventsData} setTab={setTab} />
           ) : tab === "callsync" ? (
             <SettingsCallSync />
-          ) : (
+          ) : tab === "eventtypeedit" ? (
             <SettingsEventTypeEdit setTab={setTab} />
+          ) : (
+            <SettingsEventTypeAdd setTab={setTab} />
           )}
         </div>
       </div>
