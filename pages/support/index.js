@@ -23,7 +23,11 @@ export default function Contact() {
       const token = localStorage.getItem("linqToken");
 
       async function support() {
-        const response = await fetch("/api/support/request");
+        const response = await fetch("/api/support/request", {
+          headers: new Headers({
+            data: JSON.stringify({ token, _reqData }),
+          }),
+        });
 
         return await response.json();
       }
