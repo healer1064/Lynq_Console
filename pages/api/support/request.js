@@ -15,5 +15,5 @@ export default async (req, res) => {
 
   // const data = await response.json();
 
-  res.status(200).json(_data._reqData);
+  res.status(200).json(data);
 };

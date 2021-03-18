@@ -1,5 +1,5 @@
 // libraries
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -11,7 +11,12 @@ import BusinessPayments from "../../components/Account/BusinessPayments";
 import ChangePassword from "../../components/Account/ChangePassword";
 import PageLoading from "../../components/common/PageLoading";
 
+// context
+import ProfileContext from "../../context/profile";
+
 const Account = () => {
+  const { token, profile } = useContext(ProfileContext);
+
   // states
   const [profile, setProfile] = useState(null);
   const [business, setBusiness] = useState(null);
@@ -56,7 +61,7 @@ const Account = () => {
   }, [success]);
 
   const getProfileData = async () => {
-    const token = localStorage.getItem("linqToken");
+    // const token = localStorage.getItem("linqToken");
 
     const response = await fetch("/api/account/profile", {
       headers: new Headers({ "Content-Type": "application/json", token }),
@@ -68,7 +73,7 @@ const Account = () => {
   };
 
   const getBusinessData = async () => {
-    const token = localStorage.getItem("linqToken");
+    // const token = localStorage.getItem("linqToken");
 
     const response = await fetch("/api/account/business", {
       headers: new Headers({ "Content-Type": "application/json", token }),
@@ -101,7 +106,7 @@ const Account = () => {
         profilePicture: "string",
       };
 
-      const token = localStorage.getItem("linqToken");
+      // const token = localStorage.getItem("linqToken");
 
       async function update() {
         const response = await fetch("/api/account/profile-update", {
@@ -185,7 +190,7 @@ const Account = () => {
           newPassword: newPass,
         };
 
-        const token = localStorage.getItem("linqToken");
+        // const token = localStorage.getItem("linqToken");
 
         async function update() {
           const response = await fetch("/api/account/password-update", {

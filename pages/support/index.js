@@ -1,6 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 // components
 import Navbar from "../../components/Navbar";

@@ -1,6 +1,7 @@
 // libraries
 import Head from "next/head";
 import useSWR from "swr";
+import { useContext } from "react";
 
 // components
 import Leftbar from "../../components/Leftbar";
@@ -13,11 +14,11 @@ import PageLoading from "../../components/common/PageLoading";
 import fetcher from "../../utils/fetcher";
 import EmptyData from "../../components/common/EmptyData";
 
-export default function Clients() {
-  // const token = localStorage.getItem("linqToken");
+// context
+import ProfileContext from "../../context/profile";
 
-  const token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb21ld2ViLm9yZyIsImlkIjoiMGNkMzhjNTctZWJlYi00MjQ5LThkNDMtOGExZTQyM2JhYTAyIn0.TKOttASFBDRooHPwiPr1HRhmXT2IrDKcqEGP2H5_BsM";
+export default function Clients() {
+  const { token } = useContext(ProfileContext);
 
   const { data, error } = useSWR(["/api/clients", token], fetcher);
 
