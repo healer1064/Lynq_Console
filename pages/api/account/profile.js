@@ -18,6 +18,3 @@ export default async (req, res) => {
 
   res.status(200).json(data);
 };
-
-// token
-// eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzb21ld2ViLm9yZyIsImlkIjoiZjAxNzYzY2MtMjFkMS00OGY3LTlhMjEtYmIxMmEyN2RmZjIxIn0.iK-KZIO_kQcrei8Ablu3wpNDCLYObSp3qMSn9dFJ2ww

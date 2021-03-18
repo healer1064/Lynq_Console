@@ -107,12 +107,10 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
         <button
           className="signup-form__btn"
           style={{
-            display: "flex",
-            justifyContent: "center",
-            outline: "none",
+            position: "relative",
           }}
         >
-          {!loading ? "Login" : <Loading />}
+          {loading && <Loading />}Login
         </button>
         <span className="signup-form__login">
           Don't have an account?{" "}

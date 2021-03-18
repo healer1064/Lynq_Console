@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // components
 import EventList from "../EventType/EventList";
+import AddNewButton from "../common/AddNewButton";
 
 const SettingsEventType = ({ data, setTab }) => {
   // states
@@ -20,11 +21,25 @@ const SettingsEventType = ({ data, setTab }) => {
   };
 
   return (
-    <EventList
-      events={data}
-      activeItemsHandler={activeItemsHandler}
-      setTab={setTab}
-    />
+    <>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          marginBottom: "20px",
+        }}
+      >
+        <AddNewButton
+          onClick={() => setTab("eventtypeadd")}
+          title="Add Event Type"
+        />
+      </div>
+      <EventList
+        events={data}
+        activeItemsHandler={activeItemsHandler}
+        setTab={setTab}
+      />
+    </>
   );
 };
 

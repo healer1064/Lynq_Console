@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Fade from "react-reveal/Fade";
 
+// components
 import Loading from "../common/Loading";
 
 const SignupForm = ({
@@ -165,11 +166,10 @@ const SignupForm = ({
         <button
           className="signup-form__btn"
           style={{
-            display: "flex",
-            justifyContent: "center",
+            position: "relative",
           }}
         >
-          {!loading ? "Sign Up" : <Loading />}
+          {loading && <Loading />}Sign Up
         </button>
         <span className="signup-form__login">
           Already have an account?{" "}

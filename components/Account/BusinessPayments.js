@@ -1,5 +1,9 @@
+// libraries
+import { useEffect } from "react";
+
 // components
 import AccountEditInputContainer from "./AccountEditInputContainer";
+import Loading from "../common/Loading";
 
 const BusinessPayments = ({
   business,
@@ -15,7 +19,14 @@ const BusinessPayments = ({
   account,
   setAccount,
   paymentsError,
+  loading,
 }) => {
+  useEffect(() => {
+    setBusinessName(business.businessName);
+    setBank(business.bankName);
+    setIban(business.iban);
+    setAccount(business.accountNumber);
+  }, []);
   return (
     <div className="account-business">
       <h3>
@@ -57,7 +68,15 @@ const BusinessPayments = ({
               * Please fill all fields
             </p>
           )}
-          <button onClick={updateBusiness}>Save My Personal Information</button>
+          <button
+            onClick={updateBusiness}
+            style={{
+              position: "relative",
+            }}
+          >
+            {loading && <Loading />}
+            Save My Personal Information
+          </button>
         </>
       ) : (
         <div>

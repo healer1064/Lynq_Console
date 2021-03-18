@@ -10,7 +10,7 @@ export const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     if (token !== null) {
-      localStorage.setItem("linqToken", res.token);
+      localStorage.setItem("linqToken", token);
       const getProfile = async () => {
         const response = await fetch("/api/account/profile", {
           headers: new Headers({ "Content-Type": "application/json", token }),

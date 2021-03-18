@@ -1,4 +1,5 @@
 // components
+import Loading from "../common/Loading";
 import AccountEditInputContainer from "./AccountEditInputContainer";
 
 const ChangePassword = ({
@@ -13,6 +14,7 @@ const ChangePassword = ({
   setConfirmPass,
   passError,
   passCheck,
+  loading,
 }) => {
   return (
     <div className="account-password">
@@ -54,7 +56,14 @@ const ChangePassword = ({
               * Passwords don't match
             </p>
           )}
-          <button onClick={updatePassword}>Update My Password</button>
+          <button
+            onClick={updatePassword}
+            style={{
+              position: "relative",
+            }}
+          >
+            {loading && <Loading />} Update My Password
+          </button>
         </>
       ) : (
         <div>

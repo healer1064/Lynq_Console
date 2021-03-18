@@ -1,25 +1,8 @@
 // libraries
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
 
 const Settings = ({ setTab, tab }) => {
-  // const [mobileView, setMobileView] = useState(tab);
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (mobileView === "setup") {
-  //     router.push("/settings/setup");
-  //   }
-  //   if (mobileView === "eventtype") {
-  //     router.push("/settings/event-type");
-  //   }
-  //   if (mobileView === "eventtypeedit") {
-  //     router.push("/settings/event-type-edit");
-  //   }
-  //   if (mobileView === "callsync") {
-  //     router.push("/settings/call-sync");
-  //   }
-  // }, [mobileView]);
 
   return (
     <>
@@ -33,7 +16,10 @@ const Settings = ({ setTab, tab }) => {
         <div
           onClick={() => setTab("eventtype")}
           className={`option ${
-            (tab === "eventtype" || tab === "eventtypeedit") && "active"
+            (tab === "eventtype" ||
+              tab === "eventtypeedit" ||
+              tab === "eventtypeadd") &&
+            "active"
           }`}
         >
           Event Type
