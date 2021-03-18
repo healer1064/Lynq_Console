@@ -11,7 +11,7 @@ import EmailConfirmation from "../../components/Home/EmailConfirmation";
 import AppointmentCard from "../../components/Home/AppointmentCard";
 import Stats from "../../components/Home/Stats";
 import PageLoading from "../../components/common/PageLoading";
-// import Modal from "../../components/common/Modal";
+import Modal from "../../components/common/Modal";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -37,7 +37,25 @@ const home = () => {
     }
   }, []);
 
-  if (preLoading) return <PageLoading />;
+  if (preLoading)
+    return (
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
+          position: "fixed",
+          left: "0",
+          top: "0",
+          right: "0",
+          bottom: "0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <PageLoading />
+      </div>
+    );
 
   return (
     <>
@@ -53,6 +71,7 @@ const home = () => {
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">
+          {isOpen && <Modal setModal={setIsOpen} />}
           <div className="notifications__col" style={{ display: "none" }}>
             <EmailConfirmation />
             <div className="session">

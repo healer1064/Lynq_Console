@@ -1,6 +1,8 @@
 // libraries
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import Head from "next/head";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // styles
 import styles from "../../styles/EditProfile.module.sass";
@@ -11,7 +13,14 @@ import Leftbar from "../../components/Leftbar";
 import EditProfileDropdown from "../../components/EditProfile/EditProfileDropdown";
 import EditProfileDDCheck from "../../components/EditProfile/EditProfileDDCheck";
 
+// context
+import ProfileContext from "../../context/profile";
+import Loading from "../../components/common/Loading";
+
 const EditProfile = () => {
+  // context
+  const { token } = useContext(ProfileContext);
+
   // states
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,10 +33,11 @@ const EditProfile = () => {
   const [youtube, setYoutube] = useState("");
   const [generalPres, setGeneralPres] = useState("");
   const [whatToExpect, setWhatToExpect] = useState("");
-  const [specialities, setSpecialities] = useState("");
+  const [specialities, setSpecialities] = useState([]);
   const [certifications, setCertifications] = useState("");
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const imgRef = useRef();
 
@@ -42,6 +52,46 @@ const EditProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
+  const updateProfile = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const _reqData = {
+      slug,
+      location: `${city} - ${state}`,
+      category: "string",
+      about: generalPres,
+      facebook,
+      instagram,
+      youtube,
+      personal_website: "string",
+      name: `${firstName} ${lastName}`,
+      expect_details: whatToExpect,
+      specialities: specialities.split("\n"),
+    };
+
+    async function update() {
+      const response = await fetch("/api/public-profile", {
+        headers: new Headers({
+          data: JSON.stringify({ token, _reqData }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    update()
+      .then((res) => {
+        setLoading(false);
+        console.log("public profile updates", res);
+        toast.success("Profile updated successfully");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log("public profile update error", err);
+        toast.error("An error has occurred");
+      });
+  };
+
   return (
     <>
       <Head>
@@ -52,13 +102,14 @@ const EditProfile = () => {
           rel="stylesheet"
         />
       </Head>
+      <ToastContainer />
       <Navbar active="profile" />
       <div className="page-wrp">
         <Leftbar active="profile" />
         <div className="content-wrp">
           <div className={styles.edit_profile}>
             <h3>Public Profile</h3>
-            <form>
+            <form onSubmit={(e) => updateProfile(e)}>
               <div className={styles.edit_profile_img_container}>
                 {image !== null ? (
                   <img src={image} className={styles.edit_profile_img} />
@@ -189,7 +240,7 @@ const EditProfile = () => {
               <div>
                 <label>
                   Certifications{" "}
-                  <span>(Press enter after each speciality)</span>
+                  <span>(Press enter after each certification)</span>
                 </label>
                 <textarea
                   value={certifications}
@@ -197,7 +248,9 @@ const EditProfile = () => {
                 ></textarea>
               </div>
               <div className={styles.text_uppercase}>
-                <button>Save Profile</button>
+                <button type="submit" style={{ position: "relative" }}>
+                  {loading && <Loading />}Save Profile
+                </button>
                 <button>Cancel</button>
               </div>
             </form>

@@ -94,7 +94,7 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
-        <label className="signup-form__terms">
+        {/* <label className="signup-form__terms">
           <input
             type="checkbox"
             checked={terms}
@@ -104,7 +104,7 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
           />
           <div className="checkmark"></div>
           <span>Keep Me Logged In</span>
-        </label>
+        </label> */}
         <button
           className="signup-form__btn"
           style={{

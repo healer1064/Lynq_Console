@@ -1,5 +1,11 @@
 // libraries
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// context
+import ProfileContext from "../../context/profile";
+import Loading from "../common/Loading";
 
 const SettingsEventTypeAdd = ({ setTab }) => {
   // states
@@ -7,30 +13,78 @@ const SettingsEventTypeAdd = ({ setTab }) => {
   const [needsCount, setNeedsCount] = useState(0);
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
+  const [price, setPrice] = useState();
   const [needToBring, setNeedToBring] = useState("");
   const [duration, setDuration] = useState("");
   const [customDur, setCustomDur] = useState("");
-  const [policy, setPolicy] = useState();
+  const [policy, setPolicy] = useState(
+    "• If the session is cancelled with 12 hours (or more) notice, then a full refund is given.\n• If the session is cancelled with less than 12 hours notice, no refund is given.\n• If you don't show for whatever reason, no refund is given."
+  );
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const { token } = useContext(ProfileContext);
 
   const handleSave = () => {
     if (
-      eventName !== "" ||
-      desc !== "" ||
-      duration !== "" ||
-      (duration === "custom" && customDur !== "") ||
-      policy !== ""
+      eventName !== "" &&
+      desc !== "" &&
+      duration !== "" &&
+      policy !== "" &&
+      price !== ""
     ) {
-      console.log("true");
-      setError(false);
+      if (duration === "custom" && customDur === "") {
+        console.log("false");
+        setError(true);
+      } else {
+        setLoading(true);
+        console.log("true");
+        setError(false);
+        addEventType();
+      }
     } else {
       console.log("false");
       setError(true);
     }
   };
 
+  const addEventType = () => {
+    const _reqData = {
+      name: eventName,
+      teacherId: "string",
+      description: desc,
+      duration: duration === "custom" ? customDur : duration,
+      price,
+      cancellation_policy: policy,
+      material_needed: needToBring,
+    };
+
+    async function add() {
+      const response = await fetch("/api/account/profile-update", {
+        headers: new Headers({
+          data: JSON.stringify({ token, _reqData }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    add()
+      .then((res) => {
+        setLoading(false);
+        console.log("Event type added", res);
+        toast.success("Event Type added");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log("Error Event type added", err);
+        toast.error("An error has occurred");
+      });
+  };
+
   return (
     <div className="events-wrp">
+      <ToastContainer />
       <div className="events-edit">
         <h2>Add Event Type</h2>
         <div className="events-edit__inner">
@@ -79,8 +133,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  //   checked={duration === "15 min"}
-                  onChange={() => setDuration("15 min")}
+                  onChange={() => setDuration("15")}
                 />
                 <span>15 min</span>
                 <div className="checkmark"></div>
@@ -89,8 +142,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  //   checked={duration === "30 min"}
-                  onChange={() => setDuration("30 min")}
+                  onChange={() => setDuration("30")}
                 />
                 <span>30 min</span>
                 <div className="checkmark"></div>
@@ -100,7 +152,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
                   name="duration"
                   type="radio"
                   //   checked={duration === "45 min"}
-                  onChange={() => setDuration("45 min")}
+                  onChange={() => setDuration("45")}
                 />
                 <span>45 min</span>
                 <div className="checkmark"></div>
@@ -109,8 +161,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  //   checked={duration === "90 min"}
-                  onChange={() => setDuration("90 min")}
+                  onChange={() => setDuration("90")}
                 />
                 <span>90 min</span>
                 <div className="checkmark"></div>
@@ -121,13 +172,13 @@ const SettingsEventTypeAdd = ({ setTab }) => {
               <input
                 name="duration"
                 type="radio"
-                // checked={duration === "custom"}
                 onClick={() => setDuration("custom")}
               />
               <div className="checkmark"></div>
               <input
                 disabled={duration !== "custom"}
-                type="text"
+                type="number"
+                min={1}
                 placeholder="Example: 120 Min"
                 value={customDur}
                 onChange={(e) => {
@@ -147,7 +198,28 @@ const SettingsEventTypeAdd = ({ setTab }) => {
               onChange={(e) => setPolicy(e.target.value)}
             ></textarea>
           </div>
-          {error && <p style={{ color: "red" }}>*Please fill all fields</p>}
+          <div className="events-edit__price">
+            <strong>Price*</strong>
+            <input
+              type="number"
+              min={1}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <img src="img/dollar.svg" alt="dollar" />
+          </div>
+          {error && (
+            <p
+              style={{
+                color: "red",
+                display: "block",
+                width: "100% ",
+                margin: "0",
+              }}
+            >
+              *Please fill all fields
+            </p>
+          )}
         </div>
         <div className="events-edit__btns">
           <button
@@ -156,8 +228,14 @@ const SettingsEventTypeAdd = ({ setTab }) => {
           >
             Cancel
           </button>
-          <button className="events-edit__btns-save" onClick={handleSave}>
-            Save
+          <button
+            className="events-edit__btns-save"
+            style={{
+              position: "relative",
+            }}
+            onClick={handleSave}
+          >
+            {loading && <Loading />}Save
           </button>
         </div>
       </div>

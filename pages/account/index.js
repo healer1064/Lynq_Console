@@ -61,8 +61,6 @@ const Account = () => {
   }, [success]);
 
   const getProfileData = async () => {
-    // const token = localStorage.getItem("linqToken");
-
     const response = await fetch("/api/account/profile", {
       headers: new Headers({ "Content-Type": "application/json", token }),
     });
@@ -73,8 +71,6 @@ const Account = () => {
   };
 
   const getBusinessData = async () => {
-    // const token = localStorage.getItem("linqToken");
-
     const response = await fetch("/api/account/business", {
       headers: new Headers({ "Content-Type": "application/json", token }),
     });
@@ -93,7 +89,6 @@ const Account = () => {
       zip !== "" &&
       phone !== ""
     ) {
-      // change raw data with useState variables
       setPersonalInfoError(false);
       setLoading(true);
       const _reqData = {
@@ -105,8 +100,6 @@ const Account = () => {
         phoneNumber: phone,
         profilePicture: "string",
       };
-
-      // const token = localStorage.getItem("linqToken");
 
       async function update() {
         const response = await fetch("/api/account/profile-update", {

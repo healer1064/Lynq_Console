@@ -1,5 +1,6 @@
 // libraries
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Rotate from "react-reveal/Rotate";
 import Fade from "react-reveal/Fade";
@@ -10,6 +11,13 @@ const Navbar = ({ active }) => {
   // states
   const [open, setOpen] = useState(false);
 
+  const router = useRouter();
+
+  const logout = () => {
+    localStorage.removeItem("linqToken");
+    window.location.reload();
+  };
+
   return (
     <>
       <header className="header">
@@ -18,6 +26,10 @@ const Navbar = ({ active }) => {
             <img src="/img/lynq-logo.png" alt="" />
           </a>
         </Link>
+        <div onClick={logout} className="logout">
+          <img src="/img/logout.svg" alt="logout" />
+          <p>Logout</p>
+        </div>
         <div className="burger-menu" onClick={() => setOpen(true)}>
           <img src="/img/burger-menu.svg" alt="" />
         </div>
@@ -78,7 +90,7 @@ const Navbar = ({ active }) => {
                   <span>My Account</span>
                 </a>
               </Link>
-              <a>
+              <a onClick={logout}>
                 <span>Log Out</span>
               </a>
             </div>
