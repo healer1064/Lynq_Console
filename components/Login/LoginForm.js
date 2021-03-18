@@ -23,6 +23,7 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
       signIn({
         email: email,
         password: password,
+        logged: terms,
       });
     }
   };

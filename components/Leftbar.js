@@ -1,7 +1,13 @@
 // libraries
+import { useContext } from "react";
 import Link from "next/link";
 
-const Leftbar = ({ active, profile }) => {
+// context
+import ProfileContext from "../context/profile";
+
+const Leftbar = ({ active }) => {
+  const { profile } = useContext(ProfileContext);
+
   return (
     <div className="side-nav">
       <nav>

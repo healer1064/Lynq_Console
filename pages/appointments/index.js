@@ -18,7 +18,6 @@ import { appointments } from "../../utils/data/appointmentsFake";
 
 export default function Appointments() {
   const { token, profile } = useContext(ProfileContext);
-  console.log("home", { token, profile });
 
   const [tabIndex, setTabIndex] = useState(1);
   return (

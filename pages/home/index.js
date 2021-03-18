@@ -1,6 +1,7 @@
 // libraries
 import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 import Fade from "react-reveal/Fade";
 
 // components
@@ -9,6 +10,7 @@ import Leftbar from "../../components/Leftbar";
 import EmailConfirmation from "../../components/Home/EmailConfirmation";
 import AppointmentCard from "../../components/Home/AppointmentCard";
 import Stats from "../../components/Home/Stats";
+import PageLoading from "../../components/common/PageLoading";
 // import Modal from "../../components/common/Modal";
 
 // context
@@ -20,11 +22,22 @@ import { appointments } from "../../utils/data/homefake";
 
 const home = () => {
   const { token, profile } = useContext(ProfileContext);
-  console.log("home", { token, profile });
+  const router = useRouter();
+  const [preLoading, setPreLoading] = useState(true);
 
   const [index, setIndex] = useState(1);
   const [stats, setStats] = useState(data.home.stats.today);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("linqToken") === null) {
+      router.push("/login");
+    } else {
+      setPreLoading(false);
+    }
+  }, []);
+
+  if (preLoading) return <PageLoading />;
 
   return (
     <>
@@ -36,7 +49,7 @@ const home = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="" profile={profile} />
+      <Navbar active="" />
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">

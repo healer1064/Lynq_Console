@@ -18,10 +18,13 @@ export const ProfileProvider = ({ children }) => {
 
         const data = await response.json();
 
+        localStorage.setItem("profile", JSON.stringify(data));
         setProfile(data);
       };
 
       getProfile();
+    } else if (localStorage.getItem("linqToken") !== null) {
+      setToken(localStorage.getItem("linqToken"));
     }
   }, [token]);
 

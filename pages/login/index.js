@@ -20,13 +20,16 @@ const index = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const onSignIn = (_data) => {
+  const onSignIn = ({ email, password, logged }) => {
     setLoading(true);
 
     async function signInReq() {
       const response = await fetch("/api/account/signin", {
         headers: new Headers({
-          data: JSON.stringify(_data),
+          data: JSON.stringify({
+            email: email,
+            password: password,
+          }),
         }),
       });
 
