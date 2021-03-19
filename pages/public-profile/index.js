@@ -66,6 +66,8 @@ const EditProfile = () => {
       setImage(reader.result);
     };
     reader.readAsDataURL(e.target.files[0]);
+
+    uploadProfilePic();
   };
 
   const updateProfile = (e) => {
@@ -105,6 +107,32 @@ const EditProfile = () => {
         setLoading(false);
         console.log("public profile update error", err);
         toast.error("An error has occurred");
+      });
+  };
+
+  const uploadProfilePic = () => {
+    setLoading(true);
+
+    async function update() {
+      const response = await fetch("/api/common/upload-image", {
+        headers: new Headers({
+          data: JSON.stringify({ token, image: image }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    update()
+      .then((res) => {
+        // setLoading(false);
+        console.log("profile pic", res);
+        // toast.success("Profile updated successfully");
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log("error profile pic", err);
+        // toast.error("An error has occurred");
       });
   };
 

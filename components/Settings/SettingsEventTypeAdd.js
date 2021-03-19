@@ -75,7 +75,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
       .then((res) => {
         setLoading(false);
         console.log("Event type added", res);
-        toast.success("Event Type added");
+        setTab("eventtype");
       })
       .catch((err) => {
         setLoading(false);

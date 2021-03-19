@@ -1,9 +1,5 @@
 // libraries
-import { useContext } from "react";
-import useSWR from "swr";
-
-// utils
-import fetcher from "../../utils/fetcher";
+import { useContext, useState, useEffect } from "react";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -17,10 +13,24 @@ import EmptyData from "../common/EmptyData";
 const SettingsEventType = ({ setTab }) => {
   const { token } = useContext(ProfileContext);
 
-  const { data, error } = useSWR(
-    ["/api/settings/get-event-types", token],
-    fetcher
-  );
+  const [data, setData] = useState();
+  const [response, setResponse] = useState(false);
+
+  const getEventTypes = async () => {
+    const response = await fetch("/api/settings/get-event-types", {
+      headers: new Headers({ "Content-Type": "application/json", token }),
+    });
+
+    const data = await response.json();
+
+    setData(data);
+  };
+
+  useEffect(() => {
+    getEventTypes();
+  }, [response]);
+
+  console.log(data);
 
   return (
     <>
@@ -41,7 +51,12 @@ const SettingsEventType = ({ setTab }) => {
       ) : data.length === 0 ? (
         <EmptyData title="No event types to show" />
       ) : (
-        <EventList events={data} setTab={setTab} />
+        <EventList
+          response={response}
+          setResponse={setResponse}
+          events={data}
+          setTab={setTab}
+        />
       )}
     </>
   );
