@@ -1,20 +1,50 @@
 // libraries
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
 
-const EventListCard = ({ card, index, activeItemsHandler, setTab }) => {
+// context
+import ProfileContext from "../../context/profile";
+
+const EventListCard = ({ card, setTab }) => {
   // states
   const [open, setOpen] = useState(false);
 
-  const router = useRouter();
+  const { token } = useContext(ProfileContext);
+
+  const deleteEventType = () => {
+    async function del() {
+      const response = await fetch("/api/settings/delete-event-type", {
+        headers: new Headers({
+          data: JSON.stringify({ token, id: card.id }),
+        }),
+      });
+
+      return await response.json();
+    }
+
+    del()
+      .then((res) => {
+        // setLoading(false);
+        console.log("Event type Delete", res);
+        toast.success("Event Type Deleted");
+      })
+      .catch((err) => {
+        // setLoading(false);
+        console.log("Error Event type deleted", err);
+        toast.error("An error has occurred");
+      });
+  };
 
   return (
     <div className="events-row__card">
       <Fade duration={1000}>
-        <strong>{card.title}</strong>
+        <ToastContainer />
+        <strong>{card.name}</strong>
         <div className="btm">
           <div>
+            <span className="duration">{card.description}</span>
             <span className="duration">{card.duration} min</span>
             <span>${card.price}</span>
           </div>
@@ -26,7 +56,7 @@ const EventListCard = ({ card, index, activeItemsHandler, setTab }) => {
             )}
             <div
               className="toggle-control"
-              onClick={() => activeItemsHandler(index)}
+              onClick={() => console.log("on")}
             ></div>
           </label>
         </div>
@@ -39,7 +69,7 @@ const EventListCard = ({ card, index, activeItemsHandler, setTab }) => {
               <img src="/img/events-edit-icon.svg" alt="" />
               Edit
             </span>
-            <span>
+            <span onClick={deleteEventType}>
               <img src="/img/events-delete-icon.svg" alt="" />
               Delete
             </span>

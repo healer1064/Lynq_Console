@@ -2,6 +2,7 @@
 import { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { v4 as uuidv4 } from "uuid";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -18,7 +19,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
   const [duration, setDuration] = useState("");
   const [customDur, setCustomDur] = useState("");
   const [policy, setPolicy] = useState(
-    "• If the session is cancelled with 12 hours (or more) notice, then a full refund is given.\n• If the session is cancelled with less than 12 hours notice, no refund is given.\n• If you don't show for whatever reason, no refund is given."
+    "- If the session is cancelled with 12 hours (or more) notice, then a full refund is given.\n- If the session is cancelled with less than 12 hours notice, no refund is given.\n- If you don't show for whatever reason, no refund is given."
   );
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -50,6 +51,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
 
   const addEventType = () => {
     const _reqData = {
+      id: uuidv4(),
       name: eventName,
       teacherId: "string",
       description: desc,
@@ -60,7 +62,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
     };
 
     async function add() {
-      const response = await fetch("/api/account/profile-update", {
+      const response = await fetch("/api/settings/add-event-type", {
         headers: new Headers({
           data: JSON.stringify({ token, _reqData }),
         }),
@@ -100,30 +102,30 @@ const SettingsEventTypeAdd = ({ setTab }) => {
             <strong>Description*</strong>
             <div className="events-edit__description__textarea">
               <textarea
-                maxLength="100"
+                maxLength="300"
                 value={desc}
                 onChange={(e) => {
                   setDesc(e.target.value);
                   setDescriptionCount(e.target.value.length);
                 }}
-                placeholder="100 Characters max"
+                placeholder="300 Characters max"
               ></textarea>
-              <div className="count">{descriptionCount}/100</div>
+              <div className="count">{descriptionCount}/300</div>
             </div>
           </div>
           <div className="events-edit__col need">
             <strong>What people need to bring</strong>
             <div className="events-edit__needs__textarea">
               <textarea
-                maxLength="100"
+                maxLength="300"
                 value={needToBring}
                 onChange={(e) => {
                   setNeedsCount(e.target.value.length);
                   setNeedToBring(e.target.value);
                 }}
-                placeholder="100 Characters max"
+                placeholder="300 Characters max"
               ></textarea>
-              <div className="count">{needsCount}/100</div>
+              <div className="count">{needsCount}/300</div>
             </div>
           </div>
           <div className="events-edit__col radios">

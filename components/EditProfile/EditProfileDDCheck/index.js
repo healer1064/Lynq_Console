@@ -1,53 +1,46 @@
-import React, { useState } from "react";
+// libraries
+import { useState } from "react";
 
+// styles
 import styles from "./style.module.css";
 
-const EditProfileDDCheck = () => {
+// components
+import CategoryListItem from "../CategoryListItem";
+
+const EditProfileDDCheck = ({ state, setState, categories }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const handleChange = (e) => {
+    if (e.target.checked) {
+      const tArr = state;
+      tArr.push(e.target.value);
+      setState([...tArr]);
+    } else {
+      const tempArr = state.filter((i) => i !== e.target.value);
+      setState(tempArr);
+    }
+  };
 
   return (
     <div className={styles.wrapper} onClick={toggle}>
       {isOpen && (
         <div className={styles.drop_down} onClick={(e) => e.stopPropagation()}>
           <ul className={styles.list}>
-            <li className={styles.item}>
-              <span>Automotive</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Astrologer</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Fashion</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Fitness</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Lifecoach</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Make Up</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Meditation</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
-            <li className={styles.item}>
-              <span>Yoga</span>
-              <input className={styles.checkbox} type="checkbox" />
-            </li>
+            {categories.map((i, index) => (
+              <CategoryListItem
+                key={index}
+                state={state}
+                handleChange={handleChange}
+                item={i}
+              />
+            ))}
           </ul>
         </div>
       )}
       <div className={styles.icon_wrapper}>
+        <span>{state.join(", ")}</span>
         <img src="/img/public-screen-dropdown-icon.svg" alt="dropdown" />
       </div>
     </div>

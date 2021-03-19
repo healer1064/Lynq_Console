@@ -19,7 +19,7 @@ const Modal = ({ setModal }) => {
             <br />
             Monday February 22 at 12:00PM
           </p>
-          <button onClick={() => setModal(false)}>CONFIRM</button>
+          <button onClick={() => setModal(false)}>Yes, I confirm the cancellation</button>
         </div>
       </div>
     </Fade>

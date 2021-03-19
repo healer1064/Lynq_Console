@@ -5,9 +5,9 @@ import { useState } from "react";
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
-import AppointmentNewShare from "../../components/AppointmentNew/AppointmentNewShare";
-import AppointmentNewButtons from "../../components/AppointmentNew/AppointmentNewButtons";
-import AppointmentNewTime from "../../components/AppointmentNew/AppointmentNewTime";
+import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
+import AppointmentNewButtons from "../../components/Appointments/AppointmentNewButtons";
+import AppointmentNewTime from "../../components/Appointments/AppointmentNewTime";
 
 export default function AppointmentNew() {
   // states
@@ -55,14 +55,16 @@ export default function AppointmentNew() {
                 placeholder="Example: 120 Min"
               />
             </label>
-            <label className="small">
+            <label className="small" style={{ position: "relative" }}>
               <strong>Price</strong>
               <input
                 type="number"
                 min="1"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                style={{ paddingLeft: "25px" }}
               />
+              <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
             </label>
             <label className="small">
               <strong>Day</strong>

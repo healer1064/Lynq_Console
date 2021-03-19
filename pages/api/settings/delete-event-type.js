@@ -2,14 +2,14 @@ export default async (req, res) => {
   const _data = JSON.parse(req.headers.data);
 
   const response = await fetch(
-    `http://reb00t.uc.r.appspot.com/account/support-request?t=${_data.token}`,
+    `http://reb00t.uc.r.appspot.com/account/event-type/${_data.id}?t=${_data.token}`,
     {
-      method: "POST",
+      method: "DELETE",
       headers: {
-        Accept: "application/json, text/plain, */*",
+        Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(_data._reqData),
+      //   body: JSON.stringify(_data._reqData),
     }
   );
 

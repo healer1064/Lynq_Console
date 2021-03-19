@@ -16,6 +16,7 @@ const Loading = () => {
         background: "#7E88F4",
         zIndex: "100",
         borderRadius: "8px",
+        margin: "0px",
       }}
     >
       <div className={styles.dot_pulse} data-title=".dot-pulse">

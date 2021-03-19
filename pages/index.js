@@ -2,7 +2,7 @@
 import Head from "next/head";
 
 // components
-import Navbar from "../components/Navbar";
+import PlansNavbar from "../components/Plans/PlansNavbar";
 import Plans from "../components/Plans/Plans";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar />
+      <PlansNavbar />
       <Plans />
     </>
   );

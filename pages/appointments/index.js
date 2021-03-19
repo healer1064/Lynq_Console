@@ -38,13 +38,13 @@ export default function Appointments() {
             <div className="content-tabs">
               <h3
                 onClick={() => setTabIndex(1)}
-                className={tabIndex === 1 && "active"}
+                className={tabIndex === 1 ? "active" : ""}
               >
                 Scheduled
               </h3>
               <h3
                 onClick={() => setTabIndex(2)}
-                className={tabIndex === 2 && "active"}
+                className={tabIndex === 2 ? "active" : ""}
               >
                 Request
               </h3>

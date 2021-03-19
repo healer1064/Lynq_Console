@@ -38,7 +38,7 @@ export default function Settings() {
             <SettingsSetup />
           ) : tab === "eventtype" ? (
             <SettingsEventType data={eventsData} setTab={setTab} />
-          ) : tab === "callsync" ? (
+          ) : tab === "calsync" ? (
             <SettingsCallSync />
           ) : tab === "eventtypeedit" ? (
             <SettingsEventTypeEdit setTab={setTab} />

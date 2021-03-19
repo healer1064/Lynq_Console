@@ -10,12 +10,27 @@ import styles from "../../styles/EditProfile.module.sass";
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
-import EditProfileDropdown from "../../components/EditProfile/EditProfileDropdown";
 import EditProfileDDCheck from "../../components/EditProfile/EditProfileDDCheck";
 
 // context
 import ProfileContext from "../../context/profile";
 import Loading from "../../components/common/Loading";
+
+// fake categories
+const categoriesData = [
+  "Astrologer",
+  "Car Specialist",
+  "Fashion Coach",
+  "Fitness Teacher",
+  "Home Repair Specialist",
+  "Language Teacher",
+  "Life Coach",
+  "Makeup Artist",
+  "Math/Physics Teacher",
+  "Meditation/Yoga Coach",
+  "Music Teacher",
+  "Other",
+];
 
 const EditProfile = () => {
   // context
@@ -31,6 +46,7 @@ const EditProfile = () => {
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [website, setWebsite] = useState("");
   const [generalPres, setGeneralPres] = useState("");
   const [whatToExpect, setWhatToExpect] = useState("");
   const [specialities, setSpecialities] = useState([]);
@@ -58,12 +74,12 @@ const EditProfile = () => {
     const _reqData = {
       slug,
       location: `${city} - ${state}`,
-      category: "string",
+      category: categories.join(", "),
       about: generalPres,
       facebook,
       instagram,
       youtube,
-      personal_website: "string",
+      personal_website: website,
       name: `${firstName} ${lastName}`,
       expect_details: whatToExpect,
       specialities: specialities.split("\n"),
@@ -159,7 +175,7 @@ const EditProfile = () => {
                 />
               </div>
               <div>
-                <label>Slug</label>
+                <label>Your Public URL</label>
                 <input
                   type="text"
                   value={slug}
@@ -186,7 +202,11 @@ const EditProfile = () => {
                 <label>
                   Main Categories <span>(Choose upto 3)</span>
                 </label>
-                <EditProfileDDCheck />
+                <EditProfileDDCheck
+                  state={categories}
+                  setState={setCategories}
+                  categories={categoriesData}
+                />
               </div>
               <h3>Social Information</h3>
               <div>
@@ -211,6 +231,14 @@ const EditProfile = () => {
                   type="text"
                   value={youtube}
                   onChange={(e) => setYoutube(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Personal Website</label>
+                <input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
                 />
               </div>
               <h3>About</h3>
@@ -251,7 +279,7 @@ const EditProfile = () => {
                 <button type="submit" style={{ position: "relative" }}>
                   {loading && <Loading />}Save Profile
                 </button>
-                <button>Cancel</button>
+                {/* <button>Cancel</button> */}
               </div>
             </form>
           </div>

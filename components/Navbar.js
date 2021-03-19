@@ -15,7 +15,10 @@ const Navbar = ({ active }) => {
 
   const logout = () => {
     localStorage.removeItem("linqToken");
-    window.location.reload();
+    router.push("/login");
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   return (

@@ -1,6 +1,6 @@
 // components
-import SetupNotifications from "../Setup/SetupNotifications";
-import SetupTable from "../Setup/SetupTable";
+import SetupNotifications from "./SetupNotifications";
+import SetupTable from "./SetupTable";
 
 const SettingsSetup = () => {
   return (

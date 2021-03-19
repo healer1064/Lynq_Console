@@ -46,7 +46,7 @@ const AppointmentsListItem = ({ data }) => {
       {open && userAppointments && (
         <div style={{ width: "100%" }}>
           {userAppointments.map((data, index) => (
-            <Fade key={index} bottom collapse duration={1000}>
+            <Fade key={index} collapse duration={1000}>
               <AppointmentCard key={index} data={data} />
             </Fade>
           ))}

@@ -1,24 +1,26 @@
 // libraries
-import { useState } from "react";
+import { useContext } from "react";
+import useSWR from "swr";
+
+// utils
+import fetcher from "../../utils/fetcher";
+
+// context
+import ProfileContext from "../../context/profile";
 
 // components
 import EventList from "./EventList";
 import AddNewButton from "../common/AddNewButton";
+import PageLoading from "../common/PageLoading";
+import EmptyData from "../common/EmptyData";
 
-const SettingsEventType = ({ data, setTab }) => {
-  // states
-  const [events, setEvents] = useState(data);
+const SettingsEventType = ({ setTab }) => {
+  const { token } = useContext(ProfileContext);
 
-  const activeItemsHandler = (index) => {
-    let newActiveArr = events.map((item, i) => {
-      if (index == i) {
-        return { ...item, isActive: !events[index].isActive };
-      } else {
-        return item;
-      }
-    });
-    setEvents(newActiveArr);
-  };
+  const { data, error } = useSWR(
+    ["/api/settings/get-event-types", token],
+    fetcher
+  );
 
   return (
     <>
@@ -34,11 +36,13 @@ const SettingsEventType = ({ data, setTab }) => {
           title="Add Event Type"
         />
       </div>
-      <EventList
-        events={data}
-        activeItemsHandler={activeItemsHandler}
-        setTab={setTab}
-      />
+      {!data ? (
+        <PageLoading />
+      ) : data.length === 0 ? (
+        <EmptyData title="No event types to show" />
+      ) : (
+        <EventList events={data} setTab={setTab} />
+      )}
     </>
   );
 };

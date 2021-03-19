@@ -25,17 +25,17 @@ const Settings = ({ setTab, tab }) => {
           Event Type
         </div>
         <div
-          onClick={() => setTab("callsync")}
-          className={`option ${tab === "callsync" && "active"}`}
+          onClick={() => setTab("calsync")}
+          className={`option ${tab === "calsync" && "active"}`}
         >
-          Call Sync
+          Cal Sync
         </div>
       </div>
       <div className="settings-types__mobile">
         <select onChange={(e) => setTab(e.target.value)} value={tab}>
           <option value="setup">Set Up</option>
           <option value="eventtype">Event Type</option>
-          <option value="callsync">Call Sync</option>
+          <option value="calsync">Cal Sync</option>
         </select>
       </div>
     </>

@@ -86,11 +86,12 @@ body
     align-items: center
     cursor: pointer
     p
-      font-weight: 600
+      font-weight: 400
       margin: 0
+      font-size: 0.9rem
     img
-      height: 25px
-      margin-right: 10px
+      height: 16px
+      margin-right: 5px
   .burger-menu
     display: none
   .search
@@ -1011,14 +1012,14 @@ body
         border: 1px solid #9FA8B5
         border-radius: 5px
         padding: 0 16px
-        padding-left: 40px
+        padding-left: 24px
         height: 52px
         &:focus
           outline: none
       img
-        height: 20px
+        height: 13px
         position: absolute
-        bottom: 15px
+        bottom: 19px
         left: 10px
     &__col
       width: 50%
@@ -2878,9 +2879,17 @@ body
           font-size: 40px
           line-height: 49px
           color: $black
+
+.abs-img
+  height: 13px
+  position: absolute
+  bottom: 19px
+  left: 10px
         
             
 @media (max-width: $breakpointLaptop)
+  .abs-img
+    bottom: 15px
   .home
     &-wrp
       width: calc(100% - 240px)
@@ -2937,10 +2946,10 @@ body
       padding: 0
       margin: 0
     .logout
-    p
-      font-size: 0.9rem
-    img
-      height: 22px
+      p
+        font-size: 0.8rem
+      img
+        height: 14px
   .page-wrp
     margin-top: 66px
   .plans
@@ -3514,6 +3523,8 @@ body
         //   width: 7.54%
 
 @media (max-width: $breakpointPhone)
+  .abs-img
+    bottom: 16.5px
   .header
     padding: 0 16px
     .logout

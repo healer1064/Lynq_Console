@@ -5,7 +5,7 @@ import { useState } from "react";
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
-import AppointmentsNewClearModal from "../../components/AppointmentsNewClear/AppointmentsNewClearModal";
+import AppointmentsNewClearModal from "../../components/Appointments/AppointmentsNewClearModal";
 
 export default function AppointmentRequest() {
   // state
