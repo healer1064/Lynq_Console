@@ -204,7 +204,7 @@ const EditProfile = () => {
               </div>
               <div>
                 <label>
-                  Personalize your Linq Public url
+                  Personalize your Lynq Public url
                   <span>
                     {" "}
                     (
