@@ -2,6 +2,8 @@
 import Head from "next/head";
 import { useState, useContext } from "react";
 import useSWR from "swr";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -12,7 +14,6 @@ import PaymentHistory from "../../components/Payment/PaymentHistory";
 // utils
 import fetcher from "../../utils/fetcher";
 import PageLoading from "../../components/common/PageLoading";
-import EmptyData from "../../components/common/EmptyData";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -21,9 +22,53 @@ export default function Payment() {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [payment, setPayment] = useState(false);
+  const [payment, setPayment] = useState();
+  const [loading, setLoading] = useState(false);
 
   const { data, error } = useSWR(["/api/payments", token], fetcher);
+
+  const getBusinessData = async () => {
+    setLoading(true);
+    const response = await fetch("/api/account/business", {
+      headers: new Headers({ "Content-Type": "application/json", token }),
+    });
+
+    const data = await response.json();
+
+    if (data) {
+      if (data.accountNumber && data.routingNumber) {
+        requestPayment();
+      } else {
+        setPayment("missing");
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
+      toast.error("An error has occurred");
+    }
+  };
+
+  const requestPayment = () => {
+    async function request() {
+      const response = await fetch("/api/payments/request-payment", {
+        headers: new Headers({ token }),
+      });
+
+      return await response.json();
+    }
+
+    request()
+      .then((res) => {
+        setLoading(false);
+        console.log("Request payment done", res);
+        setPayment("done");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log("error Request payment", err);
+        toast.error("An error has occurred");
+      });
+  };
 
   return (
     <>
@@ -35,6 +80,7 @@ export default function Payment() {
           rel="stylesheet"
         />
       </Head>
+      <ToastContainer />
       <Navbar active="payments" />
       <div className="page-wrp">
         <Leftbar active="payments" />
@@ -47,7 +93,8 @@ export default function Payment() {
               <RequestPayment
                 data={data}
                 payment={payment}
-                setPayment={setPayment}
+                loading={loading}
+                getBusinessData={getBusinessData}
               />
               <PaymentHistory data={data.transfer_history} />
             </div>

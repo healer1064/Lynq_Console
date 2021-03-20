@@ -7,6 +7,7 @@ const ProfileContext = createContext();
 export const ProfileProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [eventType, setEventType] = useState(null);
 
   useEffect(() => {
     if (token !== null) {
@@ -34,6 +35,8 @@ export const ProfileProvider = ({ children }) => {
         token,
         setToken,
         profile,
+        eventType,
+        setEventType,
       }}
     >
       {children}

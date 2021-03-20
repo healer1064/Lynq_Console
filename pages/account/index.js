@@ -41,6 +41,7 @@ const Account = () => {
   const [bank, setBank] = useState("");
   const [iban, setIban] = useState("");
   const [account, setAccount] = useState("");
+  const [routing, setRouting] = useState("");
 
   const [paymentsError, setPaymentsError] = useState(false);
 
@@ -129,7 +130,13 @@ const Account = () => {
 
   const updateBusiness = () => {
     // change raw data with useState variables
-    if (businessName !== "" && bank !== "" && iban !== "" && account !== "") {
+    if (
+      businessName !== "" &&
+      bank !== "" &&
+      iban !== "" &&
+      account !== "" &&
+      routing !== ""
+    ) {
       setPaymentsError(false);
       setLoading(true);
       const _reqData = {
@@ -139,7 +146,7 @@ const Account = () => {
         bankName: bank,
         iban,
         accountNumber: account,
-        routingNumber: "string",
+        routingNumber: routing,
       };
 
       const token = localStorage.getItem("linqToken");
@@ -313,6 +320,8 @@ const Account = () => {
                     setAccount={setAccount}
                     paymentsError={paymentsError}
                     loading={loading}
+                    routing={routing}
+                    setRouting={setRouting}
                   />
                   <ChangePassword
                     passShow={passShow}

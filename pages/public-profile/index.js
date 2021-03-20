@@ -203,11 +203,22 @@ const EditProfile = () => {
                 />
               </div>
               <div>
-                <label>Your Public URL</label>
+                <label>
+                  Personalize your Linq Public url
+                  <span>
+                    {" "}
+                    (
+                    {`www.lynq.app/${
+                      slug === "" ? "[your-slug-goes-here]" : slug
+                    }`}
+                    )
+                  </span>
+                </label>
                 <input
                   type="text"
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
+                  placeholder="e.g chuck-norris"
                 />
               </div>
               <div>

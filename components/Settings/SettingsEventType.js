@@ -30,8 +30,6 @@ const SettingsEventType = ({ setTab }) => {
     getEventTypes();
   }, [response]);
 
-  console.log(data);
-
   return (
     <>
       <div

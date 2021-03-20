@@ -1,12 +1,17 @@
 // libraries
-import { useState } from "react";
-
+import { useState, useContext } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
+
+// context
+import ProfileContext from "../../context/profile";
 
 const EventListCard = ({ card, setTab, deleteEventType }) => {
   // states
   const [open, setOpen] = useState(false);
+
+  // useContext
+  const { setEventType, eventType } = useContext(ProfileContext);
 
   return (
     <div className="events-row__card">
@@ -35,7 +40,12 @@ const EventListCard = ({ card, setTab, deleteEventType }) => {
         </div>
         <div className={`actions__popup ${open ? "show" : ""}`}>
           <div className="actions__popup-wrp">
-            <span onClick={() => setTab("eventtypeedit")}>
+            <span
+              onClick={() => {
+                setEventType(card);
+                setTab("eventtypeedit");
+              }}
+            >
               <img src="/img/events-edit-icon.svg" alt="" />
               Edit
             </span>

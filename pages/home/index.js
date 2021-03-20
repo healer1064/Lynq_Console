@@ -1,6 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Fade from "react-reveal/Fade";
 
@@ -13,15 +13,11 @@ import Stats from "../../components/Home/Stats";
 import PageLoading from "../../components/common/PageLoading";
 import Modal from "../../components/common/Modal";
 
-// context
-import ProfileContext from "../../context/profile";
-
 // mockup data
 import data from "../../utils/data";
 import { appointments } from "../../utils/data/homefake";
 
 const home = () => {
-  const { token, profile } = useContext(ProfileContext);
   const router = useRouter();
   const [preLoading, setPreLoading] = useState(true);
   const [appointmentList, setAppointmentList] = useState(appointments);
@@ -147,14 +143,25 @@ const home = () => {
                     Yearly
                   </div>
                 </div>
-                {/* <select name="" id="" className="home-stats__select">
-                <option value="">Today</option>
-                <option value="">Weekly</option>
-                <option value="" selected>
-                  Monthly
-                </option>
-                <option value="">Yearly</option>
-              </select> */}
+                <select
+                  value={index}
+                  onChange={(e) => {
+                    setIndex(e.target.value);
+                    e.target.value == 1
+                      ? setStats(data.home.stats.today)
+                      : e.target.value == 2
+                      ? setStats(data.home.stats.weekly)
+                      : e.target.value == 3
+                      ? setStats(data.home.stats.monthly)
+                      : setStats(data.home.stats.yearly);
+                  }}
+                  className="home-stats__select"
+                >
+                  <option value={1}>Today</option>
+                  <option value={2}>Weekly</option>
+                  <option value={3}>Monthly</option>
+                  <option value={4}>Yearly</option>
+                </select>
                 <Stats stats={stats} />
               </div>
             </div>

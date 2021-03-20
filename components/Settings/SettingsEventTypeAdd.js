@@ -6,6 +6,8 @@ import { v4 as uuidv4 } from "uuid";
 
 // context
 import ProfileContext from "../../context/profile";
+
+// components
 import Loading from "../common/Loading";
 
 const SettingsEventTypeAdd = ({ setTab }) => {
@@ -153,7 +155,6 @@ const SettingsEventTypeAdd = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  //   checked={duration === "45 min"}
                   onChange={() => setDuration("45")}
                 />
                 <span>45 min</span>

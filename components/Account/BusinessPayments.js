@@ -20,6 +20,8 @@ const BusinessPayments = ({
   setAccount,
   paymentsError,
   loading,
+  routing,
+  setRouting,
 }) => {
   useEffect(() => {
     setBusinessName(business.businessName);
@@ -62,6 +64,12 @@ const BusinessPayments = ({
             type="text"
             state={account}
             setState={setAccount}
+          />
+          <AccountEditInputContainer
+            label="Routing Number"
+            type="text"
+            state={routing}
+            setState={setRouting}
           />
           {paymentsError && (
             <p style={{ color: "red", margin: "-10px 0 20px" }}>
