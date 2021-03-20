@@ -1,20 +1,10 @@
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
-import TransitionGroup from "react-transition-group/TransitionGroup";
 
 const TableRow = ({ day }) => {
   const [count, setCount] = useState(3);
   const [isAvailable, setIsAvailable] = useState(false);
-  const [timeSlots, setTimeSlots] = useState([
-    { value: 1, id: 1 },
-    { value: 2, id: 2 },
-  ]);
-
-  const groupProps = {
-    appear: true,
-    enter: true,
-    exit: true,
-  };
+  const [timeSlots, setTimeSlots] = useState([{ value: 9, id: 1 }]);
 
   const addTime = () => {
     setTimeSlots([{ value: count, id: count }, ...timeSlots]);
@@ -30,7 +20,7 @@ const TableRow = ({ day }) => {
   return (
     <>
       {!isAvailable ? (
-        <Fade top duration={1000}>
+        <Fade duration={1000}>
           <div className="setup-table__row">
             <div className="setup-table__day">
               <img

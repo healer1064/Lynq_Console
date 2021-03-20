@@ -8,13 +8,15 @@ import Navbar from "../../components/Navbar";
 import AppointmentsTop from "../../components/Appointments/AppointmentsTop";
 import Leftbar from "../../components/Leftbar";
 import AppointmentsList from "../../components/Appointments/AppointmentsList";
-import Requests from "../../components/Appointments/Requests";
+import RequestList from "../../components/Appointments/Request/RequestList";
 
 // context
 import ProfileContext from "../../context/profile";
 
 // fake data
 import { appointments } from "../../utils/data/appointmentsFake";
+
+import data from "../../utils/data";
 
 export default function Appointments() {
   const { token, profile } = useContext(ProfileContext);
@@ -35,19 +37,19 @@ export default function Appointments() {
         <Leftbar active="appointments" />
         <div className="content-wrp">
           <Fade>
-            <div className="content-tabs">
-              <h3
+            <div className="settings-types">
+              <div
                 onClick={() => setTabIndex(1)}
-                className={tabIndex === 1 ? "active" : ""}
+                className={`option ${tabIndex === 1 && "active"}`}
               >
                 Scheduled
-              </h3>
-              <h3
+              </div>
+              <div
                 onClick={() => setTabIndex(2)}
-                className={tabIndex === 2 ? "active" : ""}
+                className={`option ${tabIndex === 2 && "active"}`}
               >
                 Request
-              </h3>
+              </div>
             </div>
             {tabIndex === 1 ? (
               <>
@@ -60,7 +62,7 @@ export default function Appointments() {
               </>
             ) : (
               <>
-                <Requests />
+                <RequestList requestList={data.appointments.request} />
               </>
             )}
           </Fade>

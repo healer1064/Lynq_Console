@@ -7,13 +7,16 @@ import onClickOutside from "react-onclickoutside";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../../styles/Calendar.module.sass";
 
-const Calendar = ({ setOpen }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+const Calendar = ({ currDate, setOpen, handleChange }) => {
+  const [startDate, setStartDate] = useState(currDate.weekStart);
+  const [endDate, setEndDate] = useState(currDate.weekEnd);
+
   const onChange = (dates) => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+
+    handleChange(start, end);
   };
 
   Calendar.handleClickOutside = () => setOpen(false);

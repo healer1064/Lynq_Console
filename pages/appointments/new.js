@@ -8,6 +8,10 @@ import Leftbar from "../../components/Leftbar";
 import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
 import AppointmentNewButtons from "../../components/Appointments/AppointmentNewButtons";
 import AppointmentNewTime from "../../components/Appointments/AppointmentNewTime";
+import Calendar from "../../components/Appointments/Calendar";
+
+// mockup data
+import data from "../../utils/data";
 
 export default function AppointmentNew() {
   // states
@@ -17,6 +21,12 @@ export default function AppointmentNew() {
   const [day, setDay] = useState();
   const [time, setTime] = useState();
   const [email, setEmail] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const selectDay = (_start, _end) => {
+    console.log(_start, _end);
+    // setIsOpen(false);
+  };
 
   return (
     <>
@@ -38,12 +48,26 @@ export default function AppointmentNew() {
               <strong>Event Type</strong>
               <select
                 value={eventType}
-                onChange={(e) => setEventType(e.target.value)}
+                onChange={(e) => {
+                  const { value } = e.target;
+
+                  console.log(value);
+                  if (value !== -1) {
+                    let event = data.setting.eventType.find(
+                      (item) => item.id == value
+                    );
+                    setEventType(event.event_type);
+                    setDuration(event.duration);
+                    setPrice(event.price);
+                  }
+                }}
               >
-                <option>Select Event Type</option>
-                <option value="option 1">Option 1</option>
-                <option value="option 2">Option 2</option>
-                <option value="option 3">Option 3</option>
+                <option value={-1}>Select Event Type</option>
+                {data.setting.eventType.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.event_type}
+                  </option>
+                ))}
               </select>
             </label>
             <label>
@@ -66,15 +90,22 @@ export default function AppointmentNew() {
               />
               <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
             </label>
-            <label className="small">
+            <label style={{ position: "relative" }} className="small">
               <strong>Day</strong>
-              <select value={day} onChange={(e) => setDay(e.target.value)}>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
+              <input
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+                readOnly
+              ></input>
+              {isOpen && (
+                <Calendar
+                  currDate={{ weekStart: new Date(), weekEnd: new Date() }}
+                  setOpen={setIsOpen}
+                  handleChange={selectDay}
+                />
+              )}
             </label>
             <strong>Time</strong>
             <AppointmentNewTime time={time} setTime={setTime} />

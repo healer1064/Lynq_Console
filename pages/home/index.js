@@ -24,10 +24,11 @@ const home = () => {
   const { token, profile } = useContext(ProfileContext);
   const router = useRouter();
   const [preLoading, setPreLoading] = useState(true);
-
+  const [appointmentList, setAppointmentList] = useState(appointments);
   const [index, setIndex] = useState(1);
   const [stats, setStats] = useState(data.home.stats.today);
   const [isOpen, setIsOpen] = useState(false);
+  const [id, setId] = useState(-1);
 
   useEffect(() => {
     if (localStorage.getItem("linqToken") === null) {
@@ -36,6 +37,17 @@ const home = () => {
       setPreLoading(false);
     }
   }, []);
+
+  const toggle = (_id) => {
+    setIsOpen(true);
+    setId(_id);
+  };
+
+  const onDelete = () => {
+    setIsOpen(false);
+    let filter = appointmentList.filter((item) => item.id !== id);
+    setAppointmentList(filter);
+  };
 
   if (preLoading)
     return (
@@ -71,7 +83,7 @@ const home = () => {
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">
-          {isOpen && <Modal setModal={setIsOpen} />}
+          {isOpen && <Modal setModal={setIsOpen} onDelete={onDelete} />}
           <div className="notifications__col" style={{ display: "none" }}>
             <EmailConfirmation />
             <div className="session">
@@ -93,12 +105,8 @@ const home = () => {
             <div className="home-cnt">
               <div className="home-cnt__date">Wednesday, February 10, 2021</div>
               <h2>Today’s Session</h2>
-              {appointments.map((item, index) => (
-                <AppointmentCard
-                  key={index}
-                  data={item}
-                  setIsOpen={setIsOpen}
-                />
+              {appointmentList.map((item, index) => (
+                <AppointmentCard key={index} data={item} toggle={toggle} />
               ))}
               <div className="home-stats" style={{ paddingBottom: "50px" }}>
                 <div className="home-stats__switch">

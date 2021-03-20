@@ -3,7 +3,7 @@ import Fade from "react-reveal/Fade";
 // styles
 import styles from "../../../styles/PublicScreen.module.sass";
 
-const Modal = ({ setModal }) => {
+const Modal = ({ setModal, onDelete }) => {
   return (
     <Fade duration={600}>
       <div className={styles.public_screen_modal}>
@@ -19,7 +19,9 @@ const Modal = ({ setModal }) => {
             <br />
             Monday February 22 at 12:00PM
           </p>
-          <button onClick={() => setModal(false)}>Yes, I confirm the cancellation</button>
+          <button onClick={() => onDelete(false)}>
+            Yes, I confirm the cancellation
+          </button>
         </div>
       </div>
     </Fade>

@@ -35,4 +35,50 @@ export default {
       },
     },
   },
+  appointments: {
+    schedule: [],
+    request: [
+      {
+        event_type: "Full Moon Meditation",
+        duration: "60 min",
+        price: "50",
+        day: "Wednesday, February 22, 2021",
+        time: "09:00 AM",
+        made_by: "Bob.iger@disney.com",
+        ago: "12 hours, 31 min ago",
+      },
+      {
+        event_type: "Half Moon Meditation",
+        duration: "30 min",
+        price: "25",
+        day: "Sunday, March 20, 2021",
+        time: "10:00 AM",
+        made_by: "John.regiani@gmail.com",
+        ago: "12 hours, 31 min ago",
+      },
+    ],
+  },
+  setting: {
+    setup: [],
+    eventType: [
+      {
+        id: 1,
+        event_type: "Full Moon Meditation",
+        duration: "60 min",
+        price: 50,
+      },
+      {
+        id: 2,
+        event_type: "Half Moon Meditation",
+        duration: "30 min",
+        price: 25,
+      },
+      {
+        id: 3,
+        event_type: "Meditation session for beginners",
+        duration: "30 min",
+        price: 50,
+      },
+    ],
+  },
 };
