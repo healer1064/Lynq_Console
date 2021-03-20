@@ -21,19 +21,19 @@ const RequestPayment = ({ payment, data, loading, getBusinessData }) => {
         {loading && <Loading />}REQUEST PAYMENT
       </button>
       {payment === "done" && (
-        <span
+        <p
           style={{ color: "#7E88F4", fontWeight: "600" }}
           className="payment-final-account-note"
         >
           Your request was taken into account. You will receive it within 5 days
           max.
-        </span>
+        </p>
       )}
       {payment === "missing" && (
-        <span className="payment-final-account-note">
+        <p className="payment-final-account-note">
           You need to fill your account and routing number in Account/ Business
           and Payments before we can proceed to payment.
-        </span>
+        </p>
       )}
     </div>
   );
