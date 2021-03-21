@@ -24,14 +24,28 @@ const index = () => {
     setLoading(true);
 
     async function signInReq() {
-      const response = await fetch("/api/account/signin", {
-        headers: new Headers({
-          data: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        }),
-      });
+      const _data = { email: email, password: password };
+
+      // const response = await fetch("/api/account/signin", {
+      //   headers: new Headers({
+      //     data: JSON.stringify({
+      //       email: email,
+      //       password: password,
+      //     }),
+      //   }),
+      // });
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/signin`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_data),
+        }
+      );
 
       return await response.json();
     }

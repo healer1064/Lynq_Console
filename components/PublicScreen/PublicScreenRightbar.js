@@ -38,10 +38,10 @@ const PublicScreenRightbar = ({
             <>
               <div className={styles.info}>
                 <h6>
-                  Length: <span>{activity.duration}</span>
+                  Length: <span>{activity.duration} min</span>
                 </h6>
                 <h6>
-                  Price: <span>{activity.price}</span>
+                  Price: <span>${activity.price}</span>
                 </h6>
               </div>
               {slots !== undefined && (

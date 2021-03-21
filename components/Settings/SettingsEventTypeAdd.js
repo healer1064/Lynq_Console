@@ -64,11 +64,23 @@ const SettingsEventTypeAdd = ({ setTab }) => {
     };
 
     async function add() {
-      const response = await fetch("/api/settings/add-event-type", {
-        headers: new Headers({
-          data: JSON.stringify({ token, _reqData }),
-        }),
-      });
+      // const response = await fetch("/api/settings/add-event-type", {
+      //   headers: new Headers({
+      //     data: JSON.stringify({ token, _reqData }),
+      //   }),
+      // });
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_reqData),
+        }
+      );
 
       return await response.json();
     }

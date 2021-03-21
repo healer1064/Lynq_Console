@@ -6,6 +6,8 @@ import PublicScreenHead from "./PublicScreenHead";
 import PublicScreenMore from "./PublicScreenMore";
 
 const PublicScreenLeftbar = ({ profile }) => {
+  console.log(profile);
+
   return (
     <div className={styles.public_screen_left}>
       <PublicScreenHead data={profile} />
@@ -16,15 +18,22 @@ const PublicScreenLeftbar = ({ profile }) => {
         <h3>What to expect:</h3>
         <p>{profile.expect_details}</p>
         <PublicScreenMore />
-        <h3>Specialities</h3>
-        <div className={styles.specialities}>
-          {profile.specialities.map((item, i) => (
-            <div key={i}>
-              <img src="/img/public-screen-speciality.svg" alt="speciality" />
-              <p>{item}</p>
+        {profile.speciality.length > 0 && (
+          <>
+            <h3>Specialities</h3>
+            <div className={styles.specialities}>
+              {profile.speciality.map((item, i) => (
+                <div key={i}>
+                  <img
+                    src="/img/public-screen-speciality.svg"
+                    alt="speciality"
+                  />
+                  <p>{item}</p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );

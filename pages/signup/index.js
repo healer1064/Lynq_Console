@@ -29,11 +29,23 @@ export default function Signup() {
     setLoading(true);
 
     async function signUpReq() {
-      const response = await fetch("/api/account/signup", {
-        headers: new Headers({
-          data: JSON.stringify(_data),
-        }),
-      });
+      // const response = await fetch("/api/account/signup", {
+      //   headers: new Headers({
+      //     data: JSON.stringify(_data),
+      //   }),
+      // });
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/signup`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_data),
+        }
+      );
 
       return await response.json();
     }

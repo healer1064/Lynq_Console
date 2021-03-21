@@ -17,23 +17,24 @@
 
 //   res.status(200).json(data);
 // };
-let config = {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-    ContentType: "application/json",
-  },
-};
 
-export default async (req, res) => {
-  const token = req.headers.token;
-  console.log(token);
+// let config = {
+//   method: "GET",
+//   headers: {
+//     Accept: "application/json",
+//     ContentType: "application/json",
+//   },
+// };
 
-  const response = await fetch(
-    `http://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
-    config
-  );
-  const data = await response.json();
+// export default async (req, res) => {
+//   const token = req.headers.token;
+//   console.log(token);
 
-  res.status(200).json(data);
-};
+//   const response = await fetch(
+//     `http://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+//     config
+//   );
+//   const data = await response.json();
+
+//   res.status(200).json(data);
+// };

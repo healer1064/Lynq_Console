@@ -1,6 +1,9 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+
+// context
+import ProfileContext from "../../context/profile";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -8,40 +11,58 @@ import Leftbar from "../../components/Leftbar";
 import NewAppointmentModal from "../../components/Support/NewAppointmentModal";
 
 export default function Contact() {
+  // states
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
   const [messageError, setMessageError] = useState(false);
 
+  // useContext
+  const { token } = useContext(ProfileContext);
+
   const handleSubmit = () => {
     if (message !== "") {
       setMessageError(false);
-
-      const _reqData = {
-        message: message,
-      };
-
-      const token = localStorage.getItem("linqToken");
-
-      async function support() {
-        const response = await fetch("/api/support/request", {
-          headers: new Headers({
-            data: JSON.stringify({ token, _reqData }),
-          }),
-        });
-        return await response.json();
-      }
-
-      support()
-        .then((res) => {
-          console.log("support request", res);
-          setModal(true);
-        })
-        .catch((err) => {
-          console.log("support request", err);
-        });
+      sendRequest();
     } else {
       setMessageError(true);
     }
+  };
+
+  const sendRequest = () => {
+    const _reqData = {
+      message: message,
+    };
+
+    async function support() {
+      // const response = await fetch("/api/support/request", {
+      //   headers: new Headers({
+      //     data: JSON.stringify({ token, _reqData }),
+      //   }),
+      // });
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/support-request?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+          },
+          body: _reqData,
+        }
+      );
+
+      return await response;
+    }
+
+    support()
+      .then((res) => {
+        console.log("support request", res);
+        setModal(true);
+      })
+      .catch((err) => {
+        console.log("error support request", err);
+      });
   };
 
   return (

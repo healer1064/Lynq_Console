@@ -37,9 +37,22 @@ export default function AppointmentNew() {
   };
 
   const getEventTypes = async () => {
-    const response = await fetch("/api/settings/get-event-types", {
-      headers: new Headers({ "Content-Type": "application/json", token }),
-    });
+    // const response = await fetch("/api/settings/get-event-types", {
+    //   headers: new Headers({ "Content-Type": "application/json", token }),
+    // });
+
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
+
+    const response = await fetch(
+      `http://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+      config
+    );
 
     const data = await response.json();
 
@@ -48,7 +61,7 @@ export default function AppointmentNew() {
 
   useEffect(() => {
     getEventTypes();
-  }, []);
+  }, [token]);
 
   return (
     <>

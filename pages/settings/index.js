@@ -11,7 +11,6 @@ import SettingsEventType from "../../components/Settings/SettingsEventType";
 import SettingsCallSync from "../../components/Settings/SettingsCallSync";
 
 // fake data
-import { eventsData } from "../../utils/data/settingsFake";
 import SettingsEventTypeEdit from "../../components/Settings/SettingsEventTypeEdit";
 import SettingsEventTypeAdd from "../../components/Settings/SettingsEventTypeAdd";
 
@@ -37,7 +36,7 @@ export default function Settings() {
           {tab === "setup" ? (
             <SettingsSetup />
           ) : tab === "eventtype" ? (
-            <SettingsEventType data={eventsData} setTab={setTab} />
+            <SettingsEventType setTab={setTab} />
           ) : tab === "calsync" ? (
             <SettingsCallSync />
           ) : tab === "eventtypeedit" ? (

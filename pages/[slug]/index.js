@@ -8,7 +8,7 @@ import useSWR from "swr";
 import styles from "../../styles/PublicScreen.module.sass";
 
 // components
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
 import PublicScreenLeftbar from "../../components/PublicScreen/PublicScreenLeftbar";
 import PublicScreenRightbar from "../../components/PublicScreen/PublicScreenRightbar";
 import PublicScreen3Rightbar from "../../components/PublicScreen3/PublicScreen3Rightbar";
@@ -85,6 +85,8 @@ const Profile = ({ slug }) => {
   if (!data) {
     return <h1>Loading...</h1>;
   }
+
+  console.log(data);
 
   return (
     <>

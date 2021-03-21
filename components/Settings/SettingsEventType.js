@@ -17,10 +17,18 @@ const SettingsEventType = ({ setTab }) => {
   const [response, setResponse] = useState(false);
 
   const getEventTypes = async () => {
-    const response = await fetch("/api/settings/get-event-types", {
-      headers: new Headers({ "Content-Type": "application/json", token }),
-    });
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
 
+    const response = await fetch(
+      `http://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+      config
+    );
     const data = await response.json();
 
     setData(data);
@@ -28,7 +36,7 @@ const SettingsEventType = ({ setTab }) => {
 
   useEffect(() => {
     getEventTypes();
-  }, [response]);
+  }, [response, token]);
 
   return (
     <>

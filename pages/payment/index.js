@@ -1,7 +1,6 @@
 // libraries
 import Head from "next/head";
-import { useState, useContext } from "react";
-import useSWR from "swr";
+import { useState, useContext, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,9 +9,6 @@ import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
 import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
-
-// utils
-import fetcher from "../../utils/fetcher";
 import PageLoading from "../../components/common/PageLoading";
 
 // context
@@ -25,18 +21,48 @@ export default function Payment() {
   const [payment, setPayment] = useState();
   const [loading, setLoading] = useState(false);
 
-  const { data, error } = useSWR(["/api/payments", token], fetcher);
+  const [data, setData] = useState(null);
+
+  const getPayments = async () => {
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
+    const response = await fetch(
+      `http://reb00t.uc.r.appspot.com/account/balance?t=${token}`,
+      config
+    );
+    const data = await response.json();
+
+    setData(data);
+  };
 
   const getBusinessData = async () => {
     setLoading(true);
-    const response = await fetch("/api/account/business", {
-      headers: new Headers({ "Content-Type": "application/json", token }),
-    });
+    // const response = await fetch("/api/account/business", {
+    //   headers: new Headers({ "Content-Type": "application/json", token }),
+    // });
 
-    const data = await response.json();
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
 
-    if (data) {
-      if (data.accountNumber && data.routingNumber) {
+    const response = await fetch(
+      `https://reb00t.uc.r.appspot.com/account/business?t=${token}`,
+      config
+    );
+
+    const res = await response.json();
+
+    if (res) {
+      if (res.accountNumber && res.routingNumber) {
         requestPayment();
       } else {
         setPayment("missing");
@@ -50,9 +76,16 @@ export default function Payment() {
 
   const requestPayment = () => {
     async function request() {
-      const response = await fetch("/api/payments/request-payment", {
-        headers: new Headers({ token }),
-      });
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/balance/request_payment?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return await response.json();
     }
@@ -69,6 +102,10 @@ export default function Payment() {
         toast.error("An error has occurred");
       });
   };
+
+  useEffect(() => {
+    getPayments();
+  }, [token]);
 
   return (
     <>

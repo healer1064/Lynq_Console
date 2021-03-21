@@ -1,5 +1,6 @@
 // libraries
 import { useState, useContext } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
 
@@ -11,10 +12,37 @@ const EventListCard = ({ card, setTab, deleteEventType }) => {
   const [open, setOpen] = useState(false);
 
   // useContext
-  const { setEventType, eventType } = useContext(ProfileContext);
+  const { setEventType, token } = useContext(ProfileContext);
+
+  const changeEventTypeStatus = (id) => {
+    async function change() {
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/event-type/${id}/toggleActive?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    change()
+      .then((res) => {
+        console.log("Event type Delete", res);
+      })
+      .catch((err) => {
+        console.log("Error Event type deleted", err);
+        toast.error("An error has occurred");
+      });
+  };
 
   return (
     <div className="events-row__card">
+      <ToastContainer />
       <Fade duration={1000}>
         <strong>{card.name}</strong>
         <div className="btm">
@@ -24,11 +52,11 @@ const EventListCard = ({ card, setTab, deleteEventType }) => {
             <span>${card.price}</span>
           </div>
           <label className="events-row__toggle">
-            {card.isActive ? (
-              <input type="checkbox" />
-            ) : (
-              <input type="checkbox" />
-            )}
+            <input
+              type="checkbox"
+              checked={card.isActive}
+              onClick={() => changeEventTypeStatus(card.id)}
+            />
             <div
               className="toggle-control"
               onClick={() => console.log("on")}

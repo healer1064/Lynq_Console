@@ -84,15 +84,27 @@ const EditProfile = () => {
       personal_website: website,
       name: `${firstName} ${lastName}`,
       expect_details: whatToExpect,
-      specialities: specialities.split("\n"),
+      speciality: [],
     };
 
     async function update() {
-      const response = await fetch("/api/public-profile", {
-        headers: new Headers({
-          data: JSON.stringify({ token, _reqData }),
-        }),
-      });
+      // const response = await fetch("/api/public-profile", {
+      //   headers: new Headers({
+      //     data: JSON.stringify({ token, _reqData }),
+      //   }),
+      // });
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/public-profile?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_reqData),
+        }
+      );
 
       return await response.json();
     }
@@ -113,26 +125,40 @@ const EditProfile = () => {
   const uploadProfilePic = () => {
     setLoading(true);
 
-    async function update() {
-      const response = await fetch("/api/common/upload-image", {
-        headers: new Headers({
-          data: JSON.stringify({ token, image: image }),
-        }),
-      });
+    async function upload() {
+      // const response = await fetch("/api/common/upload-image", {
+      //   headers: new Headers({
+      //     data: JSON.stringify({ token, image: image }),
+      //   }),
+      // });
+
+      var formData = new FormData();
+      formData.append("image", imageFile);
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/public-profile/upload_picture?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: formData,
+        }
+      );
 
       return await response.json();
     }
 
-    update()
+    upload()
       .then((res) => {
-        // setLoading(false);
+        setLoading(false);
         console.log("profile pic", res);
-        // toast.success("Profile updated successfully");
       })
       .catch((err) => {
-        // setLoading(false);
+        setLoading(false);
         console.log("error profile pic", err);
-        // toast.error("An error has occurred");
+        toast.error("An error has occurred");
       });
   };
 

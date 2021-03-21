@@ -1,7 +1,6 @@
 // libraries
 import Head from "next/head";
-import useSWR from "swr";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // components
 import Leftbar from "../../components/Leftbar";
@@ -20,7 +19,32 @@ import ProfileContext from "../../context/profile";
 export default function Clients() {
   const { token } = useContext(ProfileContext);
 
-  const { data, error } = useSWR(["/api/clients", token], fetcher);
+  // state
+  const [data, setData] = useState(null);
+
+  // const { data, error } = useSWR(["/api/clients", token], fetcher);
+
+  useEffect(() => {
+    getClients();
+  }, [token]);
+
+  const getClients = async () => {
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
+
+    const response = await fetch(
+      `http://reb00t.uc.r.appspot.com/account/clients?t=${token}`,
+      config
+    );
+    const data = await response.json();
+
+    setData(data);
+  };
 
   return (
     <>

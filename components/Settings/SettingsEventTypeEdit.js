@@ -76,11 +76,23 @@ const SettingsEventTypeEdit = ({ setTab }) => {
     };
 
     async function edit() {
-      const response = await fetch("/api/settings/edit-event-type", {
-        headers: new Headers({
-          data: JSON.stringify({ token, _reqData }),
-        }),
-      });
+      // const response = await fetch("/api/settings/edit-event-type", {
+      //   headers: new Headers({
+      //     data: JSON.stringify({ token, _reqData }),
+      //   }),
+      // });
+
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/event-type/${eventType.id}?t=${token}`,
+        {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_reqData),
+        }
+      );
 
       return await response.json();
     }

@@ -13,9 +13,22 @@ export const ProfileProvider = ({ children }) => {
     if (token !== null) {
       localStorage.setItem("linqToken", token);
       const getProfile = async () => {
-        const response = await fetch("/api/account/profile", {
-          headers: new Headers({ "Content-Type": "application/json", token }),
-        });
+        // const response = await fetch("/api/account/profile", {
+        //   headers: new Headers({ "Content-Type": "application/json", token }),
+        // });
+
+        let config = {
+          method: "GET",
+          headers: {
+            Accept: "*/*",
+            ContentType: "application/json",
+          },
+        };
+
+        const response = await fetch(
+          `https://reb00t.uc.r.appspot.com/account/profile?t=${token}`,
+          config
+        );
 
         const data = await response.json();
 

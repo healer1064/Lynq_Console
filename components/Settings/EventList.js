@@ -1,6 +1,7 @@
 // libraries
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import EventListCard from "./EventListCard";
@@ -13,13 +14,18 @@ const EventList = ({ events, setTab, setResponse, response }) => {
 
   const deleteEventType = (id) => {
     async function del() {
-      const response = await fetch("/api/settings/delete-event-type", {
-        headers: new Headers({
-          data: JSON.stringify({ token, id: id }),
-        }),
-      });
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/account/event-type/${id}?t=${token}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      return await response.json();
+      return await response;
     }
 
     del()
