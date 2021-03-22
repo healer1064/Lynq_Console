@@ -32,7 +32,7 @@ export default function Payment() {
       },
     };
     const response = await fetch(
-      `http://reb00t.uc.r.appspot.com/account/balance?t=${token}`,
+      `https://reb00t.uc.r.appspot.com/account/balance?t=${token}`,
       config
     );
     const data = await response.json();
@@ -77,7 +77,7 @@ export default function Payment() {
   const requestPayment = () => {
     async function request() {
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/balance/request_payment?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/balance/request_payment?t=${token}`,
         {
           method: "POST",
           headers: {

@@ -40,7 +40,7 @@ export default function Clients() {
     };
 
     const response = await fetch(
-      `http://reb00t.uc.r.appspot.com/account/clients?t=${token}`,
+      `https://reb00t.uc.r.appspot.com/account/clients?t=${token}`,
       config
     );
     const data = await response.json();

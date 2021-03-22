@@ -41,7 +41,7 @@ export default function Contact() {
       // });
 
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/support-request?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/support-request?t=${token}`,
         {
           method: "POST",
           headers: {

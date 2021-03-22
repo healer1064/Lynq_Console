@@ -83,7 +83,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
       // });
 
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/event-type/${eventType.id}?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/event-type/${eventType.id}?t=${token}`,
         {
           method: "PUT",
           headers: {

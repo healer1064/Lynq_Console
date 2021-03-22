@@ -17,7 +17,7 @@ const EventListCard = ({ card, setTab, deleteEventType }) => {
   const changeEventTypeStatus = (id) => {
     async function change() {
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/event-type/${id}/toggleActive?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/event-type/${id}/toggleActive?t=${token}`,
         {
           method: "POST",
           headers: {

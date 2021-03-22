@@ -15,7 +15,7 @@ const EventList = ({ events, setTab, setResponse, response }) => {
   const deleteEventType = (id) => {
     async function del() {
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/event-type/${id}?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/event-type/${id}?t=${token}`,
         {
           method: "DELETE",
           headers: {

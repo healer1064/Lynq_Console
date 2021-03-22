@@ -36,7 +36,7 @@ export default function Signup() {
       // });
 
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/signup`,
+        `https://reb00t.uc.r.appspot.com/account/signup`,
         {
           method: "POST",
           headers: {
