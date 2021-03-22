@@ -1,23 +1,22 @@
 const ClientItem = ({ data }) => {
-  const { firstName, lastName, email, session, revenue } = data;
+  const { first_name, last_name, email, starting_date, price } = data;
 
   return (
     <div className="row">
       <div className="col first__name">
-        <span>{firstName}</span>
+        <span>{first_name}</span>
       </div>
       <div className="col last__name">
-        <span>{lastName}</span>
+        <span>{last_name}</span>
       </div>
       <div className="col email">
         <span>{email}</span>
       </div>
       <div className="col session">
-        <span>{session}</span>
-        {/* <span>02/10/2021</span> */}
+        <span>{starting_date.split("T")[0]}</span>
       </div>
       <div className="col revenue">
-        <strong>${revenue}</strong>
+        <strong>${price}</strong>
       </div>
       {/* <div className="col actions">
                 <div className="action">

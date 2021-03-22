@@ -1,10 +1,33 @@
 // components
 import AppointmentsListItem from "./AppointmentsListItem";
+import EmptyData from "../common/EmptyData";
 
 const AppointmentsList = ({ data }) => {
-  return (
+  var groupArrays = [];
+
+  if (data.length > 0) {
+    const groups = data.reduce((groups, appointment) => {
+      const date = appointment.starting_date.split("T")[0];
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(appointment);
+      return groups;
+    }, {});
+
+    groupArrays = Object.keys(groups).map((date) => {
+      return {
+        date,
+        appointments: groups[date],
+      };
+    });
+  }
+
+  return groupArrays.length === 0 ? (
+    <EmptyData />
+  ) : (
     <div className="appointments-col">
-      {data.map((item, index) => {
+      {groupArrays.map((item, index) => {
         return <AppointmentsListItem data={item} key={index} />;
       })}
     </div>
