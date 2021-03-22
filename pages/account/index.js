@@ -134,7 +134,7 @@ const Account = () => {
         //   }),
         // });
         const response = await fetch(
-          `http://reb00t.uc.r.appspot.com/account/profile?t=${token}`,
+          `https://reb00t.uc.r.appspot.com/account/profile?t=${token}`,
           {
             method: "POST",
             headers: {
@@ -195,7 +195,7 @@ const Account = () => {
         // });
 
         const response = await fetch(
-          `http://reb00t.uc.r.appspot.com/account/business?t=${token}`,
+          `https://reb00t.uc.r.appspot.com/account/business?t=${token}`,
           {
             method: "POST",
             headers: {
@@ -248,7 +248,7 @@ const Account = () => {
           // });
 
           const response = await fetch(
-            `http://reb00t.uc.r.appspot.com/account/new-password?t=${token}`,
+            `https://reb00t.uc.r.appspot.com/account/new-password?t=${token}`,
             {
               method: "POST",
               headers: {

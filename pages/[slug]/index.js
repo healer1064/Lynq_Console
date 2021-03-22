@@ -43,25 +43,6 @@ const Profile = ({ slug }) => {
     setData(data);
   };
 
-  // const { data: bookReq, error: bookErr } = useSWR(
-  //   bookOrder
-  //     ? [
-  //         "/api/profile/request",
-  //         JSON.stringify({
-  //           slug: slug,
-  //           params: {
-  //             activity_id: "string",
-  //             start_date: "string",
-  //             first_name: "string",
-  //             last_name: "string",
-  //             email: "string",
-  //           },
-  //         }),
-  //       ]
-  //     : null,
-  //   fetcher
-  // );
-
   const handleActivity = (_activity) => {
     setActicity(_activity);
     setSlotsLoading(true);
@@ -72,7 +53,7 @@ const Profile = ({ slug }) => {
     // check avaliblity
     async function check_availabliity() {
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${_activity.id}`,
+        `https://reb00t.uc.r.appspot.com/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${_activity.id}`,
         {
           method: "GET",
           headers: {
@@ -97,16 +78,10 @@ const Profile = ({ slug }) => {
       });
   };
 
-  const handleStartTime = (_time) => {
-    console.log("start time", _time);
-  };
-
-  const handleBook = (flag) => {
-    setBookOrder(flag);
-  };
-
-  const confirmOrder = (_userData) => {
-    console.log("user", _userData);
+  const handleStartTime = (_date) => {
+    console.log("start date", _date);
+    setActicity({ ...activity, start_date: _date });
+    setBookOrder(true);
   };
 
   if (!data) {
@@ -136,16 +111,11 @@ const Profile = ({ slug }) => {
             data={data.activities}
             slots={slots}
             onHandle={handleActivity}
-            onBook={handleBook}
             loading={slotsLoading}
             handleTime={handleStartTime}
           />
         ) : (
-          <PublicScreen3Rightbar
-            slug={slug}
-            activity={activity}
-            onHandle={confirmOrder}
-          />
+          <PublicScreen3Rightbar slug={slug} activity={activity} />
         )}
       </div>
     </>

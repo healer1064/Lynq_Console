@@ -8,13 +8,14 @@ import CheckoutForm from "../PublicScreen/CheckoutForm";
 
 import styles from "../../styles/PublicScreen.module.sass";
 
-const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
+const PublicScreen3Rightbar = ({ slug, activity }) => {
   const router = useRouter();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [detailView, setDetailView] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   const [order, setOrder] = useState();
@@ -36,6 +37,7 @@ const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
         .then((res) => {
           console.log("request booking", res);
           setLoading(false);
+          setOrder(res);
           setDetailView(true);
         })
         .catch((err) => {
@@ -46,18 +48,20 @@ const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
   };
 
   const requsetBooking = async () => {
+    // 5555555555554444 card number
+    let date = activity.start_date.split(".")[0];
+
     let _reqData = {
       activity_id: activity.id,
-      start_date: "2020-10-02",
+      start_date: date,
       first_name: firstName,
       last_name: lastName,
       email: email,
-      stripe_pk:
-        "pk_test_51HYDfwI23NtVPUgSlE4VhmtDxpnQ8XlCj7BT8LfX0LEmQ8dKckqYpt1FHY6B0ZtJYn7UpvDdCqEEFcgjmtVl3DNi00JAEOsodB",
+      stripe_pk: "",
     };
 
     const response = await fetch(
-      `http://reb00t.uc.r.appspot.com/profile/${slug}/request_booking`,
+      `https://reb00t.uc.r.appspot.com/profile/${slug}/request_booking`,
       {
         method: "POST",
         headers: {
@@ -68,7 +72,7 @@ const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
       }
     );
 
-    return await response.status;
+    return await response.json();
   };
 
   const validate = () => {
@@ -162,7 +166,7 @@ const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
         </div>
       ) : (
         <Elements stripe={stripePromise}>
-          <CheckoutForm />
+          <CheckoutForm order={order} />
         </Elements>
       )}
     </div>

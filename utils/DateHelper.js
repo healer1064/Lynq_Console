@@ -53,3 +53,23 @@ export const dateFormat = (_sdate, _edate) => {
 
   return format;
 };
+
+export const getDayAndMonth = (_date) => {
+  let date = moment(_date);
+
+  let month = date.format("MMM");
+  let dayName = date.format("ddd");
+  let day = date.format("DD");
+
+  return {
+    month,
+    dayName,
+    day,
+  };
+};
+
+export const getFormatedTime = (_date) => {
+  let date = moment(_date);
+  let time = date.utc().format("h:mm A");
+  return time;
+};

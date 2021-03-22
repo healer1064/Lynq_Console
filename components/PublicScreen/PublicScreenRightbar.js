@@ -11,7 +11,6 @@ const PublicScreenRightbar = ({
   data,
   slots,
   onHandle,
-  onBook,
   loading,
   handleTime,
 }) => {
@@ -21,7 +20,6 @@ const PublicScreenRightbar = ({
   const handleClick = () => {
     if (time !== "") {
       handleTime(time);
-      onBook(true);
       setTimeError(false);
     } else {
       setTimeError(true);

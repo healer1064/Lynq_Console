@@ -50,7 +50,7 @@ export default function AppointmentNew() {
     };
 
     const response = await fetch(
-      `http://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+      `https://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
       config
     );
 

@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { format, compareAsc } from "date-fns";
 
+import { getDayAndMonth, getFormatedTime } from "../../utils/DateHelper";
+
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
 
-// Fake Data
+// mock up Data
 import TimeSlots from "../../utils/data/SlotsFakeData";
+import data from "../../utils/data";
 
 const PublicScreen2Calendar = ({ slots, setTime, setError }) => {
   const [index, setIndex] = useState(-1);
   const [jIndex, setJIndex] = useState(-1);
 
   const getDates = () => {
-    const dates = TimeSlots.map((slot) => ({
-      name: slot.day_name,
-      date: slot.date,
-    }));
+    const dates = Object.keys(slots).map((slot) => getDayAndMonth(slot));
     return dates;
   };
 
@@ -39,13 +39,13 @@ const PublicScreen2Calendar = ({ slots, setTime, setError }) => {
         <div className={styles.table_head}>
           {getDates().map((slot, i) => (
             <div key={i}>
-              <h6>{slot.name}</h6>
-              <p>{slot.date}</p>
+              <h6>{slot.dayName}</h6>
+              <p>{slot.day + " " + slot.month}</p>
             </div>
           ))}
         </div>
         <div className={styles.table_body}>
-          {getTimes().map((times, i) => (
+          {/* {getTimes().map((times, i) => (
             <div key={i}>
               {times.map((item, j) => (
                 <div
@@ -59,6 +59,24 @@ const PublicScreen2Calendar = ({ slots, setTime, setError }) => {
                   className={index === i && jIndex === j ? styles.active : ""}
                 >
                   <p>{item.time}</p>
+                </div>
+              ))}
+            </div>
+          ))} */}
+          {Object.values(slots).map((_times, i) => (
+            <div key={i}>
+              {_times.map((_time, j) => (
+                <div
+                  key={j}
+                  onClick={() => {
+                    setIndex(i);
+                    setJIndex(j);
+                    setTime(_time);
+                    setError(false);
+                  }}
+                  className={index === i && jIndex === j ? styles.active : ""}
+                >
+                  <p>{getFormatedTime(_time)}</p>
                 </div>
               ))}
             </div>

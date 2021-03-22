@@ -91,7 +91,7 @@ const EditProfile = () => {
 
     async function update() {
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/public-profile?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/public-profile?t=${token}`,
         {
           method: "POST",
           headers: {
@@ -126,7 +126,7 @@ const EditProfile = () => {
       formData.append("image", _imageFile);
 
       const response = await fetch(
-        `http://reb00t.uc.r.appspot.com/account/public-profile/upload_picture?t=${token}`,
+        `https://reb00t.uc.r.appspot.com/account/public-profile/upload_picture?t=${token}`,
         {
           method: "POST",
           headers: {

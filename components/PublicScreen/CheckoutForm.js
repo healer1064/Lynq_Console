@@ -13,6 +13,7 @@ import styles from "../../styles/PublicScreen.module.sass";
 const CheckoutForm = ({ order }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
 
   const options = {
     style: {
@@ -46,20 +47,24 @@ const CheckoutForm = ({ order }) => {
 
     const cardElement = elements.getElement(CardNumberElement);
 
-    console.log(order.stripeSecretId);
+    console.log(order.stripe_payment_secret_id);
+    let name = order.first_name + " " + order.last_name;
 
-    const result = await stripe.confirmCardPayment(order.stripeSecretId, {
-      payment_method: {
-        card: cardElement,
-        billing_details: {
-          name: order.name,
-          email: order.email,
+    const result = await stripe.confirmCardPayment(
+      order.stripe_payment_secret_id,
+      {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: name,
+            email: order.email,
+          },
+          metadata: {
+            order_id: order.id,
+          },
         },
-        metadata: {
-          order_id: order.id,
-        },
-      },
-    });
+      }
+    );
 
     if (result.error) {
       // Show error to your customer (e.g., insufficient funds)
