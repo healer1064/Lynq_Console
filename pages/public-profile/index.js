@@ -34,7 +34,7 @@ const categoriesData = [
 
 const EditProfile = () => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // states
   const [firstName, setFirstName] = useState("");
@@ -74,9 +74,10 @@ const EditProfile = () => {
     e.preventDefault();
     setLoading(true);
     const _reqData = {
+      id: profile.id,
       slug,
       location: `${city} - ${state}`,
-      category: categories.join(", "),
+      category: JSON.stringify(categories),
       about: generalPres,
       facebook,
       instagram,
@@ -84,7 +85,8 @@ const EditProfile = () => {
       personal_website: website,
       name: `${firstName} ${lastName}`,
       expect_details: whatToExpect,
-      speciality: [],
+      speciality: [{ id: 1, name: "test" }],
+      public_image: "",
     };
 
     async function update() {

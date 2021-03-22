@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // libraries
 import Head from "next/head";
@@ -21,8 +21,32 @@ const Profile = ({ slug }) => {
   const [bookOrder, setBookOrder] = useState(false);
   const [slots, setSlots] = useState(null);
   const [slotsLoading, setSlotsLoading] = useState(false);
+  const [data, setData] = useState(null);
 
-  const { data, error } = useSWR(["/api/profile/profile", slug], fetcher);
+  // const { data, error } = useSWR(["/api/profile/profile", slug], fetcher);
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const getProfile = async () => {
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
+
+    const response = await fetch(
+      `http://reb00t.uc.r.appspot.com/profile/${slug}`,
+      config
+    );
+    const data = await response.json();
+
+    console.log(data);
+    setData(data);
+  };
 
   // const { data: bookReq, error: bookErr } = useSWR(
   //   bookOrder
@@ -47,13 +71,21 @@ const Profile = ({ slug }) => {
     setActicity(_activity);
     setSlotsLoading(true);
 
+    const startDate = "10-10-2042";
+    const endDate = "10-10-2042";
+
     // check avaliblity
     async function check_availabliity() {
-      const response = await fetch("/api/profile/profile-availability", {
-        headers: new Headers({
-          data: JSON.stringify({ id: _activity.id, slug: slug }),
-        }),
-      });
+      const response = await fetch(
+        `http://reb00t.uc.r.appspot.com/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${_activity.id}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       return await response.json();
     }
@@ -86,8 +118,6 @@ const Profile = ({ slug }) => {
     return <h1>Loading...</h1>;
   }
 
-  console.log(data);
-
   return (
     <>
       <Head>
@@ -112,7 +142,11 @@ const Profile = ({ slug }) => {
             handleTime={handleStartTime}
           />
         ) : (
-          <PublicScreen3Rightbar onHandle={confirmOrder} />
+          <PublicScreen3Rightbar
+            slug={slug}
+            activity={activity}
+            onHandle={confirmOrder}
+          />
         )}
       </div>
     </>

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
 
@@ -6,8 +8,6 @@ import PublicScreenHead from "./PublicScreenHead";
 import PublicScreenMore from "./PublicScreenMore";
 
 const PublicScreenLeftbar = ({ profile }) => {
-  console.log(profile);
-
   return (
     <div className={styles.public_screen_left}>
       <PublicScreenHead data={profile} />
@@ -28,7 +28,7 @@ const PublicScreenLeftbar = ({ profile }) => {
                     src="/img/public-screen-speciality.svg"
                     alt="speciality"
                   />
-                  <p>{item}</p>
+                  <p>{item.name}</p>
                 </div>
               ))}
             </div>

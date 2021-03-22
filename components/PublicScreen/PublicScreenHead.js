@@ -26,9 +26,9 @@ const PublicScreenHead = ({ data }) => {
           </div>
         </div>
         <div className={styles.tags}>
-          <p>#Meditation</p>
-          <p>#Fitness</p>
-          <p>#Yoga</p>
+          {JSON.parse(data.category).map((item) => (
+            <p>#{item}</p>
+          ))}
         </div>
       </div>
     </div>

@@ -1,22 +1,17 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-
-// components
-import CheckoutForm from "../PublicScreen/CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
 
 import styles from "../../styles/PublicScreen.module.sass";
 
-const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
+const CheckoutForm = ({ slug, activity, onHandle }) => {
   const router = useRouter();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [detailView, setDetailView] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const [order, setOrder] = useState();
 
   const [errors, setErrors] = useState({
@@ -31,15 +26,12 @@ const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
 
   const handleInputs = () => {
     if (validate()) {
-      setLoading(true);
+      // setDetailView(true);
       requsetBooking()
         .then((res) => {
           console.log("request booking", res);
-          setLoading(false);
-          setDetailView(true);
         })
         .catch((err) => {
-          setLoading(false);
           console.log("request bookin error", err);
         });
     }
@@ -156,17 +148,47 @@ const PublicScreen3Rightbar = ({ slug, activity, onHandle }) => {
             />
             {errors.eError && <span>* Required</span>}
           </div>
-          <button onClick={handleInputs}>
-            {!loading ? "Next" : "loading..."}
-          </button>
+          <button onClick={handleInputs}>Next</button>
         </div>
       ) : (
-        <Elements stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
+        <div className={styles.payment_details}>
+          <h6>Payment Details</h6>
+          <div className={styles.card_number_container}>
+            <label>Card Number</label>
+            <div>
+              <input />
+              <img src="/img/public-screen-visa.svg" alt="visa" />
+            </div>
+          </div>
+          <div className={styles.input_container}>
+            <div>
+              <label>Exp Date</label>
+              <input />
+            </div>
+            <div>
+              <label>CVV</label>
+              <input />
+            </div>
+          </div>
+          <div className={styles.checkbox_container}>
+            <input type="checkbox" />
+            <label>I have read, and I accept the Terms and Conditions</label>
+          </div>
+          <button
+            onClick={() => {
+              onHandle({ firstName, lastName, email });
+              router.push("/public-screen5");
+            }}
+          >
+            PAY & CONFIRM YOUR PARTICIPATION
+          </button>
+          <div className={styles.stripe}>
+            Powered by <span>stripe</span>
+          </div>
+        </div>
       )}
     </div>
   );
 };
 
-export default PublicScreen3Rightbar;
+export default CheckoutForm;
