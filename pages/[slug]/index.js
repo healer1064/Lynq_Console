@@ -34,7 +34,7 @@ const Profile = ({ slug }) => {
     };
 
     const response = await fetch(
-      `http://reb00t.uc.r.appspot.com/profile/${slug}`,
+      `https://reb00t.uc.r.appspot.com/profile/${slug}`,
       config
     );
     const data = await response.json();
