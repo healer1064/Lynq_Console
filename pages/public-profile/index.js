@@ -129,10 +129,6 @@ const EditProfile = () => {
         `https://reb00t.uc.r.appspot.com/account/public-profile/upload_picture?t=${token}`,
         {
           method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "multipart/form-data",
-          },
           body: formData,
         }
       );
