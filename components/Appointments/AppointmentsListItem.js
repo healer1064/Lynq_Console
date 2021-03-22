@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 
 // components
@@ -8,28 +8,51 @@ import AppointmentCard from "../Home/AppointmentCard";
 const AppointmentsListItem = ({ data }) => {
   // state
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState(true);
 
-  const { day, date, appointments, status, userAppointments } = data;
+  const { date, appointments } = data;
+
+  const day = (date) => {
+    var days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    var d = new Date(date.toString());
+    return days[d.getDay()];
+  };
+
+  useEffect(() => {
+    var currentDate = new Date();
+    var serverDate = new Date(date);
+
+    setStatus(serverDate > currentDate);
+  }, []);
 
   return (
     <div
-      className={`appointments-col__card__wrp 
-      ${status === "inactive" && "inactive"}
+      className={`appointments-col__card__wrp
+      ${status ? "" : "inactive"}
       ${open && "active"}
       `}
     >
       <div
         onClick={() => {
-          userAppointments && setOpen(!open);
+          appointments && setOpen(!open);
         }}
         className="appointments-col__card"
       >
         <div className="det">
-          {day}
+          {day(date)}
           <div className="line"></div>
           {date}
           <div className="line"></div>
-          <b>{appointments} appointments</b>
+          <b>{appointments.length} appointments</b>
         </div>
         <div className="arrow">
           <svg
@@ -43,9 +66,9 @@ const AppointmentsListItem = ({ data }) => {
           </svg>
         </div>
       </div>
-      {open && userAppointments && (
+      {open && appointments && (
         <div style={{ width: "100%" }}>
-          {userAppointments.map((data, index) => (
+          {appointments.map((data, index) => (
             <Fade key={index} collapse duration={1000}>
               <AppointmentCard key={index} data={data} />
             </Fade>

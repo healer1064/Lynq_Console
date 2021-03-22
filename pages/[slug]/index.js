@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-
 // libraries
-import Head from "next/head";
-import useSWR from "swr";
+import { useEffect, useState } from "react";
+import Head from "next/head";s
 
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
@@ -12,9 +10,6 @@ import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
 import PublicScreenLeftbar from "../../components/PublicScreen/PublicScreenLeftbar";
 import PublicScreenRightbar from "../../components/PublicScreen/PublicScreenRightbar";
 import PublicScreen3Rightbar from "../../components/PublicScreen3/PublicScreen3Rightbar";
-
-// utils
-import fetcher from "../../utils/fetcher";
 
 const Profile = ({ slug }) => {
   const [activity, setActicity] = useState(null);

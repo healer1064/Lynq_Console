@@ -1,9 +1,12 @@
 // components
+import EmptyData from "../common/EmptyData";
 import ClientItem from "./ClientItem";
 
 const ClientsTable = ({ data }) => {
-  if (!data.length) {
-    return <></>;
+  console.log(data);
+
+  if (data.length === 0) {
+    return <EmptyData title="No clients to show" />;
   } else {
     return (
       <div className="clients-table">

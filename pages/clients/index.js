@@ -21,11 +21,13 @@ export default function Clients() {
 
   // state
   const [data, setData] = useState(null);
+  const [filteredData, setFilteredData] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // const { data, error } = useSWR(["/api/clients", token], fetcher);
 
   useEffect(() => {
-    getClients();
+    if (token) getClients();
   }, [token]);
 
   const getClients = async () => {
@@ -70,11 +72,27 @@ export default function Clients() {
                 {/* <AddNewButton title="New Client" /> */}
                 <input
                   type="text"
-                  placeholder="Search"
+                  placeholder="Search by name"
                   className="clients-wrp__search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              <ClientsTable data={data} />
+              <ClientsTable
+                data={
+                  searchTerm === ""
+                    ? data
+                    : data.filter(
+                        (i) =>
+                          i.first_name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                          i.last_name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                      )
+                }
+              />
             </div>
           )}
         </div>
