@@ -1,6 +1,6 @@
 // libraries
 import { useEffect, useState } from "react";
-import Head from "next/head";s
+import Head from "next/head";
 
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
