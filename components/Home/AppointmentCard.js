@@ -30,7 +30,7 @@ const AppointmentCard = ({ data, toggle }) => {
     <div className={`appointments-col__event blue`}>
       <div className="title">Test Name (Not coming from backend)</div>
       <div className="det">
-        {data.starting_date.split("T")[0]}
+        {data?.starting_date?.split("T")[0]}
         <div className="line"></div>
         <b>
           {getTime(data.starting_date)} - {getTime(data.ending_date)}
