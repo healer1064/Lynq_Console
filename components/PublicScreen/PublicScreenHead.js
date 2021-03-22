@@ -4,7 +4,7 @@ const PublicScreenHead = ({ data }) => {
   return (
     <div className={styles.public_screen_head}>
       <div className={styles.public_screen_head_img}>
-        <div className={styles.profile_img} />
+        <img src={data.public_image} className={styles.profile_img} />
         <div className={styles.profile_img_online} />
       </div>
       <div className={styles.head_content}>

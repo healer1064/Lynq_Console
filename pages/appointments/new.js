@@ -97,11 +97,11 @@ export default function AppointmentNew() {
                   value={eventType}
                 >
                   <option value={-1}>Select Event Type</option>
-                  {data.map((item) => (
+                  {/* {data.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
                     </option>
-                  ))}
+                  ))} */}
                 </select>
               </label>
               <label>

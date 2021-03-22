@@ -60,14 +60,14 @@ const EditProfile = () => {
   // upload image file
   const handleImgUpload = (e) => {
     setImageFile(e.target.files[0]);
+    uploadProfilePic(e.target.files[0]);
 
     const reader = new FileReader();
     reader.onloadend = function () {
       setImage(reader.result);
     };
-    reader.readAsDataURL(e.target.files[0]);
 
-    uploadProfilePic();
+    reader.readAsDataURL(e.target.files[0]);
   };
 
   const updateProfile = (e) => {
@@ -90,12 +90,6 @@ const EditProfile = () => {
     };
 
     async function update() {
-      // const response = await fetch("/api/public-profile", {
-      //   headers: new Headers({
-      //     data: JSON.stringify({ token, _reqData }),
-      //   }),
-      // });
-
       const response = await fetch(
         `http://reb00t.uc.r.appspot.com/account/public-profile?t=${token}`,
         {
@@ -124,18 +118,12 @@ const EditProfile = () => {
       });
   };
 
-  const uploadProfilePic = () => {
+  const uploadProfilePic = (_imageFile) => {
     setLoading(true);
 
     async function upload() {
-      // const response = await fetch("/api/common/upload-image", {
-      //   headers: new Headers({
-      //     data: JSON.stringify({ token, image: image }),
-      //   }),
-      // });
-
       var formData = new FormData();
-      formData.append("image", imageFile);
+      formData.append("image", _imageFile);
 
       const response = await fetch(
         `http://reb00t.uc.r.appspot.com/account/public-profile/upload_picture?t=${token}`,
@@ -143,7 +131,7 @@ const EditProfile = () => {
           method: "POST",
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
           body: formData,
         }
