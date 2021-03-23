@@ -16,7 +16,7 @@ const Calendar = ({ currDate, setOpen, handleChange }) => {
     setStartDate(start);
     setEndDate(end);
 
-    handleChange(start, end);
+    if (end !== null) handleChange(start, end);
   };
 
   Calendar.handleClickOutside = () => setOpen(false);

@@ -1,9 +1,9 @@
 import styles from "../../styles/PublicScreen.module.sass";
 
-const PublicScreenMore = () => {
+const PublicScreenMore = ({ toggle, label }) => {
   return (
-    <div className={styles.more}>
-      <span>Read More</span>
+    <div className={styles.more} onClick={toggle}>
+      <span>{label}</span>
       <img src="/img/public-screen-more.svg" alt="more" />
     </div>
   );

@@ -25,7 +25,8 @@ const AppointmentsListItem = ({ data }) => {
     var serverDate = new Date(date);
 
     setStatus(serverDate > currentDate);
-  }, []);
+    console.log(serverDate > currentDate);
+  }, [data]);
 
   const fullDate = (d) => {
     const date = new Date(d);

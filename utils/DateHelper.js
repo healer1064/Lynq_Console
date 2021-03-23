@@ -49,7 +49,7 @@ export const dateFormat = (_sdate, _edate) => {
   start = start.split(" ");
   end = end.split(" ");
 
-  let format = `${start[1]}-${end[1]} ${end[0]} ${start[2]}`;
+  let format = `${start[1]}-${end[1]} ${start[0]} ${start[2]}`;
 
   return format;
 };

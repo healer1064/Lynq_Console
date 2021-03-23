@@ -583,7 +583,7 @@ body
 .settings-types
   margin: 48px auto 32px
   @include flex
-  margin-left: calc(19% - 20px)
+  
   .option
     margin: 0 20px
     cursor: pointer
@@ -1099,9 +1099,27 @@ body
   &-top
     width: 100%
     @include flex
-    align-items: flex-start
+    align-items: baseline
+    justify-content: center
     flex-wrap: wrap
     margin-top: 48px
+    position: relative
+    &__newApp
+      position: absolute
+      left: 0
+      top: 10px
+      padding: 11px 24px 12px
+      background: #39BDCD
+      border-radius: 5px
+      cursor: pointer
+      @include flex
+      align-items: center
+      span
+        font-weight: 600
+        font-size: 16px
+        line-height: 20px
+        color: #FFF
+        margin-left: 1px
     &__btn
       padding: 11px 24px 12px
       background: #39BDCD
@@ -1118,7 +1136,6 @@ body
     &__calendar
       @include flex
       align-items: center
-      margin-left: 93px
       margin-top: 18px
       
       .prev
@@ -1138,17 +1155,21 @@ body
       .dates
         @include flex
         align-items: center
+        justify-content: center
         margin: 0 40px
         cursor: pointer
         position: relative
+        width: 250px
         img
           height: 24px
           margin-right: 16px
+          user-select: none
         span
           font-weight: bold
           font-size: 18px
           line-height: 22px
           color: $black-2
+          user-select: none
   &-col
     width: 100%
     @include flex
@@ -3135,7 +3156,7 @@ body
     &-types
       margin-top: 24px
       margin-bottom: 24px
-      margin-left: calc(21% - 24px)
+     
       .option
         margin: 0 24px
         font-size: 16px
@@ -3904,6 +3925,9 @@ body
   .appointments
     &-top
       margin-top: 24px
+      justify-content: flex-start
+      &__newApp
+        position: relative
       &__btn
         span
           font-size: 12px

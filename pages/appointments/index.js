@@ -14,14 +14,94 @@ import PageLoading from "../../components/common/PageLoading";
 // context
 import ProfileContext from "../../context/profile";
 
+import {
+  getCurrentWeek,
+  getNextWeek,
+  getPreviousWeek,
+} from "../../utils/DateHelper";
+
 // fake data
 import fakedata from "../../utils/data";
+
+const AppointmentData = [
+  {
+    id: "11",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-14T17:23:34",
+    ending_date: "2021-03-20T17:23:34.000+00:00",
+    activity_id: "10-10",
+    status: "CONFIRMED",
+    price: 10,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "13",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-28T17:23:34",
+    ending_date: "2021-04-3T17:23:34.000+00:00",
+    activity_id: "10-10",
+    status: "CONFIRMED",
+    price: 10,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "15",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-22T17:23:34",
+    ending_date: "2021-03-28T17:23:34.000+00:00",
+    activity_id: "10-10",
+    status: "CONFIRMED",
+    price: 10,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "15",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-24T17:23:34",
+    ending_date: "2021-03-28T17:23:34.000+00:00",
+    activity_id: "10-10",
+    status: "CONFIRMED",
+    price: 10,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "15",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-25T17:23:34",
+    ending_date: "2021-03-28T17:23:34.000+00:00",
+    activity_id: "10-10",
+    status: "CONFIRMED",
+    price: 10,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+];
 
 export default function Appointments() {
   const { token, profile } = useContext(ProfileContext);
 
   // states
   const [data, setData] = useState(null);
+  const [temp, setTemp] = useState([]);
   const [tabIndex, setTabIndex] = useState(1);
 
   useEffect(() => {
@@ -44,7 +124,52 @@ export default function Appointments() {
 
     const _data = await response.json();
 
-    setData(_data);
+    setData(filterByCurrWeek(groupAppointment(AppointmentData)));
+    setTemp(groupAppointment(AppointmentData));
+  };
+
+  const groupAppointment = (data) => {
+    let groupArrays = [];
+    const groups = data.reduce((groups, appointment) => {
+      const date = appointment.starting_date.split("T")[0];
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(appointment);
+      return groups;
+    }, {});
+
+    groupArrays = Object.keys(groups).map((date) => {
+      return {
+        date,
+        appointments: groups[date],
+      };
+    });
+
+    return groupArrays;
+  };
+
+  const filterByCurrWeek = (list) => {
+    let { weekStart, weekEnd } = getCurrentWeek();
+
+    let filter = list.filter(
+      (item) =>
+        new Date(item.date).getTime() >= weekStart.getTime() &&
+        new Date(item.date).getTime() <= weekEnd.getTime()
+    );
+
+    return filter;
+  };
+
+  const onWeekChange = (_start, _end) => {
+    let filter = temp.filter(
+      (item) =>
+        new Date(item.date).getTime() >= _start.getTime() &&
+        new Date(item.date).getTime() <= _end.getTime()
+    );
+
+    console.log(filter);
+    setData(filter);
   };
 
   return (
@@ -98,8 +223,8 @@ export default function Appointments() {
                 <>
                   <Fade duration={1200}>
                     <div>
-                      <AppointmentsTop />
-                      <AppointmentsList data={data} />
+                      <AppointmentsTop onWeekChange={onWeekChange} />
+                      <AppointmentsList appointmentList={data} />
                     </div>
                   </Fade>
                 </>
