@@ -92,10 +92,10 @@ const Profile = ({ slug }) => {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
-        <meta
+        {/* <meta
           http-equiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
-        ></meta>
+        ></meta> */}
       </Head>
       <Navbar />
       {!data ? (
@@ -117,7 +117,6 @@ const Profile = ({ slug }) => {
               data={data.activities}
               slots={slots}
               onHandle={handleActivity}
-              onBook={handleBook}
               loading={slotsLoading}
               handleTime={handleStartTime}
             />
