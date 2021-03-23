@@ -54,7 +54,7 @@ const home = () => {
     };
 
     const response = await fetch(
-      `http://reb00t.uc.r.appspot.com/account/appointments?t=${token}`,
+      `https://reb00t.uc.r.appspot.com/account/appointments?t=${token}`,
       config
     );
 
