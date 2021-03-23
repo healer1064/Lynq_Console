@@ -37,11 +37,7 @@ const EventListCard = ({
     async function change() {
       setLoading(true);
       const response = await fetch(
-<<<<<<< Updated upstream
-        `https://reb00t.uc.r.appspot.com/account/event-type/${id}/toggleActive?t=${token}`,
-=======
-        `http://reb00t.uc.r.appspot.com/account/event-type/${card.id}/toggle?t=${token}`,
->>>>>>> Stashed changes
+        `https://reb00t.uc.r.appspot.com/account/event-type/${card.id}/toggle?t=${token}`,
         {
           method: "POST",
           headers: {
