@@ -124,7 +124,7 @@ const Profile = ({ slug }) => {
             <PublicScreen3Rightbar
               slug={slug}
               activity={activity}
-              onHandle={confirmOrder}
+              // onHandle={confirmOrder}
             />
           )}
         </div>
