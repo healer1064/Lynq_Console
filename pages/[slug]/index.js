@@ -98,23 +98,6 @@ const Profile = ({ slug }) => {
         ></meta>
       </Head>
       <Navbar />
-<<<<<<< Updated upstream
-      <div className={styles.public_screen}>
-        <PublicScreenLeftbar profile={data.profile} />
-        {!bookOrder ? (
-          <PublicScreenRightbar
-            activity={activity}
-            data={data.activities}
-            slots={slots}
-            onHandle={handleActivity}
-            loading={slotsLoading}
-            handleTime={handleStartTime}
-          />
-        ) : (
-          <PublicScreen3Rightbar slug={slug} activity={activity} />
-        )}
-      </div>
-=======
       {!data ? (
         <div
           style={{
@@ -147,7 +130,6 @@ const Profile = ({ slug }) => {
           )}
         </div>
       )}
->>>>>>> Stashed changes
     </>
   );
 };
