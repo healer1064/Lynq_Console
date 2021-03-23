@@ -7,6 +7,9 @@ import "react-toastify/dist/ReactToastify.css";
 // styles
 import styles from "../../styles/EditProfile.module.sass";
 
+// icons
+import { FaImage } from "react-icons/fa";
+
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
@@ -170,7 +173,9 @@ const EditProfile = () => {
                 {image !== null ? (
                   <img src={image} className={styles.edit_profile_img} />
                 ) : (
-                  <div className={styles.place_holder}>S</div>
+                  <div className={styles.place_holder}>
+                    <FaImage size={26} />
+                  </div>
                 )}
                 <div className={styles.edit_profile_btn_container}>
                   <input

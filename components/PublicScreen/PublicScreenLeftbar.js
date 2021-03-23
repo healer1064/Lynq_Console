@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
 

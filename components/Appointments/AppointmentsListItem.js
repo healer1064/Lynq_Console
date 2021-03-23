@@ -5,6 +5,9 @@ import Fade from "react-reveal/Fade";
 // components
 import AppointmentCard from "../Home/AppointmentCard";
 
+// utils
+import { dayNames, monthNames } from "../../utils/dates";
+
 const AppointmentsListItem = ({ data }) => {
   // state
   const [open, setOpen] = useState(false);
@@ -13,18 +16,8 @@ const AppointmentsListItem = ({ data }) => {
   const { date, appointments } = data;
 
   const day = (date) => {
-    var days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-
     var d = new Date(date.toString());
-    return days[d.getDay()];
+    return dayNames[d.getDay()];
   };
 
   useEffect(() => {
@@ -33,6 +26,12 @@ const AppointmentsListItem = ({ data }) => {
 
     setStatus(serverDate > currentDate);
   }, []);
+
+  const fullDate = (d) => {
+    const date = new Date(d);
+    return `${monthNames[date.getMonth()]}
+     ${date.getDate()}, ${date.getFullYear()}`;
+  };
 
   return (
     <div
@@ -50,7 +49,7 @@ const AppointmentsListItem = ({ data }) => {
         <div className="det">
           {day(date)}
           <div className="line"></div>
-          {date}
+          {fullDate(date)}
           <div className="line"></div>
           <b>{appointments.length} appointments</b>
         </div>

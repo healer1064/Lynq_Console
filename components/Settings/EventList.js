@@ -1,5 +1,5 @@
 // libraries
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -8,9 +8,13 @@ import EventListCard from "./EventListCard";
 
 // context
 import ProfileContext from "../../context/profile";
+import Loading from "../common/Loading";
 
 const EventList = ({ events, setTab, setResponse, response }) => {
   const { token } = useContext(ProfileContext);
+
+  // states
+  const [loading, setLoading] = useState(false);
 
   const deleteEventType = (id) => {
     async function del() {
@@ -40,7 +44,23 @@ const EventList = ({ events, setTab, setResponse, response }) => {
   };
 
   return (
-    <div className="events-wrp">
+    <div className="events-wrp" style={{ position: "relative" }}>
+      {loading && (
+        <div
+          style={{
+            position: "absolute",
+            left: "0",
+            top: "0",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img src="/img/loading.gif" width={60} />
+        </div>
+      )}
       <ToastContainer />
       <div className="events-row">
         {events.map((card, index) => (
@@ -49,6 +69,10 @@ const EventList = ({ events, setTab, setResponse, response }) => {
             key={index}
             setTab={setTab}
             deleteEventType={deleteEventType}
+            setResponse={setResponse}
+            response={response}
+            loading={loading}
+            setLoading={setLoading}
           />
         ))}
       </div>

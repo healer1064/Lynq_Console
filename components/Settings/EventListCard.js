@@ -7,36 +7,64 @@ import Fade from "react-reveal/Fade";
 // context
 import ProfileContext from "../../context/profile";
 
-const EventListCard = ({ card, setTab, deleteEventType }) => {
+const EventListCard = ({
+  card,
+  setTab,
+  deleteEventType,
+  setResponse,
+  response,
+  setLoading,
+}) => {
   // states
   const [open, setOpen] = useState(false);
 
   // useContext
   const { setEventType, token } = useContext(ProfileContext);
 
-  const changeEventTypeStatus = (id) => {
+  const changeEventTypeStatus = (card) => {
+    const _reqData = {
+      id: card.id,
+      name: card.name,
+      teacherId: card.teacherId,
+      description: card.description,
+      duration: card.duration,
+      price: card.price,
+      isActive: !card.isActive,
+      cancellation_policy: card.cancellation_policy,
+      material_needed: card.material_needed,
+    };
+
     async function change() {
+      setLoading(true);
       const response = await fetch(
+<<<<<<< Updated upstream
         `https://reb00t.uc.r.appspot.com/account/event-type/${id}/toggleActive?t=${token}`,
+=======
+        `http://reb00t.uc.r.appspot.com/account/event-type/${card.id}/toggle?t=${token}`,
+>>>>>>> Stashed changes
         {
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
+          body: JSON.stringify(_reqData),
         }
       );
 
-      return await response;
+      return await response.json();
     }
 
     change()
       .then((res) => {
-        console.log("Event type Delete", res);
+        setResponse(!response);
+        console.log("Event type toggle", res);
+        setLoading(false);
       })
       .catch((err) => {
-        console.log("Error Event type deleted", err);
+        console.log("Error Event type toggle", err);
         toast.error("An error has occurred");
+        setLoading(false);
       });
   };
 
@@ -55,12 +83,9 @@ const EventListCard = ({ card, setTab, deleteEventType }) => {
             <input
               type="checkbox"
               checked={card.isActive}
-              onClick={() => changeEventTypeStatus(card.id)}
+              onChange={() => changeEventTypeStatus(card)}
             />
-            <div
-              className="toggle-control"
-              onClick={() => console.log("on")}
-            ></div>
+            <div className="toggle-control" />
           </label>
         </div>
         <div className="see__more" onClick={() => setOpen(!open)}>

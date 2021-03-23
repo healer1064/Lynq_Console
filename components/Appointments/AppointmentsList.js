@@ -24,7 +24,9 @@ const AppointmentsList = ({ data }) => {
   }
 
   return groupArrays.length === 0 ? (
-    <EmptyData />
+    <div className="no-appointments">
+      <p>No appointments to show</p>
+    </div>
   ) : (
     <div className="appointments-col">
       {groupArrays.map((item, index) => {

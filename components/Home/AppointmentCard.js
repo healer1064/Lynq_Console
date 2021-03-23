@@ -1,3 +1,5 @@
+import { dayNames, monthNames } from "../../utils/dates";
+
 const AppointmentCard = ({ data, toggle }) => {
   const getDuration = () => {
     const endDate = new Date(data.ending_date);
@@ -25,12 +27,22 @@ const AppointmentCard = ({ data, toggle }) => {
     return strTime;
   }
 
+  const fullDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]}
+     ${date.getDate()}, ${date.getFullYear()}`;
+  };
+
   return (
     // <div className={`appointments-col__event ${data.type}`}>
     <div className={`appointments-col__event blue`}>
       <div className="title">Test Name (Not coming from backend)</div>
       <div className="det">
+<<<<<<< Updated upstream
         {data?.starting_date?.split("T")[0]}
+=======
+        {fullDate(data.starting_date)}
+>>>>>>> Stashed changes
         <div className="line"></div>
         <b>
           {getTime(data.starting_date)} - {getTime(data.ending_date)}

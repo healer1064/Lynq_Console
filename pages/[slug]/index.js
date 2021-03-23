@@ -6,6 +6,7 @@ import Head from "next/head";
 import styles from "../../styles/PublicScreen.module.sass";
 
 // components
+import PageLoading from "../../components/common/PageLoading";
 import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
 import PublicScreenLeftbar from "../../components/PublicScreen/PublicScreenLeftbar";
 import PublicScreenRightbar from "../../components/PublicScreen/PublicScreenRightbar";
@@ -17,8 +18,6 @@ const Profile = ({ slug }) => {
   const [slots, setSlots] = useState(null);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [data, setData] = useState(null);
-
-  // const { data, error } = useSWR(["/api/profile/profile", slug], fetcher);
 
   useEffect(() => {
     getProfile();
@@ -84,10 +83,6 @@ const Profile = ({ slug }) => {
     setBookOrder(true);
   };
 
-  if (!data) {
-    return <h1>Loading...</h1>;
-  }
-
   return (
     <>
       <Head>
@@ -103,6 +98,7 @@ const Profile = ({ slug }) => {
         ></meta>
       </Head>
       <Navbar />
+<<<<<<< Updated upstream
       <div className={styles.public_screen}>
         <PublicScreenLeftbar profile={data.profile} />
         {!bookOrder ? (
@@ -118,6 +114,40 @@ const Profile = ({ slug }) => {
           <PublicScreen3Rightbar slug={slug} activity={activity} />
         )}
       </div>
+=======
+      {!data ? (
+        <div
+          style={{
+            width: "100vw",
+            height: "calc(100vh - 100px)",
+            background: "white",
+          }}
+        >
+          <PageLoading />
+        </div>
+      ) : (
+        <div className={styles.public_screen}>
+          <PublicScreenLeftbar profile={data.profile} />
+          {!bookOrder ? (
+            <PublicScreenRightbar
+              activity={activity}
+              data={data.activities}
+              slots={slots}
+              onHandle={handleActivity}
+              onBook={handleBook}
+              loading={slotsLoading}
+              handleTime={handleStartTime}
+            />
+          ) : (
+            <PublicScreen3Rightbar
+              slug={slug}
+              activity={activity}
+              onHandle={confirmOrder}
+            />
+          )}
+        </div>
+      )}
+>>>>>>> Stashed changes
     </>
   );
 };

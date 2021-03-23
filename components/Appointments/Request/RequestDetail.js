@@ -8,7 +8,7 @@ const RequestDetail = ({ data, toggle }) => {
 
   return (
     <Fade>
-      <div className="content-wrp">
+      <div style={{ marginTop: "-30px" }} className="content-wrp">
         <div className="appointment-request">
           {isOpen && <RequestModal setModalShow={setIsOpen} />}
           <a

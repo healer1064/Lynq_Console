@@ -26,6 +26,8 @@ const PublicScreenRightbar = ({
     }
   };
 
+  console.log(activity);
+
   return (
     <div className={styles.public_screen2_right}>
       <div className={styles.book_session}>
@@ -49,23 +51,29 @@ const PublicScreenRightbar = ({
                     setTime={setTime}
                     setError={setTimeError}
                   />
-                  <button onClick={handleClick}>Book</button>
                   {timeError && (
                     <span
                       style={{
+                        display: "block",
                         fontSize: "12px",
                         color: "red",
+                        marginBottom: "20px",
                       }}
                     >
                       * Select Time
                     </span>
                   )}
+                  <button style={{ cursor: "pointer" }} onClick={handleClick}>
+                    Book
+                  </button>
                 </>
               )}
             </>
           )
         ) : (
-          <p>Loading...</p>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img width={50} src="/img/loading.gif" />
+          </div>
         )}
       </div>
       {slots !== null && (
@@ -73,9 +81,10 @@ const PublicScreenRightbar = ({
           <div className={styles.needs}>
             <h3>What you need to bring</h3>
             <div>
-              <p>Yoga mattress</p>
-              <p>Dumbbells</p>
-              <p>Whatelse?</p>
+              <p>{activity.material_needed}</p>
+              {/* <p>Yoga mattress</p> */}
+              {/* <p>Dumbbells</p>
+              <p>Whatelse?</p> */}
             </div>
           </div>
           <div className={styles.learn}>
@@ -84,7 +93,7 @@ const PublicScreenRightbar = ({
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bibendum
               fringilla adipiscing sed posuere sed null viverra nulla elit.{" "}
             </p>
-            <PublicScreenMore />
+            {/* <PublicScreenMore /> */}
           </div>
         </>
       )}

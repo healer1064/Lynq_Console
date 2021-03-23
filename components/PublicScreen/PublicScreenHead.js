@@ -4,7 +4,19 @@ const PublicScreenHead = ({ data }) => {
   return (
     <div className={styles.public_screen_head}>
       <div className={styles.public_screen_head_img}>
+<<<<<<< Updated upstream
         <img src={data.public_image} className={styles.profile_img} />
+=======
+        {data.public_image ? (
+          <img
+            src={data.public_image}
+            alt={data.name}
+            className={styles.profile_img}
+          />
+        ) : (
+          <div className={styles.profile_img}>{data.name[0]}</div>
+        )}
+>>>>>>> Stashed changes
         <div className={styles.profile_img_online} />
       </div>
       <div className={styles.head_content}>

@@ -15,7 +15,6 @@ import PageLoading from "../../components/common/PageLoading";
 import ProfileContext from "../../context/profile";
 
 // fake data
-import { appointments } from "../../utils/data/appointmentsFake";
 import fakedata from "../../utils/data";
 
 export default function Appointments() {
@@ -69,18 +68,33 @@ export default function Appointments() {
               <div className="settings-types">
                 <div
                   onClick={() => setTabIndex(1)}
-                  className={`option ${tabIndex === 1 && "active"}`}
+                  className={`option ${tabIndex == 1 && "active"}`}
                 >
                   Scheduled
                 </div>
                 <div
                   onClick={() => setTabIndex(2)}
-                  className={`option ${tabIndex === 2 && "active"}`}
+                  className={`option ${tabIndex == 2 && "active"}`}
+                  style={{ position: "relative" }}
                 >
-                  Request
+                  Requests{" "}
+                  {fakedata.appointments.request.length > 0 ? (
+                    <span className="requests-badge">
+                      {fakedata.appointments.request.length}
+                    </span>
+                  ) : null}
                 </div>
               </div>
-              {tabIndex === 1 ? (
+              <div className="settings-types__mobile">
+                <select
+                  onChange={(e) => setTabIndex(e.target.value)}
+                  value={tabIndex}
+                >
+                  <option value={1}>Scheduled</option>
+                  <option value={2}>Requests</option>
+                </select>
+              </div>
+              {tabIndex == 1 ? (
                 <>
                   <Fade duration={1200}>
                     <div>
