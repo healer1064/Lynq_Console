@@ -49,9 +49,17 @@ export const dateFormat = (_sdate, _edate) => {
   start = start.split(" ");
   end = end.split(" ");
 
-  let format = `${start[1]}-${end[1]} ${start[0]} ${start[2]}`;
-
-  return format;
+  if (_sdate.getTime() === _edate.getTime()) {
+    return `${start[1]} ${start[0]} ${start[2]}`;
+  } else {
+    if (start[0] === end[0]) {
+      return `${start[1]}-${end[1]} ${start[0]} ${start[2]}`;
+    } else {
+      return `${start[1]} ${moment(_sdate).format("MMM")} - ${end[1]} ${moment(
+        _edate
+      ).format("MMM")}  ${start[2]}`;
+    }
+  }
 };
 
 export const getDayAndMonth = (_date) => {

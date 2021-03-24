@@ -168,7 +168,6 @@ export default function Appointments() {
         new Date(item.date).getTime() <= _end.getTime()
     );
 
-    console.log(filter);
     setData(filter);
   };
 

@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
 
+// components
+import TimeModal from "../Settings/TimeModal";
+
 const TableRow = ({ day }) => {
   const [count, setCount] = useState(3);
   const [isAvailable, setIsAvailable] = useState(false);
-  const [timeSlots, setTimeSlots] = useState([{ value: 9, id: 1 }]);
+  const [timeSlots, setTimeSlots] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const addTime = () => {
-    setTimeSlots([{ value: count, id: count }, ...timeSlots]);
+  const addTime = (_start, _end) => {
+    setTimeSlots([{ start: _start, end: _end, id: count }, ...timeSlots]);
     setCount(count + 1);
   };
 
@@ -15,6 +19,16 @@ const TableRow = ({ day }) => {
     let temp = [...timeSlots];
     let filter = temp.filter((item) => item.id !== id);
     setTimeSlots(filter);
+  };
+
+  const toggle = () => {
+    console.log("hello");
+    setIsOpen(!isOpen);
+  };
+
+  const handleTime = (_start, _end) => {
+    toggle();
+    addTime(_start, _end);
   };
 
   return (
@@ -35,7 +49,7 @@ const TableRow = ({ day }) => {
               <span className="unavailable">Unavailable</span>
             </div>
             <div className="setup-table__add">
-              <img src="/img/setup-add.svg" alt="" />
+              {/* <img src="/img/setup-add.svg" alt="" /> */}
             </div>
           </div>
         </Fade>
@@ -55,9 +69,9 @@ const TableRow = ({ day }) => {
               <div key={item.id} style={{ margin: ".25rem 0" }}>
                 <Fade collapse bottom duration={1000}>
                   <div className="time__row">
-                    <input type="time" value={`0${item.value}:00`} />
+                    <input type="text" value={item.start} />
                     <div className="line"></div>
-                    <input type="time" value="17:00" />
+                    <input type="text" value={item.end} />
                     <div className="trash">
                       <img
                         src="/img/setup-trash.svg"
@@ -71,9 +85,12 @@ const TableRow = ({ day }) => {
             ))}
           </div>
           <div className="setup-table__add">
-            <img src="/img/setup-add.svg" alt="" onClick={addTime} />
+            <img src="/img/setup-add.svg" alt="" onClick={toggle} />
           </div>
         </div>
+      )}
+      {isOpen && (
+        <TimeModal isOpen={isOpen} toggle={toggle} handleTime={handleTime} />
       )}
     </>
   );

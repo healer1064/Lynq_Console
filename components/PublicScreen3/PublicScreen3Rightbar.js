@@ -49,7 +49,7 @@ const PublicScreen3Rightbar = ({ slug, activity }) => {
 
   const requsetBooking = async () => {
     // 5555555555554444 card number
-    let date = activity.start_date.split(".")[0];
+    let date = activity.start_date;
 
     let _reqData = {
       activity_id: activity.id,
