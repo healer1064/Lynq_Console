@@ -8,9 +8,8 @@ import styles from "../../styles/PublicScreen.module.sass";
 
 // mock up Data
 import TimeSlots from "../../utils/data/SlotsFakeData";
-import data from "../../utils/data";
 
-const PublicScreen2Calendar = ({ slots, setTime, setError }) => {
+const PublicScreenCalendar = ({ slots, setTime, setError }) => {
   const [index, setIndex] = useState(-1);
   const [jIndex, setJIndex] = useState(-1);
 
@@ -87,4 +86,4 @@ const PublicScreen2Calendar = ({ slots, setTime, setError }) => {
   );
 };
 
-export default PublicScreen2Calendar;
+export default PublicScreenCalendar;

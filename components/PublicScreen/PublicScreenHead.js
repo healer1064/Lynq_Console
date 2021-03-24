@@ -17,27 +17,46 @@ const PublicScreenHead = ({ data }) => {
       </div>
       <div className={styles.head_content}>
         <div className={styles.name}>
-          <h3>{data.name}</h3>
-          <span>|</span>
-          <p>{data.location}</p>
-          <span>|</span>
-          <div>
-            <a href={data.facebook} target="_blank">
-              <img src="/img/public-screen-facebook.svg" alt="facebook" />
-            </a>
-            <a href={data.instagram} target="_blank">
-              <img src="/img/public-screen-instagram.svg" alt="instagram" />
-            </a>
-            <a href={data.youtube} target="_blank">
-              <img src="/img/public-screen-youtube.svg" alt="youtube" />
-            </a>
+          {data.name && <h3>{data.name}</h3>}
+          {data.location && (
+            <>
+              <span>|</span>
+              <p>{data.location}</p>
+            </>
+          )}
+          {(data.facebook || data.instagram || data.youtube) && (
+            <>
+              <span>|</span>
+              <div>
+                {data.facebook && (
+                  <a href={data.facebook} target="_blank">
+                    <img src="/img/public-screen-facebook.svg" alt="facebook" />
+                  </a>
+                )}
+                {data.instagram && (
+                  <a href={data.instagram} target="_blank">
+                    <img
+                      src="/img/public-screen-instagram.svg"
+                      alt="instagram"
+                    />
+                  </a>
+                )}
+                {data.youtube && (
+                  <a href={data.youtube} target="_blank">
+                    <img src="/img/public-screen-youtube.svg" alt="youtube" />
+                  </a>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+        {data.category && (
+          <div className={styles.tags}>
+            {JSON.parse(data.category).map((item, index) => (
+              <p key={index}>#{item}</p>
+            ))}
           </div>
-        </div>
-        <div className={styles.tags}>
-          {JSON.parse(data.category).map((item) => (
-            <p>#{item}</p>
-          ))}
-        </div>
+        )}
       </div>
     </div>
   );

@@ -1,16 +1,18 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 // components
-import CheckoutForm from "../PublicScreen/CheckoutForm";
+import CheckoutForm from "./CheckoutForm";
+import Loading from "../common/Loading";
 
+// styles
 import styles from "../../styles/PublicScreen.module.sass";
 
-const PublicScreen3Rightbar = ({ slug, activity }) => {
-  const router = useRouter();
+// utils
+import { dayNames, monthNames } from "../../utils/dates";
 
+const PublicScreenPersonalInfo = ({ slug, activity }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -97,27 +99,51 @@ const PublicScreen3Rightbar = ({ slug, activity }) => {
     return false;
   };
 
+  console.log(activity);
+
+  const serviceFee = parseFloat((activity.price * 0.029).toFixed(2));
+
+  const fullDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]}
+     ${date.getDate()}, ${date.getFullYear()}`;
+  };
+
+  function getTime(dateString) {
+    var date = new Date(dateString);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  }
+
   return (
     <div className={styles.public_screen3_right}>
       <div className={styles.order_summary}>
         <h3>Order Summary</h3>
-        <p>Meditation: 60 min</p>
-        <p>Tuesday 30 March, 2021 10:00 AM</p>
+        <p>{activity.name}</p>
+        <p>
+          {fullDate(activity.start_date)} {getTime(activity.start_date)}
+        </p>
         <div className={styles.border} />
         <div className={styles.info}>
           <div>
             <p>Subtotal Price</p>
-            <h6>$60</h6>
+            <h6>${activity.price}</h6>
           </div>
           <div>
             <p>Service Fees (2.9%)</p>
-            <h6>$1.74</h6>
+            <h6>${serviceFee}</h6>
           </div>
         </div>
         <div className={styles.border} />
         <div className={styles.price}>
           <h6>Total Price</h6>
-          <h6>$61.74</h6>
+          <h6>${activity.price + serviceFee}</h6>
         </div>
       </div>
       {!detailView ? (
@@ -160,8 +186,8 @@ const PublicScreen3Rightbar = ({ slug, activity }) => {
             />
             {errors.eError && <span>* Required</span>}
           </div>
-          <button onClick={handleInputs}>
-            {!loading ? "Next" : "loading..."}
+          <button style={{ position: "relative" }} onClick={handleInputs}>
+            {loading && <Loading />}Next
           </button>
         </div>
       ) : (
@@ -173,4 +199,4 @@ const PublicScreen3Rightbar = ({ slug, activity }) => {
   );
 };
 
-export default PublicScreen3Rightbar;
+export default PublicScreenPersonalInfo;
