@@ -6,8 +6,8 @@ import styles from "../styles/PublicScreen.module.sass";
 
 // components
 import Navbar from "../components/Navbar";
-import PublicScreenLeftbar from "../components/PublicScreen/PublicScreenLeftbar";
-import PublicScreenRightbar from "../components/PublicScreen/PublicScreenRightbar";
+// import PublicScreenLeftbar from "../components/PublicScreen/PublicScreenLeftbar";
+// import PublicScreenRightbar from "../components/PublicScreen/PublicScreenRightbar";
 
 const PublicScreen1 = () => {
   return (
