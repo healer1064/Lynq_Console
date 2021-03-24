@@ -1,11 +1,15 @@
 import styles from "../../styles/PublicScreen.module.sass";
 
-const PublicScreenMore = ({ toggle, label }) => {
+const PublicScreenMore = ({ toggle, label, state }) => {
   return (
-    <div className={styles.more} onClick={toggle}>
+    <span className={styles.more} onClick={toggle}>
       <span>{label}</span>
-      <img src="/img/public-screen-more.svg" alt="more" />
-    </div>
+      <img
+        style={{ transform: `${state && "rotate(180deg)"}` }}
+        src="/img/public-screen-more.svg"
+        alt="more"
+      />
+    </span>
   );
 };
 

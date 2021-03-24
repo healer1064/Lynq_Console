@@ -1,12 +1,15 @@
 import { useState } from "react";
+import TextTruncate from "react-text-truncate";
+
+// styles
 import styles from "../../styles/PublicScreen.module.sass";
-import PublicScreenDropdown from "./PublicScreenDropdown";
 
 // components
 import PublicScreenMore from "./PublicScreenMore";
-import PublicScreen2Calendar from "./PublicScreen2Calendar";
+import PublicScreenCalendar from "./PublicScreenCalendar";
+import PublicScreenDropdown from "./PublicScreenDropdown";
 
-const PublicScreenRightbar = ({
+const PublicScreenSessions = ({
   activity,
   data,
   slots,
@@ -16,6 +19,9 @@ const PublicScreenRightbar = ({
 }) => {
   const [timeError, setTimeError] = useState(false);
   const [time, setTime] = useState("");
+  const [learnMore, setLearnMore] = useState(false);
+
+  const learnToggle = () => setLearnMore(!learnMore);
 
   const handleClick = () => {
     if (time !== "") {
@@ -46,7 +52,7 @@ const PublicScreenRightbar = ({
               </div>
               {slots !== undefined && (
                 <>
-                  <PublicScreen2Calendar
+                  <PublicScreenCalendar
                     slots={slots}
                     setTime={setTime}
                     setError={setTimeError}
@@ -78,22 +84,39 @@ const PublicScreenRightbar = ({
       </div>
       {slots !== null && (
         <>
-          <div className={styles.needs}>
-            <h3>What you need to bring</h3>
-            <div>
-              <p>{activity.material_needed}</p>
-              {/* <p>Yoga mattress</p> */}
-              {/* <p>Dumbbells</p>
-              <p>Whatelse?</p> */}
+          {activity.material_needed && (
+            <div className={styles.needs}>
+              <h3>What you need to bring</h3>
+              <div>
+                <p>{activity.material_needed}</p>
+              </div>
             </div>
-          </div>
+          )}
           <div className={styles.learn}>
             <h3>What will you learn?</h3>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bibendum
-              fringilla adipiscing sed posuere sed null viverra nulla elit.{" "}
-            </p>
-            {/* <PublicScreenMore /> */}
+            <TextTruncate
+              line={!learnMore ? 3 : 0}
+              element="p"
+              truncateText="…"
+              text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Bibendum
+              fringilla adipiscing sed posuere sed null viverra nulla elit.
+              fringilla adipiscing sed posuere sed null viverra nulla elit.
+              "
+              textTruncateChild={
+                <PublicScreenMore
+                  toggle={learnToggle}
+                  label="Read More"
+                  state={false}
+                />
+              }
+            />
+            {learnMore && (
+              <PublicScreenMore
+                label="Read Less"
+                toggle={learnToggle}
+                state={true}
+              />
+            )}
           </div>
         </>
       )}
@@ -101,4 +124,4 @@ const PublicScreenRightbar = ({
   );
 };
 
-export default PublicScreenRightbar;
+export default PublicScreenSessions;

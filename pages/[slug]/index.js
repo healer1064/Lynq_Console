@@ -8,9 +8,9 @@ import styles from "../../styles/PublicScreen.module.sass";
 // components
 import PageLoading from "../../components/common/PageLoading";
 import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
-import PublicScreenLeftbar from "../../components/PublicScreen/PublicScreenLeftbar";
-import PublicScreenRightbar from "../../components/PublicScreen/PublicScreenRightbar";
-import PublicScreen3Rightbar from "../../components/PublicScreen3/PublicScreen3Rightbar";
+import PublicScreenProfileInfo from "../../components/PublicScreen/PublicScreenProfileInfo";
+import PublicScreenSessions from "../../components/PublicScreen/PublicScreenSessions";
+import PublicScreenPersonalInfo from "../../components/PublicScreen/PublicScreenPersonalInfo";
 
 const Profile = ({ slug }) => {
   const [activity, setActicity] = useState(null);
@@ -92,10 +92,6 @@ const Profile = ({ slug }) => {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
-        {/* <meta
-          http-equiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        ></meta> */}
       </Head>
       <Navbar />
       {!data ? (
@@ -110,9 +106,9 @@ const Profile = ({ slug }) => {
         </div>
       ) : (
         <div className={styles.public_screen}>
-          <PublicScreenLeftbar profile={data.profile} />
+          <PublicScreenProfileInfo profile={data.profile} />
           {!bookOrder ? (
-            <PublicScreenRightbar
+            <PublicScreenSessions
               activity={activity}
               data={data.activities}
               slots={slots}
@@ -121,11 +117,7 @@ const Profile = ({ slug }) => {
               handleTime={handleStartTime}
             />
           ) : (
-            <PublicScreen3Rightbar
-              slug={slug}
-              activity={activity}
-              // onHandle={confirmOrder}
-            />
+            <PublicScreenPersonalInfo slug={slug} activity={activity} />
           )}
         </div>
       )}
