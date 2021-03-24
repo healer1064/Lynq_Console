@@ -595,31 +595,34 @@
                 display: flex
                 flex-direction: column
                 margin-bottom: 16px
+                width: 328px
                 label
                     font-weight: 600
                     font-size: 14px
                     line-height: 19px
                     color: #303030
-                div
-                    width: 328px
-                    display: flex
-                    align-items: center
+                .card_element
                     height: 44px
                     border: 1px solid #C0C0C9
                     box-sizing: border-box
                     border-radius: 5px
-                    padding: 0 10px
+                    // padding: 10px 10px
                     margin-top: 8px
-                    input
+                    font-size: 12px
+                    display: flex
+                    align-items: center
+                    justify-content: space-between
+                    padding: 0 10px
+                    &:focus 
+                        svg
+                            color: red
+                    svg
+                        font-size: 1.2rem
+                        color: #C0C0C9
+                        margin-right: 15px
+                    div
                         flex-grow: 1
-                        outline: none
-                        border: none
-                        padding-right: 10px
-                        &:focus
-                            outline: none
-                            border: none
-                    img
-                        width: 32px
+                        display: block
             .input_container
                 display: flex
                 align-items: center
@@ -634,15 +637,17 @@
                         font-size: 14px
                         line-height: 19px
                         color: #303030
-                    input
+                    .card_element
                         width: 156px
                         height: 44px
-                        border: 1px solid #C0C0C9
+                        border: 1px solid #C0C0C9 !important
                         box-sizing: border-box
                         border-radius: 5px
                         margin: 0
                         margin-top: 8px
                         padding: 0 8px
+                        display: flex
+                        align-items: center
                         &:focus
                             outline: none
             .checkbox_container
@@ -656,18 +661,20 @@
                     display: flex
                     align-items: center
                     color: #5C5C5C
-            button
+            .checkbox_btn
                 height: 47px
                 width: 100%
                 background: linear-gradient(89.93deg, #8B1847 -24.64%, #D91765 117.58%)
                 border-radius: 5px
                 border: none
                 outline: none
+                position: relative
                 font-weight: bold
                 font-size: 14px
                 line-height: 19px
                 color: #FFFFFF
                 margin-bottom: 12px
+                cursor: pointer
                 &:focus
                     border: none
                     outline: none
@@ -1158,13 +1165,14 @@
                     margin-bottom: 18px
                 .card_number_container
                     margin-bottom: 12px
+                    width: 100%
                     label
                         font-size: 12px
-                    div
-                        width: 100%
-                        padding: 0 10px
-                        img
-                            width: 24px
+                    .card_element
+                        width: 100% 
+                        div
+                            flex-grow: 1
+                            display: block
                 .input_container
                     margin-bottom: 12px
                     width: 100%
@@ -1172,16 +1180,24 @@
                         width: 48%
                         label
                             font-size: 12px
-                        input
-                            width: 100%
+                        .card_element
+                            flex: 1
+                            display: flex
+                            div
+                                width: 100% !important
+                            span
+                                width: 100% !important
+                            input
+                                width: 100% !important
                 .checkbox_container
                     margin-bottom: 12px
                     label
                         margin-left: 5px
                         font-size: 10px
-                button
+                .checkbox_btn
                     height: 40px
                     font-size: 12px
+                    position: relative
                 .stripe
                     padding: 6px 12px
                     font-size: 9px

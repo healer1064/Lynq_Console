@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 // components
 import CheckoutForm from "./CheckoutForm";
-import Loading from "../common/Loading";
+import PublicScreenLoading from "./PublicScreenLoading";
 
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
@@ -187,7 +187,7 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
             {errors.eError && <span>* Required</span>}
           </div>
           <button style={{ position: "relative" }} onClick={handleInputs}>
-            {loading && <Loading />}Next
+            {loading && <PublicScreenLoading />}Next
           </button>
         </div>
       ) : (
