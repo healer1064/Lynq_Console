@@ -4,6 +4,7 @@ import Fade from "react-reveal/Fade";
 
 // components
 import AppointmentCard from "../Home/AppointmentCard";
+import Modal from "../../components/common/Modal";
 
 // utils
 import { dayNames, monthNames } from "../../utils/dates";
@@ -12,6 +13,7 @@ const AppointmentsListItem = ({ data }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
+  const [showModel, setShowModel] = useState(false);
 
   const { date, appointments } = data;
 
@@ -27,6 +29,13 @@ const AppointmentsListItem = ({ data }) => {
     setStatus(serverDate > currentDate);
     console.log(serverDate > currentDate);
   }, [data]);
+
+  const toggle = (_id) => {
+    setShowModel(true);
+  };
+  const onDelete = () => {
+    setShowModel(false);
+  };
 
   const fullDate = (d) => {
     const date = new Date(d);
@@ -67,13 +76,16 @@ const AppointmentsListItem = ({ data }) => {
         </div>
       </div>
       {open && appointments && (
-        <div style={{ width: "100%" }}>
-          {appointments.map((data, index) => (
-            <Fade key={index} collapse duration={1000}>
-              <AppointmentCard key={index} data={data} />
-            </Fade>
-          ))}
-        </div>
+        <>
+          <div style={{ width: "100%" }}>
+            {appointments.map((data, index) => (
+              <Fade key={index} collapse duration={1000}>
+                <AppointmentCard key={index} data={data} toggle={toggle} />
+              </Fade>
+            ))}
+          </div>
+          {showModel && <Modal setModal={setShowModel} onDelete={onDelete} />}
+        </>
       )}
     </div>
   );

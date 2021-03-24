@@ -6,10 +6,13 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
 import AppointmentsNewClearModal from "../../components/Appointments/AppointmentsNewClearModal";
+import RequestDrawer from "../../components/Appointments/Request/RequestDrawer";
 
 export default function AppointmentRequest() {
   // state
   const [modalShow, setModalShow] = useState(false);
+
+  const toggle = () => setModalShow(!modalShow);
 
   return (
     <>
@@ -27,7 +30,8 @@ export default function AppointmentRequest() {
         <div className="content-wrp">
           <div className="appointment-request">
             {modalShow && (
-              <AppointmentsNewClearModal setModalShow={setModalShow} />
+              // <AppointmentsNewClearModal setModalShow={setModalShow} />
+              <RequestDrawer isOpen={modalShow} toggle={toggle} />
             )}
             <a href="#" className="appointment-request__back">
               Back

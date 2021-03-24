@@ -94,11 +94,11 @@ const home = () => {
     setId(_id);
   };
 
-  // const onDelete = () => {
-  //   setIsOpen(false);
-  //   let filter = appointmentList.filter((item) => item.id !== id);
-  //   setAppointmentList(filter);
-  // };
+  const onDelete = () => {
+    setIsOpen(false);
+    // let filter = appointmentList.filter((item) => item.id !== id);
+    // setAppointmentList(filter);
+  };
 
   const fullDate = () => {
     const date = new Date();

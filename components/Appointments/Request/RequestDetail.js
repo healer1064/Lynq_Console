@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
+import RequestDrawer from "./RequestDrawer";
 
 import RequestModal from "./RequestModal";
 
 const RequestDetail = ({ data, toggle }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const toggleDrawer = () => setIsOpen(!isOpen);
+
   return (
     <Fade>
       <div style={{ marginTop: "-30px" }} className="content-wrp">
         <div className="appointment-request">
-          {isOpen && <RequestModal setModalShow={setIsOpen} />}
+          {/* {isOpen && <RequestModal setModalShow={setIsOpen} />} */}
+          {isOpen && <RequestDrawer isOpen={isOpen} toggle={toggleDrawer} />}
           <a
             className="appointment-request__back"
             style={{ cursor: "pointer" }}
