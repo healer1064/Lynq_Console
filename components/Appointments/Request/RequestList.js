@@ -5,7 +5,16 @@ import Fade from "react-reveal/Fade";
 import styles from "./Request.module.css";
 import RequestDetail from "./RequestDetail";
 
-const RequestList = ({ requestList }) => {
+// utils
+import { fullDate, timeAgo } from "../../../utils/dates";
+
+const RequestList = ({
+  requestList,
+  apt,
+  requestAccept,
+  requestReject,
+  loading,
+}) => {
   const [showDetail, setShowDetail] = useState(false);
   const [requestData, setRequsetData] = useState(null);
 
@@ -26,11 +35,13 @@ const RequestList = ({ requestList }) => {
             >
               <div className="appointments-col__card">
                 <div className="det">
-                  <b>Monday, March 22, 2021</b>
+                  <b>{fullDate(item.starting_date)}</b>
                   <div className="line"></div>
-                  Full moon meditation
+                  Event Name (not from backend)
                   <div className="line"></div>
-                  john.ringer@gmail.com
+                  {item.email}
+                  <div className="line"></div>
+                  {"Invitation Sent: " + timeAgo(item.starting_date)}
                 </div>
                 <div
                   className="arrow"
@@ -54,7 +65,14 @@ const RequestList = ({ requestList }) => {
           </Fade>
         ))
       ) : (
-        <RequestDetail data={requestData} toggle={toggle} />
+        <RequestDetail
+          data={requestData}
+          toggle={toggle}
+          apt={apt}
+          requestAccept={requestAccept}
+          requestReject={requestReject}
+          loading={loading}
+        />
       )}
     </div>
   );

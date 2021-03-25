@@ -5,8 +5,6 @@ import { useState } from "react";
 import Rotate from "react-reveal/Rotate";
 import Fade from "react-reveal/Fade";
 
-// components
-
 const Navbar = ({ active }) => {
   // states
   const [open, setOpen] = useState(false);
@@ -16,9 +14,6 @@ const Navbar = ({ active }) => {
   const logout = () => {
     localStorage.removeItem("linqToken");
     router.push("/login");
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
   };
 
   return (

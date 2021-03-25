@@ -13,10 +13,6 @@ export const ProfileProvider = ({ children }) => {
     if (token !== null) {
       localStorage.setItem("linqToken", token);
       const getProfile = async () => {
-        // const response = await fetch("/api/account/profile", {
-        //   headers: new Headers({ "Content-Type": "application/json", token }),
-        // });
-
         let config = {
           method: "GET",
           headers: {
@@ -26,7 +22,7 @@ export const ProfileProvider = ({ children }) => {
         };
 
         const response = await fetch(
-          `https://reb00t.uc.r.appspot.com/account/profile?t=${token}`,
+          `https://api.lynq.app/account/profile?t=${token}`,
           config
         );
 

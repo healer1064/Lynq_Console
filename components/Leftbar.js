@@ -58,10 +58,10 @@ const Leftbar = ({ active }) => {
       <Link href="/account">
         <div className="side-nav__profile">
           <div className="side-nav__profile-pic ">
-            <img src="/img/profile-pic.png" alt="" />
+            {/* <img src="/img/profile-pic.png" alt="" /> */}
+            {/* <span>{profile ? profile.fullname[0] : null}</span> */}
           </div>
           <span>{profile?.fullname ?? "Username"}</span>
-          {/* <img src="/img/nav-profile-arr.svg" alt="" /> */}
         </div>
       </Link>
     </div>

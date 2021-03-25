@@ -36,7 +36,10 @@ const home = () => {
   const [id, setId] = useState(-1);
 
   useEffect(() => {
-    if (localStorage.getItem("linqToken") === null) {
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
       router.push("/login");
     } else {
       setPreLoading(false);
@@ -54,7 +57,7 @@ const home = () => {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/appointments?t=${token}`,
+      `https://api.lynq.app/account/appointments?t=${token}`,
       config
     );
 

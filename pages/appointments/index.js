@@ -14,99 +14,30 @@ import PageLoading from "../../components/common/PageLoading";
 // context
 import ProfileContext from "../../context/profile";
 
-import {
-  getCurrentWeek,
-  getNextWeek,
-  getPreviousWeek,
-} from "../../utils/DateHelper";
-
-// fake data
-import fakedata from "../../utils/data";
-
-const AppointmentData = [
-  {
-    id: "11",
-    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
-    starting_date: "2021-03-14T17:23:34",
-    ending_date: "2021-03-20T17:23:34.000+00:00",
-    activity_id: "10-10",
-    status: "CONFIRMED",
-    price: 10,
-    email: "lamine.lang@outlook.com",
-    stripe_payment_intent_id: null,
-    stripe_payment_secret_id: null,
-    first_name: "lamine",
-    last_name: "lang",
-  },
-  {
-    id: "13",
-    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
-    starting_date: "2021-03-28T17:23:34",
-    ending_date: "2021-04-3T17:23:34.000+00:00",
-    activity_id: "10-10",
-    status: "CONFIRMED",
-    price: 10,
-    email: "lamine.lang@outlook.com",
-    stripe_payment_intent_id: null,
-    stripe_payment_secret_id: null,
-    first_name: "lamine",
-    last_name: "lang",
-  },
-  {
-    id: "15",
-    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
-    starting_date: "2021-03-22T17:23:34",
-    ending_date: "2021-03-28T17:23:34.000+00:00",
-    activity_id: "10-10",
-    status: "CONFIRMED",
-    price: 10,
-    email: "lamine.lang@outlook.com",
-    stripe_payment_intent_id: null,
-    stripe_payment_secret_id: null,
-    first_name: "lamine",
-    last_name: "lang",
-  },
-  {
-    id: "15",
-    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
-    starting_date: "2021-03-24T17:23:34",
-    ending_date: "2021-03-28T17:23:34.000+00:00",
-    activity_id: "10-10",
-    status: "CONFIRMED",
-    price: 10,
-    email: "lamine.lang@outlook.com",
-    stripe_payment_intent_id: null,
-    stripe_payment_secret_id: null,
-    first_name: "lamine",
-    last_name: "lang",
-  },
-  {
-    id: "15",
-    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
-    starting_date: "2021-03-25T17:23:34",
-    ending_date: "2021-03-28T17:23:34.000+00:00",
-    activity_id: "10-10",
-    status: "CONFIRMED",
-    price: 10,
-    email: "lamine.lang@outlook.com",
-    stripe_payment_intent_id: null,
-    stripe_payment_secret_id: null,
-    first_name: "lamine",
-    last_name: "lang",
-  },
-];
+// helpers
+import { getCurrentWeek } from "../../utils/DateHelper";
 
 export default function Appointments() {
-  const { token, profile } = useContext(ProfileContext);
+  const { token } = useContext(ProfileContext);
 
   // states
   const [data, setData] = useState(null);
+  const [apt, setApt] = useState(null);
+  const [requests, setRequests] = useState(null);
   const [temp, setTemp] = useState([]);
   const [tabIndex, setTabIndex] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
     if (token) {
       fetchAppointments();
+      fetchRequests();
     }
   }, [token]);
 
@@ -118,14 +49,32 @@ export default function Appointments() {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/appointments?t=${token}`,
+      `https://api.lynq.app/account/appointments?t=${token}`,
       config
     );
 
     const _data = await response.json();
 
-    setData(filterByCurrWeek(groupAppointment(AppointmentData)));
-    setTemp(groupAppointment(AppointmentData));
+    setApt(_data);
+
+    setData(filterByCurrWeek(groupAppointment(_data)));
+    setTemp(groupAppointment(_data));
+  };
+
+  const fetchRequests = async () => {
+    const config = {
+      method: "GET",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `http://api.lynq.app/account/appointments/requests?t=${token}`,
+      config
+    );
+    const _data = await response.json();
+
+    setRequests(_data);
   };
 
   const groupAppointment = (data) => {
@@ -171,6 +120,65 @@ export default function Appointments() {
     setData(filter);
   };
 
+  const onAccept = (id) => {
+    setLoading(true);
+
+    async function accept() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}/accept?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    accept().then((res) => {
+      console.log("res accept", res);
+      setLoading(false);
+      if (res.status === 200) {
+        setTabIndex(1);
+      } else {
+        // toast.error(res.message);
+        console.log(res.message);
+      }
+    });
+  };
+  const onReject = (id) => {
+    setLoading(true);
+
+    async function reject() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    reject().then((res) => {
+      console.log("res reject", res);
+      setLoading(false);
+      if (res.status === 200) {
+        setTabIndex(1);
+      } else {
+        // toast.error(res.message);
+        console.log(res.message);
+      }
+    });
+  };
+
   return (
     <>
       <Head>
@@ -185,7 +193,7 @@ export default function Appointments() {
       <div className="page-wrp">
         <Leftbar active="appointments" />
         <div className="content-wrp">
-          {!data ? (
+          {!data || !requests ? (
             <PageLoading />
           ) : (
             <Fade>
@@ -202,10 +210,8 @@ export default function Appointments() {
                   style={{ position: "relative" }}
                 >
                   Requests{" "}
-                  {fakedata.appointments.request.length > 0 ? (
-                    <span className="requests-badge">
-                      {fakedata.appointments.request.length}
-                    </span>
+                  {requests.length > 0 ? (
+                    <span className="requests-badge">{requests.length}</span>
                   ) : null}
                 </div>
               </div>
@@ -229,7 +235,13 @@ export default function Appointments() {
                 </>
               ) : (
                 <>
-                  <RequestList requestList={fakedata.appointments.request} />
+                  <RequestList
+                    requestList={requests}
+                    apt={apt}
+                    requestAccept={onAccept}
+                    requestReject={onReject}
+                    loading={loading}
+                  />
                 </>
               )}
             </Fade>

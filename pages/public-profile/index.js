@@ -1,5 +1,5 @@
 // libraries
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import Head from "next/head";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -57,8 +57,58 @@ const EditProfile = () => {
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const imgRef = useRef();
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
+    if (token) {
+      fetchProfile();
+    }
+  }, [token, success]);
+
+  // get public profile
+  const fetchProfile = async () => {
+    setLoading(true);
+    const config = {
+      method: "GET",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `https://api.lynq.app/account/public-profile?t=${token}`,
+      config
+    );
+
+    const _data = await response.json().then(() => {
+      setLoading(false);
+    });
+
+    if (response.status === 200) {
+      setSlug(_data.slug);
+      setCity(_data.location.split("-")[0]);
+      setState(_data.location.split("-")[1]);
+      setCategories(JSON.parse(_data.category));
+      setGeneralPres(_data.about);
+      setFacebook(_data.facebook);
+      setInstagram(_data.instagram);
+      setYoutube(_data.youtube);
+      setWebsite(_data.personal_website);
+      setFirstName(_data.name.split(" ")[0]);
+      setLastName(_data.name.split(" ")[1]);
+      setWhatToExpect(_data.expect_details);
+
+      // speciality: [{ id: 1, name: "test" }],
+      // public_image: "",
+    }
+  };
 
   // upload image file
   const handleImgUpload = (e) => {
@@ -94,7 +144,7 @@ const EditProfile = () => {
 
     async function update() {
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/public-profile?t=${token}`,
+        `https://api.lynq.app/account/public-profile?t=${token}`,
         {
           method: "POST",
           headers: {
@@ -113,11 +163,13 @@ const EditProfile = () => {
         setLoading(false);
         console.log("public profile updates", res);
         toast.success("Profile updated successfully");
+        setSuccess(!success);
       })
       .catch((err) => {
         setLoading(false);
         console.log("public profile update error", err);
         toast.error("An error has occurred");
+        setSuccess(!success);
       });
   };
 
@@ -129,7 +181,7 @@ const EditProfile = () => {
       formData.append("image", _imageFile);
 
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/public-profile/upload_picture?t=${token}`,
+        `https://api.lynq.app/account/public-profile/upload_picture?t=${token}`,
         {
           method: "POST",
           body: formData,

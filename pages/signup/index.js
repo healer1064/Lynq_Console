@@ -25,43 +25,31 @@ export default function Signup() {
   const toggle = () => setIsOpen(!isOpen);
 
   const onSignUp = (_data) => {
-    console.log(_data);
     setLoading(true);
 
     async function signUpReq() {
-      // const response = await fetch("/api/account/signup", {
-      //   headers: new Headers({
-      //     data: JSON.stringify(_data),
-      //   }),
-      // });
-
-      const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/signup`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(_data),
-        }
-      );
+      const response = await fetch(`https://api.lynq.app/account/signup`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(_data),
+      });
 
       return await response.json();
     }
 
-    signUpReq()
-      .then((res) => {
-        console.log("res", res);
+    signUpReq().then((res) => {
+      console.log("res", res);
+      setLoading(false);
+      if (res?.message === undefined) {
         setToken(res.token);
-        setLoading(false);
         router.push("/home");
-      })
-      .catch((err) => {
-        console.log("signup error", err);
-        toast.error(err.message);
-        setLoading(false);
-      });
+      } else {
+        toast.error(res.message);
+      }
+    });
   };
 
   return (

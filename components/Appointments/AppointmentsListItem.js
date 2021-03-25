@@ -7,7 +7,7 @@ import AppointmentCard from "../Home/AppointmentCard";
 import Modal from "../../components/common/Modal";
 
 // utils
-import { dayNames, monthNames } from "../../utils/dates";
+import { fullDateWithoutDay, dayName } from "../../utils/dates";
 
 const AppointmentsListItem = ({ data }) => {
   // state
@@ -17,17 +17,11 @@ const AppointmentsListItem = ({ data }) => {
 
   const { date, appointments } = data;
 
-  const day = (date) => {
-    var d = new Date(date.toString());
-    return dayNames[d.getDay()];
-  };
-
   useEffect(() => {
     var currentDate = new Date();
     var serverDate = new Date(date);
 
     setStatus(serverDate > currentDate);
-    console.log(serverDate > currentDate);
   }, [data]);
 
   const toggle = (_id) => {
@@ -35,12 +29,6 @@ const AppointmentsListItem = ({ data }) => {
   };
   const onDelete = () => {
     setShowModel(false);
-  };
-
-  const fullDate = (d) => {
-    const date = new Date(d);
-    return `${monthNames[date.getMonth()]}
-     ${date.getDate()}, ${date.getFullYear()}`;
   };
 
   return (
@@ -57,9 +45,9 @@ const AppointmentsListItem = ({ data }) => {
         className="appointments-col__card"
       >
         <div className="det">
-          {day(date)}
+          {dayName(date)}
           <div className="line"></div>
-          {fullDate(date)}
+          {fullDateWithoutDay(date)}
           <div className="line"></div>
           <b>{appointments.length} appointments</b>
         </div>

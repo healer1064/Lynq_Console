@@ -8,6 +8,7 @@ import PlanCard from "./PlanCard";
 import PricingCard from "./PricingCard";
 import PricingSwitch from "./PricingSwitch";
 
+// data
 import data from "../../utils/data";
 
 const Plans = () => {

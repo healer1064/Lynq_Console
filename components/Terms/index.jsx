@@ -5,7 +5,7 @@ import Fade from "react-reveal/Fade";
 import styles from "../../styles/Terms&Conditions.module.sass";
 
 // components
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Plans/PlansNavbar";
 
 // icons
 import { AiOutlineClose } from "react-icons/ai";

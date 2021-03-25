@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 // components
 import AppointmentsListItem from "./AppointmentsListItem";
 
