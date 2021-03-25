@@ -87,11 +87,10 @@ const EditProfile = () => {
       config
     );
 
-    const _data = await response.json().then(() => {
-      setLoading(false);
-    });
+    const _data = await response.json();
+    setLoading(false);
 
-    if (response.status === 200) {
+    if (response.status == 200) {
       setSlug(_data.slug);
       setCity(_data.location.split("-")[0]);
       setState(_data.location.split("-")[1]);
