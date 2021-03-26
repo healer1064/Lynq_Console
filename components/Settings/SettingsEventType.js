@@ -26,7 +26,7 @@ const SettingsEventType = ({ setTab }) => {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+      `https://api.lynq.app/account/event-type?t=${token}`,
       config
     );
     const data = await response.json();

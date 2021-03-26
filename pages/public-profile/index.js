@@ -1,11 +1,18 @@
 // libraries
 import { useState, useRef, useContext, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // styles
 import styles from "../../styles/EditProfile.module.sass";
+
+// context
+import ProfileContext from "../../context/profile";
+
+// categories
+import { categoriesData } from "../../utils/data/publicprofile";
 
 // icons
 import { FaImage } from "react-icons/fa";
@@ -14,28 +21,12 @@ import { FaImage } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
 import EditProfileDDCheck from "../../components/EditProfile/EditProfileDDCheck";
-
-// context
-import ProfileContext from "../../context/profile";
 import Loading from "../../components/common/Loading";
-
-// fake categories
-const categoriesData = [
-  "Astrologer",
-  "Car Specialist",
-  "Fashion Coach",
-  "Fitness Teacher",
-  "Home Repair Specialist",
-  "Language Teacher",
-  "Life Coach",
-  "Makeup Artist",
-  "Math/Physics Teacher",
-  "Meditation/Yoga Coach",
-  "Music Teacher",
-  "Other",
-];
+import PageLoading from "../../components/common/PageLoading";
 
 const EditProfile = () => {
+  // router
+  const router = useRouter();
   // context
   const { token, profile } = useContext(ProfileContext);
 
@@ -55,8 +46,10 @@ const EditProfile = () => {
   const [specialities, setSpecialities] = useState([]);
   const [certifications, setCertifications] = useState("");
   const [image, setImage] = useState(null);
+  const [specImage, setSpecImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const imgRef = useRef();
@@ -75,7 +68,7 @@ const EditProfile = () => {
 
   // get public profile
   const fetchProfile = async () => {
-    setLoading(true);
+    setProfileLoading(true);
     const config = {
       method: "GET",
       Accept: "application/json",
@@ -88,7 +81,7 @@ const EditProfile = () => {
     );
 
     const _data = await response.json();
-    setLoading(false);
+    setProfileLoading(false);
 
     if (response.status == 200) {
       setSlug(_data.slug);
@@ -103,9 +96,7 @@ const EditProfile = () => {
       setFirstName(_data.name.split(" ")[0]);
       setLastName(_data.name.split(" ")[1]);
       setWhatToExpect(_data.expect_details);
-
-      // speciality: [{ id: 1, name: "test" }],
-      // public_image: "",
+      setImage(_data.public_image || null);
     }
   };
 
@@ -138,7 +129,7 @@ const EditProfile = () => {
       name: `${firstName} ${lastName}`,
       expect_details: whatToExpect,
       speciality: [{ id: 1, name: "test" }],
-      public_image: "",
+      public_image: image || specImage,
     };
 
     async function update() {
@@ -154,22 +145,21 @@ const EditProfile = () => {
         }
       );
 
-      return await response.json();
+      return await response;
     }
 
-    update()
-      .then((res) => {
-        setLoading(false);
+    update().then((res) => {
+      setLoading(false);
+      if (res.status == 200) {
         console.log("public profile updates", res);
         toast.success("Profile updated successfully");
         setSuccess(!success);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log("public profile update error", err);
+      } else {
+        console.log("public profile update error", res);
         toast.error("An error has occurred");
         setSuccess(!success);
-      });
+      }
+    });
   };
 
   const uploadProfilePic = (_imageFile) => {
@@ -190,16 +180,16 @@ const EditProfile = () => {
       return await response.json();
     }
 
-    upload()
-      .then((res) => {
-        setLoading(false);
+    upload().then((res) => {
+      setLoading(false);
+      if (res.status == 200) {
         console.log("profile pic", res);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log("error profile pic", err);
+        setSpecImage(res.public_image);
+      } else {
+        console.log("error profile pic", res);
         toast.error("An error has occurred");
-      });
+      }
+    });
   };
 
   return (
@@ -217,179 +207,184 @@ const EditProfile = () => {
       <div className="page-wrp">
         <Leftbar active="profile" />
         <div className="content-wrp">
-          <div className={styles.edit_profile}>
-            <h3>Public Profile</h3>
-            <form onSubmit={(e) => updateProfile(e)}>
-              <div className={styles.edit_profile_img_container}>
-                {image !== null ? (
-                  <img src={image} className={styles.edit_profile_img} />
-                ) : (
-                  <div className={styles.place_holder}>
-                    <FaImage size={26} />
+          {profileLoading ? (
+            <PageLoading />
+          ) : (
+            <div className={styles.edit_profile}>
+              <h3>Public Profile</h3>
+              <form onSubmit={(e) => updateProfile(e)}>
+                <div className={styles.edit_profile_img_container}>
+                  {image !== null ? (
+                    <img src={image} className={styles.edit_profile_img} />
+                  ) : (
+                    <div className={styles.place_holder}>
+                      <FaImage size={26} />
+                    </div>
+                  )}
+                  <div className={styles.edit_profile_btn_container}>
+                    <input
+                      type="file"
+                      accept=".jpg, .jpeg, .png"
+                      ref={imgRef}
+                      style={{ display: "none" }}
+                      onChange={handleImgUpload}
+                    />
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        imgRef.current.click();
+                      }}
+                    >
+                      Upload Picture
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        alert("no set yet");
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
-                )}
-                <div className={styles.edit_profile_btn_container}>
-                  <input
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    ref={imgRef}
-                    style={{ display: "none" }}
-                    onChange={handleImgUpload}
-                  />
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      imgRef.current.click();
-                    }}
-                  >
-                    Upload Picture
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert("no set yet");
-                    }}
-                  >
-                    Delete
-                  </button>
                 </div>
-              </div>
-              <div>
-                <label>First Name</label>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>
-                  Personalize your Lynq Public url
-                  <span>
-                    {" "}
-                    (
-                    {`www.lynq.app/${
-                      slug === "" ? "[your-slug-goes-here]" : slug
-                    }`}
-                    )
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  value={slug}
-                  onChange={(e) => setSlug(e.target.value)}
-                  placeholder="e.g chuck-norris"
-                />
-              </div>
-              <div>
-                <label>City</label>
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>State</label>
-                <input
-                  type="text"
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                />
-              </div>
-              <div style={{ position: "relative" }}>
-                <label>
-                  Main Categories <span>(Choose upto 3)</span>
-                </label>
-                <EditProfileDDCheck
-                  state={categories}
-                  setState={setCategories}
-                  categories={categoriesData}
-                />
-              </div>
-              <h3>Social Information</h3>
-              <div>
-                <label>Facebook</label>
-                <input
-                  type="text"
-                  value={facebook}
-                  onChange={(e) => setFacebook(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Instagram</label>
-                <input
-                  type="text"
-                  value={instagram}
-                  onChange={(e) => setInstagram(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Youtube</label>
-                <input
-                  type="text"
-                  value={youtube}
-                  onChange={(e) => setYoutube(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Personal Website</label>
-                <input
-                  type="text"
-                  value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
-                />
-              </div>
-              <h3>About</h3>
-              <div>
-                <label>General presentation</label>
-                <textarea
-                  value={generalPres}
-                  onChange={(e) => setGeneralPres(e.target.value)}
-                ></textarea>
-              </div>
-              <div>
-                <label>What to expect</label>
-                <textarea
-                  value={whatToExpect}
-                  onChange={(e) => setWhatToExpect(e.target.value)}
-                ></textarea>
-              </div>
-              <div>
-                <label>
-                  Specialities <span>(Press enter after each speciality)</span>
-                </label>
-                <textarea
-                  value={specialities}
-                  onChange={(e) => setSpecialities(e.target.value)}
-                ></textarea>
-              </div>
-              <div>
-                <label>
-                  Certifications{" "}
-                  <span>(Press enter after each certification)</span>
-                </label>
-                <textarea
-                  value={certifications}
-                  onChange={(e) => setCertifications(e.target.value)}
-                ></textarea>
-              </div>
-              <div className={styles.text_uppercase}>
-                <button type="submit" style={{ position: "relative" }}>
-                  {loading && <Loading />}Save Profile
-                </button>
-                {/* <button>Cancel</button> */}
-              </div>
-            </form>
-          </div>
+                <div>
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>
+                    Personalize your Lynq Public url
+                    <span>
+                      {" "}
+                      (
+                      {`www.lynq.app/${
+                        slug === "" ? "[your-slug-goes-here]" : slug
+                      }`}
+                      )
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    value={slug}
+                    onChange={(e) => setSlug(e.target.value)}
+                    placeholder="e.g chuck-norris"
+                  />
+                </div>
+                <div>
+                  <label>City</label>
+                  <input
+                    type="text"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>State</label>
+                  <input
+                    type="text"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                  />
+                </div>
+                <div style={{ position: "relative" }}>
+                  <label>
+                    Main Categories <span>(Choose upto 3)</span>
+                  </label>
+                  <EditProfileDDCheck
+                    state={categories}
+                    setState={setCategories}
+                    categories={categoriesData}
+                  />
+                </div>
+                <h3>Social Information</h3>
+                <div>
+                  <label>Facebook</label>
+                  <input
+                    type="text"
+                    value={facebook}
+                    onChange={(e) => setFacebook(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Instagram</label>
+                  <input
+                    type="text"
+                    value={instagram}
+                    onChange={(e) => setInstagram(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Youtube</label>
+                  <input
+                    type="text"
+                    value={youtube}
+                    onChange={(e) => setYoutube(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Personal Website</label>
+                  <input
+                    type="text"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+                <h3>About</h3>
+                <div>
+                  <label>General presentation</label>
+                  <textarea
+                    value={generalPres}
+                    onChange={(e) => setGeneralPres(e.target.value)}
+                  ></textarea>
+                </div>
+                <div>
+                  <label>What to expect</label>
+                  <textarea
+                    value={whatToExpect}
+                    onChange={(e) => setWhatToExpect(e.target.value)}
+                  ></textarea>
+                </div>
+                <div>
+                  <label>
+                    Specialities{" "}
+                    <span>(Press enter after each speciality)</span>
+                  </label>
+                  <textarea
+                    value={specialities}
+                    onChange={(e) => setSpecialities(e.target.value)}
+                  ></textarea>
+                </div>
+                <div>
+                  <label>
+                    Certifications{" "}
+                    <span>(Press enter after each certification)</span>
+                  </label>
+                  <textarea
+                    value={certifications}
+                    onChange={(e) => setCertifications(e.target.value)}
+                  ></textarea>
+                </div>
+                <div className={styles.text_uppercase}>
+                  <button type="submit" style={{ position: "relative" }}>
+                    {loading && <Loading />}Save Profile
+                  </button>
+                  {/* <button>Cancel</button> */}
+                </div>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </>

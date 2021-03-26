@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 
@@ -16,8 +17,160 @@ import ProfileContext from "../../context/profile";
 
 // helpers
 import { getCurrentWeek } from "../../utils/DateHelper";
+import InvitationsList from "../../components/Appointments/Invitations/InvitationsList";
+
+const fakeInvitations = [
+  {
+    id: "19",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-05-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CANCELLED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "14",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CONFIRMED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "20",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-04-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CANCELLED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "10",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CONFIRMED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "12",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CONFIRMED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "18",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-06-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CANCELLED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "15",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-22T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CONFIRMED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "13",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CONFIRMED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+  {
+    id: "11",
+    profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
+    starting_date: "2021-03-21T17:23:34",
+    ending_date: "2021-03-21T17:23:34",
+    activity_id: "10-10",
+    summary: "Booking with Client (Yoga 40 mins)",
+    status: "CONFIRMED",
+    display_fees: null,
+    display_price: null,
+    email: "lamine.lang@outlook.com",
+    stripe_payment_intent_id: null,
+    stripe_payment_secret_id: null,
+    first_name: "lamine",
+    last_name: "lang",
+  },
+];
 
 export default function Appointments() {
+  // router
+  const router = useRouter();
+
+  // context
   const { token } = useContext(ProfileContext);
 
   // states
@@ -26,7 +179,6 @@ export default function Appointments() {
   const [requests, setRequests] = useState(null);
   const [temp, setTemp] = useState([]);
   const [tabIndex, setTabIndex] = useState(1);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (
@@ -120,65 +272,6 @@ export default function Appointments() {
     setData(filter);
   };
 
-  const onAccept = (id) => {
-    setLoading(true);
-
-    async function accept() {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/${id}/accept?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return await response;
-    }
-
-    accept().then((res) => {
-      console.log("res accept", res);
-      setLoading(false);
-      if (res.status === 200) {
-        setTabIndex(1);
-      } else {
-        // toast.error(res.message);
-        console.log(res.message);
-      }
-    });
-  };
-  const onReject = (id) => {
-    setLoading(true);
-
-    async function reject() {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return await response;
-    }
-
-    reject().then((res) => {
-      console.log("res reject", res);
-      setLoading(false);
-      if (res.status === 200) {
-        setTabIndex(1);
-      } else {
-        // toast.error(res.message);
-        console.log(res.message);
-      }
-    });
-  };
-
   return (
     <>
       <Head>
@@ -214,6 +307,18 @@ export default function Appointments() {
                     <span className="requests-badge">{requests.length}</span>
                   ) : null}
                 </div>
+                <div
+                  onClick={() => setTabIndex(3)}
+                  className={`option ${tabIndex == 3 && "active"}`}
+                  style={{ position: "relative" }}
+                >
+                  Invitations (Waiting for payment){" "}
+                  {fakeInvitations.length > 0 ? (
+                    <span className="requests-badge">
+                      {fakeInvitations.length}
+                    </span>
+                  ) : null}
+                </div>
               </div>
               <div className="settings-types__mobile">
                 <select
@@ -222,6 +327,7 @@ export default function Appointments() {
                 >
                   <option value={1}>Scheduled</option>
                   <option value={2}>Requests</option>
+                  <option value={3}>Invitations (Waiting for payment)</option>
                 </select>
               </div>
               {tabIndex == 1 ? (
@@ -233,16 +339,17 @@ export default function Appointments() {
                     </div>
                   </Fade>
                 </>
-              ) : (
+              ) : tabIndex == 2 ? (
                 <>
                   <RequestList
-                    requestList={requests}
+                    requestList={fakeInvitations}
+                    // requestList={requests}
                     apt={apt}
-                    requestAccept={onAccept}
-                    requestReject={onReject}
-                    loading={loading}
+                    setTabIndex={setTabIndex}
                   />
                 </>
+              ) : (
+                <InvitationsList invitations={fakeInvitations} />
               )}
             </Fade>
           )}

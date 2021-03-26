@@ -1421,10 +1421,13 @@ body
         align-items: flex-start
         .row
           width: 100%
-          @include flex
-          align-items: flex-start
-          justify-content: space-between
-          padding: 24px 36px 0 40px
+          // background: red
+          // @include flex
+          // align-items: flex-start
+          // justify-content: space-between
+          display: grid
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+          padding: 12px 8px
           overflow-y: scroll
           height: calc(232px - 16px)
           &::-webkit-scrollbar-track
@@ -1435,7 +1438,8 @@ body
           &::-webkit-scrollbar-thumb
             background: $lavender
         .col
-          width: 10.15%
+          // width: 10.15%
+          margin: 0 5px
           @include flex
           flex-direction: column
         button
@@ -1612,7 +1616,7 @@ body
       margin-bottom: 20px
     &__btns
       @include flex
-      margin-top: 84px
+      margin-top: 40px
       button
         height: 52px
         width: 146px
@@ -1621,6 +1625,7 @@ body
         line-height: 20px
         border-radius: 5px
         cursor: pointer
+        position: relative
         &:focus
           outline: none
         &.reject
@@ -1820,6 +1825,8 @@ body
         font-weight: 400
         margin-bottom: 8px
         text-align: center
+        vertical-align: middle
+
         span
           width: 70%
           display: inline-block
@@ -1848,7 +1855,7 @@ body
     margin-top: 16px
     margin-bottom: 0px
   div
-    margin-top: 32px
+    margin-top: 0px
     h3
       color: #303030
       font-size: 16px
@@ -3166,7 +3173,7 @@ body
       &__title
         padding: 16px 24px
       &__day
-        margin-top: 12px
+        margin-top: 0px
         width: 14.66%
         img
           height: 16px
@@ -3458,10 +3465,10 @@ body
         .btm
           padding-bottom: 16px
           .row
-            padding: 16px 43px 0 47px
+            padding: 12px 8px
             height: calc(180px - 16px)
           .col
-            width: 8.5%
+            width: 95%
           button
             height: 31px
             font-size: 12px
@@ -4021,10 +4028,12 @@ body
             line-height: 17px
             font-weight: 400
           .row
-            padding: 16px 40px 0
+            padding: 16px 8px
+            grid-template-columns: 1fr 1fr
             height: calc(184px - 24px)
+            vertical-align: middle
             .col
-              width: 37.36%
+              width: 90%
               &:nth-child(n+3)
                 display: none
       &__share

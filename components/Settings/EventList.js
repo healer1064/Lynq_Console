@@ -8,7 +8,6 @@ import EventListCard from "./EventListCard";
 
 // context
 import ProfileContext from "../../context/profile";
-import Loading from "../common/Loading";
 
 const EventList = ({ events, setTab, setResponse, response }) => {
   const { token } = useContext(ProfileContext);
@@ -19,7 +18,7 @@ const EventList = ({ events, setTab, setResponse, response }) => {
   const deleteEventType = (id) => {
     async function del() {
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/event-type/${id}?t=${token}`,
+        `https://api.lynq.app/account/event-type/${id}?t=${token}`,
         {
           method: "DELETE",
           headers: {
@@ -32,15 +31,15 @@ const EventList = ({ events, setTab, setResponse, response }) => {
       return await response;
     }
 
-    del()
-      .then((res) => {
+    del().then((res) => {
+      if (res.status == 200) {
         console.log("Event type Delete", res);
         setResponse(!response);
-      })
-      .catch((err) => {
-        console.log("Error Event type deleted", err);
+      } else {
+        console.log("Error Event type deleted", res);
         toast.error("An error has occurred");
-      });
+      }
+    });
   };
 
   return (

@@ -1,40 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Fade from "react-reveal/Fade";
-
-// components
-import Loading from "../../common/Loading";
-import RequestDrawer from "./RequestDrawer";
 
 // utils
 import { fullDate, getTime, getDuration, timeAgo } from "../../../utils/dates";
 
-const RequestDetail = ({
+// components
+import Loading from "../../common/Loading";
+
+const InvitationDetail = ({
   data,
   toggle,
-  apt,
-  requestAccept,
-  requestReject,
-  rejectLoading,
-  acceptLoading,
-  ToastContainer,
+  handleDelete,
+  handleEdit,
+  editLoading,
+  deleteLoading,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDrawer = () => setIsOpen(!isOpen);
-
   return (
     <Fade>
       <div style={{ marginTop: "-30px" }} className="content-wrp">
         <div className="appointment-request">
-          {isOpen && (
-            <RequestDrawer
-              isOpen={isOpen}
-              toggle={toggleDrawer}
-              apt={apt}
-              day={fullDate(data.starting_date)}
-              thatDate={data.starting_date}
-            />
-          )}
           <a
             className="appointment-request__back"
             style={{ cursor: "pointer" }}
@@ -42,11 +26,10 @@ const RequestDetail = ({
           >
             Back
           </a>
-          <h2>Appointment Request</h2>
+          <h2>Appointment Invitation</h2>
           <span className="received__time">
             Received {timeAgo(data.starting_date)}
           </span>
-          <ToastContainer />
           <div className="info__col">
             <strong>Event type</strong>
             <p>No field from backend</p>
@@ -62,9 +45,6 @@ const RequestDetail = ({
           <div className="info__col">
             <strong>Day</strong>
             <p>{fullDate(data.starting_date)}</p>
-            <span className="see__day" onClick={() => setIsOpen(true)}>
-              See you how your day look like
-            </span>
           </div>
 
           <div className="info__col">
@@ -72,15 +52,29 @@ const RequestDetail = ({
             <p>{getTime(data.starting_date)}</p>
           </div>
           <div className="info__col">
-            <strong>Appointment made by</strong>
+            <strong>Invitation Sent</strong>
+            <p>{timeAgo(data.starting_date)}</p>
+          </div>
+          <div className="info__col">
+            <strong>Link to invitation</strong>
+            <p>lynq.app/xyzxyz</p>
+          </div>
+          <div className="info__col">
+            <strong>Client's Name</strong>
             <p>{`${data.first_name} ${data.last_name}`}</p>
           </div>
+          <div className="info__col">
+            <strong>Client's Email</strong>
+            <p>{data.email}</p>
+          </div>
           <div className="appointment-request__btns">
-            <button className="reject" onClick={() => requestReject(data.id)}>
-              {rejectLoading && <Loading color="#fff" />}REJECT
+            <button onClick={() => handleDelete()} className="reject">
+              {deleteLoading && <Loading color="#fff" />}
+              DELETE
             </button>
-            <button className="accept" onClick={() => requestAccept(data.id)}>
-              {acceptLoading && <Loading />}ACCEPT
+            <button onClick={() => handleEdit()} className="accept">
+              {editLoading && <Loading />}
+              EDIT
             </button>
           </div>
         </div>
@@ -89,4 +83,4 @@ const RequestDetail = ({
   );
 };
 
-export default RequestDetail;
+export default InvitationDetail;

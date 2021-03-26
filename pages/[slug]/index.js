@@ -33,7 +33,7 @@ const Profile = ({ slug }) => {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/profile/${slug}`,
+      `https://api.lynq.app/profile/${slug}`,
       config
     );
     const data = await response.json();
@@ -52,7 +52,7 @@ const Profile = ({ slug }) => {
     // check avaliblity
     async function check_availabliity() {
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${_activity.id}`,
+        `https://api.lynq.app/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${_activity.id}`,
         {
           method: "GET",
           headers: {

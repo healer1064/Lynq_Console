@@ -1,6 +1,7 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
 
 // components
 import Leftbar from "../../components/Leftbar";
@@ -15,8 +16,20 @@ import SettingsEventTypeEdit from "../../components/Settings/SettingsEventTypeEd
 import SettingsEventTypeAdd from "../../components/Settings/SettingsEventTypeAdd";
 
 export default function Settings() {
+  // router
+  const router = useRouter();
+
   // states
   const [tab, setTab] = useState("setup");
+
+  useEffect(() => {
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
+  }, []);
 
   return (
     <>

@@ -63,7 +63,7 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/profile/${slug}/request_booking`,
+      `https://api.lynq.app/profile/${slug}/request_booking`,
       {
         method: "POST",
         headers: {

@@ -7,7 +7,7 @@ const AppointmentNewButtons = () => {
       <Link href="/appointments">
         <button className="appointment-new__btns__cancel">Cancel</button>
       </Link>
-      <button className="appointment-new__btns__publish">PUBLISH</button>
+      <button className="appointment-new__btns__publish">Book</button>
     </div>
   );
 };

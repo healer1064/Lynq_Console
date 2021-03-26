@@ -3,8 +3,6 @@ import EmptyData from "../common/EmptyData";
 import ClientItem from "./ClientItem";
 
 const ClientsTable = ({ data }) => {
-  console.log(data);
-
   if (data.length === 0) {
     return <EmptyData title="No clients to show" />;
   } else {

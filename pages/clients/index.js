@@ -1,5 +1,6 @@
 // libraries
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 
 // components
@@ -10,23 +11,27 @@ import ClientsTable from "../../components/Clients/ClientsTable";
 import PageLoading from "../../components/common/PageLoading";
 import EmptyData from "../../components/common/EmptyData";
 
-// utils
-import fetcher from "../../utils/fetcher";
-
 // context
 import ProfileContext from "../../context/profile";
 
 export default function Clients() {
+  // router
+  const router = useRouter();
+
+  // context
   const { token } = useContext(ProfileContext);
 
   // state
   const [data, setData] = useState(null);
-  const [filteredData, setFilteredData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  // const { data, error } = useSWR(["/api/clients", token], fetcher);
-
   useEffect(() => {
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
     if (token) getClients();
   }, [token]);
 
@@ -40,7 +45,7 @@ export default function Clients() {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/clients?t=${token}`,
+      `https://api.lynq.app/account/clients?t=${token}`,
       config
     );
     const data = await response.json();

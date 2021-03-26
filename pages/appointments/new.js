@@ -14,9 +14,6 @@ import AppointmentNewTime from "../../components/Appointments/AppointmentNewTime
 import Calendar from "../../components/Appointments/Calendar";
 import PageLoading from "../../components/common/PageLoading";
 
-// mockup data
-// import data from "../../utils/data";
-
 export default function AppointmentNew() {
   // states
   const [eventType, setEventType] = useState("");
@@ -37,10 +34,6 @@ export default function AppointmentNew() {
   };
 
   const getEventTypes = async () => {
-    // const response = await fetch("/api/settings/get-event-types", {
-    //   headers: new Headers({ "Content-Type": "application/json", token }),
-    // });
-
     let config = {
       method: "GET",
       headers: {
@@ -50,7 +43,7 @@ export default function AppointmentNew() {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/event-type?t=${token}`,
+      `https://api.lynq.app/account/event-type?t=${token}`,
       config
     );
 
@@ -60,7 +53,15 @@ export default function AppointmentNew() {
   };
 
   useEffect(() => {
-    getEventTypes();
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
+    if (token) {
+      getEventTypes();
+    }
   }, [token]);
 
   return (
@@ -141,9 +142,24 @@ export default function AppointmentNew() {
                   />
                 )}
               </label>
-              <strong>Time</strong>
-              <AppointmentNewTime time={time} setTime={setTime} />
-              <AppointmentNewShare email={email} setEmail={setEmail} />
+              <label className="small">
+                <strong>Client's First Name</strong>
+                <input type="text" />
+              </label>
+              <label className="small">
+                <strong>Client's Last Name</strong>
+                <input type="text" />
+              </label>
+              <label className="small">
+                <strong>Client's Email</strong>
+                <input type="text" />
+              </label>
+              <label className="small">
+                <strong>Time</strong>
+                <AppointmentNewTime time={time} setTime={setTime} />
+              </label>
+
+              {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
               <AppointmentNewButtons />
             </div>
           )}

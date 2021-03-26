@@ -2,6 +2,8 @@
 import { useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -57,8 +59,16 @@ const Account = () => {
   const router = useRouter();
 
   useEffect(() => {
-    getProfileData();
-    getBusinessData();
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
+    if (token) {
+      getProfileData();
+      getBusinessData();
+    }
   }, [success, token]);
 
   const getProfileData = async () => {
@@ -70,11 +80,8 @@ const Account = () => {
       },
     };
 
-    // const response = await fetch("/api/account/profile", {
-    //   headers: new Headers({ "Content-Type": "application/json", token }),
-    // });
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/profile?t=${token}`,
+      `https://api.lynq.app/account/profile?t=${token}`,
       config
     );
 
@@ -93,13 +100,9 @@ const Account = () => {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/business?t=${token}`,
+      `https://api.lynq.app/account/business?t=${token}`,
       config
     );
-
-    // const response = await fetch("/api/account/business", {
-    //   headers: new Headers({ "Content-Type": "application/json", token }),
-    // });
 
     const data = await response.json();
 
@@ -128,13 +131,8 @@ const Account = () => {
       };
 
       async function update() {
-        // const response = await fetch("/api/account/profile-update", {
-        //   headers: new Headers({
-        //     data: JSON.stringify({ token, _reqData }),
-        //   }),
-        // });
         const response = await fetch(
-          `https://reb00t.uc.r.appspot.com/account/profile?t=${token}`,
+          `https://api.lynq.app/account/profile?t=${token}`,
           {
             method: "POST",
             headers: {
@@ -145,27 +143,26 @@ const Account = () => {
           }
         );
 
-        return await response.json();
+        return await response;
       }
 
-      update()
-        .then((res) => {
-          setLoading(false);
+      update().then((res) => {
+        setLoading(false);
+        if (res.status == 200) {
           console.log("profile updates", res);
           setPersonalInfoShow(false);
           setSuccess(!success);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log("profile update error", err);
-        });
+        } else {
+          console.log("profile update error", res);
+          toast.error("An error has occurred");
+        }
+      });
     } else {
       setPersonalInfoError(true);
     }
   };
 
   const updateBusiness = () => {
-    // change raw data with useState variables
     if (
       businessName !== "" &&
       bank !== "" &&
@@ -188,14 +185,8 @@ const Account = () => {
       const token = localStorage.getItem("linqToken");
 
       async function update() {
-        // const response = await fetch("/api/account/business-update", {
-        //   headers: new Headers({
-        //     data: JSON.stringify({ token, _reqData }),
-        //   }),
-        // });
-
         const response = await fetch(
-          `https://reb00t.uc.r.appspot.com/account/business?t=${token}`,
+          `https://api.lynq.app/account/business?t=${token}`,
           {
             method: "POST",
             headers: {
@@ -206,20 +197,20 @@ const Account = () => {
           }
         );
 
-        return await response.json();
+        return await response;
       }
 
-      update()
-        .then((res) => {
-          setLoading(false);
+      update().then((res) => {
+        setLoading(false);
+        if (res.status == 200) {
           console.log("business updates", res);
           setAccountBusShow(false);
           setSuccess(!success);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log("business update error", err);
-        });
+        } else {
+          console.log("business update error", res);
+          toast.error("An error has occurred");
+        }
+      });
     } else {
       setPaymentsError(true);
     }
@@ -231,24 +222,14 @@ const Account = () => {
       setPassCheck(false);
       if (newPass === confirmPass) {
         setPassCheck(false);
-        // change raw data with useState variables
         setLoading(true);
         const _reqData = {
           oldPassword: prevPass,
           newPassword: newPass,
         };
-
-        // const token = localStorage.getItem("linqToken");
-
         async function update() {
-          // const response = await fetch("/api/account/password-update", {
-          //   headers: new Headers({
-          //     data: JSON.stringify({ token, _reqData }),
-          //   }),
-          // });
-
           const response = await fetch(
-            `https://reb00t.uc.r.appspot.com/account/new-password?t=${token}`,
+            `https://api.lynq.app/account/new-password?t=${token}`,
             {
               method: "POST",
               headers: {
@@ -259,19 +240,19 @@ const Account = () => {
             }
           );
 
-          return await response.json();
+          return await response;
         }
 
-        update()
-          .then((res) => {
+        update().then((res) => {
+          setLoading(false);
+          if (res.status == 200) {
             console.log("password updates", res);
             setPassShow(false);
-            setLoading(false);
-          })
-          .catch((err) => {
-            console.log("password update error", err);
-            setLoading(false);
-          });
+          } else {
+            console.log("password update error", res);
+            toast.error("An error has occurred");
+          }
+        });
       } else {
         setPassCheck(true);
       }
@@ -300,6 +281,7 @@ const Account = () => {
           ) : (
             <div className="account">
               <div className="account-tab">
+                <ToastContainer />
                 <p onClick={() => router.push("/account")} className="active">
                   Account
                 </p>
@@ -339,7 +321,10 @@ const Account = () => {
                   <div className="account-subscription">
                     <h3>Subscription</h3>
                     <h6>Your Current Plan</h6>
-                    <p>EARLY BIRD</p>
+                    <p>
+                      EARLY BIRD with 10% commission added on top of your
+                      session price
+                    </p>
                     <h6>Processing Fees On Payments</h6>
                     <p>2.9%</p>
                     <h6>Example On $10 Ticket</h6>

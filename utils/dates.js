@@ -47,7 +47,7 @@ const timeAgo = (dateString) => {
     hours +
     "h, " +
     minutes +
-    "m (No 'created at' date field from in backend)"
+    "m (No 'time created at' field coming from backend)"
   );
 };
 

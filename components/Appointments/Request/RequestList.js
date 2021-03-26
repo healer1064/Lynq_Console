@@ -1,29 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Fade from "react-reveal/Fade";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // style
 import styles from "./Request.module.css";
 import RequestDetail from "./RequestDetail";
 
+// context
+import ProfileContext from "../../../context/profile";
+
 // utils
 import { fullDate, timeAgo } from "../../../utils/dates";
 
-const RequestList = ({
-  requestList,
-  apt,
-  requestAccept,
-  requestReject,
-  loading,
-}) => {
+const RequestList = ({ requestList, apt, setTabIndex }) => {
+  // context
+  const { token } = useContext(ProfileContext);
+
+  // states
   const [showDetail, setShowDetail] = useState(false);
   const [requestData, setRequsetData] = useState(null);
+  const [rejectLoading, setRejectLoading] = useState(false);
+  const [acceptLoading, setAcceptLoading] = useState(false);
+
+  const onAccept = (id) => {
+    setAcceptLoading(true);
+
+    async function accept() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}/accept?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    accept().then((res) => {
+      console.log("res accept", res);
+      setAcceptLoading(false);
+      if (res.status === 200) {
+        setTabIndex(1);
+      } else {
+        toast.error("An error has occurred");
+        console.log(res);
+      }
+    });
+  };
+  const onReject = (id) => {
+    setRejectLoading(true);
+
+    async function reject() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    reject().then((res) => {
+      console.log("res reject", res);
+      setRejectLoading(false);
+      if (res.status === 200) {
+        setTabIndex(1);
+      } else {
+        // toast.error(res.message);
+        console.log(res.message);
+      }
+    });
+  };
 
   const toggle = (_flag, _data) => {
     setShowDetail(_flag);
     setRequsetData(_data);
   };
 
-  return (
+  return requestList.length === 0 ? (
+    <div className="no-appointments">
+      <p>No requests to show</p>
+    </div>
+  ) : (
     <div className={styles.request__list}>
       {!showDetail ? (
         requestList.map((item, i) => (
@@ -65,14 +133,18 @@ const RequestList = ({
           </Fade>
         ))
       ) : (
-        <RequestDetail
-          data={requestData}
-          toggle={toggle}
-          apt={apt}
-          requestAccept={requestAccept}
-          requestReject={requestReject}
-          loading={loading}
-        />
+        <>
+          <RequestDetail
+            data={requestData}
+            toggle={toggle}
+            apt={apt}
+            requestAccept={onAccept}
+            requestReject={onReject}
+            rejectLoading={rejectLoading}
+            acceptLoading={acceptLoading}
+            ToastContainer={ToastContainer}
+          />
+        </>
       )}
     </div>
   );

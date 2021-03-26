@@ -37,7 +37,7 @@ const EventListCard = ({
     async function change() {
       setLoading(true);
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/event-type/${card.id}/toggle?t=${token}`,
+        `https://api.lynq.app/account/event-type/${card.id}/toggle?t=${token}`,
         {
           method: "POST",
           headers: {
@@ -48,20 +48,20 @@ const EventListCard = ({
         }
       );
 
-      return await response.json();
+      return await response;
     }
 
-    change()
-      .then((res) => {
+    change().then((res) => {
+      setLoading(false);
+      if (res.status == 200) {
         setResponse(!response);
         console.log("Event type toggle", res);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("Error Event type toggle", err);
+      } else {
+        console.log("Error Event type toggle", res);
         toast.error("An error has occurred");
         setLoading(false);
-      });
+      }
+    });
   };
 
   return (

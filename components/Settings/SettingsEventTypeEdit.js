@@ -76,14 +76,8 @@ const SettingsEventTypeEdit = ({ setTab }) => {
     };
 
     async function edit() {
-      // const response = await fetch("/api/settings/edit-event-type", {
-      //   headers: new Headers({
-      //     data: JSON.stringify({ token, _reqData }),
-      //   }),
-      // });
-
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/event-type/${eventType.id}?t=${token}`,
+        `https://api.lynq.app/account/event-type/${eventType.id}?t=${token}`,
         {
           method: "PUT",
           headers: {
@@ -94,21 +88,20 @@ const SettingsEventTypeEdit = ({ setTab }) => {
         }
       );
 
-      return await response.json();
+      return await response;
     }
 
-    edit()
-      .then((res) => {
-        setLoading(false);
+    edit().then((res) => {
+      setLoading(false);
+      if (res.status == 200) {
         console.log("Event type added", res);
         setTab("eventtype");
         setEventType(null);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log("Error Event type added", err);
+      } else {
+        console.log("Error Event type added", res);
         toast.error("An error has occurred");
-      });
+      }
+    });
   };
 
   return (

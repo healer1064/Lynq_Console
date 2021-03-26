@@ -1,3 +1,6 @@
+// utils
+import { fullDateWithoutDay } from "../../utils/dates";
+
 // components
 import EmptyData from "../common/EmptyData";
 
@@ -23,7 +26,7 @@ const PaymentHistory = ({ data }) => {
             data.map((item, index) => {
               return (
                 <div key={index} className="payment-history-table-body">
-                  <p>{item.requestDate}</p>
+                  <p>{fullDateWithoutDay(item.requestDate)}</p>
                   <p>{item.transferNumber || "null"}</p>
                   <p>${item.amount}</p>
                   <p>

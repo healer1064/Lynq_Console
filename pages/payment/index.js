@@ -1,8 +1,12 @@
 // libraries
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// context
+import ProfileContext from "../../context/profile";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -11,10 +15,11 @@ import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
 import PageLoading from "../../components/common/PageLoading";
 
-// context
-import ProfileContext from "../../context/profile";
-
 export default function Payment() {
+  // router
+  const router = useRouter();
+
+  // context
   const { token } = useContext(ProfileContext);
 
   // states
@@ -32,7 +37,7 @@ export default function Payment() {
       },
     };
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/balance?t=${token}`,
+      `https://api.lynq.app/account/balance?t=${token}`,
       config
     );
     const data = await response.json();
@@ -42,10 +47,6 @@ export default function Payment() {
 
   const getBusinessData = async () => {
     setLoading(true);
-    // const response = await fetch("/api/account/business", {
-    //   headers: new Headers({ "Content-Type": "application/json", token }),
-    // });
-
     let config = {
       method: "GET",
       headers: {
@@ -55,7 +56,7 @@ export default function Payment() {
     };
 
     const response = await fetch(
-      `https://reb00t.uc.r.appspot.com/account/business?t=${token}`,
+      `https://api.lynq.app/account/business?t=${token}`,
       config
     );
 
@@ -77,7 +78,7 @@ export default function Payment() {
   const requestPayment = () => {
     async function request() {
       const response = await fetch(
-        `https://reb00t.uc.r.appspot.com/account/balance/request_payment?t=${token}`,
+        `https://api.lynq.app/account/balance/request_payment?t=${token}`,
         {
           method: "POST",
           headers: {
@@ -87,23 +88,28 @@ export default function Payment() {
         }
       );
 
-      return await response.json();
+      return await response;
     }
 
-    request()
-      .then((res) => {
-        setLoading(false);
+    request().then((res) => {
+      setLoading(false);
+      if (res.status == 200) {
         console.log("Request payment done", res);
         setPayment("done");
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log("error Request payment", err);
+      } else {
         toast.error("An error has occurred");
-      });
+        console.log("error Request payment", res);
+      }
+    });
   };
 
   useEffect(() => {
+    if (
+      localStorage.getItem("linqToken") === null &&
+      localStorage == undefined
+    ) {
+      router.push("/login");
+    }
     getPayments();
   }, [token]);
 
@@ -126,7 +132,7 @@ export default function Payment() {
             <PageLoading />
           ) : (
             <div className="payment">
-              <h3>Payment</h3>
+              <h3 style={{ marginTop: "20px" }}>Payment</h3>
               <RequestPayment
                 data={data}
                 payment={payment}

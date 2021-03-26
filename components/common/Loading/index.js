@@ -1,7 +1,7 @@
 // styles
 import styles from "../../../styles/Loading.module.css";
 
-const Loading = () => {
+const Loading = ({ color }) => {
   return (
     <div
       style={{
@@ -13,7 +13,7 @@ const Loading = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#7E88F4",
+        background: color || "#7E88F4",
         zIndex: "100",
         borderRadius: "8px",
         margin: "0px",
