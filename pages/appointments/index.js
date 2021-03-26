@@ -221,7 +221,7 @@ export default function Appointments() {
     };
 
     const response = await fetch(
-      `http://api.lynq.app/account/appointments/requests?t=${token}`,
+      `https://api.lynq.app/account/appointments/requests?t=${token}`,
       config
     );
     const _data = await response.json();

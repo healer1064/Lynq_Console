@@ -182,8 +182,6 @@ const Account = () => {
         routingNumber: routing,
       };
 
-      const token = localStorage.getItem("linqToken");
-
       async function update() {
         const response = await fetch(
           `https://api.lynq.app/account/business?t=${token}`,
