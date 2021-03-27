@@ -2,6 +2,12 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// styles
+import "react-datepicker/dist/react-datepicker.css";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -12,7 +18,6 @@ import Leftbar from "../../components/Leftbar";
 import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
 import AppointmentNewButtons from "../../components/Appointments/AppointmentNewButtons";
 import AppointmentNewTime from "../../components/Appointments/AppointmentNewTime";
-import Calendar from "../../components/Appointments/Calendar";
 import PageLoading from "../../components/common/PageLoading";
 
 export default function AppointmentNew() {
@@ -21,26 +26,22 @@ export default function AppointmentNew() {
   const [eventId, setEventId] = useState("");
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
-  const [day, setDay] = useState("03/21/2021");
-  const [time, setTime] = useState("21:03");
+  const [day, setDay] = useState();
+  const [time, setTime] = useState();
+  const [times, setTimes] = useState(null);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [timeLoading, setTimeLoading] = useState(false);
 
   // use context
   const { token } = useContext(ProfileContext);
 
   // router
   const router = useRouter();
-
-  const selectDay = (_start, _end) => {
-    console.log(_start, _end);
-    // setIsOpen(false);
-  };
 
   const getEventTypes = async () => {
     let config = {
@@ -61,6 +62,41 @@ export default function AppointmentNew() {
     setData(data);
   };
 
+  const fetchTimes = () => {
+    setTimeLoading(true);
+    let config = {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        ContentType: "application/json",
+      },
+    };
+
+    const times = async () => {
+      const response = await fetch(
+        `https://api.lynq.app/account/public-profile/availability?t=${token}&start=${day
+          .toLocaleDateString()
+          .replaceAll("/", "-")}&end=${day
+          .toLocaleDateString()
+          .replaceAll("/", "-")}&activity_id=${eventId}`,
+        config
+      );
+
+      return await response.json();
+    };
+
+    times()
+      .then((res) => {
+        setTimeLoading(false);
+        console.log(res);
+        setTimes(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(res.message);
+      });
+  };
+
   useEffect(() => {
     if (
       localStorage.getItem("linqToken") === null &&
@@ -73,13 +109,19 @@ export default function AppointmentNew() {
     }
   }, [token]);
 
+  useEffect(() => {
+    if (day && eventId !== "" && token) {
+      fetchTimes();
+    }
+  }, [day, eventId]);
+
   const handleBook = () => {
     if (
       eventType !== "" &&
       duration !== "" &&
       price !== "" &&
-      day !== "" &&
-      time !== "" &&
+      day &&
+      time &&
       email !== "" &&
       firstName !== "" &&
       lastName !== ""
@@ -88,13 +130,13 @@ export default function AppointmentNew() {
       setLoading(true);
       const _reqData = {
         activity_id: eventId,
-        start_date: "2021-03-26T15:01:53",
+        start_date: time.split(".")[0],
         duration,
         price,
         first_name: firstName,
         last_name: lastName,
         email,
-        stripe_pk: "string",
+        stripe_pk: "",
       };
 
       async function book() {
@@ -113,11 +155,16 @@ export default function AppointmentNew() {
         return await response.json();
       }
 
-      book().then((res) => {
-        setLoading(false);
-        console.log("booking complete", res);
-        router.push(`/appointments/${res.id}`);
-      });
+      book()
+        .then((res) => {
+          setLoading(false);
+          console.log("booking complete", res);
+          router.push(`/appointments/${res.id}`);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.message);
+        });
     } else {
       setError(true);
     }
@@ -142,6 +189,7 @@ export default function AppointmentNew() {
           ) : (
             <div className="appointment-new">
               <h2>Appointment</h2>
+              <ToastContainer />
               <label>
                 <strong>Event Type</strong>
                 <select
@@ -209,43 +257,40 @@ export default function AppointmentNew() {
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </label>
-              <label style={{ position: "relative" }} className="small">
-                <label style={{ position: "relative" }} className="small">
-                  <strong>Day</strong>
-                  <input
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setIsOpen(true);
-                    }}
-                    readOnly
-                  ></input>
-                  {isOpen && (
-                    <Calendar
-                      currDate={{
-                        weekStart: new Date(),
-                        weekEnd: new Date(),
-                      }}
-                      setOpen={setIsOpen}
-                      handleChange={selectDay}
-                    />
-                  )}
-                </label>
+              <label style={{ position: "relative" }} className="quarter">
+                <strong>Day</strong>
+                <DatePicker
+                  selected={day}
+                  onChange={(date) => {
+                    setDay(date);
+                  }}
+                />
               </label>
-              <label className="small">
-                <strong>Time</strong>
-                <AppointmentNewTime time={time} setTime={setTime} />
+              <label className="three-quarter">
+                <strong></strong>
+                <strong></strong>
+                <strong></strong>
+                {day && eventId !== "" && (
+                  <AppointmentNewTime
+                    times={times}
+                    setTime={setTime}
+                    loading={timeLoading}
+                  />
+                )}
               </label>
               {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
               {error && (
-                <p
-                  style={{
-                    color: "red",
-                    paddingBottom: "20px",
-                    width: "100%",
-                  }}
-                >
-                  Please fill all fields
-                </p>
+                <div>
+                  <p
+                    style={{
+                      color: "red",
+                      paddingBottom: "20px",
+                      width: "100%",
+                    }}
+                  >
+                    Please fill all fields
+                  </p>
+                </div>
               )}
               <AppointmentNewButtons
                 handleBook={handleBook}

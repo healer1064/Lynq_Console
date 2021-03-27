@@ -312,12 +312,7 @@ export default function Appointments() {
                   className={`option ${tabIndex == 3 && "active"}`}
                   style={{ position: "relative" }}
                 >
-                  Invitations (Waiting for payment){" "}
-                  {fakeInvitations.length > 0 ? (
-                    <span className="requests-badge">
-                      {fakeInvitations.length}
-                    </span>
-                  ) : null}
+                  Invitations (Waiting for payment)
                 </div>
               </div>
               <div className="settings-types__mobile">
@@ -342,8 +337,7 @@ export default function Appointments() {
               ) : tabIndex == 2 ? (
                 <>
                   <RequestList
-                    requestList={fakeInvitations}
-                    // requestList={requests}
+                    requestList={requests}
                     apt={apt}
                     setTabIndex={setTabIndex}
                   />

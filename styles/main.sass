@@ -1394,10 +1394,13 @@ body
             margin-left: 8px
         .days
           flex: 1
-          @include flex
-          justify-content: space-between
+          // @include flex
+          // justify-content: space-between
+          display: grid
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+          text-align: center
           .day
-            width: 10.15%
+            width: 98%
             @include flex
             flex-direction: column
             align-items: center
@@ -1427,7 +1430,7 @@ body
           // justify-content: space-between
           display: grid
           grid-template-columns: 1fr 1fr 1fr 1fr 1fr
-          padding: 12px 8px
+          padding: 12px 45px !important
           overflow-y: scroll
           height: calc(232px - 16px)
           &::-webkit-scrollbar-track
@@ -2938,6 +2941,9 @@ body
   justify-content: center
   font-weight: 600
   padding: 1px
+
+.react-datepicker-wrapper
+  width: 100%
             
 @media (max-width: $breakpointLaptop)
   .abs-img
@@ -3429,6 +3435,10 @@ body
         margin-bottom: 16px
         &.small
           width: calc(50% - 12px)
+        &.quarter
+          width: calc(25% - 12px)
+        &.three-quarter
+          width: calc(75% - 12px)
         select
           height: 44px
           background-position: top 14px right 16px
@@ -3454,7 +3464,7 @@ body
               margin-left: 15px
           .days
             .day
-              width: 8.5%
+              width: 98%
               b
                 font-size: 14px
                 line-height: 19px
@@ -3996,6 +4006,10 @@ body
         margin-bottom: 24px
         &.small
           width: 100%
+        &.quarter
+          width: 100%
+        &.three-quarter
+          width: 100%
         select
           height: 48px
           padding: 0 12px
@@ -4015,12 +4029,14 @@ body
         .top
           padding: 12px 8px
           .days
+            overflow-x: scroll
+            grid-template-columns: 35vw 35vw 35vw 35vw 35vw
             .day
-              width: 37.36%
+              width: 98%
               &:nth-child(n+3)
                 display: none
         .btm
-          padding-bottom: 24px
+          padding-bottom: 5px
           button
             height: 40px
             margin-bottom: 12px
@@ -4028,9 +4044,10 @@ body
             line-height: 17px
             font-weight: 400
           .row
+            overflow-x: scroll
             padding: 16px 8px
-            grid-template-columns: 1fr 1fr
-            height: calc(184px - 24px)
+            grid-template-columns: 35vw 35vw 35vw 35vw 35vw
+            height: calc(184px - 5px)
             vertical-align: middle
             .col
               width: 90%

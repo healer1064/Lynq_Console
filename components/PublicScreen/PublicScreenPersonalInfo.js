@@ -74,6 +74,8 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
       }
     );
 
+    console.log(response.status);
+
     return await response.json();
   };
 

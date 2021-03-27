@@ -4,7 +4,7 @@ import Fade from "react-reveal/Fade";
 
 // components
 import AppointmentCard from "../Home/AppointmentCard";
-import Modal from "../../components/common/Modal";
+import Modal from "../common/Modal";
 
 // utils
 import { fullDateWithoutDay, dayName } from "../../utils/dates";

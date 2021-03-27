@@ -29,6 +29,7 @@ const Calendar = ({ currDate, setOpen, handleChange }) => {
         startDate={startDate}
         endDate={endDate}
         selectsRange
+        shouldCloseOnSelect
         inline
       />
     </div>
