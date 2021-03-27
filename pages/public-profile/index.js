@@ -16,6 +16,7 @@ import { categoriesData } from "../../utils/data/publicprofile";
 
 // icons
 import { FaImage } from "react-icons/fa";
+import { AiOutlineCopy } from "react-icons/ai";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -51,8 +52,22 @@ const EditProfile = () => {
   const [loading, setLoading] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [slugCopy, setSlugCopy] = useState(false);
 
   const imgRef = useRef();
+
+  const copyStatus = () => {
+    setSlugCopy(true);
+    setTimeout(() => {
+      setSlugCopy(false);
+    }, 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      setSlugCopy(false);
+    };
+  }, []);
 
   useEffect(() => {
     if (
@@ -248,6 +263,48 @@ const EditProfile = () => {
                   </div>
                 </div>
                 <div>
+                  <label>Personalize your Public Lynq url</label>
+                  <input
+                    type="text"
+                    value={slug}
+                    onChange={(e) => setSlug(e.target.value)}
+                    placeholder="e.g chuck-norris"
+                  />
+                </div>
+                <div>
+                  <label style={{ color: "#7E88F4" }}>
+                    Here is how your public Lynq url will look like
+                  </label>{" "}
+                  {slugCopy && (
+                    <span
+                      style={{
+                        marginBottom: "12px",
+                        marginLeft: "20px",
+                        fontSize: "11px",
+                        color: "#aaa",
+                      }}
+                    >
+                      Text copied!
+                    </span>
+                  )}
+                  <div className={styles.slug_container}>
+                    <p>
+                      {`www.lynq.app/${
+                        slug === "" && !slug ? "your-slug" : slug
+                      }`}
+                    </p>
+                    <AiOutlineCopy
+                      color="#7E88F4"
+                      size={23}
+                      onClick={() => {
+                        navigator.clipboard.writeText(`www.lynq.app/${slug}`);
+                        copyStatus();
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div>
                   <label>First Name</label>
                   <input
                     type="text"
@@ -263,25 +320,7 @@ const EditProfile = () => {
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label>
-                    Personalize your Lynq Public url
-                    <span>
-                      {" "}
-                      (
-                      {`www.lynq.app/${
-                        slug === "" ? "[your-slug-goes-here]" : slug
-                      }`}
-                      )
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                    placeholder="e.g chuck-norris"
-                  />
-                </div>
+
                 <div>
                   <label>City</label>
                   <input

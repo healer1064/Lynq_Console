@@ -542,8 +542,8 @@ body
     align-items: center
     cursor: pointer
     &-pic
-      height: 21px
-      width: 21px
+      height: 30px
+      width: 30px
       border-radius: 100%
       overflow: hidden
       margin-right: 8px
@@ -1733,20 +1733,37 @@ body
       height: 100%
       @include flex
       align-items: center
-      justify-content: center
+      justify-content: centerv
       border-right: 2px solid #D9E0E9
+      padding: 0 10px
       &:last-child
         border-right: none
+        text-align: center
       &.first__name
         width: 20%
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
       &.last__name
         width: 20%
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
       &.email
         width: 20%
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
       &.session
         width: 20%
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
       &.revenue
         width: 20%
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
       // &.actions
       //   width: 9.47%
     .action
@@ -2831,17 +2848,34 @@ body
     margin-top: 35px
     margin-bottom: 128px
     &__date
+      width: 100%
+      display: flex
+      justify-content: space-between
       font-weight: 800
       font-size: 32px
       line-height: 39px
       color: $black
       margin-bottom: 32px
-    h2
-      margin: 0 0 8px
-      font-weight: 600
-      font-size: 24px
-      line-height: 29px
-      color: $black
+      h2
+        margin: 0 0 8px
+        font-weight: 600
+        font-size: 24px
+        line-height: 29px
+        color: $black
+      span
+        background: #f0f0f0
+        padding: 10px 50px
+        text-align: center
+        border-radius: 8px
+        h4
+          margin: 0
+          font-weight: 700
+          font-size: 20px
+          line-height: 29px
+        h5
+          margin: 0
+          font-weight: 500
+          font-size: 17px
   &-stats
     width: 100%
     @include flex
@@ -2971,10 +3005,10 @@ body
         font-size: 22px
         line-height: 30px
         margin-bottom: 8px
-      h2
-        margin-bottom: 12px
-        font-size: 18px
-        line-height: 25px
+        h2
+          margin-bottom: 12px
+          font-size: 18px
+          line-height: 25px
     &-stats
       margin-top: 40px
       &__switch
@@ -3157,8 +3191,8 @@ body
           font-size: 15px
           margin-right: 4px
         &-pic
-          height: 18px
-          width: 18px
+          height: 30px
+          width: 30px
   .content-wrp
     padding: 0 32px
     width: calc(100% - 240px)
@@ -4792,6 +4826,13 @@ body
       &__date
         line-height: 27px
         margin-bottom: 12px
+        justify-content: flex-start
+        flex-direction: column
+        span
+          order: -1
+          width: 100%
+          padding: 20px 0px
+          margin-bottom: 20px
       h2
         line-height: 22px
     &-stats

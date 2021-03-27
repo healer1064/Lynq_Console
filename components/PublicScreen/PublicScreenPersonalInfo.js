@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import moment from "moment";
 
 // components
 import CheckoutForm from "./CheckoutForm";
@@ -48,6 +49,10 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
         });
     }
   };
+
+  console.log("momet", moment(activity.start_date).format("hh:mm A"));
+
+  console.log("dateeee", activity.start_date);
 
   const requsetBooking = async () => {
     // 5555555555554444 card number

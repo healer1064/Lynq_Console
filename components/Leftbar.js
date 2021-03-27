@@ -6,7 +6,8 @@ import Link from "next/link";
 import ProfileContext from "../context/profile";
 
 const Leftbar = ({ active }) => {
-  const { profile } = useContext(ProfileContext);
+  // context
+  const { profile, slugData } = useContext(ProfileContext);
 
   return (
     <div className="side-nav">
@@ -58,8 +59,10 @@ const Leftbar = ({ active }) => {
       <Link href="/account">
         <div className="side-nav__profile">
           <div className="side-nav__profile-pic ">
-            {/* <img src="/img/profile-pic.png" alt="" /> */}
-            {/* <span>{profile ? profile.fullname[0] : null}</span> */}
+            <img
+              src={slugData?.public_image ?? "/img/profile-pic.png"}
+              alt=""
+            />
           </div>
           <span>{profile?.fullname ?? "Username"}</span>
         </div>

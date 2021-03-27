@@ -22,7 +22,7 @@ import { dayNames, monthNames } from "../../utils/dates";
 
 const home = () => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, slugData } = useContext(ProfileContext);
 
   // router
   const router = useRouter();
@@ -167,8 +167,20 @@ const home = () => {
               </div>
               <Fade duration={1000}>
                 <div className="home-cnt">
-                  <div className="home-cnt__date">{fullDate()}</div>
-                  <h2>Today’s Session</h2>
+                  <div className="home-cnt__date">
+                    <div className="date-slug-inner">
+                      {fullDate()}
+                      <h2>Today’s Session</h2>
+                    </div>
+                    <span>
+                      <h4>Your Lynq url</h4>
+                      <h5>
+                        {slugData && slugData.slug
+                          ? `www.lynq.app/${slugData.slug}`
+                          : "You need to customize it in Public Profile"}
+                      </h5>
+                    </span>
+                  </div>
                   {appointmentList && appointmentList.length > 0 ? (
                     appointmentList.map((appointment) =>
                       appointment.appointments.map((item, index) => (

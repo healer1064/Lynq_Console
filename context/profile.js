@@ -7,6 +7,7 @@ const ProfileContext = createContext();
 export const ProfileProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [slugData, setslugData] = useState(null);
   const [eventType, setEventType] = useState(null);
 
   useEffect(() => {
@@ -31,7 +32,22 @@ export const ProfileProvider = ({ children }) => {
         localStorage.setItem("profile", JSON.stringify(data));
         setProfile(data);
       };
+      const fetchSlugProfile = async () => {
+        const config = {
+          method: "GET",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        };
 
+        const response = await fetch(
+          `https://api.lynq.app/account/public-profile?t=${token}`,
+          config
+        );
+
+        const _data = await response.json();
+        setslugData(_data);
+      };
+      fetchSlugProfile();
       getProfile();
     } else if (localStorage.getItem("linqToken") !== null) {
       setToken(localStorage.getItem("linqToken"));
@@ -44,6 +60,7 @@ export const ProfileProvider = ({ children }) => {
         token,
         setToken,
         profile,
+        slugData,
         eventType,
         setEventType,
       }}
