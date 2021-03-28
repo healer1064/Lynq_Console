@@ -9,7 +9,13 @@ import styles from "../../styles/PublicScreen.module.sass";
 // mock up Data
 import TimeSlots from "../../utils/data/SlotsFakeData";
 
-const PublicScreenCalendar = ({ slots, setTime, setError }) => {
+const PublicScreenCalendar = ({
+  slots,
+  setTime,
+  setError,
+  handleNextArrow,
+  handlePrevArrow,
+}) => {
   const [index, setIndex] = useState(-1);
   const [jIndex, setJIndex] = useState(-1);
 
@@ -27,10 +33,10 @@ const PublicScreenCalendar = ({ slots, setTime, setError }) => {
   return (
     <div className={styles.booking_calendar}>
       <div className={styles.calendar_head}>
-        <div>
+        <div onClick={handlePrevArrow}>
           <img src="/img/public-screen-left.svg" alt="left" />
         </div>
-        <div>
+        <div onClick={handleNextArrow}>
           <img src="/img/public-screen-right.svg" alt="right" />
         </div>
       </div>

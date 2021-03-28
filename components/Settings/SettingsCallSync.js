@@ -7,7 +7,9 @@ const SettingsCallSync = () => {
         <div className="title">You can connect your calendar with Lynq.</div>
         <div className="call-sync__calendar">
           <img src="/img/google-calendar.svg" alt="" />
-          <button>Connect</button>
+          <a href="https://cal.lynq.app" target="_blank">
+            Connect
+          </a>
         </div>
         <span className="btm__txt">
           <b>Two-way sync</b> - Add Lynq appointments to your outside calendar

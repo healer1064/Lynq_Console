@@ -31,7 +31,7 @@ const InvitationsList = ({ invitations }) => {
 
   return invitations.length === 0 ? (
     <div className="no-appointments">
-      <p>No requests to show</p>
+      <p>No invitations to show</p>
     </div>
   ) : (
     <div className={styles.invitations__list}>

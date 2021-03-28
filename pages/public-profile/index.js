@@ -35,6 +35,7 @@ const EditProfile = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [slug, setSlug] = useState("");
+  const [newSlug, setNewSlug] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [categories, setCategories] = useState([]);
@@ -53,6 +54,8 @@ const EditProfile = () => {
   const [profileLoading, setProfileLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [slugCopy, setSlugCopy] = useState(false);
+  const [slugNotAvail, setSlugNotAvail] = useState(false);
+  const [slugRule, setSlugRule] = useState(false);
 
   const imgRef = useRef();
 
@@ -68,6 +71,15 @@ const EditProfile = () => {
       setSlugCopy(false);
     };
   }, []);
+
+  useEffect(() => {
+    setSlugNotAvail(false);
+    if (/[^a-zA-Z0-9\.]/.test(slug)) {
+      setSlugRule(true);
+    } else {
+      setSlugRule(false);
+    }
+  }, [slug]);
 
   useEffect(() => {
     if (
@@ -100,6 +112,7 @@ const EditProfile = () => {
 
     if (response.status == 200) {
       setSlug(_data.slug);
+      setNewSlug(_data.slug);
       setCity(_data.location.split("-")[0]);
       setState(_data.location.split("-")[1]);
       setCategories(JSON.parse(_data.category));
@@ -128,8 +141,7 @@ const EditProfile = () => {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  const updateProfile = (e) => {
-    e.preventDefault();
+  const updateProfile = () => {
     setLoading(true);
     const _reqData = {
       id: profile.id,
@@ -207,6 +219,59 @@ const EditProfile = () => {
     });
   };
 
+  const checkSlugAvailability = (e) => {
+    e.preventDefault();
+
+    if (
+      slug === "" ||
+      !slug ||
+      slugRule ||
+      firstName === "" ||
+      lastName === "" ||
+      city === "" ||
+      state === "" ||
+      categories.length === 0 ||
+      generalPres === ""
+    ) {
+      toast.error("Please fill all required fields");
+    } else {
+      setLoading(true);
+
+      if (slug === newSlug) {
+        updateProfile();
+      } else {
+        async function check() {
+          const response = await fetch(
+            `https://api.lynq.app/account/public-profile/is-available/${slug}`,
+            {
+              method: "GET",
+            }
+          );
+
+          return await response.json();
+        }
+
+        check()
+          .then((res) => {
+            setLoading(false);
+            setSlugNotAvail(res.is_available);
+            if (res.is_available) {
+              console.log("available", res);
+              updateProfile();
+            } else {
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              console.log("not available", res);
+              return;
+            }
+          })
+          .catch((err) => {
+            console.log("error profile pic", err);
+            toast.error("An error has occurred");
+          });
+      }
+    }
+  };
+
   return (
     <>
       <Head>
@@ -227,7 +292,7 @@ const EditProfile = () => {
           ) : (
             <div className={styles.edit_profile}>
               <h3>Public Profile</h3>
-              <form onSubmit={(e) => updateProfile(e)}>
+              <form onSubmit={(e) => checkSlugAvailability(e)}>
                 <div className={styles.edit_profile_img_container}>
                   {image !== null ? (
                     <img src={image} className={styles.edit_profile_img} />
@@ -252,18 +317,18 @@ const EditProfile = () => {
                     >
                       Upload Picture
                     </button>
-                    <button
+                    {/* <button
                       onClick={(e) => {
                         e.preventDefault();
                         alert("no set yet");
                       }}
                     >
                       Delete
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <div>
-                  <label>Personalize your Public Lynq url</label>
+                  <label>Personalize your Public Lynq url *</label>
                   <input
                     type="text"
                     value={slug}
@@ -271,6 +336,19 @@ const EditProfile = () => {
                     placeholder="e.g chuck-norris"
                   />
                 </div>
+                {slugRule && (
+                  <p
+                    style={{
+                      marginTop: "-5px",
+                      marginBottom: "12px",
+                      marginLeft: "0px",
+                      fontSize: "12px",
+                      color: "red",
+                    }}
+                  >
+                    Please use only Alphanumeric characters and dot!
+                  </p>
+                )}
                 <div>
                   <label style={{ color: "#7E88F4" }}>
                     Here is how your public Lynq url will look like
@@ -302,10 +380,22 @@ const EditProfile = () => {
                       }}
                     />
                   </div>
+                  {slugNotAvail && (
+                    <p
+                      style={{
+                        marginTop: "-5px",
+                        marginBottom: "12px",
+                        marginLeft: "0px",
+                        fontSize: "12px",
+                        color: "red",
+                      }}
+                    >
+                      Slug not available! Try something else
+                    </p>
+                  )}
                 </div>
-
                 <div>
-                  <label>First Name</label>
+                  <label>First Name*</label>
                   <input
                     type="text"
                     value={firstName}
@@ -313,7 +403,7 @@ const EditProfile = () => {
                   />
                 </div>
                 <div>
-                  <label>Last Name</label>
+                  <label>Last Name*</label>
                   <input
                     type="text"
                     value={lastName}
@@ -322,7 +412,7 @@ const EditProfile = () => {
                 </div>
 
                 <div>
-                  <label>City</label>
+                  <label>City*</label>
                   <input
                     type="text"
                     value={city}
@@ -330,7 +420,7 @@ const EditProfile = () => {
                   />
                 </div>
                 <div>
-                  <label>State</label>
+                  <label>State*</label>
                   <input
                     type="text"
                     value={state}
@@ -339,7 +429,7 @@ const EditProfile = () => {
                 </div>
                 <div style={{ position: "relative" }}>
                   <label>
-                    Main Categories <span>(Choose upto 3)</span>
+                    Main Categories* <span>(Choose upto 3)</span>
                   </label>
                   <EditProfileDDCheck
                     state={categories}
@@ -382,7 +472,7 @@ const EditProfile = () => {
                 </div>
                 <h3>About</h3>
                 <div>
-                  <label>General presentation</label>
+                  <label>General presentation*</label>
                   <textarea
                     value={generalPres}
                     onChange={(e) => setGeneralPres(e.target.value)}

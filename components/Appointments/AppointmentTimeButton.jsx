@@ -1,5 +1,6 @@
+import moment from "moment";
+
 const AppointmentTimeButton = ({
-  getTime,
   setTime,
   time,
   index,
@@ -20,7 +21,7 @@ const AppointmentTimeButton = ({
         setItemIndex(`${index} ${pIndex}`);
       }}
     >
-      {getTime(time)}
+      {moment(time).format("hh:mm a")}
     </button>
   );
 };

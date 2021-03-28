@@ -11,6 +11,7 @@ import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
 import PublicScreenProfileInfo from "../../components/PublicScreen/PublicScreenProfileInfo";
 import PublicScreenSessions from "../../components/PublicScreen/PublicScreenSessions";
 import PublicScreenPersonalInfo from "../../components/PublicScreen/PublicScreenPersonalInfo";
+import moment from "moment";
 
 const Profile = ({ slug }) => {
   const [activity, setActicity] = useState(null);
@@ -18,10 +19,16 @@ const Profile = ({ slug }) => {
   const [slots, setSlots] = useState(null);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [data, setData] = useState(null);
+  const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
 
   useEffect(() => {
     getProfile();
   }, []);
+  useEffect(() => {
+    if (activity) {
+      fetchTimes();
+    }
+  }, [activity, startDate]);
 
   const getProfile = async () => {
     let config = {
@@ -44,15 +51,16 @@ const Profile = ({ slug }) => {
 
   const handleActivity = (_activity) => {
     setActicity(_activity);
+    // fetchTimes();
+  };
+
+  const fetchTimes = () => {
     setSlotsLoading(true);
-
-    const startDate = "10-10-2042";
-    const endDate = "10-10-2042";
-
+    const endDate = moment(startDate).add(3, "days").format("YYYY-MM-DD");
     // check avaliblity
     async function check_availabliity() {
       const response = await fetch(
-        `https://api.lynq.app/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${_activity.id}`,
+        `https://api.lynq.app/profile/${slug}/availability?start=${startDate}&end=${endDate}&activity_id=${activity.id}`,
         {
           method: "GET",
           headers: {
@@ -81,6 +89,13 @@ const Profile = ({ slug }) => {
     console.log("start date", _date);
     setActicity({ ...activity, start_date: _date });
     setBookOrder(true);
+  };
+
+  const handleNextArrow = () => {
+    setStartDate(moment(startDate).add(3, "days"));
+  };
+  const handlePrevArrow = () => {
+    setStartDate(moment(startDate).add(3, "days"));
   };
 
   return (
@@ -115,6 +130,8 @@ const Profile = ({ slug }) => {
               onHandle={handleActivity}
               loading={slotsLoading}
               handleTime={handleStartTime}
+              handleNextArrow={handleNextArrow}
+              handlePrevArrow={handlePrevArrow}
             />
           ) : (
             <PublicScreenPersonalInfo slug={slug} activity={activity} />

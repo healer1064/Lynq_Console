@@ -16,6 +16,8 @@ const PublicScreenSessions = ({
   onHandle,
   loading,
   handleTime,
+  handleNextArrow,
+  handlePrevArrow,
 }) => {
   const [timeError, setTimeError] = useState(false);
   const [time, setTime] = useState("");
@@ -56,6 +58,8 @@ const PublicScreenSessions = ({
                     slots={slots}
                     setTime={setTime}
                     setError={setTimeError}
+                    handleNextArrow={handleNextArrow}
+                    handlePrevArrow={handlePrevArrow}
                   />
                   {timeError && (
                     <span

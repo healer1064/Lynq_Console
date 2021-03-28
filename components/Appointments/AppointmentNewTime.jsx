@@ -1,14 +1,18 @@
 // libraries
 import { useState, useEffect } from "react";
-
-// utils
-import { getTime, fullDate } from "../../utils/dates";
+import moment from "moment";
 
 // components
 import PageLoading from "../common/PageLoading";
 import AppointmentTimeButton from "./AppointmentTimeButton";
 
-const AppointmentNewTime = ({ times, setTime, loading }) => {
+const AppointmentNewTime = ({
+  times,
+  setTime,
+  loading,
+  handleNextArrow,
+  handlePrevArrow,
+}) => {
   // states
   const [headDates, setHeadDates] = useState();
   const [bodyTimes, setBodyTimes] = useState();
@@ -36,7 +40,7 @@ const AppointmentNewTime = ({ times, setTime, loading }) => {
         <div />
       ) : (
         <div className="top">
-          <div className="arr prev">
+          <div className="arr prev" onClick={handlePrevArrow}>
             <img src="/img/appointment-time-prev.svg" alt="" />
           </div>
           <div className="days">
@@ -44,13 +48,13 @@ const AppointmentNewTime = ({ times, setTime, loading }) => {
               headDates.map((item, index) => {
                 return (
                   <div key={index} className="day">
-                    <b>{fullDate(item).split(",")[0]}</b>
-                    <span>{fullDate(item).split(",")[1]}</span>
+                    <b>{moment(item).format("dddd")}</b>
+                    <span>{moment(item).format("MMM DD")}</span>
                   </div>
                 );
               })}
           </div>
-          <div className="arr next">
+          <div className="arr next" onClick={handleNextArrow}>
             <img src="/img/appointment-time-next.svg" alt="" />
           </div>
         </div>
@@ -73,7 +77,6 @@ const AppointmentNewTime = ({ times, setTime, loading }) => {
                         <AppointmentTimeButton
                           key={ind}
                           time={time}
-                          getTime={getTime}
                           setTime={setTime}
                           pIndex={index}
                           index={ind}

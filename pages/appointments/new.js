@@ -1,4 +1,5 @@
 // libraries
+import moment from "moment";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
@@ -27,6 +28,7 @@ export default function AppointmentNew() {
   const [duration, setDuration] = useState("");
   const [price, setPrice] = useState("");
   const [day, setDay] = useState();
+  const [pickerDay, setPicker] = useState();
   const [time, setTime] = useState();
   const [times, setTimes] = useState(null);
   const [email, setEmail] = useState("");
@@ -74,11 +76,11 @@ export default function AppointmentNew() {
 
     const times = async () => {
       const response = await fetch(
-        `https://api.lynq.app/account/public-profile/availability?t=${token}&start=${day
-          .toLocaleDateString()
-          .replaceAll("/", "-")}&end=${day
-          .toLocaleDateString()
-          .replaceAll("/", "-")}&activity_id=${eventId}`,
+        `https://api.lynq.app/account/public-profile/availability?t=${token}&start=${moment(
+          day
+        ).format("YYYY-MM-DD")}&end=${moment(day)
+          .add(4, "days")
+          .format("YYYY-MM-DD")}&activity_id=${eventId}`,
         config
       );
 
@@ -93,7 +95,7 @@ export default function AppointmentNew() {
       })
       .catch((err) => {
         console.log(err);
-        toast.error(res.message);
+        toast.error(err.message);
       });
   };
 
@@ -168,6 +170,13 @@ export default function AppointmentNew() {
     } else {
       setError(true);
     }
+  };
+
+  const handleNextArrow = () => {
+    setDay(moment(day).add(2, "days").toString());
+  };
+  const handlePrevArrow = () => {
+    setDay(moment(day).subtract(2, "days").toString());
   };
 
   return (
@@ -260,21 +269,21 @@ export default function AppointmentNew() {
               <label style={{ position: "relative" }} className="quarter">
                 <strong>Day</strong>
                 <DatePicker
-                  selected={day}
+                  selected={pickerDay}
                   onChange={(date) => {
-                    setDay(date);
+                    setPicker(date);
+                    setDay(moment(date));
                   }}
                 />
               </label>
               <label className="three-quarter">
-                <strong></strong>
-                <strong></strong>
-                <strong></strong>
                 {day && eventId !== "" && (
                   <AppointmentNewTime
                     times={times}
                     setTime={setTime}
                     loading={timeLoading}
+                    handleNextArrow={handleNextArrow}
+                    handlePrevArrow={handlePrevArrow}
                   />
                 )}
               </label>

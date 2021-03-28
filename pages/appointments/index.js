@@ -177,6 +177,7 @@ export default function Appointments() {
   const [data, setData] = useState(null);
   const [apt, setApt] = useState(null);
   const [requests, setRequests] = useState(null);
+  const [invitations, setInvitations] = useState(null);
   const [temp, setTemp] = useState([]);
   const [tabIndex, setTabIndex] = useState(1);
 
@@ -190,6 +191,7 @@ export default function Appointments() {
     if (token) {
       fetchAppointments();
       fetchRequests();
+      fetchInvitations();
     }
   }, [token]);
 
@@ -227,6 +229,22 @@ export default function Appointments() {
     const _data = await response.json();
 
     setRequests(_data);
+  };
+
+  const fetchInvitations = async () => {
+    const config = {
+      method: "GET",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `https://api.lynq.app/account/appointments/pending_payments?t=${token}`,
+      config
+    );
+    const _data = await response.json();
+
+    setInvitations(_data);
   };
 
   const groupAppointment = (data) => {
@@ -343,7 +361,7 @@ export default function Appointments() {
                   />
                 </>
               ) : (
-                <InvitationsList invitations={fakeInvitations} />
+                <InvitationsList invitations={invitations} />
               )}
             </Fade>
           )}

@@ -1081,7 +1081,7 @@ body
   &__calendar
     @include flex
     align-items: center
-    button
+    a
       margin-left: 64px
       padding: 12px 24px
       border-radius: 5px
@@ -1093,6 +1093,8 @@ body
       line-height: 24px
       text-transform: uppercase
       color: #FFF
+      &:hover
+        color: white
 .appointments
   &-top
     width: 100%
@@ -1435,11 +1437,14 @@ body
           height: calc(232px - 16px)
           &::-webkit-scrollbar-track
             background: #FFF
+            cursor: pointer
           &::-webkit-scrollbar
-            width: 4px
+            cursor: pointer
+            width: 6px
             background: #FFF
           &::-webkit-scrollbar-thumb
             background: $lavender
+            cursor: pointer
         .col
           // width: 10.15%
           margin: 0 5px
@@ -1825,7 +1830,8 @@ body
     border: 1px solid #d9e0e9
     .payment-history-table-head
       display: grid
-      grid-template-columns: 1fr 1fr 1fr 1fr
+      grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr
+      column-gap: 20px
       border-bottom: 1px solid #D9E0E9
       p
         width: 100%
@@ -1834,19 +1840,29 @@ body
         font-weight: 700
         margin-bottom: 8px
         text-align: center
+        &:not(:last-child)
+          text-align: left
+          
+        
     .payment-history-table-body
       display: grid
-      grid-template-columns: 1fr 1fr 1fr 1fr
+      grid-template-columns: 0.5fr 1fr 0.5fr 0.5fr
+      column-gap: 20px
+      align-items: center
       border-bottom: 1px solid #D9E0E9
       p
         width: 100%
         color: #303030
         font-size: 14px
         font-weight: 400
-        margin-bottom: 8px
+        margin-bottom: 0px
         text-align: center
-        vertical-align: middle
-
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        padding: 10px 0px
+        &:not(:last-child)
+          text-align: left
         span
           width: 70%
           display: inline-block
@@ -3239,14 +3255,14 @@ body
           font-size: 14px
           line-height: 17px
       &__add
-        margin-top: 13px
-        height: 16px
+        margin-top: 0px
+        height: auto
         width: 16px
       &__row
         min-height: 41px
         &.available
           .setup-table__day
-            margin-top: 19px
+            margin-top: 0px
     &-notifications
       width: calc(100% - 72.22%)
       &__card
