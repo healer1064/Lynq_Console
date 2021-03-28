@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Fade from "react-reveal/Fade";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -14,6 +15,53 @@ import Leftbar from "../../components/Leftbar";
 import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
 import PageLoading from "../../components/common/PageLoading";
+import PaymentTabs from "../../components/Payment/PaymentTabs";
+import PaymentsDetails from "../../components/Payment/PaymentsDetails";
+
+const details = [
+  {
+    type: "Test Type",
+    client_email: "Test@email.com",
+    price: 50,
+    starting_date: "Mar 21, 2021",
+    status: "Completed",
+  },
+  {
+    type: "Test Type",
+    client_email: "Test@email.com",
+    price: 50,
+    starting_date: "Mar 21, 2021",
+    status: "Coming",
+  },
+  {
+    type: "Test Type",
+    client_email: "Test@email.com",
+    price: 50,
+    starting_date: "Mar 21, 2021",
+    status: "Awaiting Payment",
+  },
+  {
+    type: "Test Type",
+    client_email: "Test@email.com",
+    price: 50,
+    starting_date: "Mar 21, 2021",
+    status: "Completed",
+  },
+  {
+    type: "Test Type",
+    client_email: "Test@email.com",
+    price: 50,
+    starting_date: "Mar 21, 2021",
+    status: "Coming",
+  },
+  {
+    type: "Test Type",
+    client_email: "Test@email.com",
+    price: 50,
+    starting_date: "Mar 21, 2021",
+    status: "Awaiting Payment",
+  },
+];
 
 export default function Payment() {
   // router
@@ -25,7 +73,7 @@ export default function Payment() {
   // states
   const [payment, setPayment] = useState();
   const [loading, setLoading] = useState(false);
-
+  const [tabIndex, setTabIndex] = useState(1);
   const [data, setData] = useState(null);
 
   const getPayments = async () => {
@@ -131,16 +179,24 @@ export default function Payment() {
           {!data ? (
             <PageLoading />
           ) : (
-            <div className="payment">
-              <h3 style={{ marginTop: "20px" }}>Payment</h3>
-              <RequestPayment
-                data={data}
-                payment={payment}
-                loading={loading}
-                getBusinessData={getBusinessData}
-              />
-              <PaymentHistory data={data.transfer_history} />
-            </div>
+            <Fade>
+              <div className="payment">
+                <PaymentTabs tabIndex={tabIndex} setTabIndex={setTabIndex} />
+                {tabIndex == 1 ? (
+                  <>
+                    <RequestPayment
+                      data={data}
+                      payment={payment}
+                      loading={loading}
+                      getBusinessData={getBusinessData}
+                    />
+                    <PaymentHistory data={data.transfer_history} />
+                  </>
+                ) : (
+                  <PaymentsDetails data={details} />
+                )}
+              </div>
+            </Fade>
           )}
         </div>
       </div>

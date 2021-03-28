@@ -3,12 +3,12 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 // styles
-import styles from "../styles/PublicScreen.module.sass";
+import styles from "../../styles/PublicScreen.module.sass";
 
 // components
-import Navbar from "../components/Navbar";
-import PublicScreenHead from "../components/PublicScreen/PublicScreenHead";
-import PublicScreenButton from "../components/PublicScreen/PublicScreenButton";
+import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
+import PublicScreenHead from "../../components/PublicScreen/PublicScreenHead";
+import PublicScreenButton from "../../components/PublicScreen/PublicScreenButton";
 
 const PublicScreen5 = () => {
   const router = useRouter();
@@ -16,7 +16,7 @@ const PublicScreen5 = () => {
   return (
     <>
       <Head>
-        <title>Public Screen 5</title>
+        <title>Appointment Confirmed</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
@@ -83,7 +83,7 @@ const PublicScreen5 = () => {
         </div>
       </div>
     </>
-  );
+  )
 };
 
 export default PublicScreen5;

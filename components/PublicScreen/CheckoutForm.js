@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import styles from "../../styles/PublicScreen.module.sass";
 import PublicScreenLoading from "./PublicScreenLoading";
 
-const CheckoutForm = ({ order }) => {
+const CheckoutForm = ({ order, slug }) => {
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
@@ -89,7 +89,7 @@ const CheckoutForm = ({ order }) => {
         if (result.paymentIntent.status === "succeeded") {
           // router.push('/checkout/success/' + order.id)
           setLoading(false);
-          router.push("/public-screen5");
+          router.push(`/${slug}/123`);
         }
       }
     }

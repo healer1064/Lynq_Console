@@ -9,8 +9,6 @@ const ClientItem = ({ data }) => {
     display_price: price,
   } = data;
 
-  console.log(data);
-
   return (
     <div className="row">
       <ReactTooltip />

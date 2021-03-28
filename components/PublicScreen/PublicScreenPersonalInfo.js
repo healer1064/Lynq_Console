@@ -199,7 +199,7 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
         </div>
       ) : (
         <Elements stripe={stripePromise}>
-          <CheckoutForm order={order} />
+          <CheckoutForm order={order} slug={slug} />
         </Elements>
       )}
     </div>
