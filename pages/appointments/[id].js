@@ -2,12 +2,10 @@ import Head from "next/head";
 import React, { useEffect, useContext, useState } from "react";
 import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 // context
 import ProfileContext from "../../context/profile";
-
-// utils
-import { fullDate, getTime } from "../../utils/dates";
 
 // components
 import PageLoading from "../../components/common/PageLoading";
@@ -24,8 +22,10 @@ const AppointmentDetails = () => {
   // id
   const { id } = router.query;
 
-  // state
+  // states
   const [data, setData] = useState(null);
+  const [message, setMessage] = useState(false);
+  const [checkbox, setCheckbox] = useState(false);
 
   const fetchAppointment = async () => {
     let config = {
@@ -97,12 +97,16 @@ const AppointmentDetails = () => {
                     </div>
                     <div className="info__col">
                       <strong>Day</strong>
-                      <p>{fullDate(data.starting_date)}</p>
+                      <p>
+                        {moment(data.starting_date).format(
+                          "dddd, MMMM DD, YYYY"
+                        )}
+                      </p>
                     </div>
 
                     <div className="info__col">
                       <strong>Time</strong>
-                      <p>{getTime(data.starting_date)}</p>
+                      <p>{moment(data.starting_date).format("hh:mm a")}</p>
                     </div>
                     <div style={{ display: "flex" }}>
                       <div
@@ -133,51 +137,64 @@ const AppointmentDetails = () => {
                       <strong>Invitation URL</strong>
                       <p>lynq.app/xyzxyz (No value in my fake data)</p>
                     </div>
-
-                    <label className="signup-form__terms">
-                      <input
-                        type="checkbox"
-                        //   checked={terms}
-                        //   onChange={(e) => {
-                        //     setTerms(e.target.checked);
-                        //     if (errors.termsError) {
-                        //       setErrors({ ...errors, termsError: false });
-                        //     }
-                        //   }}
-                      />
-                      <div className="checkmark"></div>
-                      <span>
-                        <strong
-                          style={{ fontWeight: "bold" }}
-                          Send
-                          the
-                          invitation
-                          to
-                          your
-                          client
+                    {message ? (
+                      <div>
+                        <p
+                          style={{
+                            fontStyle: "italic",
+                            color: "#7E88F4",
+                            marginBottom: "5px",
+                            fontSize: "13px",
+                          }}
                         >
-                          Send the invitation to your client
-                        </strong>
-                      </span>
-                    </label>
-                    <div
-                      style={{
-                        background: "#80c904",
-                        padding: "6px 25px",
-                        color: "white",
-                        borderRadius: "8px",
-                        cursor: "pointer",
-                        zIndex: "100",
-                        alignSelf: "flex-start",
-                      }}
-                    >
-                      Send
-                    </div>
-
-                    <div
-                      style={{ marginTop: "50px" }}
-                      className="appointment-request__btns"
-                    >
+                          The invitation was sent Monday 26 March –09:19AM{" "}
+                        </p>
+                        <p
+                          style={{
+                            fontStyle: "italic",
+                            fontSize: "13px",
+                            marginTop: "0px",
+                          }}
+                        >
+                          Payment Status: Waiting for payment{" "}
+                        </p>
+                      </div>
+                    ) : (
+                      <>
+                        <label className="signup-form__terms">
+                          <input
+                            type="checkbox"
+                            checked={checkbox}
+                            onChange={(e) => {
+                              setCheckbox(e.target.checked);
+                            }}
+                          />
+                          <div className="checkmark"></div>
+                          <span>
+                            <strong
+                              style={{ fontWeight: "bold" }}
+                              Send
+                              the
+                              invitation
+                              to
+                              your
+                              client
+                            >
+                              Send the invitation to your client
+                            </strong>
+                          </span>
+                        </label>
+                        {checkbox && (
+                          <button
+                            className="send-invite-btn"
+                            onClick={() => setMessage(true)}
+                          >
+                            Send
+                          </button>
+                        )}
+                      </>
+                    )}
+                    <div className="appointment-request__btns">
                       <button
                         // onClick={() => handleDelete()}
                         className="reject"

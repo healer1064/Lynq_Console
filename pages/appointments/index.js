@@ -11,13 +11,13 @@ import Leftbar from "../../components/Leftbar";
 import AppointmentsList from "../../components/Appointments/AppointmentsList";
 import RequestList from "../../components/Appointments/Request/RequestList";
 import PageLoading from "../../components/common/PageLoading";
+import InvitationsList from "../../components/Appointments/Invitations/InvitationsList";
 
 // context
 import ProfileContext from "../../context/profile";
 
 // helpers
 import { getCurrentWeek } from "../../utils/DateHelper";
-import InvitationsList from "../../components/Appointments/Invitations/InvitationsList";
 
 const fakeInvitations = [
   {
@@ -355,7 +355,7 @@ export default function Appointments() {
               ) : tabIndex == 2 ? (
                 <>
                   <RequestList
-                    requestList={requests}
+                    requestList={fakeInvitations}
                     apt={apt}
                     setTabIndex={setTabIndex}
                   />

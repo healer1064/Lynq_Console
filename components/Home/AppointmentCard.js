@@ -1,30 +1,44 @@
-// utils
-import { getTime, fullDate, getDuration } from "../../utils/dates";
+// libraries
+import moment from "moment";
+import Link from "next/link";
 
 const AppointmentCard = ({ data, toggle }) => {
   return (
-    // <div className={`appointments-col__event ${data.type like blue or red}`}>
     <div className={`appointments-col__event blue`}>
       <div className="title">Test Name (Not coming from backend)</div>
       <div className="det">
-        {fullDate(data.starting_date)}
+        {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
         <div className="line"></div>
         <b>
-          {getTime(data.starting_date)} - {getTime(data.ending_date)}
+          {moment(data.starting_date).format("hh:mm a")} - Need duration from
+          backend
         </b>
         <div className="line"></div>
-        <b>{getDuration(data.starting_date, data.ending_date)}</b>
+        <b>No duration from backend</b>
       </div>
       <div className="client">
         Client: {data.first_name + " " + data.last_name}
         <div className="line"></div>
         {data.email}
       </div>
-      {/* {data.type === "blue" && ( */}
-      <button className="btnCancel" onClick={() => toggle(data.id)}>
-        Cancel Appointment
-      </button>
-      {/* )} */}
+
+      <div>
+        <button
+          className="btnCancel"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggle(data.id);
+          }}
+        >
+          Cancel Appointment
+        </button>
+        {data.status.toLowerCase().includes("awaiting-payment") && (
+          <span className="payment-not-paid">
+            This session has not been paid by your client.{" "}
+            <Link href={`/appointments/${data.id}`}>See details here</Link>
+          </span>
+        )}
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Fade from "react-reveal/Fade";
+import moment from "moment";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -11,14 +12,13 @@ import ProfileContext from "../../context/profile";
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
 import EmailConfirmation from "../../components/Home/EmailConfirmation";
-import AppointmentCard from "../../components/Home/AppointmentCard";
-import Stats from "../../components/Home/Stats";
 import PageLoading from "../../components/common/PageLoading";
 import Modal from "../../components/common/Modal";
+import HomeStats from "../../components/Home/HomeStats";
+import HomeAppointmentsList from "../../components/Home/HomeAppointmentsList";
 
 // mockup data
 import data from "../../utils/data";
-import { dayNames, monthNames } from "../../utils/dates";
 
 const home = () => {
   // context
@@ -30,8 +30,6 @@ const home = () => {
   // states
   const [preLoading, setPreLoading] = useState(true);
   const [appointmentList, setAppointmentList] = useState(null);
-  const [index, setIndex] = useState(1);
-  const [stats, setStats] = useState(data.home.stats.today);
   const [isOpen, setIsOpen] = useState(false);
   const [id, setId] = useState(-1);
 
@@ -84,8 +82,8 @@ const home = () => {
     }
 
     const filteredArray = groupArrays.filter((i) => {
-      var currentDate = new Date().getDate();
-      var date = new Date(i.date).getDate();
+      var currentDate = moment().format("YYYY-MM-DD");
+      var date = moment(i.date).format("YYYY-MM-DD");
       return date == currentDate;
     });
 
@@ -104,9 +102,9 @@ const home = () => {
   };
 
   const fullDate = () => {
-    const date = new Date();
-    return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]}
-     ${date.getDate()}, ${date.getFullYear()}`;
+    const date = moment().toDate();
+    return `${moment(date).format("dddd")}, ${moment(date).format("MMMM")}
+     ${moment(date).format("DD")}, ${moment(date).format("YYYY")}`;
   };
 
   if (preLoading)
@@ -181,81 +179,11 @@ const home = () => {
                       </h5>
                     </span>
                   </div>
-                  {appointmentList && appointmentList.length > 0 ? (
-                    appointmentList.map((appointment) =>
-                      appointment.appointments.map((item, index) => (
-                        <AppointmentCard
-                          key={index}
-                          data={item}
-                          toggle={toggle}
-                        />
-                      ))
-                    )
-                  ) : (
-                    <div className="no-appointments">
-                      <p>No appointments for today</p>
-                    </div>
-                  )}
-                  <div className="home-stats" style={{ paddingBottom: "50px" }}>
-                    <div className="home-stats__switch">
-                      <div
-                        className={`option  ${index === 1 && "active"}`}
-                        onClick={() => {
-                          setIndex(1);
-                          setStats(data.home.stats.today);
-                        }}
-                      >
-                        Today
-                      </div>
-                      <div
-                        className={`option  ${index === 2 && "active"}`}
-                        onClick={() => {
-                          setIndex(2);
-                          setStats(data.home.stats.weekly);
-                        }}
-                      >
-                        Weekly
-                      </div>
-                      <div
-                        className={`option  ${index === 3 && "active"}`}
-                        onClick={() => {
-                          setIndex(3);
-                          setStats(data.home.stats.monthly);
-                        }}
-                      >
-                        Monthly
-                      </div>
-                      <div
-                        className={`option  ${index === 4 && "active"}`}
-                        onClick={() => {
-                          setIndex(4);
-                          setStats(data.home.stats.yearly);
-                        }}
-                      >
-                        Yearly
-                      </div>
-                    </div>
-                    <select
-                      value={index}
-                      onChange={(e) => {
-                        setIndex(e.target.value);
-                        e.target.value == 1
-                          ? setStats(data.home.stats.today)
-                          : e.target.value == 2
-                          ? setStats(data.home.stats.weekly)
-                          : e.target.value == 3
-                          ? setStats(data.home.stats.monthly)
-                          : setStats(data.home.stats.yearly);
-                      }}
-                      className="home-stats__select"
-                    >
-                      <option value={1}>Today</option>
-                      <option value={2}>Weekly</option>
-                      <option value={3}>Monthly</option>
-                      <option value={4}>Yearly</option>
-                    </select>
-                    <Stats stats={stats} />
-                  </div>
+                  <HomeAppointmentsList
+                    appointmentList={appointmentList}
+                    toggle={toggle}
+                  />
+                  <HomeStats data={data} />
                 </div>
               </Fade>
             </>

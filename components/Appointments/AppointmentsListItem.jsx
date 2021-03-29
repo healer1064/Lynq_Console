@@ -1,19 +1,16 @@
 // libraries
 import { useState, useEffect } from "react";
+import moment from "moment";
 import Fade from "react-reveal/Fade";
 
 // components
 import AppointmentCard from "../Home/AppointmentCard";
 import Modal from "../common/Modal";
 
-// utils
-import { fullDateWithoutDay, dayName } from "../../utils/dates";
-
-const AppointmentsListItem = ({ data }) => {
+const AppointmentsListItem = ({ data, setShowModel }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
-  const [showModel, setShowModel] = useState(false);
 
   const { date, appointments } = data;
 
@@ -45,9 +42,9 @@ const AppointmentsListItem = ({ data }) => {
         className="appointments-col__card"
       >
         <div className="det">
-          {dayName(date)}
+          {moment(date).format("dddd")}
           <div className="line"></div>
-          {fullDateWithoutDay(date)}
+          {moment(date).format("MMMM DD, YYYY")}
           <div className="line"></div>
           <b>{appointments.length} appointments</b>
         </div>
