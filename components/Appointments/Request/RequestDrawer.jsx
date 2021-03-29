@@ -8,6 +8,7 @@ import styles from "./Request.module.css";
 
 // utils
 import { fullDate, getDuration, getTime } from "../../../utils/dates";
+import moment from "moment";
 
 const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
   const [appointments, setAppointments] = useState(null);
@@ -34,8 +35,8 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
     }
 
     const filteredArray = groupArrays.filter((i) => {
-      var currentDate = new Date(thatDate).getDate();
-      var date = new Date(i.date).getDate();
+      var currentDate = moment(thatDate).format("YYYY-MM-DD");
+      var date = moment(i.date).format("YYYY-MM-DD");
       return date == currentDate;
     });
 
@@ -52,35 +53,38 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
       visible={isOpen}
     >
       <Fade duration={600}>
-        {!appointments ? (
-          <h1>Loading...</h1>
-        ) : appointments.length == 0 ? (
-          <div>
-            <h3>No Appointments For Today</h3>
-          </div>
-        ) : (
-          appointments.map((i) =>
-            i.appointments.map((item, index) => (
-              <div
-                key={index}
-                className={`${styles.request_drawer_item} ${styles.blue}`}
-              >
-                <div className={styles.title}>
-                  (No field in backend for event type)
+        <>
+          {!appointments ? (
+            <h1>Loading...</h1>
+          ) : appointments.length == 0 ? (
+            <div>
+              <h3>No Appointments For Today</h3>
+            </div>
+          ) : (
+            appointments.map((i) =>
+              i.appointments.map((item, index) => (
+                <div
+                  key={index}
+                  className={`${styles.request_drawer_item} ${styles.blue}`}
+                >
+                  <div className={styles.title}>
+                    (No field in backend for event type)
+                  </div>
+                  <div className={styles.det}>
+                    {moment(item.starting_date).format("ddd, MMM DD, YYYY")}
+                    <div className={styles.line}></div>
+                    <b>
+                      {moment(item.starting_date).format("hh:mm a")} -
+                      "duration"
+                    </b>
+                    <div className={styles.line}></div>
+                    <b>duration</b>
+                  </div>
                 </div>
-                <div className={styles.det}>
-                  {fullDate(item.starting_date)}
-                  <div className={styles.line}></div>
-                  <b>
-                    {getTime(item.starting_date)} - {getTime(item.ending_date)}
-                  </b>
-                  <div className={styles.line}></div>
-                  <b>{getDuration(item.starting_date, item.ending_date)} Min</b>
-                </div>
-              </div>
-            ))
-          )
-        )}
+              ))
+            )
+          )}
+        </>
       </Fade>
     </Drawer>
   );

@@ -19,7 +19,7 @@ const Navbar = ({ active }) => {
   return (
     <>
       <header className="header">
-        <Link href="/home">
+        <Link href="/">
           <a className="header-logo ">
             <img src="/img/lynq-logo.png" alt="" />
           </a>
@@ -45,7 +45,7 @@ const Navbar = ({ active }) => {
           </div>
           <Fade duration={1000}>
             <div className="mobile-nav-main-link">
-              <Link href="/home">
+              <Link href="/">
                 <a className={active === "" ? "active" : ""}>
                   <span>Home</span>
                 </a>

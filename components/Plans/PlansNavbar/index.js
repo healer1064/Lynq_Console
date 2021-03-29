@@ -7,7 +7,7 @@ const PlansNavbar = () => {
   return (
     <>
       <header className="header">
-        <Link href="/">
+        <Link href="/plans">
           <a className="header-logo ">
             <img src="/img/lynq-logo.png" alt="" />
           </a>

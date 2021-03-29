@@ -43,7 +43,7 @@ const index = () => {
       setLoading(false);
       if (res?.message === undefined) {
         setToken(res.token);
-        router.push("/home");
+        router.push("/");
       } else {
         toast.error(res.message);
       }
@@ -64,7 +64,7 @@ const index = () => {
       <div className="signup">
         <SignupLeftbar />
         <div className="signup-form">
-          <Link href="/">
+          <Link href="/plans">
             <a className="signup-form__logo">
               <img src="/img/lynq-logo.png" alt="" />
             </a>

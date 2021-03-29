@@ -1,7 +1,7 @@
 // libraries
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,15 +26,6 @@ export default function Contact() {
 
   // useContext
   const { token } = useContext(ProfileContext);
-
-  useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
-  }, []);
 
   const handleSubmit = () => {
     if (message !== "") {

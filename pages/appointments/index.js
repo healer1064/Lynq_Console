@@ -151,7 +151,7 @@ const fakeInvitations = [
   {
     id: "11",
     profile_id: "642dfee1-57f4-4c4d-b0cc-39742ce9117b",
-    starting_date: "2021-03-21T17:23:34",
+    starting_date: "2021-05-21T17:23:34",
     ending_date: "2021-03-21T17:23:34",
     activity_id: "10-10",
     summary: "Booking with Client (Yoga 40 mins)",
@@ -180,20 +180,15 @@ export default function Appointments() {
   const [invitations, setInvitations] = useState(null);
   const [temp, setTemp] = useState([]);
   const [tabIndex, setTabIndex] = useState(1);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
     if (token) {
       fetchAppointments();
       fetchRequests();
       fetchInvitations();
     }
-  }, [token]);
+  }, [token, success]);
 
   const fetchAppointments = async () => {
     const config = {
@@ -348,20 +343,30 @@ export default function Appointments() {
                   <Fade duration={1200}>
                     <div>
                       <AppointmentsTop onWeekChange={onWeekChange} />
-                      <AppointmentsList appointmentList={data} />
+                      <AppointmentsList
+                        appointmentList={data}
+                        success={success}
+                        setSuccess={setSuccess}
+                      />
                     </div>
                   </Fade>
                 </>
               ) : tabIndex == 2 ? (
                 <>
                   <RequestList
-                    requestList={fakeInvitations}
+                    // requestList={fakeInvitations}
+                    requestList={requests}
                     apt={apt}
                     setTabIndex={setTabIndex}
+                    success={success}
+                    setSuccess={setSuccess}
                   />
                 </>
               ) : (
-                <InvitationsList invitations={invitations} />
+                <InvitationsList
+                  // invitations={fakeInvitations}
+                  invitations={invitations}
+                />
               )}
             </Fade>
           )}

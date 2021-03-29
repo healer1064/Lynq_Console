@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
+import moment from "moment";
 
 // components
 import Loading from "../../common/Loading";
 import RequestDrawer from "./RequestDrawer";
-
-// utils
-import { fullDate, getTime, getDuration, timeAgo } from "../../../utils/dates";
 
 const RequestDetail = ({
   data,
@@ -31,7 +29,7 @@ const RequestDetail = ({
               isOpen={isOpen}
               toggle={toggleDrawer}
               apt={apt}
-              day={fullDate(data.starting_date)}
+              day={moment(data.starting_date).format("ddd, MMM DD, YYYY")}
               thatDate={data.starting_date}
             />
           )}
@@ -44,7 +42,7 @@ const RequestDetail = ({
           </a>
           <h2>Appointment Request</h2>
           <span className="received__time">
-            Received {timeAgo(data.starting_date)}
+            Received: 'no created at field in backend'
           </span>
           <ToastContainer />
           <div className="info__col">
@@ -53,7 +51,7 @@ const RequestDetail = ({
           </div>
           <div className="info__col">
             <strong>Duration</strong>
-            <p>{getDuration(data.starting_date, data.ending_date)}</p>
+            <p>No duration field from backend</p>
           </div>
           <div className="info__col">
             <strong>Price</strong>
@@ -61,7 +59,7 @@ const RequestDetail = ({
           </div>
           <div className="info__col">
             <strong>Day</strong>
-            <p>{fullDate(data.starting_date)}</p>
+            <p>{moment(data.starting_date).format("dddd, MMMM DD, YYYY")}</p>
             <span className="see__day" onClick={() => setIsOpen(true)}>
               See you how your day look like
             </span>
@@ -69,7 +67,7 @@ const RequestDetail = ({
 
           <div className="info__col">
             <strong>Time</strong>
-            <p>{getTime(data.starting_date)}</p>
+            <p>{moment(data.starting_date).format("hh:mm a")}</p>
           </div>
           <div className="info__col">
             <strong>Appointment made by</strong>

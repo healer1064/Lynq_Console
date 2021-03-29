@@ -7,10 +7,9 @@ import styles from "../../styles/PublicScreen.module.sass";
 
 // components
 import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
-import PublicScreenHead from "../../components/PublicScreen/PublicScreenHead";
 import PublicScreenButton from "../../components/PublicScreen/PublicScreenButton";
 
-const PublicScreen5 = () => {
+const OrderConfirm = () => {
   const router = useRouter();
 
   return (
@@ -26,7 +25,6 @@ const PublicScreen5 = () => {
       <Navbar />
       <div className={styles.public_screen}>
         <div className={styles.public_screen_5}>
-          {/* <PublicScreenHead /> */}
           <div className={styles.public_screen_body}>
             <div className={styles.order_summary_container}>
               <div className={styles.order_summary}>
@@ -83,7 +81,7 @@ const PublicScreen5 = () => {
         </div>
       </div>
     </>
-  )
+  );
 };
 
-export default PublicScreen5;
+export default OrderConfirm;

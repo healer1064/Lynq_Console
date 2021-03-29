@@ -1,5 +1,5 @@
 // libraries
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,6 +15,7 @@ import PageLoading from "../../components/common/PageLoading";
 
 // context
 import ProfileContext from "../../context/profile";
+import { createRef } from "react";
 
 const Account = () => {
   const { token } = useContext(ProfileContext);
@@ -59,12 +60,6 @@ const Account = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
     if (token) {
       getProfileData();
       getBusinessData();
@@ -291,10 +286,6 @@ const Account = () => {
                     <img src="/img/account-send.svg" alt="current-plan" />
                     <p>Current Plan</p>
                   </div>
-                  {/* <div>
-                  <img src="/img/account-send.svg" alt="current-plan" />
-                  <p>Informations</p>
-                </div> */}
                   <div>
                     <img src="/img/account-send.svg" alt="current-plan" />
                     <p>Personal Information</p>
@@ -310,7 +301,6 @@ const Account = () => {
                 </div>
                 <select className="account-content-side-nav-mob">
                   <option>Current Plan</option>
-                  {/* <option>Informations</option> */}
                   <option>Business Information</option>
                   <option>Business & Payments</option>
                   <option>Change Password</option>

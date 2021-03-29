@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import Fade from "react-reveal/Fade";
+import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,10 +11,13 @@ import RequestDetail from "./RequestDetail";
 // context
 import ProfileContext from "../../../context/profile";
 
-// utils
-import { fullDate, timeAgo } from "../../../utils/dates";
-
-const RequestList = ({ requestList, apt, setTabIndex }) => {
+const RequestList = ({
+  requestList,
+  apt,
+  setTabIndex,
+  success,
+  setSuccess,
+}) => {
   // context
   const { token } = useContext(ProfileContext);
 
@@ -45,6 +49,7 @@ const RequestList = ({ requestList, apt, setTabIndex }) => {
       console.log("res accept", res);
       setAcceptLoading(false);
       if (res.status === 200) {
+        setSuccess(!success);
         setTabIndex(1);
       } else {
         toast.error("An error has occurred");
@@ -74,6 +79,7 @@ const RequestList = ({ requestList, apt, setTabIndex }) => {
       console.log("res reject", res);
       setRejectLoading(false);
       if (res.status === 200) {
+        setSuccess(!success);
         setTabIndex(1);
       } else {
         // toast.error(res.message);
@@ -103,13 +109,15 @@ const RequestList = ({ requestList, apt, setTabIndex }) => {
             >
               <div className="appointments-col__card">
                 <div className="det">
-                  <b>{fullDate(item.starting_date)}</b>
+                  <b>
+                    {moment(item.starting_date).format("ddd, MMMM DD, YYYY")}
+                  </b>
                   <div className="line"></div>
                   Event Name (not from backend)
                   <div className="line"></div>
                   {item.email}
                   <div className="line"></div>
-                  {"Invitation Sent: " + timeAgo(item.starting_date)}
+                  {"Invitation Sent: 'No created at field in backend'"}
                 </div>
                 <div
                   className="arrow"

@@ -12,7 +12,7 @@ const Leftbar = ({ active }) => {
   return (
     <div className="side-nav">
       <nav>
-        <Link href="/home">
+        <Link href="/">
           <a className={active === "" ? "active" : ""}>
             <img src="/img/nav-home.svg" alt="" />
             <span>Home</span>
@@ -60,6 +60,7 @@ const Leftbar = ({ active }) => {
         <div className="side-nav__profile">
           <div className="side-nav__profile-pic ">
             <img
+              style={{ objectPosition: "top" }}
               src={slugData?.public_image ?? "/img/profile-pic.png"}
               alt=""
             />

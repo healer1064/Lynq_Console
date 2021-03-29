@@ -82,12 +82,6 @@ const EditProfile = () => {
   }, [slug]);
 
   useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
     if (token) {
       fetchProfile();
     }
@@ -111,19 +105,19 @@ const EditProfile = () => {
     setProfileLoading(false);
 
     if (response.status == 200) {
-      setSlug(_data.slug);
-      setNewSlug(_data.slug);
-      setCity(_data.location.split("-")[0]);
-      setState(_data.location.split("-")[1]);
-      setCategories(JSON.parse(_data.category));
-      setGeneralPres(_data.about);
-      setFacebook(_data.facebook);
-      setInstagram(_data.instagram);
-      setYoutube(_data.youtube);
-      setWebsite(_data.personal_website);
-      setFirstName(_data.name.split(" ")[0]);
-      setLastName(_data.name.split(" ")[1]);
-      setWhatToExpect(_data.expect_details);
+      setSlug(_data.slug || "");
+      setNewSlug(_data.slug || "");
+      setCity(_data.location?.split("-")[0] ?? "");
+      setState(_data.location?.split("-")[1] ?? "");
+      setCategories(JSON.parse(_data.category) || []);
+      setGeneralPres(_data.about || "");
+      setFacebook(_data.facebook || "");
+      setInstagram(_data.instagram || "");
+      setYoutube(_data.youtube || "");
+      setWebsite(_data.personal_website || "");
+      setFirstName(_data.name?.split(" ")[0] ?? "");
+      setLastName(_data.name?.split(" ")[1] ?? "");
+      setWhatToExpect(_data.expect_details || "");
       setImage(_data.public_image || null);
     }
   };

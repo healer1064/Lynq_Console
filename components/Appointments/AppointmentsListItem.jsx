@@ -7,10 +7,11 @@ import Fade from "react-reveal/Fade";
 import AppointmentCard from "../Home/AppointmentCard";
 import Modal from "../common/Modal";
 
-const AppointmentsListItem = ({ data, setShowModel }) => {
+const AppointmentsListItem = ({ data }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
+  const [showModel, setShowModel] = useState(false);
 
   const { date, appointments } = data;
 

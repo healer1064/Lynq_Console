@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
 import moment from "moment";
@@ -51,8 +51,6 @@ const AppointmentDetails = () => {
       fetchAppointment();
     }
   }, [token, id]);
-
-  console.log(data);
 
   return (
     <>

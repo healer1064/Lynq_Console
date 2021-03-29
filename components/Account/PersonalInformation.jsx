@@ -46,11 +46,6 @@ const PersonalInformation = ({
       </h3>
       {personalInfoShow ? (
         <>
-          <div className="account-edit-profile-img-container">
-            <h6>Add an image</h6>
-            <input type="file" />
-            <button>Submit Image</button>
-          </div>
           <AccountEditInputContainer
             label="Name"
             type="text"
@@ -109,7 +104,6 @@ const PersonalInformation = ({
         </>
       ) : (
         <>
-          <h6>Profile Picture</h6>
           <h6>Name</h6>
           <p>{profile.fullname || "null"}</p>
           <h6>Email Address</h6>

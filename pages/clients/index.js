@@ -26,12 +26,6 @@ export default function Clients() {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
     if (token) getClients();
   }, [token]);
 

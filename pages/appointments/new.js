@@ -116,12 +116,6 @@ export default function AppointmentNew() {
   };
 
   useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
     if (token) {
       getEventTypes();
     }

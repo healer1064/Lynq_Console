@@ -1,12 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
+import moment from "moment";
 
 // style
 import styles from "./Invitations.module.css";
-
-// utils
-import { fullDate, timeAgo } from "../../../utils/dates";
 
 const InvitationsList = ({ invitations }) => {
   // states
@@ -44,13 +42,13 @@ const InvitationsList = ({ invitations }) => {
           >
             <div className="appointments-col__card">
               <div className="det">
-                <b>{fullDate(item.starting_date)}</b>
+                <b>{moment(item.starting_date).format("ddd, MMM DD, YYYY")}</b>
                 <div className="line"></div>
                 Event Name (not from backend)
                 <div className="line"></div>
                 {item.email}
                 <div className="line"></div>
-                {"Invitation Sent: " + timeAgo(item.starting_date)}
+                {"Invitation Sent: " + "no created from backend"}
               </div>
               <div
                 className="arrow"

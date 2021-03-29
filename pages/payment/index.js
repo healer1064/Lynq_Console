@@ -93,6 +93,8 @@ export default function Payment() {
     setData(data);
   };
 
+  console.log(data);
+
   const getBusinessData = async () => {
     setLoading(true);
     let config = {
@@ -152,12 +154,6 @@ export default function Payment() {
   };
 
   useEffect(() => {
-    if (
-      localStorage.getItem("linqToken") === null &&
-      localStorage == undefined
-    ) {
-      router.push("/login");
-    }
     getPayments();
   }, [token]);
 
