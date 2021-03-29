@@ -81,3 +81,10 @@ export const getFormatedTime = (_date) => {
   let time = date.utc().format("h:mm A");
   return time;
 };
+
+export const changeTo24 = (_time) => {
+  return {
+    hour: moment(_time, ["h:mm a"]).format("HH"),
+    minute: moment(_time, ["h:mm a"]).format("mm"),
+  };
+};

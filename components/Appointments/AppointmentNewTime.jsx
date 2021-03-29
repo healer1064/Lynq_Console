@@ -22,13 +22,19 @@ const AppointmentNewTime = ({
     let head = [];
     let body = [];
 
-    if (times) {
-      Object.entries(times).map((item) => {
-        head.push(item[0]);
-        setHeadDates(head);
-        body.push(item[1]);
-        setBodyTimes(body);
+    if (times.length > 0) {
+      // Object.entries(times).map((item) => {
+      //   head.push(item[0]);
+      //   body.push(item[1]);
+      // });
+
+      times.forEach((item) => {
+        head.push(item.date);
+        body.push(item.slots);
       });
+
+      setHeadDates(head);
+      setBodyTimes(body);
     }
   }, [times]);
 

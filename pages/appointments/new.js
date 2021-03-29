@@ -30,7 +30,7 @@ export default function AppointmentNew() {
   const [day, setDay] = useState();
   const [pickerDay, setPicker] = useState();
   const [time, setTime] = useState();
-  const [times, setTimes] = useState(null);
+  const [times, setTimes] = useState([]);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -90,13 +90,29 @@ export default function AppointmentNew() {
     times()
       .then((res) => {
         setTimeLoading(false);
-        console.log(res);
-        setTimes(res);
+        let sorted = sortDates(res);
+        console.log(sorted);
+        setTimes(sorted);
       })
       .catch((err) => {
         console.log(err);
         toast.error(err.message);
       });
+  };
+
+  const sortDates = (_data) => {
+    let newArr = [];
+    let newObj = {};
+
+    // conver to arary
+    Object.entries(_data).map((item) => {
+      newArr.push({ date: item[0], slots: item[1] });
+    });
+
+    // sort
+    newArr.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    return newArr;
   };
 
   useEffect(() => {
