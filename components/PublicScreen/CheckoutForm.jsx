@@ -88,7 +88,6 @@ const CheckoutForm = ({ order, slug }) => {
         // The payment has been processed!
         if (result.paymentIntent.status === "succeeded") {
           // router.push('/checkout/success/' + order.id)
-          console.log(order.id);
           setLoading(false);
           router.push(`/${slug}/${order.id}`);
         }

@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
 import Fade from "react-reveal/Fade";
 import moment from "moment";
 
@@ -7,25 +6,8 @@ import moment from "moment";
 import styles from "./Invitations.module.css";
 
 const InvitationsList = ({ invitations }) => {
-  // states
-  const [deleteLoading, setDeleteLoading] = useState(false);
-  const [editLoading, setEditLoading] = useState(false);
-
   // router
   const router = useRouter();
-
-  const handleDelete = () => {
-    setDeleteLoading(true);
-    setTimeout(() => {
-      setDeleteLoading(false);
-    }, 2000);
-  };
-  const handleEdit = () => {
-    setEditLoading(true);
-    setTimeout(() => {
-      setEditLoading(false);
-    }, 2000);
-  };
 
   return invitations.length === 0 ? (
     <div className="no-appointments">
@@ -44,11 +26,11 @@ const InvitationsList = ({ invitations }) => {
               <div className="det">
                 <b>{moment(item.starting_date).format("ddd, MMM DD, YYYY")}</b>
                 <div className="line"></div>
-                Event Name (not from backend)
+                {item.activity_name}
                 <div className="line"></div>
                 {item.email}
                 <div className="line"></div>
-                {"Invitation Sent: " + "no created from backend"}
+                {"Invitation Sent: "}
               </div>
               <div
                 className="arrow"

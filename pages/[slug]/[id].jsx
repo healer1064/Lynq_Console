@@ -10,6 +10,7 @@ import styles from "../../styles/PublicScreen.module.sass";
 import Navbar from "../../components/PublicScreen/PublicScreenNavbar";
 import PublicScreenButton from "../../components/PublicScreen/PublicScreenButton";
 import PageLoading from "../../components/common/PageLoading";
+import moment from "moment";
 
 const OrderConfirm = () => {
   // router
@@ -53,8 +54,6 @@ const OrderConfirm = () => {
     setData(data);
   };
 
-  console.log("data", data);
-
   return (
     <>
       <Head>
@@ -68,29 +67,41 @@ const OrderConfirm = () => {
       <Navbar />
       <div className={styles.public_screen}>
         <div className={styles.public_screen_5}>
-          {loading ? (
+          {!data && loading ? (
             <PageLoading />
           ) : (
             <div className={styles.public_screen_body}>
               <div className={styles.order_summary_container}>
                 <div className={styles.order_summary}>
                   <h3>Order Summary </h3>
-                  <p>Meditation: 60 min</p>
-                  <p>Tuesday 30 March, 2021 </p>
-                  <p>10:00 AM</p>
+                  <p>{data?.activity_name ?? ""}</p>
+                  <p>
+                    {data &&
+                      moment(data.starting_date).format("dddd DD MMMM, YYYY")}
+                  </p>
+                  <p>{data && moment(data.starting_date).format("hh:mm a")}</p>
                   <div className={styles.border} />
                   <div>
                     <p>Subtotal Price</p>
-                    <h6>$60</h6>
+                    <h6>${data?.display_price ?? ""}</h6>
                   </div>
                   <div>
                     <p>Service Fees (2.9%)</p>
-                    <h6>$1.74</h6>
+                    <h6>
+                      $
+                      {data &&
+                        parseFloat((data.display_price * 0.029).toFixed(2))}
+                    </h6>
                   </div>
                   <div className={styles.border} />
                   <div>
                     <h6 className={styles.total_price}>Total Price</h6>
-                    <h6>$1.74</h6>
+                    <h6>
+                      $
+                      {data &&
+                        parseFloat((data.display_price * 0.029).toFixed(2)) +
+                          data.display_price}
+                    </h6>
                   </div>
                 </div>
               </div>

@@ -3,6 +3,8 @@ import { useEffect, useContext, useState } from "react";
 import Fade from "react-reveal/Fade";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -18,7 +20,7 @@ const AppointmentDetails = () => {
   const router = useRouter();
 
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, slugData } = useContext(ProfileContext);
 
   // id
   const { id } = router.query;
@@ -28,6 +30,7 @@ const AppointmentDetails = () => {
   const [message, setMessage] = useState(false);
   const [checkbox, setCheckbox] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const fetchAppointment = async () => {
     let config = {
@@ -72,9 +75,44 @@ const AppointmentDetails = () => {
         setMessage(true);
       } else {
         console.log(res);
-        // toast.error(res.message);
+        toast.error(res.message);
       }
     });
+  };
+
+  const onDelete = () => {
+    setDeleteLoading(true);
+    async function reject() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${data.id}/cancel?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    reject()
+      .then((res) => {
+        setDeleteLoading(false);
+        console.log("res reject", res);
+        if (res.status === 200) {
+          router.push("/appointments");
+        } else {
+          toast.error("An error has occurred");
+          console.log("res reject error", res);
+        }
+      })
+      .catch((err) => {
+        setDeleteLoading(false);
+        toast.error("An error has occurred");
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -82,6 +120,8 @@ const AppointmentDetails = () => {
       fetchAppointment();
     }
   }, [token, id]);
+
+  console.log(data);
 
   return (
     <>
@@ -94,6 +134,7 @@ const AppointmentDetails = () => {
         />
       </Head>
       <Navbar active="appointments" />
+      <ToastContainer />
       <div className="page-wrp">
         <Leftbar active="appointments" />
         <div className="content-wrp">
@@ -114,11 +155,11 @@ const AppointmentDetails = () => {
                     <h2>Appointment</h2>
                     <div className="info__col">
                       <strong>Event type</strong>
-                      <p>Name field not in backend</p>
+                      <p>{data.activity_name}</p>
                     </div>
                     <div className="info__col">
                       <strong>Duration</strong>
-                      <p>No field in my fake data</p>
+                      <p>{data.session_duration} mins</p>
                     </div>
                     <div className="info__col">
                       <strong>Price</strong>
@@ -164,7 +205,13 @@ const AppointmentDetails = () => {
                     />
                     <div className="info__col">
                       <strong>Invitation URL</strong>
-                      <p>lynq.app/xyzxyz (No value in my fake data)</p>
+                      <a
+                        style={{ color: "black" }}
+                        href={`https://us.lynq.app/${slugData.slug}#${data.id}`}
+                        target="_blank"
+                      >
+                        https://us.lynq.app/{slugData.slug}#{data.id}
+                      </a>
                     </div>
                     {message ? (
                       <div>
@@ -176,7 +223,8 @@ const AppointmentDetails = () => {
                             fontSize: "13px",
                           }}
                         >
-                          The invitation was sent Monday 26 March –09:19AM{" "}
+                          The invitation was sent:{" "}
+                          {moment().format("dddd, DD MMMM - hh:mm a")}
                         </p>
                         <p
                           style={{
@@ -185,7 +233,7 @@ const AppointmentDetails = () => {
                             marginTop: "0px",
                           }}
                         >
-                          Payment Status: Waiting for payment{" "}
+                          Payment Status: {data.status.replace("_", " ")}
                         </p>
                       </div>
                     ) : (
@@ -227,14 +275,17 @@ const AppointmentDetails = () => {
                     )}
                     <div className="appointment-request__btns">
                       <button
-                        // onClick={() => handleDelete()}
+                        onClick={onDelete}
                         className="reject"
+                        style={{ position: "relative" }}
                       >
-                        {/* {deleteLoading && <Loading color="#fff" />} */}
+                        {deleteLoading && <Loading color="#fff" />}
                         DELETE
                       </button>
                       <button
-                        // onClick={() => handleEdit()}
+                        onClick={() =>
+                          router.push(`/appointments/edit/${data.id}`)
+                        }
                         className="accept"
                       >
                         {/* {editLoading && <Loading />} */}

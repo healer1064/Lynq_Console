@@ -1,9 +1,13 @@
+// libraries
 import Fade from "react-reveal/Fade";
 
 // styles
 import styles from "../../../styles/PublicScreen.module.sass";
 
-const Modal = ({ setModal, onDelete }) => {
+// components
+import Loading from "../../common/Loading";
+
+const Modal = ({ setModal, onDelete, loading }) => {
   return (
     <Fade duration={600}>
       <div className={styles.public_screen_modal}>
@@ -19,8 +23,12 @@ const Modal = ({ setModal, onDelete }) => {
             <br />
             Monday February 22 at 12:00PM
           </p>
-          <button onClick={() => onDelete(false)}>
-            Yes, I confirm the cancellation
+          <button
+            style={{ position: "relative" }}
+            onClick={() => onDelete(false)}
+          >
+            {loading && <Loading color="#EF7888" />}Yes, I confirm the
+            cancellation
           </button>
         </div>
       </div>

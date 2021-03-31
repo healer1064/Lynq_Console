@@ -27,6 +27,8 @@ const RequestList = ({
   const [rejectLoading, setRejectLoading] = useState(false);
   const [acceptLoading, setAcceptLoading] = useState(false);
 
+  console.log(requestList);
+
   const onAccept = (id) => {
     setAcceptLoading(true);
 
@@ -113,11 +115,11 @@ const RequestList = ({
                     {moment(item.starting_date).format("ddd, MMMM DD, YYYY")}
                   </b>
                   <div className="line"></div>
-                  Event Name (not from backend)
+                  {item.activity_name}
                   <div className="line"></div>
                   {item.email}
                   <div className="line"></div>
-                  {"Invitation Sent: 'No created at field in backend'"}
+                  {"Invitation Sent: "}
                 </div>
                 <div
                   className="arrow"

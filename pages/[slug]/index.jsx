@@ -19,7 +19,13 @@ const Profile = ({ slug }) => {
   const [slots, setSlots] = useState(null);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [data, setData] = useState(null);
-  const [startDate, setStartDate] = useState(moment().format("YYYY-MM-DD"));
+  const [startDate, setStartDate] = useState();
+
+  useEffect(() => {
+    setStartDate(moment().format("YYYY-MM-DD"));
+  }, []);
+
+  console.log("start", startDate);
 
   useEffect(() => {
     getProfile();
@@ -91,10 +97,10 @@ const Profile = ({ slug }) => {
   };
 
   const handleNextArrow = () => {
-    setStartDate(moment(startDate).add(3, "days"));
+    setStartDate(moment(startDate).add(3, "days").format("YYYY-MM-DD"));
   };
   const handlePrevArrow = () => {
-    setStartDate(moment(startDate).add(3, "days"));
+    setStartDate(moment(startDate).add(3, "days").format("YYYY-MM-DD"));
   };
 
   return (
@@ -124,7 +130,7 @@ const Profile = ({ slug }) => {
           {!bookOrder ? (
             <PublicScreenSessions
               activity={activity}
-              data={data.activities}
+              data={data.activities.filter((i) => i.isActive == true)}
               slots={slots}
               onHandle={handleActivity}
               loading={slotsLoading}
