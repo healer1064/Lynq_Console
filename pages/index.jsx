@@ -3,6 +3,8 @@ import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
 import Fade from "react-reveal/Fade";
 import moment from "moment";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../context/profile";
@@ -24,6 +26,8 @@ const home = () => {
   const [appointmentList, setAppointmentList] = useState(null);
   const [statsData, setStatsData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [rejectLoading, setRejectLoading] = useState(false);
   const [id, setId] = useState(-1);
   const [stats, setStats] = useState("TODAY");
 
@@ -31,7 +35,7 @@ const home = () => {
     if (token) {
       fetchAppointments();
     }
-  }, [token]);
+  }, [token, success]);
 
   useEffect(() => {
     if (token) {
@@ -105,9 +109,39 @@ const home = () => {
   };
 
   const onDelete = () => {
-    setIsOpen(false);
-    // let filter = appointmentList.filter((item) => item.id !== id);
-    // setAppointmentList(filter);
+    setRejectLoading(true);
+    async function reject() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    reject()
+      .then((res) => {
+        setRejectLoading(false);
+        console.log("res reject", res);
+        if (res.status === 200) {
+          setIsOpen(false);
+          setSuccess(!success);
+        } else {
+          toast.error("An error has occurred");
+          console.log("res reject error", res);
+        }
+      })
+      .catch((err) => {
+        setRejectLoading(false);
+        toast.error("An error has occurred");
+        console.log(err);
+      });
   };
 
   const fullDate = () => {
@@ -127,6 +161,7 @@ const home = () => {
         />
       </Head>
       <Navbar active="" />
+      <ToastContainer />
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">
@@ -134,7 +169,13 @@ const home = () => {
             <PageLoading />
           ) : (
             <>
-              {isOpen && <Modal setModal={setIsOpen} onDelete={onDelete} />}
+              {isOpen && (
+                <Modal
+                  setModal={setIsOpen}
+                  onDelete={onDelete}
+                  loading={rejectLoading}
+                />
+              )}
               <div className="notifications__col" style={{ display: "none" }}>
                 <EmailConfirmation />
                 <div className="session">

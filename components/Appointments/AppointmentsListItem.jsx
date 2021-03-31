@@ -5,13 +5,11 @@ import Fade from "react-reveal/Fade";
 
 // components
 import AppointmentCard from "../Home/AppointmentCard";
-import Modal from "../common/Modal";
 
-const AppointmentsListItem = ({ data }) => {
+const AppointmentsListItem = ({ data, toggle }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
-  const [showModel, setShowModel] = useState(false);
 
   const { date, appointments } = data;
 
@@ -21,13 +19,6 @@ const AppointmentsListItem = ({ data }) => {
 
     setStatus(serverDate > currentDate);
   }, [data]);
-
-  const toggle = (_id) => {
-    setShowModel(true);
-  };
-  const onDelete = () => {
-    setShowModel(false);
-  };
 
   return (
     <div
@@ -70,7 +61,6 @@ const AppointmentsListItem = ({ data }) => {
               </Fade>
             ))}
           </div>
-          {showModel && <Modal setModal={setShowModel} onDelete={onDelete} />}
         </>
       )}
     </div>

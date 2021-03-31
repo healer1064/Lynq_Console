@@ -5,7 +5,7 @@ import Link from "next/link";
 const AppointmentCard = ({ data, toggle }) => {
   return (
     <div className={`appointments-col__event blue`}>
-      <div className="title">Test Name (Not coming from backend)</div>
+      <div className="title">{data.summary}</div>
       <div className="det">
         {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
         <div className="line"></div>
