@@ -104,6 +104,8 @@ const EditProfile = () => {
     const _data = await response.json();
     setProfileLoading(false);
 
+    console.log(_data);
+
     if (response.status == 200) {
       setSlug(_data.slug || "");
       setNewSlug(_data.slug || "");
@@ -119,6 +121,15 @@ const EditProfile = () => {
       setLastName(_data.name?.split(" ")[1] ?? "");
       setWhatToExpect(_data.expect_details || "");
       setImage(_data.public_image || null);
+
+      const arr = [];
+
+      if (_data.speciality) {
+        _data.speciality.forEach((i) => {
+          arr.push(i.name);
+        });
+        setSpecialities(arr.join("\n") || "");
+      }
     }
   };
 
@@ -136,6 +147,14 @@ const EditProfile = () => {
   };
 
   const updateProfile = () => {
+    const spec = specialities.split("\n");
+
+    const specArr = [];
+
+    spec.forEach((i, index) => {
+      specArr.push({ id: index, name: i });
+    });
+
     setLoading(true);
     const _reqData = {
       id: profile.id,
@@ -149,7 +168,7 @@ const EditProfile = () => {
       personal_website: website,
       name: `${firstName} ${lastName}`,
       expect_details: whatToExpect,
-      speciality: [{ id: 1, name: "test" }],
+      speciality: specArr,
       public_image: image || specImage,
     };
 
