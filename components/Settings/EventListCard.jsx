@@ -71,7 +71,7 @@ const EventListCard = ({
         <strong>{card.name}</strong>
         <div className="btm">
           <div>
-            <span className="duration">{card.description}</span>
+            {/* <span className="duration">{card.description}</span> */}
             <span className="duration">{card.duration} min</span>
             <span>${card.price}</span>
           </div>

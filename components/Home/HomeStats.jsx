@@ -4,10 +4,9 @@ import { useState } from "react";
 // components
 import Stats from "./Stats";
 
-const HomeStats = ({ data }) => {
+const HomeStats = ({ data, setStats }) => {
   // states
   const [index, setIndex] = useState(1);
-  const [stats, setStats] = useState(data.home.stats.today);
 
   return (
     <div className="home-stats" style={{ paddingBottom: "50px" }}>
@@ -16,7 +15,7 @@ const HomeStats = ({ data }) => {
           className={`option  ${index === 1 && "active"}`}
           onClick={() => {
             setIndex(1);
-            setStats(data.home.stats.today);
+            setStats("TODAY");
           }}
         >
           Today
@@ -25,7 +24,7 @@ const HomeStats = ({ data }) => {
           className={`option  ${index === 2 && "active"}`}
           onClick={() => {
             setIndex(2);
-            setStats(data.home.stats.weekly);
+            setStats("WEEK");
           }}
         >
           Weekly
@@ -34,7 +33,7 @@ const HomeStats = ({ data }) => {
           className={`option  ${index === 3 && "active"}`}
           onClick={() => {
             setIndex(3);
-            setStats(data.home.stats.monthly);
+            setStats("MONTH");
           }}
         >
           Monthly
@@ -43,7 +42,7 @@ const HomeStats = ({ data }) => {
           className={`option  ${index === 4 && "active"}`}
           onClick={() => {
             setIndex(4);
-            setStats(data.home.stats.yearly);
+            setStats("YEAR");
           }}
         >
           Yearly
@@ -54,12 +53,12 @@ const HomeStats = ({ data }) => {
         onChange={(e) => {
           setIndex(e.target.value);
           e.target.value == 1
-            ? setStats(data.home.stats.today)
+            ? setStats("TODAY")
             : e.target.value == 2
-            ? setStats(data.home.stats.weekly)
+            ? setStats("WEEK")
             : e.target.value == 3
-            ? setStats(data.home.stats.monthly)
-            : setStats(data.home.stats.yearly);
+            ? setStats("MONTH")
+            : setStats("YEAR");
         }}
         className="home-stats__select"
       >
@@ -68,7 +67,7 @@ const HomeStats = ({ data }) => {
         <option value={3}>Monthly</option>
         <option value={4}>Yearly</option>
       </select>
-      <Stats stats={stats} />
+      <Stats stats={data} />
     </div>
   );
 };

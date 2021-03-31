@@ -28,6 +28,7 @@ const Account = () => {
   const [passShow, setPassShow] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [section, setSection] = useState("plans");
 
   // personal info state
   const [name, setName] = useState("");
@@ -255,6 +256,18 @@ const Account = () => {
     }
   };
 
+  useEffect(() => {
+    if (section == "plans") {
+      window.scrollTo({ top: "0", left: "0", behavior: "smooth" });
+    } else if (section == "personal") {
+      window.scrollTo({ top: "100", left: "0", behavior: "smooth" });
+    } else if (section == "payments") {
+      window.scrollTo({ top: "550", left: "0", behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: "800", left: "0", behavior: "smooth" });
+    }
+  }, [section]);
+
   return (
     <>
       <Head>
@@ -282,28 +295,32 @@ const Account = () => {
               </div>
               <div className="account-content">
                 <div className="account-content-side-nav">
-                  <div>
+                  <div onClick={() => setSection("plans")}>
                     <img src="/img/account-send.svg" alt="current-plan" />
                     <p>Current Plan</p>
                   </div>
-                  <div>
+                  <div onClick={() => setSection("personal")}>
                     <img src="/img/account-send.svg" alt="current-plan" />
                     <p>Personal Information</p>
                   </div>
-                  <div>
+                  <div onClick={() => setSection("payments")}>
                     <img src="/img/account-send.svg" alt="current-plan" />
                     <p>Business & Payments</p>
                   </div>
-                  <div className="last">
+                  <div className="last" onClick={() => setSection("password")}>
                     <img src="/img/account-send.svg" alt="current-plan" />
                     <p>Change Password</p>
                   </div>
                 </div>
-                <select className="account-content-side-nav-mob">
-                  <option>Current Plan</option>
-                  <option>Business Information</option>
-                  <option>Business & Payments</option>
-                  <option>Change Password</option>
+                <select
+                  value={section}
+                  onChange={(e) => setSection(e.target.value)}
+                  className="account-content-side-nav-mob"
+                >
+                  <option value="plans">Current Plan</option>
+                  <option value="personal">Personal Information</option>
+                  <option value="payments">Business & Payments</option>
+                  <option value="password">Change Password</option>
                 </select>
                 <div className="account-info">
                   <div className="account-subscription">

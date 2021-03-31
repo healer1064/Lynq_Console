@@ -14,6 +14,7 @@ const SettingsSetup = () => {
 
   // states
   const [data, setData] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const getWorkingSlots = async () => {
     let config = {
@@ -33,15 +34,17 @@ const SettingsSetup = () => {
     setData(data);
   };
 
+  const toggleSuccess = () => {
+    setSuccess(!success);
+  };
+
   useEffect(() => {
     if (token) getWorkingSlots();
-  }, [token]);
-
-  console.log(data);
+  }, [token, success]);
 
   return (
     <div className="setup-wrp">
-      <SetupTable />
+      <SetupTable data={data} toggleSuccess={toggleSuccess} />
       <SetupNotifications />
     </div>
   );

@@ -11,6 +11,7 @@ import ProfileContext from "../../context/profile";
 import PageLoading from "../../components/common/PageLoading";
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
+import Loading from "../../components/common/Loading";
 
 const AppointmentDetails = () => {
   // router
@@ -26,6 +27,7 @@ const AppointmentDetails = () => {
   const [data, setData] = useState(null);
   const [message, setMessage] = useState(false);
   const [checkbox, setCheckbox] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchAppointment = async () => {
     let config = {
@@ -44,6 +46,35 @@ const AppointmentDetails = () => {
     const data = await response.json();
 
     setData(data);
+  };
+
+  const sendEmail = () => {
+    setLoading(true);
+    async function send() {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}/_email?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    send().then((res) => {
+      console.log("res", res);
+      setLoading(false);
+      if (res.status === 200) {
+        setMessage(true);
+      } else {
+        console.log(res);
+        // toast.error(res.message);
+      }
+    });
   };
 
   useEffect(() => {
@@ -184,9 +215,11 @@ const AppointmentDetails = () => {
                         </label>
                         {checkbox && (
                           <button
+                            style={{ position: "relative" }}
                             className="send-invite-btn"
-                            onClick={() => setMessage(true)}
+                            onClick={sendEmail}
                           >
+                            {loading && <Loading />}
                             Send
                           </button>
                         )}

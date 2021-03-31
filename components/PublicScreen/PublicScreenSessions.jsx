@@ -34,8 +34,6 @@ const PublicScreenSessions = ({
     }
   };
 
-  console.log(activity);
-
   return (
     <div className={styles.public_screen2_right}>
       <div className={styles.book_session}>

@@ -9,12 +9,16 @@ import { changeTo24 } from "../../utils/DateHelper";
 // components
 import TimeModal from "../Settings/TimeModal";
 
-const TableRow = ({ day }) => {
+const TableRow = ({ day, data, updateTime }) => {
+  console.log(data);
   const [count, setCount] = useState(3);
-  const [isAvailable, setIsAvailable] = useState(false);
-  const [timeSlots, setTimeSlots] = useState([
-    { start: "09:00 am", end: "05:00 pm", id: 1 },
-  ]);
+  const [isAvailable, setIsAvailable] = useState(data.length > 0);
+  const [timeSlots, setTimeSlots] = useState(
+    data
+    // .length > 0
+    //   ? data
+    //   : [{ start_period_time: "09:00 am", end_period_time: "05:00 pm", id: 1 }]
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [time, setTime] = useState(null);
 
@@ -95,17 +99,25 @@ const TableRow = ({ day }) => {
           </div>
           <div className="setup-table__col">
             {timeSlots.map((item, i) => (
-              <div key={item.id} style={{ margin: ".25rem 0" }}>
+              <div key={i} style={{ margin: ".25rem 0" }}>
                 <Fade collapse bottom duration={1000}>
                   <div className="time__row">
-                    <input type="text" value={item.start} readOnly />
+                    <input
+                      type="text"
+                      value={item.start_period_time}
+                      readOnly
+                    />
                     <div className="line"></div>
-                    <input type="text" value={item.end} readOnly />
+                    <input type="text" value={item.end_period_time} readOnly />
                     <div className="icon-wrapper">
                       <RiEditBoxLine
                         size={18}
                         onClick={() =>
-                          handleEditTime(item.id, item.start, item.end)
+                          handleEditTime(
+                            item.id,
+                            item.start_period_time,
+                            item.end_period_time
+                          )
                         }
                       />
                       <img

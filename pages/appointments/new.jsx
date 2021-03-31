@@ -102,7 +102,6 @@ export default function AppointmentNew() {
 
   const sortDates = (_data) => {
     let newArr = [];
-    let newObj = {};
 
     // conver to arary
     Object.entries(_data).map((item) => {
@@ -225,11 +224,13 @@ export default function AppointmentNew() {
                   value={eventType}
                 >
                   <option value={-1}>Select Event Type</option>
-                  {data.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
+                  {data
+                    .filter((i) => i.isActive == true)
+                    .map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
                 </select>
               </label>
               <label>

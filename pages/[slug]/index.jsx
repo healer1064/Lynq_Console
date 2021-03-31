@@ -45,7 +45,6 @@ const Profile = ({ slug }) => {
     );
     const data = await response.json();
 
-    console.log(data);
     setData(data);
   };
 
@@ -101,7 +100,7 @@ const Profile = ({ slug }) => {
   return (
     <>
       <Head>
-        <title>Public Screen</title>
+        <title>Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"

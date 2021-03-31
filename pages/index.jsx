@@ -1,7 +1,6 @@
 // libraries
 import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import Fade from "react-reveal/Fade";
 import moment from "moment";
 
@@ -17,26 +16,45 @@ import Modal from "../components/common/Modal";
 import HomeStats from "../components/Home/HomeStats";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
 
-// mockup data
-import data from "../utils/data";
-
 const home = () => {
   // context
   const { token, slugData } = useContext(ProfileContext);
 
-  // router
-  const router = useRouter();
-
   // states
   const [appointmentList, setAppointmentList] = useState(null);
+  const [statsData, setStatsData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [id, setId] = useState(-1);
+  const [stats, setStats] = useState("TODAY");
 
   useEffect(() => {
     if (token) {
       fetchAppointments();
     }
   }, [token]);
+
+  useEffect(() => {
+    if (token) {
+      fetchStats();
+    }
+  }, [token, stats]);
+
+  const fetchStats = async () => {
+    const config = {
+      method: "GET",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+
+    const response = await fetch(
+      `https://api.lynq.app/account/stats?t=${token}&period=${stats}`,
+      config
+    );
+
+    const _data = await response.json();
+
+    setStatsData(_data);
+  };
 
   const fetchAppointments = async () => {
     const config = {
@@ -154,7 +172,7 @@ const home = () => {
                     appointmentList={appointmentList}
                     toggle={toggle}
                   />
-                  <HomeStats data={data} />
+                  <HomeStats data={statsData} setStats={setStats} />
                 </div>
               </Fade>
             </>

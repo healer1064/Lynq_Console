@@ -1,13 +1,9 @@
+// libraries
 import { useState } from "react";
-import { format, compareAsc } from "date-fns";
-
 import { getDayAndMonth, getFormatedTime } from "../../utils/DateHelper";
 
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
-
-// mock up Data
-import TimeSlots from "../../utils/data/SlotsFakeData";
 
 const PublicScreenCalendar = ({
   slots,
@@ -22,12 +18,6 @@ const PublicScreenCalendar = ({
   const getDates = () => {
     const dates = Object.keys(slots).map((slot) => getDayAndMonth(slot));
     return dates;
-  };
-
-  const getTimes = () => {
-    const times = TimeSlots.map((slot) => slot.slots);
-
-    return times;
   };
 
   return (

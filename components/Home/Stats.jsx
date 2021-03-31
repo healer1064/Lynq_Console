@@ -1,5 +1,6 @@
 // libraries
 import AnimatedNumber from "animated-number-react";
+import PageLoading from "../common/PageLoading";
 
 const Stats = ({ stats }) => {
   return (
@@ -10,11 +11,17 @@ const Stats = ({ stats }) => {
         </div>
         <div className="title">Revenue</div>
         <div className="num">
-          $
-          <AnimatedNumber
-            value={stats.revenue}
-            formatValue={(value) => value.toFixed(2)}
-          />
+          {!stats ? (
+            <PageLoading />
+          ) : (
+            <>
+              $
+              <AnimatedNumber
+                value={stats.revenue}
+                formatValue={(value) => value.toFixed(2)}
+              />
+            </>
+          )}
         </div>
       </div>
       <div className="card">
@@ -23,10 +30,16 @@ const Stats = ({ stats }) => {
         </div>
         <div className="title">Session</div>
         <div className="num">
-          <AnimatedNumber
-            value={stats.session}
-            formatValue={(value) => value.toFixed(0)}
-          />
+          {!stats ? (
+            <PageLoading />
+          ) : (
+            <>
+              <AnimatedNumber
+                value={stats.session}
+                formatValue={(value) => value.toFixed(0)}
+              />
+            </>
+          )}
         </div>
       </div>
       <div className="card">
@@ -35,10 +48,16 @@ const Stats = ({ stats }) => {
         </div>
         <div className="title">Request</div>
         <div className="num">
-          <AnimatedNumber
-            value={stats.request}
-            formatValue={(value) => value.toFixed(0)}
-          />
+          {!stats ? (
+            <PageLoading />
+          ) : (
+            <>
+              <AnimatedNumber
+                value={stats.request}
+                formatValue={(value) => value.toFixed(0)}
+              />
+            </>
+          )}
         </div>
       </div>
     </div>

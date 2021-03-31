@@ -77,8 +77,7 @@ export const getDayAndMonth = (_date) => {
 };
 
 export const getFormatedTime = (_date) => {
-  let date = moment(_date);
-  let time = date.utc().format("h:mm A");
+  let time = moment(_date).format("hh:mm a");
   return time;
 };
 

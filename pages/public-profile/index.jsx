@@ -11,8 +11,8 @@ import styles from "../../styles/EditProfile.module.sass";
 // context
 import ProfileContext from "../../context/profile";
 
-// categories
-import { categoriesData } from "../../utils/data/publicprofile";
+// data
+import { categoriesData, states } from "../../utils/data/publicprofile";
 
 // icons
 import { FaImage } from "react-icons/fa";
@@ -37,7 +37,7 @@ const EditProfile = () => {
   const [slug, setSlug] = useState("");
   const [newSlug, setNewSlug] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [state, setState] = useState();
   const [categories, setCategories] = useState([]);
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
@@ -108,7 +108,7 @@ const EditProfile = () => {
       setSlug(_data.slug || "");
       setNewSlug(_data.slug || "");
       setCity(_data.location?.split("-")[0] ?? "");
-      setState(_data.location?.split("-")[1] ?? "");
+      setState(_data.location?.split(" - ")[1] ?? "");
       setCategories(JSON.parse(_data.category) || []);
       setGeneralPres(_data.about || "");
       setFacebook(_data.facebook || "");
@@ -223,7 +223,7 @@ const EditProfile = () => {
       firstName === "" ||
       lastName === "" ||
       city === "" ||
-      state === "" ||
+      state === "-- Select State --" ||
       categories.length === 0 ||
       generalPres === ""
     ) {
@@ -248,7 +248,7 @@ const EditProfile = () => {
         check()
           .then((res) => {
             setLoading(false);
-            setSlugNotAvail(res.is_available);
+            setSlugNotAvail(res.is_available ? false : true);
             if (res.is_available) {
               console.log("available", res);
               updateProfile();
@@ -415,11 +415,21 @@ const EditProfile = () => {
                 </div>
                 <div>
                   <label>State*</label>
-                  <input
-                    type="text"
+                  <select
+                    className={styles.states_select}
+                    // type="text"
                     value={state}
                     onChange={(e) => setState(e.target.value)}
-                  />
+                  >
+                    <option>-- Select State --</option>
+                    {states.map((state, index) => {
+                      return (
+                        <option key={index} value={state}>
+                          {state}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
                 <div style={{ position: "relative" }}>
                   <label>
