@@ -5,16 +5,18 @@ import Link from "next/link";
 const AppointmentCard = ({ data, toggle }) => {
   return (
     <div className={`appointments-col__event blue`}>
-      <div className="title">{data.summary}</div>
+      <div className="title">{data.activity_name}</div>
       <div className="det">
         {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
         <div className="line"></div>
         <b>
-          {moment(data.starting_date).format("hh:mm a")} - Need duration from
-          backend
+          {moment(data.starting_date).format("hh:mm a")} -{" "}
+          {moment(data.starting_date)
+            .add(data.session_duration, "minutes")
+            .format("hh:mm a")}
         </b>
         <div className="line"></div>
-        <b>No duration from backend</b>
+        <b>{data.session_duration} mins</b>
       </div>
       <div className="client">
         Client: {data.first_name + " " + data.last_name}

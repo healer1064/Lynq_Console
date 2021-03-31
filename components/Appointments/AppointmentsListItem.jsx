@@ -17,7 +17,7 @@ const AppointmentsListItem = ({ data, toggle }) => {
     var currentDate = new Date();
     var serverDate = new Date(date);
 
-    setStatus(serverDate > currentDate);
+    setStatus(serverDate >= currentDate);
   }, [data]);
 
   return (

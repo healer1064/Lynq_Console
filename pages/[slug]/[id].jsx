@@ -88,7 +88,9 @@ const OrderConfirm = () => {
                   <div>
                     <p>Service Fees (2.9%)</p>
                     <h6>
-                      ${parseFloat((data.display_price * 0.029).toFixed(2))}
+                      $
+                      {data &&
+                        parseFloat((data.display_price * 0.029).toFixed(2))}
                     </h6>
                   </div>
                   <div className={styles.border} />
