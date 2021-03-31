@@ -16,8 +16,23 @@ const PublicScreenCalendar = ({
   const [jIndex, setJIndex] = useState(-1);
 
   const getDates = () => {
-    const dates = Object.keys(slots).map((slot) => getDayAndMonth(slot));
+    const dates = sortDates().map((slot) => getDayAndMonth(slot.date));
+
     return dates;
+  };
+
+  const sortDates = () => {
+    let newArr = [];
+
+    // conver to arary
+    Object.entries(slots).map((item) => {
+      newArr.push({ date: item[0], slots: item[1] });
+    });
+
+    // sort
+    newArr.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    return newArr;
   };
 
   return (
@@ -40,27 +55,9 @@ const PublicScreenCalendar = ({
           ))}
         </div>
         <div className={styles.table_body}>
-          {/* {getTimes().map((times, i) => (
+          {sortDates().map((_times, i) => (
             <div key={i}>
-              {times.map((item, j) => (
-                <div
-                  key={j}
-                  onClick={() => {
-                    setIndex(i);
-                    setJIndex(j);
-                    setTime(item.time);
-                    setError(false);
-                  }}
-                  className={index === i && jIndex === j ? styles.active : ""}
-                >
-                  <p>{item.time}</p>
-                </div>
-              ))}
-            </div>
-          ))} */}
-          {Object.values(slots).map((_times, i) => (
-            <div key={i}>
-              {_times.map((_time, j) => (
+              {_times.slots.map((_time, j) => (
                 <div
                   key={j}
                   onClick={() => {

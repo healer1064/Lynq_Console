@@ -219,9 +219,9 @@ export default function AppointmentNew() {
                       setPrice(event.price);
                       setEventType(event.name);
                       setEventId(event.id);
+                      console.log(event.name);
                     }
                   }}
-                  value={eventType}
                 >
                   <option value={-1}>Select Event Type</option>
                   {data
