@@ -10,9 +10,6 @@ import PublicScreenLoading from "./PublicScreenLoading";
 // styles
 import styles from "../../styles/PublicScreen.module.sass";
 
-// utils
-import { dayNames, monthNames } from "../../utils/dates";
-
 const PublicScreenPersonalInfo = ({ slug, activity }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -49,10 +46,6 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
         });
     }
   };
-
-  console.log("momet", moment(activity.start_date).format("hh:mm A"));
-
-  console.log("dateeee", activity.start_date);
 
   const requsetBooking = async () => {
     // 5555555555554444 card number
@@ -106,27 +99,12 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
     return false;
   };
 
-  console.log(activity);
-
   const serviceFee = parseFloat((activity.price * 0.029).toFixed(2));
 
   const fullDate = (dateString) => {
     const date = new Date(dateString);
-    return `${dayNames[date.getDay()]}, ${monthNames[date.getMonth()]}
-     ${date.getDate()}, ${date.getFullYear()}`;
+    return `${moment(date).format("dddd MMMM dd, YYYY")}`;
   };
-
-  function getTime(dateString) {
-    var date = new Date(dateString);
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? "pm" : "am";
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    var strTime = hours + ":" + minutes + " " + ampm;
-    return strTime;
-  }
 
   return (
     <div className={styles.public_screen3_right}>
@@ -134,7 +112,8 @@ const PublicScreenPersonalInfo = ({ slug, activity }) => {
         <h3>Order Summary</h3>
         <p>{activity.name}</p>
         <p>
-          {fullDate(activity.start_date)} {getTime(activity.start_date)}
+          {fullDate(activity.start_date)}{" "}
+          {moment(activity.start_date).format("hh:mm a")}
         </p>
         <div className={styles.border} />
         <div className={styles.info}>

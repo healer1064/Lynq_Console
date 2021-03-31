@@ -83,6 +83,8 @@ const AppointmentDetails = () => {
     }
   }, [token, id]);
 
+  console.log(data);
+
   return (
     <>
       <Head>
@@ -114,11 +116,11 @@ const AppointmentDetails = () => {
                     <h2>Appointment</h2>
                     <div className="info__col">
                       <strong>Event type</strong>
-                      <p>Name field not in backend</p>
+                      <p>{data.activity_name}</p>
                     </div>
                     <div className="info__col">
                       <strong>Duration</strong>
-                      <p>No field in my fake data</p>
+                      <p>{data.session_duration} mins</p>
                     </div>
                     <div className="info__col">
                       <strong>Price</strong>
@@ -176,7 +178,8 @@ const AppointmentDetails = () => {
                             fontSize: "13px",
                           }}
                         >
-                          The invitation was sent Monday 26 March –09:19AM{" "}
+                          The invitation was sent:{" "}
+                          {moment().format("dddd, DD MMMM - hh:mm a")}
                         </p>
                         <p
                           style={{

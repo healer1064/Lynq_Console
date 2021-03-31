@@ -130,7 +130,7 @@ const Profile = ({ slug }) => {
           {!bookOrder ? (
             <PublicScreenSessions
               activity={activity}
-              data={data.activities}
+              data={data.activities.filter((i) => i.isActive == true)}
               slots={slots}
               onHandle={handleActivity}
               loading={slotsLoading}
