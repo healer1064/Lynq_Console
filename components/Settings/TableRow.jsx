@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 
 // icon
@@ -9,40 +9,47 @@ import { changeTo24 } from "../../utils/DateHelper";
 // components
 import TimeModal from "../Settings/TimeModal";
 
-const TableRow = ({ day, data, updateTime }) => {
-  console.log(data);
+const TableRow = ({ day, data, updateTime, deleteTime }) => {
+  console.log("table Row", data);
   const [count, setCount] = useState(3);
   const [isAvailable, setIsAvailable] = useState(data.length > 0);
-  const [timeSlots, setTimeSlots] = useState(
-    data
-    // .length > 0
-    //   ? data
-    //   : [{ start_period_time: "09:00 am", end_period_time: "05:00 pm", id: 1 }]
-  );
+  const [timeSlots, setTimeSlots] = useState(data);
   const [isOpen, setIsOpen] = useState(false);
   const [time, setTime] = useState(null);
+  const [delLoading, setDelLoading] = useState(false);
+
+  useEffect(() => {
+    setTimeSlots(data);
+    setDelLoading(false);
+  }, [data]);
 
   const addTime = (_start, _end) => {
-    setTimeSlots([{ start: _start, end: _end, id: count }, ...timeSlots]);
+    setTimeSlots([
+      { start_period_time: _start, end_period_time: _end, id: count },
+      ...timeSlots,
+    ]);
     setCount(count + 1);
   };
 
-  const removeTime = (id) => {
-    let temp = [...timeSlots];
-    let filter = temp.filter((item) => item.id !== id);
-    setTimeSlots(filter);
+  const removeTime = (_id) => {
+    console.log(_id);
+    // let temp = [...timeSlots];
+    // let filter = temp.filter((item) => item.id !== _id);
+    // setTimeSlots(filter);
+    deleteTime(_id);
+    setDelLoading(true);
   };
 
-  const handleEditTime = (_id, _start, _end) => {
-    let startTime = changeTo24(_start);
-    let endTime = changeTo24(_end);
+  // const handleEditTime = (_id, _start, _end) => {
+  //   let startTime = changeTo24(_start);
+  //   let endTime = changeTo24(_end);
 
-    startTime.format = _start;
-    endTime.format = _end;
+  //   startTime.format = _start;
+  //   endTime.format = _end;
 
-    setTime({ id: _id, startTime, endTime });
-    setIsOpen(true);
-  };
+  //   setTime({ id: _id, startTime, endTime });
+  //   setIsOpen(true);
+  // };
 
   const editTime = (_id, _start, _end) => {
     toggle();
@@ -74,9 +81,13 @@ const TableRow = ({ day, data, updateTime }) => {
                 src="/img/setup-check-unavailable.svg"
                 alt=""
                 style={{ cursor: "pointer" }}
-                onClick={() => setIsAvailable(true)}
+                onClick={() => {
+                  setIsAvailable(true);
+                  updateTime(day, "09:00:00", "17:00:00");
+                  // addTime("09:00:00", "17:00:00");
+                }}
               />
-              <span>{day}</span>
+              <span>{day.substring(0, 3)}</span>
             </div>
             <div className="setup-table__col">
               <span className="unavailable">Unavailable</span>
@@ -95,7 +106,7 @@ const TableRow = ({ day, data, updateTime }) => {
               style={{ cursor: "pointer" }}
               onClick={() => setIsAvailable(false)}
             />
-            <span>{day}</span>
+            <span>{day.substring(0, 3)}</span>
           </div>
           <div className="setup-table__col">
             {timeSlots.map((item, i) => (
@@ -110,7 +121,7 @@ const TableRow = ({ day, data, updateTime }) => {
                     <div className="line"></div>
                     <input type="text" value={item.end_period_time} readOnly />
                     <div className="icon-wrapper">
-                      <RiEditBoxLine
+                      {/* <RiEditBoxLine
                         size={18}
                         onClick={() =>
                           handleEditTime(
@@ -119,21 +130,20 @@ const TableRow = ({ day, data, updateTime }) => {
                             item.end_period_time
                           )
                         }
-                      />
-                      <img
-                        src="/img/setup-trash.svg"
-                        alt=""
-                        onClick={() => removeTime(item.id)}
-                      />
-                      {/* <div className="trash">
-                      </div> */}
-                      {/* <div className="trash">
+                      /> */}
+                      {!delLoading ? (
                         <img
                           src="/img/setup-trash.svg"
-                          alt=""
+                          alt="delete time slot"
                           onClick={() => removeTime(item.id)}
                         />
-                      </div> */}
+                      ) : (
+                        <img
+                          style={{ width: "18px", height: "18px" }}
+                          src="/img/Rolling-dark.svg"
+                          alt="rolling"
+                        />
+                      )}
                     </div>
                   </div>
                 </Fade>

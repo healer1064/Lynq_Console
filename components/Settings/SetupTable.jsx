@@ -51,8 +51,35 @@ const SetupTable = ({ data, toggleSuccess }) => {
       }
     });
   };
+
+  const deleteTime = (_id) => {
+    async function remove() {
+      const response = await fetch(
+        `https://api.lynq.app/account/working-slots/${_id}?t=${token}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    remove().then((res) => {
+      if (res.status == 200) {
+        console.log("slots deleted");
+        toggleSuccess();
+      } else {
+        toast.error("An error has occurred");
+      }
+    });
+  };
+
   const filterData = (day) => {
-    const slots = data.filter((i) => i.day.toLowerCase() == day);
+    const slots = data.filter((i) => i?.day?.toLowerCase() == day);
     return slots;
   };
 
@@ -67,39 +94,46 @@ const SetupTable = ({ data, toggleSuccess }) => {
           <ToastContainer />
           <div className="setup-table__title">Set your weekly hours</div>
           <TableRow
-            day="Sun"
+            day="SUNDAY"
             data={filterData("sunday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
           <TableRow
-            day="Mon"
+            day="MONDAY"
             data={filterData("monday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
           <TableRow
-            day="Tue"
+            day="TUESDAY"
             data={filterData("tuesday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
           <TableRow
-            day="Wed"
+            day="WEDNESDAY"
             data={filterData("wednesday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
           <TableRow
-            day="Thu"
+            day="THURSDAY"
             data={filterData("thursday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
           <TableRow
-            day="Fri"
+            day="FRIDAY"
             data={filterData("friday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
           <TableRow
-            day="Sat"
+            day="SATURDAY"
             data={filterData("saturday")}
             updateTime={updateTime}
+            deleteTime={deleteTime}
           />
         </>
       )}
