@@ -204,7 +204,7 @@ const home = () => {
                       <h4>Your Lynq url</h4>
                       <h5>
                         {slugData && slugData.slug
-                          ? `www.lynq.app/${slugData.slug}`
+                          ? `us.lynq.app/${slugData.slug}`
                           : "You need to customize it in Public Profile"}
                       </h5>
                     </span>

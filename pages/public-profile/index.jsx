@@ -380,7 +380,7 @@ const EditProfile = () => {
                   )}
                   <div className={styles.slug_container}>
                     <p>
-                      {`www.lynq.app/${
+                      {`us.lynq.app/${
                         slug === "" && !slug ? "your-slug" : slug
                       }`}
                     </p>
@@ -388,7 +388,7 @@ const EditProfile = () => {
                       color="#7E88F4"
                       size={23}
                       onClick={() => {
-                        navigator.clipboard.writeText(`www.lynq.app/${slug}`);
+                        navigator.clipboard.writeText(`us.lynq.app/${slug}`);
                         copyStatus();
                       }}
                     />
