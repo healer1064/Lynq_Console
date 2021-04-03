@@ -29,6 +29,9 @@ body
   margin: 0
   font-family: 'Open Sans'
 
+.half-div
+  width: calc(50% - 12px)
+
 .send-invite-btn
   background: $lavender
   padding: 6px 25px
@@ -699,7 +702,7 @@ body
         margin-bottom: 12px
         &:last-child
           margin-bottom: 0
-        input[type="text"]
+        input
           border: 1px solid #838383
           border-radius: 5px
           padding: 12px 0 11px
@@ -1554,7 +1557,8 @@ body
         line-height: 15px
         color: $grey
     &__btns
-      margin-left: auto
+      width: 100%
+      margin-top: 50px
       @include flex
       &__cancel
         background: #FFF
@@ -3040,7 +3044,7 @@ body
   background: $lavender
   font-size: 10px
   color: white
-  line-height: 0
+  line-height: 13px
   min-height: 15px
   min-width: 15px
   border-radius: 50%
@@ -3541,6 +3545,8 @@ body
         margin-bottom: 12px
       label
         margin-bottom: 16px
+        &.full
+          width: calc(100% - 12px)
         &.small
           width: calc(50% - 12px)
         &.quarter
@@ -3693,6 +3699,8 @@ body
         //   width: 7.54%
 
 @media (max-width: $breakpointPhone)
+  .half-div
+    width: 100%
   .payment-not-paid
     display: block
     font-size: 12px
