@@ -173,9 +173,9 @@ const SettingsEventTypeEdit = ({ setTab }) => {
                 <input
                   name="duration"
                   type="radio"
-                  onChange={() => setDuration("45")}
+                  onChange={() => setDuration("60")}
                 />
-                <span>45 min</span>
+                <span>60 min</span>
                 <div className="checkmark"></div>
               </label>
               <label>

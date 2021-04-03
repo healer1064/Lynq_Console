@@ -1,92 +1,131 @@
-import React, { useState, useEffect } from "react";
+// libraries
+import { useState, useEffect, useContext } from "react";
 import Fade from "react-reveal/Fade";
-
-// icon
-import { RiEditBoxLine } from "react-icons/ri";
-
-import { changeTo24 } from "../../utils/DateHelper";
+import ProfileContext from "../../context/profile";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // components
-import TimeModal from "../Settings/TimeModal";
+import TableRowItem from "./TableRowItem";
 
-const TableRow = ({ day, data, updateTime, deleteTime }) => {
-  console.log("table Row", data);
-  const [count, setCount] = useState(3);
-  const [isAvailable, setIsAvailable] = useState(data.length > 0);
-  const [timeSlots, setTimeSlots] = useState(data);
-  const [isOpen, setIsOpen] = useState(false);
-  const [time, setTime] = useState(null);
-  const [delLoading, setDelLoading] = useState(false);
+const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
+  // context
+  const { token } = useContext(ProfileContext);
+
+  // states
+  const [isAvailable, setIsAvailable] = useState(
+    data.length > 0 ? data[0].active : false
+  );
+  const [timeSlots, setTimeSlots] = useState(null);
+  const [availLoading, setAvailLoading] = useState(false);
+  const [addLoading, setAddLoading] = useState(false);
+
+  const toggleAvailability = (day) => {
+    setAvailLoading(true);
+    async function toggle() {
+      const response = await fetch(
+        `https://api.lynq.app/account/working-slots/toggle-enable?t=${token}&day=${day}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    toggle().then((res) => {
+      setAvailLoading(false);
+      if (res.status == 200) {
+        console.log("avail changed");
+        toggleSuccess();
+        setIsAvailable(!isAvailable);
+      } else {
+        toast.error("An error has occurred");
+      }
+    });
+  };
+
+  const addTime = (day, start, end) => {
+    setAddLoading(true);
+    const _reqData = {
+      day,
+      start_period_time: start,
+      end_period_time: end,
+    };
+
+    async function update() {
+      const response = await fetch(
+        `https://api.lynq.app/account/working-slots?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_reqData),
+        }
+      );
+
+      return await response;
+    }
+
+    update().then((res) => {
+      setAddLoading(false);
+      if (res.status == 200) {
+        console.log("public profile updates", res);
+        toggleSuccess();
+      } else {
+        console.log("public profile update error", res);
+        toast.error("An error has occurred");
+      }
+    });
+  };
 
   useEffect(() => {
-    setTimeSlots(data);
-    setDelLoading(false);
+    checkPreviousSlots();
+  }, [isAvailable]);
+
+  useEffect(() => {
+    if (data) setTimeSlots(data);
   }, [data]);
 
-  const addTime = (_start, _end) => {
-    setTimeSlots([
-      { start_period_time: _start, end_period_time: _end, id: count },
-      ...timeSlots,
-    ]);
-    setCount(count + 1);
-  };
-
-  const removeTime = (_id) => {
-    console.log(_id);
-    // let temp = [...timeSlots];
-    // let filter = temp.filter((item) => item.id !== _id);
-    // setTimeSlots(filter);
-    deleteTime(_id);
-    setDelLoading(true);
-  };
-
-  // const handleEditTime = (_id, _start, _end) => {
-  //   let startTime = changeTo24(_start);
-  //   let endTime = changeTo24(_end);
-
-  //   startTime.format = _start;
-  //   endTime.format = _end;
-
-  //   setTime({ id: _id, startTime, endTime });
-  //   setIsOpen(true);
-  // };
-
-  const editTime = (_id, _start, _end) => {
-    toggle();
-
-    let temp = timeSlots.map((item) =>
-      item.id !== _id ? item : { id: _id, start: _start, end: _end }
-    );
-
-    setTimeSlots(temp);
-  };
-
-  const toggle = () => {
-    if (time) setTime(null);
-    setIsOpen(!isOpen);
-  };
-
-  const handleTime = (_start, _end) => {
-    toggle();
-    addTime(_start, _end);
+  const checkPreviousSlots = () => {
+    if (data.length > 0) {
+      setTimeSlots(data);
+    } else {
+      if (isAvailable) {
+        addTime(day, "09:00", "17:00");
+      }
+    }
   };
 
   return (
     <>
+      <ToastContainer />
       {!isAvailable ? (
         <Fade duration={1000}>
           <div className="setup-table__row">
             <div className="setup-table__day">
-              <img
-                src="/img/setup-check-unavailable.svg"
-                alt=""
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setIsAvailable(true);
-                  updateTime(day, "09:00:00", "17:00:00");
-                  // addTime("09:00:00", "17:00:00");
-                }}
-              />
+              {!availLoading ? (
+                <img
+                  src="/img/setup-check-unavailable.svg"
+                  alt=""
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    toggleAvailability(day);
+                  }}
+                />
+              ) : (
+                <img
+                  style={{ width: "18px", height: "18px" }}
+                  src="/img/Rolling-dark.svg"
+                  alt="rolling"
+                />
+              )}
               <span>{day.substring(0, 3)}</span>
             </div>
             <div className="setup-table__col">
@@ -100,69 +139,54 @@ const TableRow = ({ day, data, updateTime, deleteTime }) => {
       ) : (
         <div className="setup-table__row available">
           <div className="setup-table__day">
-            <img
-              src="/img/setup-check-available.svg"
-              alt=""
-              style={{ cursor: "pointer" }}
-              onClick={() => setIsAvailable(false)}
-            />
+            {!availLoading ? (
+              <img
+                src="/img/setup-check-available.svg"
+                alt=""
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  toggleAvailability(day);
+                }}
+              />
+            ) : (
+              <img
+                style={{ width: "18px", height: "18px" }}
+                src="/img/Rolling-dark.svg"
+                alt="rolling"
+              />
+            )}
             <span>{day.substring(0, 3)}</span>
           </div>
           <div className="setup-table__col">
-            {timeSlots.map((item, i) => (
-              <div key={i} style={{ margin: ".25rem 0" }}>
-                <Fade collapse bottom duration={1000}>
-                  <div className="time__row">
-                    <input
-                      type="text"
-                      value={item.start_period_time}
-                      readOnly
-                    />
-                    <div className="line"></div>
-                    <input type="text" value={item.end_period_time} readOnly />
-                    <div className="icon-wrapper">
-                      {/* <RiEditBoxLine
-                        size={18}
-                        onClick={() =>
-                          handleEditTime(
-                            item.id,
-                            item.start_period_time,
-                            item.end_period_time
-                          )
-                        }
-                      /> */}
-                      {!delLoading ? (
-                        <img
-                          src="/img/setup-trash.svg"
-                          alt="delete time slot"
-                          onClick={() => removeTime(item.id)}
-                        />
-                      ) : (
-                        <img
-                          style={{ width: "18px", height: "18px" }}
-                          src="/img/Rolling-dark.svg"
-                          alt="rolling"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </Fade>
-              </div>
-            ))}
+            {!timeSlots ? (
+              <h6>Loading</h6>
+            ) : (
+              timeSlots.map((item, i) => (
+                <TableRowItem
+                  key={i}
+                  item={item}
+                  deleteTime={deleteTime}
+                  day={day}
+                  token={token}
+                />
+              ))
+            )}
           </div>
-          <div className="setup-table__add">
-            <img src="/img/setup-add.svg" alt="" onClick={toggle} />
+          <div
+            className="setup-table__add"
+            onClick={() => addTime(day, "09:00", "17:00")}
+          >
+            {!addLoading ? (
+              <img src="/img/setup-add.svg" alt="" />
+            ) : (
+              <img
+                style={{ width: "18px", height: "18px" }}
+                src="/img/Rolling-dark.svg"
+                alt="rolling"
+              />
+            )}
           </div>
         </div>
-      )}
-      {isOpen && (
-        <TimeModal
-          isOpen={isOpen}
-          toggle={toggle}
-          handleTime={handleTime}
-          defaultTime={time}
-          editTime={editTime}
-        />
       )}
     </>
   );

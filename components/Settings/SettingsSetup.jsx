@@ -45,7 +45,7 @@ const SettingsSetup = () => {
 
   return (
     <div className="setup-wrp">
-      <SetupTable data={data} toggleSuccess={toggleSuccess} />
+      <SetupTable data={data} toggleSuccess={toggleSuccess} success={success} />
       <SetupNotifications />
     </div>
   );
