@@ -55,23 +55,29 @@ export default function AppointmentNew() {
       },
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/appointments/${id}?t=${token}`,
-      config
-    );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/${id}?t=${token}`,
+        config
+      );
 
-    const status = await response.status;
+      const status = await response.status;
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (status == 200) {
-      setEventType(data.activity_name);
-      setEventId(data.activity_id);
-      setDuration(data.session_duration);
-      setPrice(data.display_price);
-      setEmail(data.email);
-      setFirstName(data.first_name);
-      setLastName(data.last_name);
+      if (status == 200) {
+        setEventType(data.activity_name);
+        setEventId(data.activity_id);
+        setDuration(data.session_duration);
+        setPrice(data.display_price);
+        setEmail(data.email);
+        setFirstName(data.first_name);
+        setLastName(data.last_name);
+      } else {
+        toast.error("Error, Failed To Fetch Appointment");
+      }
+    } catch (err) {
+      toast.error("Error, Failed To Fetch Appointment");
     }
   };
 
@@ -88,14 +94,18 @@ export default function AppointmentNew() {
       },
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/event-type?t=${token}`,
-      config
-    );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/event-type?t=${token}`,
+        config
+      );
 
-    const data = await response.json();
+      const data = await response.json();
 
-    setData(data);
+      setData(data);
+    } catch (err) {
+      toast.error("Error, Failed To Fetch Event Types");
+    }
   };
 
   const fetchTimes = () => {
@@ -125,12 +135,11 @@ export default function AppointmentNew() {
       .then((res) => {
         setTimeLoading(false);
         let sorted = sortDates(res);
-        console.log(sorted);
         setTimes(sorted);
       })
       .catch((err) => {
-        console.log(err);
-        toast.error(err.message);
+        setTimeLoading(false);
+        toast.error("Error, Failed To Fetch Time Slots");
       });
   };
 
@@ -203,12 +212,11 @@ export default function AppointmentNew() {
       book()
         .then((res) => {
           setLoading(false);
-          console.log("booking complete", res);
           router.push(`/appointments/${res.id}`);
         })
         .catch((err) => {
-          console.log(err);
-          toast.error(err.message);
+          toast.error("Error, Failed to Book Appointment");
+          setLoading(false);
         });
     } else {
       setError(true);

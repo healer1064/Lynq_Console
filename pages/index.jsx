@@ -50,14 +50,18 @@ const home = () => {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/stats?t=${token}&period=${stats}`,
-      config
-    );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/stats?t=${token}&period=${stats}`,
+        config
+      );
 
-    const _data = await response.json();
+      const _data = await response.json();
 
-    setStatsData(_data);
+      setStatsData(_data);
+    } catch (err) {
+      toast.error("Error Occured, Stats Cannot Be Shown");
+    }
   };
 
   const fetchAppointments = async () => {
@@ -67,40 +71,45 @@ const home = () => {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/appointments?t=${token}`,
-      config
-    );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments?t=${token}`,
+        config
+      );
 
-    const _data = await response.json();
+      const _data = await response.json();
 
-    var groupArrays = [];
+      var groupArrays = [];
 
-    if (_data.length > 0) {
-      const groups = _data.reduce((groups, appointment) => {
-        const date = appointment.starting_date.split("T")[0];
-        if (!groups[date]) {
-          groups[date] = [];
-        }
-        groups[date].push(appointment);
-        return groups;
-      }, {});
+      if (_data.length > 0) {
+        const groups = _data.reduce((groups, appointment) => {
+          const date = appointment.starting_date.split("T")[0];
+          if (!groups[date]) {
+            groups[date] = [];
+          }
+          groups[date].push(appointment);
+          return groups;
+        }, {});
 
-      groupArrays = Object.keys(groups).map((date) => {
-        return {
-          date,
-          appointments: groups[date],
-        };
+        groupArrays = Object.keys(groups).map((date) => {
+          return {
+            date,
+            appointments: groups[date],
+          };
+        });
+      }
+
+      const filteredArray = groupArrays.filter((i) => {
+        var currentDate = moment().format("YYYY-MM-DD");
+        var date = moment(i.date).format("YYYY-MM-DD");
+        return date == currentDate;
       });
+
+      setAppointmentList(filteredArray);
+    } catch (err) {
+      setAppointmentList([]);
+      toast.error(err.message);
     }
-
-    const filteredArray = groupArrays.filter((i) => {
-      var currentDate = moment().format("YYYY-MM-DD");
-      var date = moment(i.date).format("YYYY-MM-DD");
-      return date == currentDate;
-    });
-
-    setAppointmentList(filteredArray);
   };
 
   const toggle = (_id) => {
@@ -128,19 +137,16 @@ const home = () => {
     reject()
       .then((res) => {
         setRejectLoading(false);
-        console.log("res reject", res);
         if (res.status === 200) {
           setIsOpen(false);
           setSuccess(!success);
         } else {
-          toast.error("An error has occurred");
-          console.log("res reject error", res);
+          toast.error("Something went wrong!!, appointment cancel failed");
         }
       })
       .catch((err) => {
         setRejectLoading(false);
         toast.error("An error has occurred");
-        console.log(err);
       });
   };
 

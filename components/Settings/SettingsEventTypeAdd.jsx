@@ -26,16 +26,16 @@ const SettingsEventTypeAdd = ({ setTab }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  // cancel policy states
+  const [isAddMore, setIsAddMore] = useState(false);
+  const [hourOne, setHourOne] = useState("24");
+  const [hourTwo, setHourTwo] = useState("6");
+  const [per, setPer] = useState("50");
+
   const { token } = useContext(ProfileContext);
 
   const handleSave = () => {
-    if (
-      eventName !== "" &&
-      desc !== "" &&
-      duration !== "" &&
-      policy !== "" &&
-      price !== ""
-    ) {
+    if (eventName !== "" && desc !== "" && duration !== "" && price !== "") {
       if (duration === "custom" && customDur === "") {
         console.log("false");
         setError(true);
@@ -51,6 +51,16 @@ const SettingsEventTypeAdd = ({ setTab }) => {
     }
   };
 
+  const validatePolicy = () => {
+    let policyStr = `- Full refund if cancelled ${hourOne} hours before the session`;
+
+    if (isAddMore) {
+      policyStr += `\n- ${per} % refund if cancelled up to ${hourTwo} hours before the session`;
+    }
+
+    return policyStr;
+  };
+
   const addEventType = () => {
     const _reqData = {
       id: uuidv4(),
@@ -59,7 +69,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
       description: desc,
       duration: duration === "custom" ? customDur : duration,
       price,
-      cancellation_policy: policy,
+      cancellation_policy: validatePolicy(),
       material_needed: needToBring,
     };
 
@@ -201,10 +211,49 @@ const SettingsEventTypeAdd = ({ setTab }) => {
           </div>
           <div className="events-edit__col policy">
             <strong>Cancellation policy*</strong>
-            <textarea
+            {/* <textarea
               value={policy}
               onChange={(e) => setPolicy(e.target.value)}
-            ></textarea>
+            ></textarea> */}
+            <div className="content">
+              <p>
+                Full refund if cancelled{" "}
+                <input
+                  value={hourOne}
+                  onChange={(e) => setHourOne(e.target.value)}
+                />{" "}
+                hours before the session
+              </p>
+              <>
+                {!isAddMore ? (
+                  <p
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setIsAddMore(true)}
+                  >
+                    <img src="/img/setup-add.svg" alt="" /> You can add one more
+                    rule
+                  </p>
+                ) : (
+                  <p>
+                    <input
+                      value={per}
+                      onChange={(e) => setPer(e.target.value)}
+                    />{" "}
+                    % refund if cancelled up to{" "}
+                    <input
+                      value={hourTwo}
+                      onChange={(e) => setHourTwo(e.target.value)}
+                    />{" "}
+                    hours before the session
+                    <img
+                      src="/img/events-delete-icon.svg"
+                      alt=""
+                      onClick={() => setIsAddMore(false)}
+                    />
+                  </p>
+                )}
+              </>
+            </div>
           </div>
           <div className="events-edit__price">
             <strong>Price*</strong>

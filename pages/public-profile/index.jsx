@@ -56,6 +56,7 @@ const EditProfile = () => {
   const [slugCopy, setSlugCopy] = useState(false);
   const [slugNotAvail, setSlugNotAvail] = useState(false);
   const [slugRule, setSlugRule] = useState(false);
+  const [allowMsg, setAllowMsg] = useState(false);
 
   const imgRef = useRef();
 
@@ -285,6 +286,8 @@ const EditProfile = () => {
     }
   };
 
+  const toggleAllowMsg = () => setAllowMsg(!allowMsg);
+
   return (
     <>
       <Head>
@@ -492,6 +495,22 @@ const EditProfile = () => {
                     value={website}
                     onChange={(e) => setWebsite(e.target.value)}
                   />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    src={
+                      !allowMsg
+                        ? "/img/setup-check-unavailable.svg"
+                        : "/img/setup-check-available.svg"
+                    }
+                    alt=""
+                    style={{ cursor: "pointer" }}
+                    onClick={toggleAllowMsg}
+                  />
+
+                  <span style={{ fontSize: "12px", marginLeft: ".5rem" }}>
+                    Allow clients to send you messages
+                  </span>
                 </div>
                 <h3>About</h3>
                 <div>

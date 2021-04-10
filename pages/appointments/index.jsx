@@ -56,17 +56,23 @@ export default function Appointments() {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/appointments?t=${token}`,
-      config
-    );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments?t=${token}`,
+        config
+      );
 
-    const _data = await response.json();
+      const _data = await response.json();
 
-    setApt(_data);
+      setApt(_data);
 
-    setData(filterByCurrWeek(groupAppointment(_data)));
-    setTemp(groupAppointment(_data));
+      setData(filterByCurrWeek(groupAppointment(_data)));
+      setTemp(groupAppointment(_data));
+    } catch (err) {
+      toast.error("Error, Failed to Fetch Appointment List!!!");
+      setApt([]);
+      setData([]);
+    }
   };
 
   const fetchRequests = async () => {
@@ -76,13 +82,18 @@ export default function Appointments() {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/appointments/requests?t=${token}`,
-      config
-    );
-    const _data = await response.json();
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/requests?t=${token}`,
+        config
+      );
+      const _data = await response.json();
 
-    setRequests(_data);
+      setRequests(_data);
+    } catch (err) {
+      setRequests([]);
+      toast.error("Error, Failed to Fetch Request List!!!");
+    }
   };
 
   const fetchInvitations = async () => {
@@ -92,13 +103,17 @@ export default function Appointments() {
       "Content-Type": "application/json",
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/appointments/pending_payments?t=${token}`,
-      config
-    );
-    const _data = await response.json();
-
-    setInvitations(_data);
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments/pending_payments?t=${token}`,
+        config
+      );
+      const _data = await response.json();
+      setInvitations(_data);
+    } catch (err) {
+      setInvitations([]);
+      toast.error("Error, Failed to Fetch Invitation List!!!");
+    }
   };
 
   const groupAppointment = (data) => {
@@ -159,7 +174,7 @@ export default function Appointments() {
       const response = await fetch(
         `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -173,19 +188,16 @@ export default function Appointments() {
     reject()
       .then((res) => {
         setRejectLoading(false);
-        console.log("res reject", res);
         if (res.status === 200) {
           setShowModel(false);
           toggleSuccess();
         } else {
-          toast.error("An error has occurred");
-          console.log("res reject error", res);
+          toast.error("Something went wrong!!, appointment cancel failed");
         }
       })
       .catch((err) => {
         setRejectLoading(false);
-        toast.error("An error has occurred");
-        console.log(err);
+        toast.error("Something went wrong!!, appointment cancel failed");
       });
   };
 

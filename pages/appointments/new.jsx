@@ -54,14 +54,18 @@ export default function AppointmentNew() {
       },
     };
 
-    const response = await fetch(
-      `https://api.lynq.app/account/event-type?t=${token}`,
-      config
-    );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/event-type?t=${token}`,
+        config
+      );
 
-    const data = await response.json();
+      const data = await response.json();
 
-    setData(data);
+      setData(data);
+    } catch (err) {
+      toast.error("Error, Failed To Fetch Event Types.");
+    }
   };
 
   const fetchTimes = () => {
@@ -91,12 +95,11 @@ export default function AppointmentNew() {
       .then((res) => {
         setTimeLoading(false);
         let sorted = sortDates(res);
-        console.log(sorted);
         setTimes(sorted);
       })
       .catch((err) => {
-        console.log(err);
-        toast.error(err.message);
+        toast.error("Error, Failed To Fetch Time Slots");
+        setTimeLoading(false);
       });
   };
 
@@ -169,12 +172,10 @@ export default function AppointmentNew() {
       book()
         .then((res) => {
           setLoading(false);
-          console.log("booking complete", res);
           router.push(`/appointments/${res.id}`);
         })
         .catch((err) => {
-          console.log(err);
-          toast.error(err.message);
+          toast.error("Error, Failed To Book Appointments.");
         });
     } else {
       setError(true);

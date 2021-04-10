@@ -27,8 +27,6 @@ const RequestList = ({
   const [rejectLoading, setRejectLoading] = useState(false);
   const [acceptLoading, setAcceptLoading] = useState(false);
 
-  console.log(requestList);
-
   const onAccept = (id) => {
     setAcceptLoading(true);
 
@@ -47,17 +45,21 @@ const RequestList = ({
       return await response;
     }
 
-    accept().then((res) => {
-      console.log("res accept", res);
-      setAcceptLoading(false);
-      if (res.status === 200) {
-        setSuccess(!success);
-        setTabIndex(1);
-      } else {
-        toast.error("An error has occurred");
-        console.log(res);
-      }
-    });
+    accept()
+      .then((res) => {
+        setAcceptLoading(false);
+        if (res.status === 200) {
+          setSuccess(!success);
+          setTabIndex(1);
+        } else {
+          toast.error("Error, Failed To Accept Appointment");
+          setAcceptLoading(false);
+        }
+      })
+      .catch((err) => {
+        toast.error("Error, Failed To Accept Appointment");
+        setAcceptLoading(false);
+      });
   };
   const onReject = (id) => {
     setRejectLoading(true);
@@ -77,17 +79,19 @@ const RequestList = ({
       return await response;
     }
 
-    reject().then((res) => {
-      console.log("res reject", res);
-      setRejectLoading(false);
-      if (res.status === 200) {
-        setSuccess(!success);
-        setTabIndex(1);
-      } else {
-        // toast.error(res.message);
-        console.log(res.message);
-      }
-    });
+    reject()
+      .then((res) => {
+        setRejectLoading(false);
+        if (res.status === 200) {
+          setSuccess(!success);
+          setTabIndex(1);
+        } else {
+          toast.error("Error, Failed To Reject Appointment");
+        }
+      })
+      .catch((err) => {
+        toast.error("Error, Failed To Reject Appointment");
+      });
   };
 
   const toggle = (_flag, _data) => {
