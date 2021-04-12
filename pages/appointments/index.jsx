@@ -11,16 +11,14 @@ import Navbar from "../../components/Navbar";
 import AppointmentsTop from "../../components/Appointments/AppointmentsTop";
 import Leftbar from "../../components/Leftbar";
 import AppointmentsList from "../../components/Appointments/AppointmentsList";
-import RequestList from "../../components/Appointments/Request/RequestList";
 import PageLoading from "../../components/common/PageLoading";
-import InvitationsList from "../../components/Appointments/Invitations/InvitationsList";
+import Modal from "../../components/common/Modal";
 
 // context
 import ProfileContext from "../../context/profile";
 
 // helpers
 import { getCurrentWeek } from "../../utils/DateHelper";
-import Modal from "../../components/common/Modal";
 
 export default function Appointments() {
   // router
@@ -31,11 +29,9 @@ export default function Appointments() {
 
   // states
   const [data, setData] = useState(null);
-  const [apt, setApt] = useState(null);
   const [requests, setRequests] = useState(null);
-  const [invitations, setInvitations] = useState(null);
   const [temp, setTemp] = useState([]);
-  const [tabIndex, setTabIndex] = useState(1);
+  const [tab, setTab] = useState(router.pathname.toString());
   const [success, setSuccess] = useState(false);
   const [id, setId] = useState();
   const [showModel, setShowModel] = useState(false);
@@ -45,9 +41,18 @@ export default function Appointments() {
     if (token) {
       fetchAppointments();
       fetchRequests();
-      fetchInvitations();
     }
   }, [token, success]);
+
+  useEffect(() => {
+    if (tab == "/appointments/invitations") {
+      router.push("/appointments/invitations");
+    } else if (tab == "/appointments/requests") {
+      router.push("/appointments/requests");
+    } else {
+      router.push("/appointments");
+    }
+  }, [tab]);
 
   const fetchAppointments = async () => {
     const config = {
@@ -64,13 +69,10 @@ export default function Appointments() {
 
       const _data = await response.json();
 
-      setApt(_data);
-
       setData(filterByCurrWeek(groupAppointment(_data)));
       setTemp(groupAppointment(_data));
     } catch (err) {
       toast.error("Error, Failed to Fetch Appointment List!!!");
-      setApt([]);
       setData([]);
     }
   };
@@ -93,26 +95,6 @@ export default function Appointments() {
     } catch (err) {
       setRequests([]);
       toast.error("Error, Failed to Fetch Request List!!!");
-    }
-  };
-
-  const fetchInvitations = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/pending_payments?t=${token}`,
-        config
-      );
-      const _data = await response.json();
-      setInvitations(_data);
-    } catch (err) {
-      setInvitations([]);
-      toast.error("Error, Failed to Fetch Invitation List!!!");
     }
   };
 
@@ -174,7 +156,7 @@ export default function Appointments() {
       const response = await fetch(
         `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -230,14 +212,14 @@ export default function Appointments() {
               <Fade>
                 <div className="settings-types">
                   <div
-                    onClick={() => setTabIndex(1)}
-                    className={`option ${tabIndex == 1 && "active"}`}
+                    onClick={() => router.push("/appointments")}
+                    className="option active"
                   >
                     Scheduled
                   </div>
                   <div
-                    onClick={() => setTabIndex(2)}
-                    className={`option ${tabIndex == 2 && "active"}`}
+                    onClick={() => router.push("/appointments/requests")}
+                    className="option"
                     style={{ position: "relative" }}
                   >
                     Requests{" "}
@@ -246,53 +228,32 @@ export default function Appointments() {
                     ) : null}
                   </div>
                   <div
-                    onClick={() => setTabIndex(3)}
-                    className={`option ${tabIndex == 3 && "active"}`}
+                    onClick={() => router.push("/appointments/invitations")}
+                    className="option"
                     style={{ position: "relative" }}
                   >
                     Invitations (Waiting for payment)
                   </div>
                 </div>
                 <div className="settings-types__mobile">
-                  <select
-                    onChange={(e) => setTabIndex(e.target.value)}
-                    value={tabIndex}
-                  >
-                    <option value={1}>Scheduled</option>
-                    <option value={2}>Requests</option>
-                    <option value={3}>Invitations (Waiting for payment)</option>
+                  <select onChange={(e) => setTab(e.target.value)} value={tab}>
+                    <option value={"/appointments"}>Scheduled</option>
+                    <option value={"/appointments/requests"}>Requests</option>
+                    <option value={"/appointments/invitations"}>
+                      Invitations (Waiting for payment)
+                    </option>
                   </select>
                 </div>
-                {tabIndex == 1 ? (
-                  <>
-                    <Fade duration={1200}>
-                      <div>
-                        <AppointmentsTop onWeekChange={onWeekChange} />
-                        <AppointmentsList
-                          appointmentList={data}
-                          toggleSuccess={toggleSuccess}
-                          toggle={toggle}
-                        />
-                      </div>
-                    </Fade>
-                  </>
-                ) : tabIndex == 2 ? (
-                  <>
-                    <RequestList
-                      // requestList={fakeInvitations}
-                      requestList={requests}
-                      apt={apt}
-                      setTabIndex={setTabIndex}
-                      success={success}
-                      setSuccess={setSuccess}
+                <Fade duration={1200}>
+                  <div>
+                    <AppointmentsTop onWeekChange={onWeekChange} />
+                    <AppointmentsList
+                      appointmentList={data}
+                      toggleSuccess={toggleSuccess}
+                      toggle={toggle}
                     />
-                  </>
-                ) : (
-                  <InvitationsList
-                    // invitations={fakeInvitations}
-                    invitations={invitations}
-                  />
-                )}
+                  </div>
+                </Fade>
               </Fade>
             </>
           )}

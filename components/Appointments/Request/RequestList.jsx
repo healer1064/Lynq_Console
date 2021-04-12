@@ -3,6 +3,7 @@ import Fade from "react-reveal/Fade";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 // style
 import styles from "./Request.module.css";
@@ -11,88 +12,16 @@ import RequestDetail from "./RequestDetail";
 // context
 import ProfileContext from "../../../context/profile";
 
-const RequestList = ({
-  requestList,
-  apt,
-  setTabIndex,
-  success,
-  setSuccess,
-}) => {
+const RequestList = ({ requestList, apt, success, setSuccess }) => {
   // context
   const { token } = useContext(ProfileContext);
+
+  // router
+  const router = useRouter();
 
   // states
   const [showDetail, setShowDetail] = useState(false);
   const [requestData, setRequsetData] = useState(null);
-  const [rejectLoading, setRejectLoading] = useState(false);
-  const [acceptLoading, setAcceptLoading] = useState(false);
-
-  const onAccept = (id) => {
-    setAcceptLoading(true);
-
-    async function accept() {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/${id}/accept?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return await response;
-    }
-
-    accept()
-      .then((res) => {
-        setAcceptLoading(false);
-        if (res.status === 200) {
-          setSuccess(!success);
-          setTabIndex(1);
-        } else {
-          toast.error("Error, Failed To Accept Appointment");
-          setAcceptLoading(false);
-        }
-      })
-      .catch((err) => {
-        toast.error("Error, Failed To Accept Appointment");
-        setAcceptLoading(false);
-      });
-  };
-  const onReject = (id) => {
-    setRejectLoading(true);
-
-    async function reject() {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return await response;
-    }
-
-    reject()
-      .then((res) => {
-        setRejectLoading(false);
-        if (res.status === 200) {
-          setSuccess(!success);
-          setTabIndex(1);
-        } else {
-          toast.error("Error, Failed To Reject Appointment");
-        }
-      })
-      .catch((err) => {
-        toast.error("Error, Failed To Reject Appointment");
-      });
-  };
 
   const toggle = (_flag, _data) => {
     setShowDetail(_flag);
@@ -110,7 +39,7 @@ const RequestList = ({
           <Fade key={i} duration={800} delay={50}>
             <div
               key={item}
-              onClick={() => toggle(true, item)}
+              onClick={() => router.push(`/appointments/requests/${item.id}`)}
               className={`appointments-col__card__wrp`}
             >
               <div className="appointments-col__card">
