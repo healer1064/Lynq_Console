@@ -54,14 +54,14 @@ const home = () => {
   }, [token, stats]);
 
   useEffect(() => {
-    if (slugData && currSession.time !== null) {
+    if (slugData?.slug !== undefined && currSession.time !== null) {
       setCurrSession({
         ...currSession,
         link: `us.lynq.app/${slugData.slug}/${currSession.id}`,
       });
     }
-
-    if (slugData && nextSession.time !== null) {
+    console.log("use effect", slugData);
+    if (slugData?.slug !== undefined && nextSession.id !== null) {
       setNextSession({
         ...nextSession,
         link: `us.lynq.app/${slugData.slug}/${nextSession.id}`,
