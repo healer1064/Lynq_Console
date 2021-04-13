@@ -1,3 +1,4 @@
+// libraries
 import React, { useEffect, useState } from "react";
 import { Drawer } from "antd";
 import Fade from "react-reveal/Fade";
@@ -7,7 +8,6 @@ import "antd/dist/antd.css";
 import styles from "./Request.module.css";
 
 // utils
-import { fullDate, getDuration, getTime } from "../../../utils/dates";
 import moment from "moment";
 
 const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
@@ -67,18 +67,18 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
                   key={index}
                   className={`${styles.request_drawer_item} ${styles.blue}`}
                 >
-                  <div className={styles.title}>
-                    (No field in backend for event type)
-                  </div>
+                  <div className={styles.title}>{item.activity_name}</div>
                   <div className={styles.det}>
                     {moment(item.starting_date).format("ddd, MMM DD, YYYY")}
                     <div className={styles.line}></div>
                     <b>
                       {moment(item.starting_date).format("hh:mm a")} -
-                      "duration"
+                      {moment(item.starting_date)
+                        .add(item.session_duration, "minutes")
+                        .format("hh:mm a")}
                     </b>
                     <div className={styles.line}></div>
-                    <b>duration</b>
+                    <b>{item.session_duration} mins</b>
                   </div>
                 </div>
               ))

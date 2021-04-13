@@ -68,6 +68,7 @@ const SetupTable = ({ data, toggleSuccess }) => {
           {days.map((day, index) => {
             return (
               <TableRow
+                key={index}
                 day={day}
                 data={filterData(day.toLowerCase())}
                 deleteTime={deleteTime}
