@@ -42,7 +42,7 @@ const AppointmentCard = ({ data, toggle }) => {
         </button>
         <button className="btnGoto">
           <a
-            href={`https://us.lynq.app/${slugData.slug}/${data.id}`}
+            href={`https://us.lynq.app/${slugData?.slug}/${data.id}`}
             target="_blank"
           >
             Goto Session
