@@ -9,8 +9,6 @@ const SettingsCallSync = () => {
   // contect
   const { profile } = useContext(ProfileContext);
 
-  console.log(profile);
-
   return (
     <Fade duration={1000}>
       <div className="call-sync__wrp">
