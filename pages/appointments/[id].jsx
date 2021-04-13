@@ -207,10 +207,10 @@ const AppointmentDetails = () => {
                       <strong>Invitation URL</strong>
                       <a
                         style={{ color: "black" }}
-                        href={`https://us.lynq.app/${slugData.slug}#${data.id}`}
+                        href={`https://us.lynq.app/${slugData.slug}/${data.id}`}
                         target="_blank"
                       >
-                        https://us.lynq.app/{slugData.slug}#{data.id}
+                        https://us.lynq.app/{slugData.slug}/{data.id}
                       </a>
                     </div>
                     {message ? (

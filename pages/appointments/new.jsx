@@ -144,7 +144,7 @@ export default function AppointmentNew() {
       setLoading(true);
       const _reqData = {
         activity_id: eventId,
-        start_date: time.split(".")[0],
+        start_date: time,
         duration,
         price,
         first_name: firstName,
