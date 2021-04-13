@@ -1,8 +1,14 @@
 // libraries
+import { useContext } from "react";
 import moment from "moment";
 import Link from "next/link";
 
+// context
+import ProfileContext from "../../context/profile";
+
 const AppointmentCard = ({ data, toggle }) => {
+  const { slugData } = useContext(ProfileContext);
+
   return (
     <div className={`appointments-col__event blue`}>
       <div className="title">{data.activity_name}</div>
@@ -33,6 +39,14 @@ const AppointmentCard = ({ data, toggle }) => {
           }}
         >
           Cancel Appointment
+        </button>
+        <button className="btnGoto">
+          <a
+            href={`https://us.lynq.app/${slugData.slug}/${data.id}`}
+            target="_blank"
+          >
+            Goto Session
+          </a>
         </button>
         {data.status.toLowerCase().includes("awaiting-payment") && (
           <span className="payment-not-paid">

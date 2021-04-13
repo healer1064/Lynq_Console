@@ -1372,6 +1372,25 @@ body
         border-radius: 5px
         cursor: pointer
         color: #838383
+      .btnGoto
+        background: transparent
+        outline: none
+        border: 1px solid #7E88F4
+        padding: .25rem .5rem
+        margin-top: 1rem
+        margin-left: .5rem
+        border-radius: 5px
+        cursor: pointer
+        transition: all .25s ease-out
+        a
+          text-decoration: none
+          color: #7E88F4
+        &:hover 
+          background: #7E88F4 
+          a
+            color: white
+
+
   &-search
     &__col
       width: 100%
@@ -2995,7 +3014,7 @@ body
         line-height: 20px
         color: $grey
         border-radius: 5px
-        transition: all .8s ease-in-out
+        transition: all .8s cubic-bezier(0.18, 0.89, 0.32, 1.28)
         
         &.active
           box-shadow: 0px 6px 20px rgba(181, 181, 181, 0.42)

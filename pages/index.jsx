@@ -30,6 +30,16 @@ const home = () => {
   const [rejectLoading, setRejectLoading] = useState(false);
   const [id, setId] = useState(-1);
   const [stats, setStats] = useState("TODAY");
+  const [currSession, setCurrSession] = useState({
+    time: null,
+    link: null,
+    id: null,
+  });
+  const [nextSession, setNextSession] = useState({
+    time: null,
+    link: null,
+    id: null,
+  });
 
   useEffect(() => {
     if (token) {
@@ -42,6 +52,22 @@ const home = () => {
       fetchStats();
     }
   }, [token, stats]);
+
+  useEffect(() => {
+    if (slugData && currSession.time !== null) {
+      setCurrSession({
+        ...currSession,
+        link: `us.lynq.app/${slugData.slug}/${currSession.id}`,
+      });
+    }
+
+    if (slugData && nextSession.time !== null) {
+      setNextSession({
+        ...nextSession,
+        link: `us.lynq.app/${slugData.slug}/${nextSession.id}`,
+      });
+    }
+  }, [slugData]);
 
   const fetchStats = async () => {
     const config = {
@@ -106,10 +132,76 @@ const home = () => {
       });
 
       setAppointmentList(filteredArray);
+
+      if (filteredArray.length > 0) {
+        getCurrentSession(filteredArray[0].appointments);
+      }
+      getNextSession(_data);
     } catch (err) {
       setAppointmentList([]);
       toast.error(err.message);
     }
+  };
+
+  const getCurrentSession = (_data) => {
+    let format = "hh:mm A";
+
+    // let time = moment(`2021-04-14T16:00:00.262608`);
+    let time = moment();
+
+    _data.forEach((appt) => {
+      let start = moment(appt.starting_date);
+      let end = moment(appt.ending_date);
+      if (time.isBetween(start, end)) {
+        setCurrSession({
+          ...currSession,
+          time: `${start.format(format)} - ${end.format(format)}`,
+          id: appt.id,
+        });
+      }
+    });
+  };
+
+  const getNextSession = (_data) => {
+    let format = "hh:mm A";
+
+    // let time = moment(`2021-04-14T16:00:00.262608`);
+    let time = moment();
+
+    _data.sort(compare);
+
+    for (let i = 0; i < _data.length; i++) {
+      let start = moment(_data[i].starting_date);
+      let end = moment(_data[i].ending_date);
+
+      if (time.isBefore(start, end)) {
+        setNextSession({
+          ...nextSession,
+          time: time.isSame(start, "day")
+            ? `${start.format(format)} - ${end.format(format)}`
+            : `${start.format(format)} - ${end.format(format)} ${start.format(
+                "MMM DD YYYY"
+              )}`,
+          id: _data[i].id,
+        });
+
+        break;
+      }
+    }
+  };
+
+  const compare = (a, b) => {
+    if (
+      a.ending_date < b.ending_date ||
+      (a.ending_date == b.ending_date && a.starting_date > b.starting_date)
+    )
+      return -1;
+    if (
+      a.ending_date > b.ending_date ||
+      (a.ending_date == b.ending_date && a.starting_date < b.starting_date)
+    )
+      return 1;
+    return 0;
   };
 
   const toggle = (_id) => {
@@ -182,22 +274,34 @@ const home = () => {
                   loading={rejectLoading}
                 />
               )}
-              <div className="notifications__col" style={{ display: "none" }}>
-                <EmailConfirmation />
-                <div className="session">
-                  <span>Current live session | 08:00 AM - 09:00 AM</span>
-                  <a href="#" className="access__live">
-                    ACCESS THE LIVE
-                  </a>
-                </div>
-                <div className="session">
-                  <span>
-                    Click here to start your next session | 09:00 AM - 10:00 AM
-                  </span>
-                  <a href="#" className="start__live">
-                    START THE LIVE
-                  </a>
-                </div>
+              <div className="notifications__col">
+                {/* <EmailConfirmation /> */}
+                {currSession.time !== null && (
+                  <div className="session">
+                    <span>Current live session | {currSession.time}</span>
+                    <a
+                      href={`https://${currSession.link}`}
+                      className="access__live"
+                      target="_blank"
+                    >
+                      ACCESS THE LIVE
+                    </a>
+                  </div>
+                )}
+                {nextSession.time !== null && (
+                  <div className="session">
+                    <span>
+                      Click here to start your next session | {nextSession.time}
+                    </span>
+                    <a
+                      href={`https://${nextSession.link}`}
+                      className="start__live"
+                      target="blank"
+                    >
+                      START THE LIVE
+                    </a>
+                  </div>
+                )}
               </div>
               <Fade duration={1000}>
                 <div className="home-cnt">
