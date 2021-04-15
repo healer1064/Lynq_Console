@@ -248,6 +248,8 @@ const home = () => {
      ${moment(date).format("DD")}, ${moment(date).format("YYYY")}`;
   };
 
+  console.log(nextSession.link);
+
   return (
     <>
       <Head>

@@ -965,9 +965,13 @@ body
           padding: 8px 16px
           font-size: 14px
           p
-            font-weight: 600
+            font-weight: 400
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button 
+            -webkit-appearance: none
+            margin: 0
           input
-            max-width: 25px
+            max-width: 30px
             border: 1px solid #9FA8B5
             border-radius: 5px
             text-align: center
@@ -975,7 +979,6 @@ body
               outline: none
           img
             cursor: pointer
-            margin-inline: .5rem
       .radios
         padding-right: 16px
         strong
@@ -1168,7 +1171,7 @@ body
       font-weight: 600
       font-size: 16px
       line-height: 24px
-      text-transform: uppercase
+      text-decoration: none
       color: #FFF
       &:hover
         color: white

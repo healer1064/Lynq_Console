@@ -21,7 +21,7 @@ const Leftbar = ({ active }) => {
         <Link href="/appointments">
           <a className={active === "appointments" ? "active" : ""}>
             <img src="/img/nav-appointments.svg" alt="" />
-            <span>Appointments</span>
+            <span>Activities</span>
           </a>
         </Link>
         <Link href="/public-profile">

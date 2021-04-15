@@ -217,31 +217,51 @@ const SettingsEventTypeAdd = ({ setTab }) => {
             ></textarea> */}
             <div className="content">
               <p>
-                Full refund if cancelled{" "}
+                Full refund if cancelled
                 <input
+                  style={{ margin: "0 5px" }}
+                  type="number"
+                  max="100"
+                  min="0"
                   value={hourOne}
                   onChange={(e) => setHourOne(e.target.value)}
-                />{" "}
+                />
                 hours before the session
               </p>
               <>
                 {!isAddMore ? (
                   <p
-                    style={{ cursor: "pointer" }}
+                    style={{
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
                     onClick={() => setIsAddMore(true)}
                   >
-                    <img src="/img/setup-add.svg" alt="" /> You can add one more
-                    rule
+                    <img
+                      src="/img/setup-add.svg"
+                      alt=""
+                      style={{ margin: "0 5px 0 -5px" }}
+                    />{" "}
+                    You can add one more rule
                   </p>
                 ) : (
-                  <p>
+                  <p style={{ display: "flex", alignItems: "center" }}>
                     <input
+                      type="number"
+                      max="100"
+                      min="0"
+                      style={{ margin: "0 5px 0 0" }}
                       value={per}
                       onChange={(e) => setPer(e.target.value)}
-                    />{" "}
-                    % refund if cancelled up to{" "}
+                    />
+                    % refund if cancelled up to
                     <input
+                      style={{ margin: "0 5px" }}
                       value={hourTwo}
+                      type="number"
+                      max="100"
+                      min="0"
                       onChange={(e) => setHourTwo(e.target.value)}
                     />{" "}
                     hours before the session
@@ -249,6 +269,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
                       src="/img/events-delete-icon.svg"
                       alt=""
                       onClick={() => setIsAddMore(false)}
+                      style={{ marginLeft: "10px" }}
                     />
                   </p>
                 )}
