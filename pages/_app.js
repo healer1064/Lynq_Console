@@ -20,7 +20,14 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     if (!localStorage.getItem("linqToken")) {
-      router.push("/plans");
+      if (
+        router.pathname != "/plans" &&
+        router.pathname != "/signup" &&
+        router.pathname != "/login" &&
+        router.pathname != "/forgot-password" &&
+        router.pathname != "/reset-password"
+      )
+        router.push("/plans");
       setPreLoading(false);
     } else {
       setPreLoading(false);

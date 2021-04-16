@@ -1367,32 +1367,29 @@ body
         line-height: 17px
         color: $black-2
       .btnCancel
-        background: transparent
+        background: #81c4ab
         outline: none
-        border: 1px solid #838383
+        border: none
         padding: .25rem .5rem
-        margin-top: 1rem
         border-radius: 5px
         cursor: pointer
-        color: #838383
+        color: white
+        text-decoration: none
+        font-size: 13px
       .btnGoto
-        background: transparent
+        background: #7E88F4
         outline: none
-        border: 1px solid #7E88F4
-        padding: .25rem .5rem
-        margin-top: 1rem
+        border: none
         margin-left: .5rem
         border-radius: 5px
         cursor: pointer
         transition: all .25s ease-out
-        a
-          text-decoration: none
-          color: #7E88F4
+        padding: .25rem .5rem
+        color: white
+        text-decoration: none
+        font-size: 13px
         &:hover 
           background: #7E88F4 
-          a
-            color: white
-
 
   &-search
     &__col
@@ -1746,6 +1743,28 @@ body
           background: $lavender
           color: #FFF
           font-weight: 600
+        &.cancel
+          background: #dd677a
+          outline: none
+          border: none
+          padding: .25rem .5rem
+          border-radius: 5px
+          cursor: pointer
+          color: white
+          text-decoration: none
+          font-size: 13px
+        &.modify
+          background: #8497b0
+          outline: none
+          border: none
+          margin-left: .5rem
+          border-radius: 5px
+          cursor: pointer
+          transition: all .25s ease-out
+          padding: .25rem .5rem
+          color: white
+          text-decoration: none
+          font-size: 13px
     h2
       margin: 0 0 4px
       font-weight: 600

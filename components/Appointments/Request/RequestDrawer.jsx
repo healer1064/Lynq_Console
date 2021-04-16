@@ -58,7 +58,7 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
             <h1>Loading...</h1>
           ) : appointments.length == 0 ? (
             <div>
-              <h3>No Appointments For Today</h3>
+              <h3>No Appointments</h3>
             </div>
           ) : (
             appointments.map((i) =>

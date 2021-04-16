@@ -6,7 +6,7 @@ import Link from "next/link";
 // context
 import ProfileContext from "../../context/profile";
 
-const AppointmentCard = ({ data, toggle }) => {
+const AppointmentCard = ({ data }) => {
   const { slugData } = useContext(ProfileContext);
 
   return (
@@ -30,24 +30,15 @@ const AppointmentCard = ({ data, toggle }) => {
         {data.email}
       </div>
 
-      <div>
-        <button
-          className="btnCancel"
-          onClick={(e) => {
-            e.stopPropagation();
-            toggle(data);
-          }}
-        >
-          Cancel Appointment
-        </button>
-        <button className="btnGoto">
-          <a
-            href={`https://us.lynq.app/${slugData?.slug}/${data.id}`}
-            target="_blank"
-          >
-            Start the session
+      <div style={{ marginTop: "1rem" }}>
+        <Link href={`/appointments/${data.id}`}>
+          <a className="btnCancel">Manage Session</a>
+        </Link>
+        <Link href={`https://us.lynq.app/${slugData?.slug}/${data.id}`}>
+          <a target="_blank" className="btnGoto">
+            Start the video
           </a>
-        </button>
+        </Link>
         {data.status.toLowerCase().includes("awaiting-payment") && (
           <span className="payment-not-paid">
             This session has not been paid by your client.{" "}

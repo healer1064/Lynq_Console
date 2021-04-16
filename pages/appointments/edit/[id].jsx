@@ -65,6 +65,8 @@ export default function AppointmentNew() {
 
       const data = await response.json();
 
+      // console.log(new Date(data.starting_date));
+
       if (status == 200) {
         setEventType(data.activity_name);
         setEventId(data.activity_id);
@@ -73,6 +75,9 @@ export default function AppointmentNew() {
         setEmail(data.email);
         setFirstName(data.first_name);
         setLastName(data.last_name);
+        setPicker(new Date(data.starting_date));
+        setDay(moment(new Date(data.starting_date)));
+        setTime(moment(data.starting_date).format("hh:mm a"));
       } else {
         toast.error("Error, Failed To Fetch Appointment");
       }
@@ -252,72 +257,28 @@ export default function AppointmentNew() {
               <ToastContainer />
               <label>
                 <strong>Event Type</strong>
-                <select
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    if (value !== -1) {
-                      let event = data.find((item) => item.id == value);
-                      setDuration(event.duration);
-                      setPrice(event.price);
-                      setEventType(event.name);
-                      setEventId(event.id);
-                    }
-                  }}
-                  value={eventType}
-                >
-                  <option value={-1}>Select Event Type</option>
-                  {data
-                    .filter((i) => i.isActive == true)
-                    .map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))}
-                </select>
+                <input readOnly value={eventType} />
               </label>
               <label>
                 <strong>Duration (in minutes)</strong>
-                <input
-                  value={duration}
-                  onChange={(e) => setDuration(e.target.value)}
-                  type="text"
-                  placeholder="Example: 120 Min"
-                />
+                <input value={duration} readOnly />
               </label>
               <label className="small" style={{ position: "relative" }}>
                 <strong>Price</strong>
-                <input
-                  type="number"
-                  min="0"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  style={{ paddingLeft: "25px" }}
-                />
+                <input value={price} readOnly style={{ paddingLeft: "25px" }} />
                 <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
               </label>
               <label className="small">
                 <strong>Client's Email</strong>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <input readOnly value={email} />
               </label>
               <label className="small">
                 <strong>Client's First Name</strong>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
+                <input readOnly value={firstName} />
               </label>
               <label className="small">
                 <strong>Client's Last Name</strong>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
+                <input readOnly value={lastName} />
               </label>
               <label style={{ position: "relative" }} className="quarter">
                 <strong>Day</strong>

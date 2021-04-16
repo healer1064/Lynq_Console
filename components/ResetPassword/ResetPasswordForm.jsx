@@ -1,39 +1,42 @@
 // libraries
 import { useState } from "react";
-import Link from "next/link";
 import Fade from "react-reveal/Fade";
 
 // components
 import Loading from "../common/Loading";
 
-const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
+const ResetPasswordForm = ({
+  setShowPassword,
+  showPassword,
+  onSubmit,
+  loading,
+}) => {
   // states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [terms, setTerms] = useState(false);
+  const [cPassword, setCPassword] = useState("");
 
   const [errors, setErrors] = useState({
     emailError: false,
-    passwordError: false,
+    password: password,
+    cPassword: cPassword,
   });
 
   const handleForm = (e) => {
     e.preventDefault();
     if (validate()) {
-      signIn({
-        email: email,
-        password: password,
-        logged: terms,
-      });
+      onSubmit();
     }
   };
 
   const validate = () => {
-    if (email !== "" && password) {
+    if (email !== "" && password && cPassword && password != password) {
       setErrors({
         ...errors,
         emailError: false,
         passwordError: false,
+        cPasswordError: false,
+        passMatch: false,
       });
 
       return true;
@@ -43,6 +46,8 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
       ...errors,
       emailError: email === "" ? true : false,
       passwordError: password === "" ? true : false,
+      cPasswordError: cPassword === "" ? true : false,
+      passMatch: password != cPassword ? true : false,
     });
 
     return false;
@@ -51,8 +56,8 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
   return (
     <Fade bottom duration={600}>
       <form onSubmit={handleForm}>
-        <h2>Login</h2>
-        <p>To Access the panel Login with your credentials</p>
+        <h2>Reset Password</h2>
+        <p>To change the password, type in your email and password</p>
         <div className="signup-form__inp">
           <strong>Email</strong>
           <input
@@ -81,7 +86,7 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
               }
             }}
             type={showPassword ? "text" : "password"}
-            placeholder="Enter your password"
+            placeholder="Enter new password"
           />
           {errors.passwordError && (
             <span style={{ color: "red", fontSize: "0.8rem" }}>* Required</span>
@@ -94,40 +99,46 @@ const LoginForm = ({ setShowPassword, showPassword, signIn, loading }) => {
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
-        {/* <label className="signup-form__terms">
+        <div className="signup-form__inp">
+          <strong>Password</strong>
           <input
-            type="checkbox"
-            checked={terms}
+            value={cPassword}
             onChange={(e) => {
-              setTerms(e.target.checked);
+              setCPassword(e.target.value);
+              if (errors.cPasswordError) {
+                setErrors({ ...errors, cPasswordError: false });
+              }
             }}
+            type={showPassword ? "text" : "password"}
+            placeholder="Confirm your password"
           />
-          <div className="checkmark"></div>
-          <span>Keep Me Logged In</span>
-        </label> */}
+          {errors.cPasswordError && (
+            <span style={{ color: "red", fontSize: "0.8rem" }}>* Required</span>
+          )}
+          {errors.passMatch && (
+            <span style={{ color: "red", fontSize: "0.8rem" }}>
+              * Passwords don't match
+            </span>
+          )}
+          <img
+            style={{ bottom: `${errors.cPasswordError ? "32px" : "14px"}` }}
+            src={showPassword ? "/img/show-password.svg" : "/img/pass-show.svg"}
+            alt=""
+            className="show-password"
+            onClick={() => setShowPassword(!showPassword)}
+          />
+        </div>
         <button
           className="signup-form__btn"
           style={{
             position: "relative",
           }}
         >
-          {loading && <Loading />}Login
+          {loading && <Loading />}Reset Password
         </button>
-        <span className="signup-form__login">
-          Don't have an account?{" "}
-          <Link href="/signup">
-            <a>Sign Up</a>
-          </Link>
-        </span>
-        <span className="signup-form__login">
-          Lost your password?{" "}
-          <Link href="/forgot-password">
-            <a>Get it fixed!</a>
-          </Link>
-        </span>
       </form>
     </Fade>
   );
 };
 
-export default LoginForm;
+export default ResetPasswordForm;

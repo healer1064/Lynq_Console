@@ -105,8 +105,6 @@ const EditProfile = () => {
     const _data = await response.json();
     setProfileLoading(false);
 
-    console.log(_data);
-
     if (response.status == 200) {
       setSlug(_data.slug || "");
       setNewSlug(_data.slug || "");
@@ -496,7 +494,7 @@ const EditProfile = () => {
                     onChange={(e) => setWebsite(e.target.value)}
                   />
                 </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
+                {/* <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={
                       !allowMsg
@@ -511,7 +509,7 @@ const EditProfile = () => {
                   <span style={{ fontSize: "12px", marginLeft: ".5rem" }}>
                     Allow clients to send you messages
                   </span>
-                </div>
+                </div> */}
                 <h3>About</h3>
                 <div>
                   <label>General presentation*</label>

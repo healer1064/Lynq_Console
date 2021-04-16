@@ -12,9 +12,8 @@ import ProfileContext from "../context/profile";
 // components
 import Navbar from "../components/Navbar";
 import Leftbar from "../components/Leftbar";
-import EmailConfirmation from "../components/Home/EmailConfirmation";
+// import EmailConfirmation from "../components/Home/EmailConfirmation";
 import PageLoading from "../components/common/PageLoading";
-import Modal from "../components/common/Modal";
 import HomeStats from "../components/Home/HomeStats";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
 
@@ -25,11 +24,7 @@ const home = () => {
   // states
   const [appointmentList, setAppointmentList] = useState(null);
   const [statsData, setStatsData] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [rejectLoading, setRejectLoading] = useState(false);
-  const [id, setId] = useState(-1);
-  const [apptData, setApptData] = useState(null);
+
   const [stats, setStats] = useState("TODAY");
   const [currSession, setCurrSession] = useState({
     time: null,
@@ -46,7 +41,7 @@ const home = () => {
     if (token) {
       fetchAppointments();
     }
-  }, [token, success]);
+  }, [token]);
 
   useEffect(() => {
     if (token) {
@@ -204,52 +199,11 @@ const home = () => {
     return 0;
   };
 
-  const toggle = (_data) => {
-    setIsOpen(true);
-    setId(_data._id);
-    setApptData(_data);
-  };
-
-  const onDelete = () => {
-    setRejectLoading(true);
-    async function reject() {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return await response;
-    }
-
-    reject()
-      .then((res) => {
-        setRejectLoading(false);
-        if (res.status === 200) {
-          setIsOpen(false);
-          setSuccess(!success);
-        } else {
-          toast.error("Something went wrong!!, appointment cancel failed");
-        }
-      })
-      .catch((err) => {
-        setRejectLoading(false);
-        toast.error("An error has occurred");
-      });
-  };
-
   const fullDate = () => {
     const date = moment().toDate();
     return `${moment(date).format("dddd")}, ${moment(date).format("MMMM")}
      ${moment(date).format("DD")}, ${moment(date).format("YYYY")}`;
   };
-
-  console.log(nextSession.link);
 
   return (
     <>
@@ -270,14 +224,6 @@ const home = () => {
             <PageLoading />
           ) : (
             <>
-              {isOpen && (
-                <Modal
-                  setModal={setIsOpen}
-                  onDelete={onDelete}
-                  loading={rejectLoading}
-                  data={apptData}
-                />
-              )}
               <div className="notifications__col">
                 {/* <EmailConfirmation /> */}
                 {currSession.time !== null && (
@@ -323,10 +269,7 @@ const home = () => {
                       </h5>
                     </span>
                   </div>
-                  <HomeAppointmentsList
-                    appointmentList={appointmentList}
-                    toggle={toggle}
-                  />
+                  <HomeAppointmentsList appointmentList={appointmentList} />
                   <HomeStats data={statsData} setStats={setStats} />
                 </div>
               </Fade>
