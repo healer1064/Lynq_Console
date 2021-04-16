@@ -1,5 +1,5 @@
 // libs
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import Fade from "react-reveal/Fade";
 
 // context
@@ -8,6 +8,7 @@ import ProfileContext from "../../context/profile";
 const SettingsCallSync = () => {
   // contect
   const { profile } = useContext(ProfileContext);
+  const [isConnected, setIsConnected] = useState(false);
 
   return (
     <Fade duration={1000}>
@@ -15,8 +16,16 @@ const SettingsCallSync = () => {
         <div className="title">You can connect your calendar with Lynq.</div>
         <div className="call-sync__calendar">
           <img src="/img/google-calendar.svg" alt="" />
-          <a href={`https://cal.lynq.app/?uid=${profile.id}`} target="_blank">
-            Connect
+          <a
+            href={`https://cal.lynq.app/?uid=${profile.id}`}
+            target="_blank"
+            onClick={() => setIsConnected(!isConnected)}
+            style={{
+              textTransform: "lowercase",
+              textDecoration: "none",
+            }}
+          >
+            {isConnected ? "disconnect" : "connect"}
           </a>
         </div>
         <span className="btm__txt">

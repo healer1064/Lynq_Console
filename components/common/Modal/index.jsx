@@ -1,5 +1,6 @@
 // libraries
 import Fade from "react-reveal/Fade";
+import moment from "moment";
 
 // styles
 import styles from "../../../styles/PublicScreen.module.sass";
@@ -7,7 +8,7 @@ import styles from "../../../styles/PublicScreen.module.sass";
 // components
 import Loading from "../../common/Loading";
 
-const Modal = ({ setModal, onDelete, loading }) => {
+const Modal = ({ setModal, onDelete, loading, data }) => {
   return (
     <Fade duration={600}>
       <div className={styles.public_screen_modal}>
@@ -21,7 +22,7 @@ const Modal = ({ setModal, onDelete, loading }) => {
           <p>
             Are you sure you want to cancel the appointment?,
             <br />
-            Monday February 22 at 12:00PM
+            {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
           </p>
           <button
             style={{ position: "relative" }}

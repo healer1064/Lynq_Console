@@ -35,7 +35,7 @@ const AppointmentCard = ({ data, toggle }) => {
           className="btnCancel"
           onClick={(e) => {
             e.stopPropagation();
-            toggle(data.id);
+            toggle(data);
           }}
         >
           Cancel Appointment
@@ -45,7 +45,7 @@ const AppointmentCard = ({ data, toggle }) => {
             href={`https://us.lynq.app/${slugData?.slug}/${data.id}`}
             target="_blank"
           >
-            Goto Session
+            Start the session
           </a>
         </button>
         {data.status.toLowerCase().includes("awaiting-payment") && (

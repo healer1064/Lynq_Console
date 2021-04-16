@@ -29,6 +29,7 @@ const home = () => {
   const [success, setSuccess] = useState(false);
   const [rejectLoading, setRejectLoading] = useState(false);
   const [id, setId] = useState(-1);
+  const [apptData, setApptData] = useState(null);
   const [stats, setStats] = useState("TODAY");
   const [currSession, setCurrSession] = useState({
     time: null,
@@ -54,14 +55,13 @@ const home = () => {
   }, [token, stats]);
 
   useEffect(() => {
-    if (slugData?.slug !== undefined && currSession.time !== null) {
+    if (slugData?.slug) {
       setCurrSession({
         ...currSession,
         link: `us.lynq.app/${slugData.slug}/${currSession.id}`,
       });
     }
-    console.log("use effect", slugData);
-    if (slugData?.slug !== undefined && nextSession.id !== null) {
+    if (slugData !== null) {
       setNextSession({
         ...nextSession,
         link: `us.lynq.app/${slugData.slug}/${nextSession.id}`,
@@ -154,7 +154,7 @@ const home = () => {
       let end = moment(appt.ending_date);
       if (time.isBetween(start, end)) {
         setCurrSession({
-          ...currSession,
+          link: `us.lynq.app/${slugData.slug}/${appt.id}`,
           time: `${start.format(format)} - ${end.format(format)}`,
           id: appt.id,
         });
@@ -176,7 +176,7 @@ const home = () => {
 
       if (time.isBefore(start, end)) {
         setNextSession({
-          ...nextSession,
+          link: `us.lynq.app/${slugData?.slug}/${_data[i].id}`,
           time: time.isSame(start, "day")
             ? `${start.format(format)} - ${end.format(format)}`
             : `${start.format(format)} - ${end.format(format)} ${start.format(
@@ -204,9 +204,10 @@ const home = () => {
     return 0;
   };
 
-  const toggle = (_id) => {
+  const toggle = (_data) => {
     setIsOpen(true);
-    setId(_id);
+    setId(_data._id);
+    setApptData(_data);
   };
 
   const onDelete = () => {
@@ -272,6 +273,7 @@ const home = () => {
                   setModal={setIsOpen}
                   onDelete={onDelete}
                   loading={rejectLoading}
+                  data={apptData}
                 />
               )}
               <div className="notifications__col">

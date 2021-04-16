@@ -86,7 +86,6 @@ const RequestDetail = () => {
       );
 
       const _data = await response.json();
-
       setApt(_data);
     } catch (err) {
       toast.error("Error, Failed to Fetch Appointment List!!!");
@@ -160,6 +159,14 @@ const RequestDetail = () => {
   };
 
   const toggleDrawer = () => setIsOpen(!isOpen);
+
+  const getFromTime = () => {
+    let now = moment();
+    // need created date
+    let start = moment(data.starting_date);
+
+    return start.from(now);
+  };
 
   return (
     <>
@@ -237,7 +244,8 @@ const RequestDetail = () => {
                     </a>
                     <h2>Appointment Request</h2>
                     <span className="received__time">
-                      Received: 'no created at field in backend'
+                      {/* Received: 'no created at field in backend' */}
+                      Received: {getFromTime()}
                     </span>
                     <ToastContainer />
                     <div className="info__col">

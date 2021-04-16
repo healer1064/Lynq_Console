@@ -36,6 +36,7 @@ export default function Appointments() {
   const [id, setId] = useState();
   const [showModel, setShowModel] = useState(false);
   const [rejectLoading, setRejectLoading] = useState(false);
+  const [apptData, setApptData] = useState(null);
 
   useEffect(() => {
     if (token) {
@@ -145,9 +146,10 @@ export default function Appointments() {
     setSuccess(!success);
   };
 
-  const toggle = (_id) => {
+  const toggle = (_data) => {
     setShowModel(true);
-    setId(_id);
+    setId(_data._id);
+    setApptData(_data);
   };
 
   const onDelete = () => {
@@ -207,6 +209,7 @@ export default function Appointments() {
                   setModal={setShowModel}
                   onDelete={onDelete}
                   loading={rejectLoading}
+                  data={apptData}
                 />
               )}
               <Fade>
