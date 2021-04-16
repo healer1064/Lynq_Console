@@ -52,7 +52,7 @@ const Navbar = ({ active }) => {
               </Link>
               <Link href="/appointments">
                 <a className={active === "appointments" ? "active" : ""}>
-                  <span>Appointments</span>
+                  <span>Activities</span>
                 </a>
               </Link>
               <Link href="/public-profile">
