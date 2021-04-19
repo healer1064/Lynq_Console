@@ -82,7 +82,9 @@ export default function AppointmentNew() {
       const response = await fetch(
         `https://api.lynq.app/account/public-profile/availability?t=${token}&start=${moment(
           day
-        ).format("YYYY-MM-DD")}&end=${moment(day)
+        )
+          .utcOffset()
+          .format("YYYY-MM-DD")}&end=${moment(day)
           .add(4, "days")
           .format("YYYY-MM-DD")}&activity_id=${eventId}`,
         config
@@ -93,6 +95,7 @@ export default function AppointmentNew() {
 
     times()
       .then((res) => {
+        console.log(res);
         setTimeLoading(false);
         let sorted = sortDates(res);
         setTimes(sorted);
@@ -220,7 +223,7 @@ export default function AppointmentNew() {
                       setPrice(event.price);
                       setEventType(event.name);
                       setEventId(event.id);
-                      console.log(event.name);
+                      console.log(event.id);
                     }
                   }}
                 >
@@ -289,7 +292,7 @@ export default function AppointmentNew() {
                 />
               </label>
               <label className="three-quarter">
-                {day && eventId !== "" && (
+                {/* {day && eventId !== "" && (
                   <AppointmentNewTime
                     times={times}
                     setTime={setTime}
@@ -297,7 +300,7 @@ export default function AppointmentNew() {
                     handleNextArrow={handleNextArrow}
                     handlePrevArrow={handlePrevArrow}
                   />
-                )}
+                )} */}
               </label>
               {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
               {error && (

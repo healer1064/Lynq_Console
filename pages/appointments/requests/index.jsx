@@ -123,6 +123,7 @@ export default function Appointments() {
                 success={success}
                 setSuccess={setSuccess}
               />
+              <br />
             </Fade>
           )}
         </div>

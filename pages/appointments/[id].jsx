@@ -127,6 +127,13 @@ const AppointmentDetails = () => {
     }
   }, [token, id]);
 
+  const getFromTime = (date) => {
+    let now = moment();
+    let start = moment(date);
+
+    return start.from(now);
+  };
+
   return (
     <>
       <Head>
@@ -166,6 +173,9 @@ const AppointmentDetails = () => {
                         Back
                       </a>
                       <h2>Appointment</h2>
+                      <div className="info__col">
+                        <p>{"Received: " + getFromTime(data.create_date)}</p>
+                      </div>
                       <div className="info__col">
                         <strong>Event type</strong>
                         <p>{data.activity_name}</p>

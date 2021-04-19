@@ -11,6 +11,13 @@ const RequestList = ({ requestList }) => {
   // router
   const router = useRouter();
 
+  const getFromTime = (date) => {
+    let now = moment();
+    let start = moment(date);
+
+    return start.from(now);
+  };
+
   return requestList.length === 0 ? (
     <div className="no-appointments">
       <p>No requests to show</p>
@@ -32,7 +39,7 @@ const RequestList = ({ requestList }) => {
                 <div className="line"></div>
                 {item.email}
                 <div className="line"></div>
-                {"Invitation Sent: "}
+                {"Invitation Sent: " + getFromTime(item.create_date)}
               </div>
               <div
                 className="arrow"
@@ -52,7 +59,6 @@ const RequestList = ({ requestList }) => {
           </div>
         </Fade>
       ))}
-      )
     </div>
   );
 };

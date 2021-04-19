@@ -68,7 +68,7 @@ const RequestDetail = () => {
       setRequests(_data);
       setData(_data.find((i) => i.id == id));
     } catch (err) {
-      toast.error("Error, Failed to Fetch Request List!!!");
+      toast.error("Error, Failed to Fetch Request!!!");
     }
   };
 
@@ -88,7 +88,7 @@ const RequestDetail = () => {
       const _data = await response.json();
       setApt(_data);
     } catch (err) {
-      toast.error("Error, Failed to Fetch Appointment List!!!");
+      toast.error("Error, Failed to Fetch Appointment!!!");
       setApt([]);
     }
   };
@@ -162,8 +162,7 @@ const RequestDetail = () => {
 
   const getFromTime = () => {
     let now = moment();
-    // need created date
-    let start = moment(data.starting_date);
+    let start = moment(data.create_date);
 
     return start.from(now);
   };
