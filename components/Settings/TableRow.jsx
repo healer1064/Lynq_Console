@@ -1,9 +1,11 @@
 // libraries
+// import moment from "moment";
 import { useState, useEffect, useContext } from "react";
 import Fade from "react-reveal/Fade";
 import ProfileContext from "../../context/profile";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import moment from "moment-timezone";
 
 // components
 import TableRowItem from "./TableRowItem";
@@ -19,6 +21,9 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
   const [timeSlots, setTimeSlots] = useState(null);
   const [availLoading, setAvailLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
+
+  // const timeOffset = moment().format("hh:mm");
+  // console.log(timeOffset);
 
   const toggleAvailability = (day) => {
     setAvailLoading(true);
@@ -53,8 +58,16 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
     setAddLoading(true);
     const _reqData = {
       day,
-      start_period_time: start,
-      end_period_time: end,
+      start_period_time: moment
+        .tz(`2013-11-18 ${start}`, moment.tz.guess())
+        .format()
+        .split("T")[1],
+      // start_period_time: `${start}+${timeOffset}`,
+      end_period_time: moment
+        .tz(`2013-11-18 ${end}`, moment.tz.guess())
+        .format()
+        .split("T")[1],
+      // end_period_time: `${end}+${timeOffset}`,
     };
 
     async function update() {
@@ -98,7 +111,7 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
       setTimeSlots(data);
     } else {
       if (isAvailable) {
-        addTime(day, "09:00", "17:00");
+        addTime(day, `09:00`, "17:00");
       }
     }
   };

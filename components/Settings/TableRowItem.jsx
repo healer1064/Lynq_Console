@@ -1,12 +1,23 @@
 // libraries
+import moment from "moment-timezone";
 import { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 
 const TableRowItem = ({ item, deleteTime, day, token }) => {
   // states
   const [delLoading, setDelLoading] = useState(false);
-  const [startTime, setStartTime] = useState(item.start_period_time);
-  const [endTime, setEndTime] = useState(item.end_period_time);
+  const [startTime, setStartTime] = useState(
+    moment
+      .utc(`2013-11-18 ${item.start_period_time.toString()}`)
+      .tz(moment.tz.guess())
+      .format("hh:mm")
+  );
+  const [endTime, setEndTime] = useState(
+    moment
+      .utc(`2013-11-18 ${item.end_period_time.toString()}`)
+      .tz(moment.tz.guess())
+      .format("hh:mm")
+  );
 
   useEffect(() => {
     updateTime(day, startTime, endTime);
@@ -16,8 +27,16 @@ const TableRowItem = ({ item, deleteTime, day, token }) => {
     // setAddLoading(true);
     const _reqData = {
       day,
-      start_period_time: start,
-      end_period_time: end,
+      // start_period_time: start,
+      start_period_time: moment
+        .tz(`2013-11-18 ${start}`, moment.tz.guess())
+        .format()
+        .split("T")[1],
+      // end_period_time: end,
+      end_period_time: moment
+        .tz(`2013-11-18 ${end}`, moment.tz.guess())
+        .format()
+        .split("T")[1],
     };
 
     async function update() {

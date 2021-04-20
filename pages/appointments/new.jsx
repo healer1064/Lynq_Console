@@ -223,7 +223,6 @@ export default function AppointmentNew() {
                       setPrice(event.price);
                       setEventType(event.name);
                       setEventId(event.id);
-                      console.log(event.id);
                     }
                   }}
                 >
@@ -292,7 +291,7 @@ export default function AppointmentNew() {
                 />
               </label>
               <label className="three-quarter">
-                {/* {day && eventId !== "" && (
+                {day && eventId !== "" && (
                   <AppointmentNewTime
                     times={times}
                     setTime={setTime}
@@ -300,7 +299,7 @@ export default function AppointmentNew() {
                     handleNextArrow={handleNextArrow}
                     handlePrevArrow={handlePrevArrow}
                   />
-                )} */}
+                )}
               </label>
               {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
               {error && (
