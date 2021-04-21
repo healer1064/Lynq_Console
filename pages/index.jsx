@@ -53,13 +53,13 @@ const home = () => {
     if (slugData?.slug) {
       setCurrSession({
         ...currSession,
-        link: `us.lynq.app/${slugData.slug}/${currSession.id}`,
+        link: `us.lynq.app/${slugData.slug}/teacher/${currSession.id}`,
       });
     }
     if (slugData !== null) {
       setNextSession({
         ...nextSession,
-        link: `us.lynq.app/${slugData.slug}/${nextSession.id}`,
+        link: `us.lynq.app/${slugData.slug}/teacher/${nextSession.id}`,
       });
     }
   }, [slugData]);
@@ -149,7 +149,7 @@ const home = () => {
       let end = moment(appt.ending_date);
       if (time.isBetween(start, end)) {
         setCurrSession({
-          link: `us.lynq.app/${slugData.slug}/${appt.id}`,
+          link: `us.lynq.app/${slugData.slug}/teacher/${appt.id}`,
           time: `${start.format(format)} - ${end.format(format)}`,
           id: appt.id,
         });

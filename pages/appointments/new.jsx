@@ -16,7 +16,7 @@ import ProfileContext from "../../context/profile";
 // components
 import Navbar from "../../components/Navbar";
 import Leftbar from "../../components/Leftbar";
-import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
+// import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
 import AppointmentNewButtons from "../../components/Appointments/AppointmentNewButtons";
 import AppointmentNewTime from "../../components/Appointments/AppointmentNewTime";
 import PageLoading from "../../components/common/PageLoading";
@@ -82,20 +82,16 @@ export default function AppointmentNew() {
       const response = await fetch(
         `https://api.lynq.app/account/public-profile/availability?t=${token}&start=${moment(
           day
-        )
-          .utcOffset()
-          .format("YYYY-MM-DD")}&end=${moment(day)
-          .add(4, "days")
-          .format("YYYY-MM-DD")}&activity_id=${eventId}`,
+        ).format("yyyy-MM-DD")}&end=${moment(day)
+          .add(5, "days")
+          .format("yyyy-MM-DD")}&activity_id=${eventId}`,
         config
       );
-
       return await response.json();
     };
 
     times()
       .then((res) => {
-        console.log(res);
         setTimeLoading(false);
         let sorted = sortDates(res);
         setTimes(sorted);

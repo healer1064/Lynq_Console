@@ -235,15 +235,16 @@ const EditProfile = () => {
     e.preventDefault();
 
     if (
-      slug === "" ||
-      !slug ||
-      slugRule ||
-      firstName === "" ||
-      lastName === "" ||
-      city === "" ||
-      state === "-- Select State --" ||
-      categories.length === 0 ||
-      generalPres === ""
+      (slug === "" ||
+        !slug ||
+        slugRule ||
+        firstName === "" ||
+        lastName === "" ||
+        city === "" ||
+        state === "-- Select State --" ||
+        categories.length === 0 ||
+        generalPres === "",
+      whatToExpect === "")
     ) {
       toast.error("Please fill all required fields");
     } else {
@@ -519,13 +520,13 @@ const EditProfile = () => {
                   ></textarea>
                 </div>
                 <div>
-                  <label>What to expect</label>
+                  <label>What to expect*</label>
                   <textarea
                     value={whatToExpect}
                     onChange={(e) => setWhatToExpect(e.target.value)}
                   ></textarea>
                 </div>
-                <div>
+                {/* <div>
                   <label>
                     Specialities{" "}
                     <span>(Press enter after each speciality)</span>
@@ -544,7 +545,7 @@ const EditProfile = () => {
                     value={certifications}
                     onChange={(e) => setCertifications(e.target.value)}
                   ></textarea>
-                </div>
+                </div> */}
                 <div className={styles.text_uppercase}>
                   <button type="submit" style={{ position: "relative" }}>
                     {loading && <Loading />}Save Profile

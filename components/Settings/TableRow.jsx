@@ -22,9 +22,6 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
   const [availLoading, setAvailLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
 
-  // const timeOffset = moment().format("hh:mm");
-  // console.log(timeOffset);
-
   const toggleAvailability = (day) => {
     setAvailLoading(true);
     async function toggle() {
@@ -56,18 +53,23 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
 
   const addTime = (day, start, end) => {
     setAddLoading(true);
+
     const _reqData = {
       day,
-      start_period_time: moment
-        .tz(`2013-11-18 ${start}`, moment.tz.guess())
-        .format()
+      start_period_time:
+        // moment
+        //   .tz(`2013-11-18 ${start}`, moment.tz.guess())
+        //   .format()
+        //   .split("T")[1],
+        new Date(`2013-11-18 ${start}`).toISOString().split("T")[1],
+      end_period_time: new Date(`2013-11-18 ${end}`)
+        .toISOString()
         .split("T")[1],
-      // start_period_time: `${start}+${timeOffset}`,
-      end_period_time: moment
-        .tz(`2013-11-18 ${end}`, moment.tz.guess())
-        .format()
-        .split("T")[1],
-      // end_period_time: `${end}+${timeOffset}`,
+
+      // moment
+      //   .tz(`2013-11-18 ${end}`, moment.tz.guess())
+      //   .format()
+      //   .split("T")[1]
     };
 
     async function update() {
