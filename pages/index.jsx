@@ -171,7 +171,7 @@ const home = () => {
 
       if (time.isBefore(start, end)) {
         setNextSession({
-          link: `us.lynq.app/${slugData?.slug}/${_data[i].id}`,
+          link: `us.lynq.app/${slugData?.slug}/teacher/${_data[i].id}`,
           time: time.isSame(start, "day")
             ? `${start.format(format)} - ${end.format(format)}`
             : `${start.format(format)} - ${end.format(format)} ${start.format(
