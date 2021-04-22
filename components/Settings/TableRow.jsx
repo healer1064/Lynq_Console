@@ -53,22 +53,21 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
   const addTime = (day, start, end) => {
     setAddLoading(true);
     console.log(day, start, end);
+    // const _reqData = {
+    //   day,
+    //   start_period_time:
+    //     new Date(`2013-11-18 ${start}`).toISOString().split("T")[1],
+    //   end_period_time: new Date(`2013-11-18 ${end}`)
+    //     .toISOString()
+    //     .split("T")[1],
+    // };
+    let timezone = moment.tz.guess();
+    console.log(tz);
     const _reqData = {
+      start,
+      end,
+      timezone,
       day,
-      start_period_time:
-        // moment
-        //   .tz(`2013-11-18 ${start}`, moment.tz.guess())
-        //   .format()
-        //   .split("T")[1],
-        new Date(`2013-11-18 ${start}`).toISOString().split("T")[1],
-      end_period_time: new Date(`2013-11-18 ${end}`)
-        .toISOString()
-        .split("T")[1],
-
-      // moment
-      //   .tz(`2013-11-18 ${end}`, moment.tz.guess())
-      //   .format()
-      //   .split("T")[1]
     };
 
     async function update() {
