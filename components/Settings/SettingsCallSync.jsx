@@ -6,7 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../../context/profile";
+
 import Loading from "../common/Loading";
+import PageLoading from "../common/PageLoading";
 
 const SettingsCallSync = () => {
   // contect
@@ -14,6 +16,7 @@ const SettingsCallSync = () => {
   const [isConnected, setIsConnected] = useState(true);
   // const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
 
   // const toggleSuccess = () => {
   //   setSuccess(!success);
@@ -26,6 +29,7 @@ const SettingsCallSync = () => {
   }, [profile]);
 
   const fetchStatus = async () => {
+    setPageLoading(true);
     const config = {
       method: "GET",
       Accept: "application/json",
@@ -40,7 +44,9 @@ const SettingsCallSync = () => {
       const _data = await response.json();
 
       setIsConnected(_data.connected);
+      setPageLoading(false);
     } catch (err) {
+      setPageLoading(false);
       toast.error("Error, Failed to Fetch Request List!!!");
     }
   };
@@ -82,34 +88,46 @@ const SettingsCallSync = () => {
       <ToastContainer />
       <Fade duration={1000}>
         <div className="call-sync__wrp">
-          <div className="title">You can connect your calendar with Lynq.</div>
-          <div className="call-sync__calendar">
-            <img src="/img/google-calendar.svg" alt="" />
-            <a
-              href={!isConnected && `https://cal.lynq.app/?uid=${profile.id}`}
-              target="_blank"
-              onClick={() => isConnected && disconnectCal()}
-              style={{
-                textTransform: "capitalize !important",
-                textDecoration: "none",
-                position: "relative",
-              }}
-            >
-              {loading && <Loading />}
-              {isConnected ? "Disconnect" : "Connect"}
-            </a>
-          </div>
-          <span className="btm__txt">
-            <b>Two-way sync</b> - Add Lynq appointments to your outside calendar
-            and add events from your outside calendar to Lynq, blocking off your
-            availability.
-            <br />
-            <br />
-            Appointments made in Lynq should be edited in Lynq; The system will
-            not recognize changes made in outside calendars. Events synced into
-            Lynq from outside calendars must be edited in the outside calendar ;
-            they cannot be edited in Lynq.
-          </span>
+          {pageLoading ? (
+            <div style={{ height: "40vh", alignSelf: "center" }}>
+              <PageLoading />
+            </div>
+          ) : (
+            <>
+              <div className="title">
+                You can connect your calendar with Lynq.
+              </div>
+              <div className="call-sync__calendar">
+                <img src="/img/google-calendar.svg" alt="" />
+                <a
+                  href={
+                    !isConnected && `https://cal.lynq.app/?uid=${profile.id}`
+                  }
+                  target="_blank"
+                  onClick={() => isConnected && disconnectCal()}
+                  style={{
+                    textTransform: "capitalize !important",
+                    textDecoration: "none",
+                    position: "relative",
+                  }}
+                >
+                  {loading && <Loading />}
+                  {isConnected ? "Disconnect" : "Connect"}
+                </a>
+              </div>
+              <span className="btm__txt">
+                <b>Two-way sync</b> - Add Lynq appointments to your outside
+                calendar and add events from your outside calendar to Lynq,
+                blocking off your availability.
+                <br />
+                <br />
+                Appointments made in Lynq should be edited in Lynq; The system
+                will not recognize changes made in outside calendars. Events
+                synced into Lynq from outside calendars must be edited in the
+                outside calendar ; they cannot be edited in Lynq.
+              </span>
+            </>
+          )}
         </div>
       </Fade>
     </>

@@ -42,7 +42,6 @@ const SetupTable = ({ data, toggleSuccess }) => {
 
     remove().then((res) => {
       if (res.status == 200) {
-        console.log("slots deleted");
         toggleSuccess();
       } else {
         toast.error("An error has occurred");

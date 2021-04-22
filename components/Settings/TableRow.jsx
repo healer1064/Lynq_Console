@@ -42,7 +42,6 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
     toggle().then((res) => {
       setAvailLoading(false);
       if (res.status == 200) {
-        console.log("avail changed");
         toggleSuccess();
         setIsAvailable(!isAvailable);
       } else {
@@ -53,7 +52,7 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
 
   const addTime = (day, start, end) => {
     setAddLoading(true);
-
+    console.log(day, start, end);
     const _reqData = {
       day,
       start_period_time:
@@ -88,6 +87,7 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
       return await response;
     }
 
+    console.log(_reqData);
     update().then((res) => {
       setAddLoading(false);
       if (res.status == 200) {

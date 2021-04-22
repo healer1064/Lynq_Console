@@ -50,12 +50,13 @@ const home = () => {
   }, [token, stats]);
 
   useEffect(() => {
-    if (slugData?.slug) {
+    if (slugData !== null) {
       setCurrSession({
         ...currSession,
         link: `us.lynq.app/${slugData.slug}/teacher/${currSession.id}`,
       });
     }
+
     if (slugData !== null) {
       setNextSession({
         ...nextSession,
