@@ -62,7 +62,6 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
     //     .split("T")[1],
     // };
     let timezone = moment.tz.guess();
-    console.log(tz);
     const _reqData = {
       start,
       end,

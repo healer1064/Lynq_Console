@@ -3116,8 +3116,44 @@ body
 
 .react-datepicker-wrapper
   width: 100%
+
+.settings-event-type-select
+  padding: 0 30px
+
+  p
+    margin-bottom: 30px 
+
+  button
+    display: block
+    background: none
+    display: flex
+    align-items: center
+    gap: 10px
+    border: none
+    margin: 10px 0
+    cursor: pointer
+    transition: 1s all fade-in
+    font-size: 1rem
+
+    &:hover
+      color: $lavender
+      svg 
+        color: $lavender
+
+    svg
+      color: black
+
+.event-type-async-price-time
+  width: 100%
+  display: flex
+  gap: 28px
+
             
 @media (max-width: $breakpointLaptop)
+
+  .event-type-async-price-time
+    gap: 15px
+
   .abs-img
     bottom: 15px
   .home
@@ -3759,6 +3795,9 @@ body
         //   width: 7.54%
 
 @media (max-width: $breakpointPhone)
+  .event-type-async-price-time
+    flex-direction: column
+    gap: 0px
   .half-div
     width: 100%
   .payment-not-paid
@@ -5025,3 +5064,5 @@ body
             margin-bottom: 32px
           .num
             line-height: 39px 
+  .settings-event-type-select
+    padding: 0 10px

@@ -23,7 +23,6 @@ const days = [
 const SetupTable = ({ data, toggleSuccess }) => {
   // use context
   const { token } = useContext(ProfileContext);
-  console.log(data);
   const deleteTime = (_id) => {
     async function remove() {
       const response = await fetch(
@@ -50,9 +49,9 @@ const SetupTable = ({ data, toggleSuccess }) => {
   };
 
   const filterData = (day) => {
-    // const slots = data.filter((i) => i.day.toLowerCase() == day);
-    // return slots;
-    return data;
+    const slots = data.filter((i) => i.day.toLowerCase() == day);
+    return slots;
+    // return data;
   };
 
   return (

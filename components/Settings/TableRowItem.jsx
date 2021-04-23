@@ -7,10 +7,10 @@ const TableRowItem = ({ item, deleteTime, day, token }) => {
   // states
   const [delLoading, setDelLoading] = useState(false);
   const [startTime, setStartTime] = useState(
-    moment(`2013-11-18 ${item.start_period_time.toString()}`).format("HH:mm")
+    moment(`2013-11-18 ${item.start.toString()}`).format("HH:mm")
   );
   const [endTime, setEndTime] = useState(
-    moment(`2013-11-18 ${item.end_period_time.toString()}`).format("HH:mm")
+    moment(`2013-11-18 ${item.end.toString()}`).format("HH:mm")
   );
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const TableRowItem = ({ item, deleteTime, day, token }) => {
 
   const updateTime = (day, start, end) => {
     // setAddLoading(true);
-    console.log(day, start, end);
+
     // const _reqData = {
     //   day,
     //   start_period_time:
@@ -29,7 +29,6 @@ const TableRowItem = ({ item, deleteTime, day, token }) => {
     //     .split("T")[1],
     // };
     let timezone = moment.tz.guess();
-    console.log(tz);
     const _reqData = {
       start,
       end,
