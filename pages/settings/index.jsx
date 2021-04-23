@@ -9,10 +9,10 @@ import SettingsTabs from "../../components/Settings/SettingsTabs";
 import SettingsSetup from "../../components/Settings/SettingsSetup";
 import SettingsEventType from "../../components/Settings/SettingsEventType";
 import SettingsCallSync from "../../components/Settings/SettingsCallSync";
-
-// fake data
 import SettingsEventTypeEdit from "../../components/Settings/SettingsEventTypeEdit";
 import SettingsEventTypeAdd from "../../components/Settings/SettingsEventTypeAdd";
+import SettingsEventTypeSelect from "../../components/Settings/SettingsEventTypeSelect";
+import SettingsEventTypeAsync from "../../components/Settings/SettingsEventTypeAsync";
 
 export default function Settings() {
   // states
@@ -41,6 +41,10 @@ export default function Settings() {
             <SettingsCallSync />
           ) : tab === "eventtypeedit" ? (
             <SettingsEventTypeEdit setTab={setTab} />
+          ) : tab === "eventtypeselect" ? (
+            <SettingsEventTypeSelect setTab={setTab} />
+          ) : tab === "eventtypeasync" ? (
+            <SettingsEventTypeAsync setTab={setTab} />
           ) : (
             <SettingsEventTypeAdd setTab={setTab} />
           )}

@@ -26,6 +26,7 @@ export default function Appointments() {
   const [requests, setRequests] = useState(null);
   const [success, setSuccess] = useState(false);
   const [tab, setTab] = useState(router.pathname.toString());
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     if (token) {
@@ -117,7 +118,16 @@ export default function Appointments() {
                   </option>
                 </select>
               </div>
-
+              <div style={{ margin: "0px" }} className="payment-filter">
+                <select
+                  value={filter}
+                  onChange={(e) => setFilter(e.target.value)}
+                >
+                  <option value="all">All</option>
+                  <option value="completed">Scheduled video call</option>
+                  <option value="coming">Asynchronous video call</option>
+                </select>
+              </div>
               <RequestList
                 requestList={requests}
                 success={success}

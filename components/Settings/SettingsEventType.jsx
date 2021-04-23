@@ -48,7 +48,7 @@ const SettingsEventType = ({ setTab }) => {
         }}
       >
         <AddNewButton
-          onClick={() => setTab("eventtypeadd")}
+          onClick={() => setTab("eventtypeselect")}
           title="Add Event Type"
         />
       </div>

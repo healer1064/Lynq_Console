@@ -8,14 +8,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // context
-import ProfileContext from "../../../context/profile";
+import ProfileContext from "../../../../context/profile";
 
 // components
-import Loading from "../../../components/common/Loading";
-import RequestDrawer from "../../../components/Appointments/Request/RequestDrawer";
-import Navbar from "../../../components/Navbar";
-import Leftbar from "../../../components/Leftbar";
-import PageLoading from "../../../components/common/PageLoading";
+import Loading from "../../../../components/common/Loading";
+import RequestDrawer from "../../../../components/Appointments/Request/RequestDrawer";
+import Navbar from "../../../../components/Navbar";
+import Leftbar from "../../../../components/Leftbar";
+import PageLoading from "../../../../components/common/PageLoading";
 
 const RequestDetail = () => {
   // router

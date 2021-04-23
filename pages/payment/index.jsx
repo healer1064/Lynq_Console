@@ -93,8 +93,6 @@ export default function Payment() {
     setData(data);
   };
 
-  console.log(data);
-
   const getBusinessData = async () => {
     setLoading(true);
     let config = {

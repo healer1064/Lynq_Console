@@ -24,14 +24,31 @@ const RequestList = ({ requestList }) => {
     </div>
   ) : (
     <div className={styles.request__list}>
+      <div className={styles.requests_head}>
+        <p>Name</p>
+        <p>Type</p>
+        <p>Received</p>
+      </div>
       {requestList.map((item, i) => (
         <Fade key={i} duration={800} delay={50}>
           <div
             key={item}
             onClick={() => router.push(`/appointments/requests/${item.id}`)}
-            className={`appointments-col__card__wrp`}
+            className={styles.request_single_item}
           >
-            <div className="appointments-col__card">
+            <p>{item.activity_name}</p>
+            <p>Scheduled Video Call</p>
+            <p>
+              {moment(item.create_date).format("ddd MM, YYYY")}
+              <span
+                style={{
+                  borderLeft: "1px solid #aaa",
+                  margin: "0 10px",
+                }}
+              ></span>
+              {getFromTime(item.create_date)}
+            </p>
+            {/* <div className="appointments-col__card">
               <div className="det">
                 <b>{moment(item.starting_date).format("ddd, MMMM DD, YYYY")}</b>
                 <div className="line"></div>
@@ -54,8 +71,8 @@ const RequestList = ({ requestList }) => {
                 >
                   <path d="M7 12L0.0717964 0L13.9282 0L7 12Z" fill="#7E88F4" />
                 </svg>
-              </div>
-            </div>
+              </div> 
+            </div>*/}
           </div>
         </Fade>
       ))}

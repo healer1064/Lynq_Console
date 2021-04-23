@@ -18,7 +18,9 @@ const Settings = ({ setTab, tab }) => {
           className={`option ${
             (tab === "eventtype" ||
               tab === "eventtypeedit" ||
-              tab === "eventtypeadd") &&
+              tab === "eventtypeadd" ||
+              tab === "eventtypeasync" ||
+              tab === "eventtypeselect") &&
             "active"
           }`}
         >
