@@ -47,6 +47,110 @@ body
   	outline: none
   	border: none
 
+.async-download-video
+  background: #0080ff
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 100px
+  width: 170px
+  cursor: pointer
+  margin-bottom: 5px
+  svg 
+    color: white
+    font-size: 1.5rem
+
+.video-modal
+  position: fixed
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+  z-index: 1000
+  display: flex
+  align-items: center
+  justify-content: center
+  background: rgba(0,0,0,0.4)
+  svg
+    position: absolute
+    right: 20px
+    top: 20px
+    font-size: 1.5rem
+    cursor: pointer
+  
+  iframe
+    width: 60%
+    height: 70%
+
+.video-upload-input
+  width: 60%
+  height: 170px
+  border: 2px dashed #aaa
+  margin-top: 5px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  position: relative
+
+  svg
+    color: #aaa
+    font-size: 4rem
+  h6
+    margin: 10px 0
+    font-size: 1rem
+    text-align: center
+  p
+    margin: 0
+    font-size: 1.2rem
+    text-align: center
+
+  input[type="file"] 
+    display: none
+
+.video-upload-textarea
+    width: 60%
+    position: relative
+
+.video-upload-textarea > textarea
+    width: 100%
+    height: 100%
+    height: 180px
+    border: 1pxsolid #9fa8b5
+    border-radius: 8px
+    padding: 8px 16px
+    font-family: 'Open Sans'
+    font-size: 14px
+    line-height: 24px
+    resize: none
+
+.video-upload-textarea > .count
+    position: absolute
+    bottom: 8px
+    right: 16px
+    font-size: 12px
+    line-height: 24px
+    color: $super-grey
+
+.video-upload-textarea > textarea:focus
+  outline: none
+
+.video-upload-textarea::placeholder
+  font-family: 'Open Sans'
+  font-size: 14px
+  line-height: 24px
+  color: $super-grey
+
+.delete-video-icon
+  position: absolute
+  right: 20px
+  top: 20px
+  cursor: pointer
+  color: #999
+  &:hover
+    opacity: 0.7
+
 .payment-not-paid
   color: red
   font-weight: 600
@@ -5066,3 +5170,19 @@ body
             line-height: 39px 
   .settings-event-type-select
     padding: 0 10px
+
+  .video-modal
+    iframe
+      width: 95%
+      height: 50%
+
+  .video-upload-input
+    width: 100%
+    height: 150px
+
+  .video-upload-textarea
+      width: 100%
+
+  .video-upload-textarea > textarea
+      height: 250px
+
