@@ -6,13 +6,7 @@ import Fade from "react-reveal/Fade";
 // components
 import Loading from "../common/Loading";
 
-const SignupForm = ({
-  setShowPassword,
-  showPassword,
-  signUp,
-  loading,
-  toggle,
-}) => {
+const SignupForm = ({ setShowPassword, showPassword, signUp, loading }) => {
   // states
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -141,12 +135,11 @@ const SignupForm = ({
           <div className="checkmark"></div>
           <span>
             I have read, and I accept the{" "}
-            <strong
-              style={{ fontWeight: "bold", cursor: "pointer" }}
-              onClick={toggle}
-            >
-              Terms and Conditions.
-            </strong>
+            <a href="/terms-and-conditions" target="_blank">
+              <strong style={{ fontWeight: "bold", cursor: "pointer" }}>
+                Terms and Conditions.
+              </strong>
+            </a>
             {/* <Link href="/terms&conditions">
             </Link> */}
           </span>

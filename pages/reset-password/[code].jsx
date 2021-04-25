@@ -1,33 +1,45 @@
 // libraries
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // components
-import ForgotPasswordForm from "../../components/ForgotPassword/ForgotPasswordForm";
+import ResetPasswordForm from "../../components/ResetPassword/ResetPasswordForm";
 import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 
 const index = () => {
-  const [emailInput, setEmailInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // router
+  const router = useRouter();
+
+  const { code } = router.query;
 
   // handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (emailInput === "") {
-      toast.error("Please fill email field!");
+    if (password === "" || confirmPassword === "") {
+      toast.error("Please fill all fields!");
     } else {
-      setLoading(true);
-      forgotPassword();
+      if (password !== confirmPassword) {
+        toast.error("Passwords don't match!");
+      } else {
+        setLoading(true);
+        resetPassword();
+      }
     }
   };
 
-  const forgotPassword = () => {
-    async function forgot() {
+  const resetPassword = () => {
+    async function reset() {
       const response = await fetch(
-        `https://api.lynq.app/account/reset-password?email=${emailInput}`,
+        `https://api.lynq.app/account/reset-password/${code}?new_password=${password}`,
         {
           method: "POST",
           headers: {
@@ -40,11 +52,12 @@ const index = () => {
       return await response;
     }
 
-    forgot().then((res) => {
+    reset().then((res) => {
       console.log(res);
       setLoading(false);
       if (res.status == 200) {
-        toast.success("Reset link is sent to your email!");
+        toast.success("Password reset successfully");
+        router.push("/login");
       } else {
         toast.error(res.message);
       }
@@ -54,14 +67,13 @@ const index = () => {
   return (
     <>
       <Head>
-        <title>Forgot Password</title>
+        <title>Reset Password</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
       </Head>
-      <ToastContainer />
       <div className="signup">
         <SignupLeftbar />
         <div className="signup-form">
@@ -70,11 +82,15 @@ const index = () => {
               <img src="/img/lynq-logo.png" alt="" />
             </a>
           </Link>
-          <ForgotPasswordForm
+          <ResetPasswordForm
+            setShowPassword={setShowPassword}
+            showPassword={showPassword}
             onSubmit={handleSubmit}
             loading={loading}
-            input={emailInput}
-            setInput={setEmailInput}
+            password={password}
+            setPassword={setPassword}
+            confirmPassword={confirmPassword}
+            setConfirmPassword={setConfirmPassword}
           />
         </div>
       </div>

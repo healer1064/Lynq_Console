@@ -1,4 +1,5 @@
 // libs
+import Head from "next/head";
 import Fade from "react-reveal/Fade";
 
 // styles
@@ -7,18 +8,20 @@ import styles from "../../styles/Terms&Conditions.module.sass";
 // components
 import Navbar from "../../components/Plans/PlansNavbar";
 
-// icons
-import { AiOutlineClose } from "react-icons/ai";
-
-const index = ({ toggle }) => {
+const Terms = ({ toggle }) => {
   return (
     <div className={styles.wrapper}>
+      <Head>
+        <title>Terms & Conditions | Lynq</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </Head>
       <Navbar />
       <Fade bottom>
         <div className={styles.toc}>
-          <div className={styles.icon_wrapper}>
-            <AiOutlineClose onClick={toggle} />
-          </div>
           <h1>Effective as of March, 2021</h1>
           <h3>LYNQ TERMS OF SERVICE</h3>
           <h5>TERMS</h5>
@@ -322,4 +325,4 @@ const index = ({ toggle }) => {
   );
 };
 
-export default index;
+export default Terms;

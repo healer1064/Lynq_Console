@@ -65,7 +65,7 @@ const Leftbar = ({ active }) => {
               alt=""
             />
           </div>
-          <span>{profile?.fullname ?? "Username"}</span>
+          <span>Account</span>
         </div>
       </Link>
     </div>

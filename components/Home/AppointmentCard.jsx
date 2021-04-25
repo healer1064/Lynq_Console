@@ -34,7 +34,7 @@ const AppointmentCard = ({ data }) => {
         <Link href={`/appointments/${data.id}`}>
           <a className="btnCancel">Manage Session</a>
         </Link>
-        <Link href={`https://us.lynq.app/${slugData?.slug}/${data.id}`}>
+        <Link href={`https://us.lynq.app/${slugData?.slug}/teacher/${data.id}`}>
           <a target="_blank" className="btnGoto">
             Start the video
           </a>
