@@ -219,16 +219,17 @@ const EditProfile = () => {
       return await response.json();
     }
 
-    upload().then((res) => {
-      setLoading(false);
-      if (res.status == 200) {
+    upload()
+      .then((res) => {
+        setLoading(false);
         console.log("profile pic", res);
         setSpecImage(res.public_image);
-      } else {
+        toast.success("Profile picture updated!");
+      })
+      .catch((res) => {
         console.log("error profile pic", res);
         toast.error("An error has occurred");
-      }
-    });
+      });
   };
 
   const checkSlugAvailability = (e) => {
