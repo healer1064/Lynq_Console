@@ -11,14 +11,17 @@ const PaymentsDetails = ({ data }) => {
   useEffect(() => {
     if (filter === "all") {
       setArray(data);
-    } else if (filter === "completed") {
-      let arr = data.filter((i) => i.status === "Completed");
+    } else if (filter === "CONFIRMED") {
+      let arr = data.filter((i) => i.status === "CONFIRMED");
       setArray(arr);
-    } else if (filter === "coming") {
-      let arr = data.filter((i) => i.status === "Coming");
+    } else if (filter === "CANCELLED") {
+      let arr = data.filter((i) => i.status === "CANCELLED");
+      setArray(arr);
+    } else if (filter === "PENDING_TEACHER_VALIDATION") {
+      let arr = data.filter((i) => i.status === "PENDING_TEACHER_VALIDATION");
       setArray(arr);
     } else {
-      let arr = data.filter((i) => i.status === "Awaiting Payment");
+      let arr = data.filter((i) => i.status === "PENDING_PAYMENT");
       setArray(arr);
     }
   }, [filter]);
@@ -28,9 +31,12 @@ const PaymentsDetails = ({ data }) => {
       <div className="payment-filter">
         <select value={filter} onChange={(e) => setFilter(e.target.value)}>
           <option value="all">All</option>
-          <option value="completed">Completed</option>
-          <option value="coming">Coming</option>
-          <option value="awaiting-payment">Awaiting Payment</option>
+          <option value="CONFIRMED">Completed</option>
+          <option value="PENDING_PAYMENT">Awaiting Payment</option>
+          <option value="PENDING_TEACHER_VALIDATION">
+            Awaiting Teacher's Validation
+          </option>
+          <option value="CANCELLED">Cancelled</option>
         </select>
       </div>
       <div className="clients-table">

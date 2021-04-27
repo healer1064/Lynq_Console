@@ -1,7 +1,14 @@
 import ReactTooltip from "react-tooltip";
+import moment from "moment";
 
 const PaymentsDetailItem = ({ data }) => {
-  const { type, client_email, price, starting_date, status } = data;
+  const {
+    activity_name: type,
+    email: client_email,
+    price,
+    starting_date,
+    status,
+  } = data;
 
   return (
     <div className="row">
@@ -16,10 +23,18 @@ const PaymentsDetailItem = ({ data }) => {
         <span>${price}</span>
       </div>
       <div className="col session">
-        <span>{starting_date}</span>
+        <span>{moment(starting_date).format("DD MMM, YYYY")}</span>
       </div>
       <div className="col revenue">
-        <strong>{status}</strong>
+        <strong>
+          {status === "CANCELLED"
+            ? "Cancelled"
+            : status === "CONFIRMED"
+            ? "Completed"
+            : status === "PENDING_PAYMENT"
+            ? "Awaiting Payment"
+            : "Awaiting Teacher's Validation"}
+        </strong>
       </div>
     </div>
   );

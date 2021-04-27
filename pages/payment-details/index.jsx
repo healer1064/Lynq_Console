@@ -1,7 +1,6 @@
 // libraries
 import Head from "next/head";
 import { useState, useContext, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
 
@@ -64,10 +63,9 @@ export default function PaymentDetails() {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
 
-  const getPayments = async () => {
+  const getDetails = async () => {
     let config = {
       method: "GET",
       headers: {
@@ -75,8 +73,9 @@ export default function PaymentDetails() {
         ContentType: "application/json",
       },
     };
+
     const response = await fetch(
-      `https://api.lynq.app/account/balance?t=${token}`,
+      `https://api.lynq.app/account/clients?t=${token}&period=TODAY`,
       config
     );
     const data = await response.json();
@@ -85,33 +84,33 @@ export default function PaymentDetails() {
   };
 
   useEffect(() => {
-    // getPayments();
+    getDetails();
   }, [token]);
 
   return (
     <>
       <Head>
-        <title>Payment</title>
+        <title>Details | Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
       </Head>
-      <ToastContainer />
-      <Navbar active="payments" />
+      <Navbar active="payment-details" />
       <div className="page-wrp">
         <Leftbar active="payment-details" />
         <div className="content-wrp ">
-          {/* {!data ? (
+          {!data ? (
             <PageLoading />
-          ) : ( */}
-          <Fade>
-            <div className="payment">
-              <PaymentsDetails data={details} />
-            </div>
-          </Fade>
-          {/* )} */}
+          ) : (
+            <Fade>
+              <div className="payment">
+                <PaymentsDetails data={data} />
+              </div>
+            </Fade>
+          )}
+          <br />
         </div>
       </div>
     </>
