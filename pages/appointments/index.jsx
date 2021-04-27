@@ -31,7 +31,6 @@ export default function Appointments() {
   const [data, setData] = useState(null);
   const [requests, setRequests] = useState(null);
   const [temp, setTemp] = useState([]);
-  const [tab, setTab] = useState(router.pathname.toString());
   const [success, setSuccess] = useState(false);
   const [id, setId] = useState();
   const [showModel, setShowModel] = useState(false);
@@ -44,16 +43,6 @@ export default function Appointments() {
       fetchRequests();
     }
   }, [token, success]);
-
-  useEffect(() => {
-    if (tab == "/appointments/invitations") {
-      router.push("/appointments/invitations");
-    } else if (tab == "/appointments/requests") {
-      router.push("/appointments/requests");
-    } else {
-      router.push("/appointments");
-    }
-  }, [tab]);
 
   const fetchAppointments = async () => {
     const config = {
@@ -188,7 +177,7 @@ export default function Appointments() {
   return (
     <>
       <Head>
-        <title>Appointments</title>
+        <title>Activities | Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
@@ -204,6 +193,7 @@ export default function Appointments() {
             <PageLoading />
           ) : (
             <>
+              <br />
               {showModel && (
                 <Modal
                   setModal={setShowModel}
@@ -213,40 +203,6 @@ export default function Appointments() {
                 />
               )}
               <Fade>
-                <div className="settings-types">
-                  <div
-                    onClick={() => router.push("/appointments")}
-                    className="option active"
-                  >
-                    Scheduled
-                  </div>
-                  <div
-                    onClick={() => router.push("/appointments/requests")}
-                    className="option"
-                    style={{ position: "relative" }}
-                  >
-                    Requests{" "}
-                    {requests.length > 0 ? (
-                      <span className="requests-badge">{requests.length}</span>
-                    ) : null}
-                  </div>
-                  <div
-                    onClick={() => router.push("/appointments/invitations")}
-                    className="option"
-                    style={{ position: "relative" }}
-                  >
-                    Invitations (Waiting for payment)
-                  </div>
-                </div>
-                <div className="settings-types__mobile">
-                  <select onChange={(e) => setTab(e.target.value)} value={tab}>
-                    <option value={"/appointments"}>Scheduled</option>
-                    <option value={"/appointments/requests"}>Requests</option>
-                    <option value={"/appointments/invitations"}>
-                      Invitations (Waiting for payment)
-                    </option>
-                  </select>
-                </div>
                 <Fade duration={1200}>
                   <div>
                     <AppointmentsTop onWeekChange={onWeekChange} />

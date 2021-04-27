@@ -7,7 +7,11 @@ const VideoModal = ({ setVideoModal, source }) => {
       <iframe
         width="420"
         height="315"
-        src={source.videoFileURL || "https://www.youtube.com/embed/tgbNymZ7vqY"}
+        src={
+          source
+            ? source.videoFileURL
+            : "https://www.youtube.com/embed/tgbNymZ7vqY"
+        }
       ></iframe>
     </div>
   );

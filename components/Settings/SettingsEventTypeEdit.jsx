@@ -1,5 +1,6 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +10,7 @@ import ProfileContext from "../../context/profile";
 // components
 import Loading from "../common/Loading";
 
-const SettingsEventTypeEdit = ({ setTab }) => {
+const SettingsEventTypeEdit = ({ eventType }) => {
   // states
   const [descriptionCount, setDescriptionCount] = useState(0);
   const [needsCount, setNeedsCount] = useState(0);
@@ -24,23 +25,19 @@ const SettingsEventTypeEdit = ({ setTab }) => {
   const [loading, setLoading] = useState(false);
 
   // context
-  const { eventType, setEventType, token } = useContext(ProfileContext);
+  const { token } = useContext(ProfileContext);
+
+  // router
+  const router = useRouter();
 
   useEffect(() => {
-    if (!eventType) {
-      setTab("eventtype");
-    } else {
-      setEventName(eventType.name);
-      setDesc(eventType.description);
-      setNeedToBring(eventType.material_needed);
-      setDuration("custom");
-      setCustomDur(eventType.duration);
-      setPolicy(eventType.cancellation_policy);
-      setPrice(eventType.price);
-    }
-    return () => {
-      setEventType(null);
-    };
+    setEventName(eventType.name);
+    setDesc(eventType.description);
+    setNeedToBring(eventType.material_needed);
+    setDuration("custom");
+    setCustomDur(eventType.duration);
+    setPolicy(eventType.cancellation_policy);
+    setPrice(eventType.price);
   }, []);
 
   const handleEdit = () => {
@@ -95,8 +92,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
       setLoading(false);
       if (res.status == 200) {
         console.log("Event type added", res);
-        setTab("eventtype");
-        setEventType(null);
+        router.push("/event-types");
       } else {
         console.log("Error Event type added", res);
         toast.error("An error has occurred");
@@ -122,7 +118,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
             <strong>Description*</strong>
             <div className="events-edit__description__textarea">
               <textarea
-                maxlength="100"
+                maxLength="100"
                 value={desc}
                 onChange={(e) => {
                   setDesc(e.target.value);
@@ -227,7 +223,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <img src="img/dollar.svg" alt="dollar" />
+            <img src="/img/dollar.svg" alt="dollar" />
           </div>
           {error && (
             <p
@@ -244,7 +240,7 @@ const SettingsEventTypeEdit = ({ setTab }) => {
         </div>
         <div className="events-edit__btns">
           <button
-            onClick={() => setTab("eventtype")}
+            onClick={() => router.push("/event-types")}
             className="events-edit__btns-cancel"
           >
             Cancel

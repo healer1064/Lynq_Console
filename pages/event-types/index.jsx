@@ -4,9 +4,9 @@ import Head from "next/head";
 // components
 import Leftbar from "../../components/Leftbar";
 import Navbar from "../../components/Navbar";
-import SettingsSetup from "../../components/Settings/SettingsSetup";
+import SettingsEventType from "../../components/Settings/SettingsEventType";
 
-export default function Settings() {
+export default function EventTypes() {
   return (
     <>
       <Head>
@@ -19,10 +19,10 @@ export default function Settings() {
       </Head>
       <Navbar active="settings" />
       <div className="page-wrp">
-        <Leftbar active="settings" />
+        <Leftbar active="eventtypes" />
         <div className="content-wrp">
           <br />
-          <SettingsSetup />
+          <SettingsEventType />
         </div>
       </div>
     </>

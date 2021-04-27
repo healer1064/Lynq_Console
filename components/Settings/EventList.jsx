@@ -9,7 +9,7 @@ import EventListCard from "./EventListCard";
 // context
 import ProfileContext from "../../context/profile";
 
-const EventList = ({ events, setTab, setResponse, response }) => {
+const EventList = ({ events, setResponse, response }) => {
   const { token } = useContext(ProfileContext);
 
   // states
@@ -66,7 +66,6 @@ const EventList = ({ events, setTab, setResponse, response }) => {
           <EventListCard
             card={card}
             key={index}
-            setTab={setTab}
             deleteEventType={deleteEventType}
             setResponse={setResponse}
             response={response}

@@ -1,5 +1,6 @@
 // libraries
 import { useState, useContext } from "react";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
@@ -10,7 +11,7 @@ import ProfileContext from "../../context/profile";
 // components
 import Loading from "../common/Loading";
 
-const SettingsEventTypeAsync = ({ setTab }) => {
+const SettingsEventTypeAsync = () => {
   // states
   const [descriptionCount, setDescriptionCount] = useState(0);
   const [infoCount, setInfoCount] = useState(0);
@@ -30,7 +31,11 @@ const SettingsEventTypeAsync = ({ setTab }) => {
   const [hourTwo, setHourTwo] = useState("6");
   const [per, setPer] = useState("50");
 
+  // context
   const { token } = useContext(ProfileContext);
+
+  // router
+  const router = useRouter();
 
   //   const handleSave = () => {
   //     if (eventName !== "" && desc !== "" && duration !== "" && price !== "") {
@@ -163,7 +168,7 @@ const SettingsEventTypeAsync = ({ setTab }) => {
                 value={standardPrice}
                 onChange={(e) => setStandardPrice(e.target.value)}
               />
-              <img src="img/dollar.svg" alt="dollar" />
+              <img src="/img/dollar.svg" alt="dollar" />
             </div>
           </div>
           <div className="event-type-async-price-time">
@@ -186,7 +191,7 @@ const SettingsEventTypeAsync = ({ setTab }) => {
                 value={expressPrice}
                 onChange={(e) => setExpressPrice(e.target.value)}
               />
-              <img src="img/dollar.svg" alt="dollar" />
+              <img src="/img/dollar.svg" alt="dollar" />
             </div>
           </div>
           {error && (
@@ -204,7 +209,7 @@ const SettingsEventTypeAsync = ({ setTab }) => {
         </div>
         <div className="events-edit__btns">
           <button
-            onClick={() => setTab("eventtype")}
+            onClick={() => router.push("/event-types")}
             className="events-edit__btns-cancel"
           >
             Cancel

@@ -14,7 +14,6 @@ import Navbar from "../components/Navbar";
 import Leftbar from "../components/Leftbar";
 // import EmailConfirmation from "../components/Home/EmailConfirmation";
 import PageLoading from "../components/common/PageLoading";
-import HomeStats from "../components/Home/HomeStats";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
 
 const home = () => {
@@ -23,9 +22,6 @@ const home = () => {
 
   // states
   const [appointmentList, setAppointmentList] = useState(null);
-  const [statsData, setStatsData] = useState(null);
-
-  const [stats, setStats] = useState("TODAY");
   const [currSession, setCurrSession] = useState({
     time: null,
     link: null,
@@ -44,12 +40,6 @@ const home = () => {
   }, [token]);
 
   useEffect(() => {
-    if (token) {
-      fetchStats();
-    }
-  }, [token, stats]);
-
-  useEffect(() => {
     if (slugData !== null) {
       setCurrSession({
         ...currSession,
@@ -64,27 +54,6 @@ const home = () => {
       });
     }
   }, [slugData]);
-
-  const fetchStats = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/account/stats?t=${token}&period=${stats}`,
-        config
-      );
-
-      const _data = await response.json();
-
-      setStatsData(_data);
-    } catch (err) {
-      toast.error("Error Occured, Stats Cannot Be Shown");
-    }
-  };
 
   const fetchAppointments = async () => {
     const config = {
@@ -271,7 +240,6 @@ const home = () => {
                     </span>
                   </div>
                   <HomeAppointmentsList appointmentList={appointmentList} />
-                  <HomeStats data={statsData} setStats={setStats} />
                 </div>
               </Fade>
             </>

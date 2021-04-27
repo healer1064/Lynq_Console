@@ -1,6 +1,7 @@
 // libraries
 import { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
 import { v4 as uuidv4 } from "uuid";
@@ -11,7 +12,6 @@ import ProfileContext from "../../context/profile";
 
 const EventListCard = ({
   card,
-  setTab,
   deleteEventType,
   setResponse,
   response,
@@ -21,7 +21,10 @@ const EventListCard = ({
   const [open, setOpen] = useState(false);
 
   // useContext
-  const { setEventType, token } = useContext(ProfileContext);
+  const { token } = useContext(ProfileContext);
+
+  // router
+  const router = useRouter();
 
   const changeEventTypeStatus = (card) => {
     const _reqData = {
@@ -135,8 +138,7 @@ const EventListCard = ({
           <div className="actions__popup-wrp">
             <span
               onClick={() => {
-                setEventType(card);
-                setTab("eventtypeedit");
+                router.push(`/event-types/${card.id}`);
               }}
             >
               <img src="/img/events-edit-icon.svg" alt="" />

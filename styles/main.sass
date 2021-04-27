@@ -32,6 +32,36 @@ body
 .half-div
   width: calc(50% - 12px)
 
+.leftbar-icon
+  position: absolute
+  right: 15%
+  color: white
+
+.nav-sub-links
+  display: flex
+  flex-direction: column
+  justify-content: center
+  padding: 0 20px
+  margin-bottom: 10px
+  animation-name: sublinksDown
+  animation-duration: 200ms
+  user-select: none
+
+  p 
+    margin: 0
+    font-size: 15px
+    color: white
+    display: flex
+    align-items: center
+    cursor: pointer
+    padding: 8px 10px
+    user-select: none
+
+    svg
+      color: white
+      font-size: 20px
+      margin-right: 10px
+
 .send-invite-btn
   background: $lavender
   padding: 6px 25px
@@ -5186,3 +5216,11 @@ body
   .video-upload-textarea > textarea
       height: 250px
 
+
+@keyframes sublinksDown
+  from 
+    margin-top: -50px
+    opacity: 0
+  to
+    margin-top: 0px
+    opacity: 1

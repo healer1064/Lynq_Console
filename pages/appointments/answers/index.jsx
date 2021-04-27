@@ -9,13 +9,30 @@ import "react-toastify/dist/ReactToastify.css";
 // components
 import Navbar from "../../../components/Navbar";
 import Leftbar from "../../../components/Leftbar";
-import RequestList from "../../../components/Appointments/Request/RequestList";
+import AnswersList from "../../../components/Appointments/Answers/AnswersList";
 import PageLoading from "../../../components/common/PageLoading";
 
 // context
 import ProfileContext from "../../../context/profile";
 
-export default function Appointments() {
+const fake = [
+  {
+    id: 1,
+    name: "Full Meditaion",
+    date: "04/25/2021",
+    first_name: "Chuck",
+    last_name: "Norris",
+  },
+  {
+    id: 2,
+    name: "Half Meditaion",
+    date: "04/27/2021",
+    first_name: "Chucky",
+    last_name: "Chuck",
+  },
+];
+
+export default function Answers() {
   // router
   const router = useRouter();
 
@@ -23,58 +40,59 @@ export default function Appointments() {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [requests, setRequests] = useState(null);
+  const [answers, setAnswers] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [filter, setFilter] = useState("all");
+  //   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     if (token) {
-      fetchRequests();
+      fetchAnswers();
     }
   }, [token, success]);
 
-  const fetchRequests = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
+  const fetchAnswers = async () => {
+    // const config = {
+    //   method: "GET",
+    //   Accept: "application/json",
+    //   "Content-Type": "application/json",
+    // };
+    // try {
+    //   const response = await fetch(
+    //     `https://api.lynq.app/account/appointments/requests?t=${token}`,
+    //     config
+    //   );
+    //   const _data = await response.json();
+    //   setRequests(_data);
+    // } catch (err) {
+    //   setRequests([]);
+    //   toast.error("Error, Failed to Fetch Request List!!!");
+    // }
 
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/requests?t=${token}`,
-        config
-      );
-      const _data = await response.json();
-
-      setRequests(_data);
-    } catch (err) {
-      setRequests([]);
-      toast.error("Error, Failed to Fetch Request List!!!");
-    }
+    setTimeout(() => {
+      setAnswers(fake);
+    }, 1500);
   };
 
   return (
     <>
       <Head>
-        <title>Requests | Lynq</title>
+        <title>Answers | Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="requests" />
+      <Navbar active="answers" />
       <ToastContainer />
       <div className="page-wrp">
-        <Leftbar active="requests" />
+        <Leftbar active="answers" />
         <div className="content-wrp">
-          {!requests ? (
+          {!answers ? (
             <PageLoading />
           ) : (
             <Fade>
-              <br />
-              <div style={{ margin: "0px" }} className="payment-filter">
+              {/* <div style={{ margin: "0px" }} className="payment-filter">
                 <select
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
@@ -83,9 +101,14 @@ export default function Appointments() {
                   <option value="completed">Scheduled video call</option>
                   <option value="coming">Asynchronous video call</option>
                 </select>
-              </div>
-              <RequestList
+              </div> */}
+              {/* <RequestList
                 requestList={requests}
+                success={success}
+                setSuccess={setSuccess}
+              /> */}
+              <AnswersList
+                answersList={answers}
                 success={success}
                 setSuccess={setSuccess}
               />

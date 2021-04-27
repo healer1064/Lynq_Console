@@ -8,7 +8,15 @@ import styles from "../../../styles/PublicScreen.module.sass";
 // components
 import Loading from "../../common/Loading";
 
-const Modal = ({ setModal, onDelete, loading, data }) => {
+const Modal = ({
+  setModal,
+  onDelete,
+  loading,
+  data,
+  title,
+  subtitle,
+  buttonText,
+}) => {
   return (
     <Fade duration={600}>
       <div className={styles.public_screen_modal}>
@@ -18,18 +26,21 @@ const Modal = ({ setModal, onDelete, loading, data }) => {
             src="/img/public-screen-close.svg"
             alt="close"
           />
-          <h6>Cancel The Appointment</h6>
+          <h6>{title || "Cancel The Appointment"}</h6>
           <p>
-            Are you sure you want to cancel the appointment?,
-            <br />
-            {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
+            {subtitle ||
+              `Are you sure you want to cancel the appointment?,
+            ${(<br />)}
+            ${
+              data && moment(data.starting_date).format("dddd, MMMM DD, YYYY")
+            }`}
           </p>
           <button
             style={{ position: "relative" }}
-            onClick={() => onDelete(false)}
+            onClick={() => onDelete && onDelete(false)}
           >
-            {loading && <Loading color="#EF7888" />}Yes, I confirm the
-            cancellation
+            {loading && <Loading color="#EF7888" />}
+            {buttonText || "Yes, I confirm the cancellation"}
           </button>
         </div>
       </div>
