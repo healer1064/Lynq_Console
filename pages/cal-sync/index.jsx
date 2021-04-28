@@ -60,7 +60,7 @@ const SettingsCallSync = () => {
       const response = await fetch(
         `https://cal.lynq.app/toggle?uid=${profile.id}`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

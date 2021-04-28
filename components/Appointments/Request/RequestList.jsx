@@ -3,6 +3,7 @@ import Fade from "react-reveal/Fade";
 import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import { CaretRightOutlined } from "@ant-design/icons";
 
 // style
 import styles from "./Request.module.css";
@@ -25,9 +26,11 @@ const RequestList = ({ requestList }) => {
   ) : (
     <div className={styles.request__list}>
       <div className={styles.requests_head}>
-        <p>Name</p>
-        <p>Type</p>
         <p>Received</p>
+        <p>Event Name</p>
+        <p>Type</p>
+        <p>Email</p>
+        <p>Answer</p>
       </div>
       {requestList.map((item, i) => (
         <Fade key={i} duration={800} delay={50}>
@@ -36,18 +39,28 @@ const RequestList = ({ requestList }) => {
             onClick={() => router.push(`/appointments/requests/${item.id}`)}
             className={styles.request_single_item}
           >
-            <p>{item.activity_name}</p>
-            <p>Scheduled Video Call</p>
             <p>
               {moment(item.create_date).format("ddd MM, YYYY")}
               <span
                 style={{
                   borderLeft: "1px solid #aaa",
-                  margin: "0 10px",
+                  margin: "0 5px",
                 }}
               ></span>
               {getFromTime(item.create_date)}
             </p>
+            <p>{item.activity_name}</p>
+            <p style={{ color: "#7e88f4" }}>Live</p>
+            <p>{item.email}</p>
+            <p>N/A</p>
+            <CaretRightOutlined
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#7e88f4",
+              }}
+            />
           </div>
         </Fade>
       ))}

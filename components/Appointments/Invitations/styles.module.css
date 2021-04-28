@@ -1,3 +1,15 @@
+.invitations__list {
+  margin-top: 2rem;
+}
+.invitation__item {
+  background-color: #eae8e9;
+  color: #666;
+  margin: 0.5rem 0;
+  padding: 0.8rem 0.5rem;
+  width: 80%;
+  font-size: 14px;
+  cursor: pointer;
+}
 .request__list {
   margin-top: 2rem;
 }
@@ -14,7 +26,7 @@
 
 .request_single_item {
   display: grid;
-  grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr 0.2fr;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr 0.2fr;
   width: 100%;
   padding: 15px 20px;
   cursor: pointer;
@@ -83,7 +95,7 @@
   width: 100%;
   background: rgba(126, 136, 244, 0.3);
   display: grid;
-  grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr 0.2fr;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr 0.2fr;
   padding: 15px 20px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;

@@ -25,7 +25,6 @@ export default function Appointments() {
   // states
   const [invitations, setInvitations] = useState(null);
   const [requests, setRequests] = useState(null);
-  const [tab, setTab] = useState(router.pathname.toString());
 
   useEffect(() => {
     if (token) {
@@ -33,16 +32,6 @@ export default function Appointments() {
       fetchRequests();
     }
   }, [token]);
-
-  useEffect(() => {
-    if (tab == "/appointments/invitations") {
-      router.push("/appointments/invitations");
-    } else if (tab == "/appointments/requests") {
-      router.push("/appointments/requests");
-    } else {
-      router.push("/appointments");
-    }
-  }, [tab]);
 
   const fetchInvitations = async () => {
     const config = {
@@ -104,40 +93,6 @@ export default function Appointments() {
             <PageLoading />
           ) : (
             <Fade>
-              <div className="settings-types">
-                <div
-                  onClick={() => router.push("/appointments")}
-                  className="option"
-                >
-                  Scheduled
-                </div>
-                <div
-                  onClick={() => router.push("/appointments/requests")}
-                  className="option"
-                  style={{ position: "relative" }}
-                >
-                  Requests{" "}
-                  {requests.length > 0 ? (
-                    <span className="requests-badge">{requests.length}</span>
-                  ) : null}
-                </div>
-                <div
-                  onClick={() => router.push("/appointments/invitations")}
-                  className="option active"
-                  style={{ position: "relative" }}
-                >
-                  Invitations (Waiting for payment)
-                </div>
-              </div>
-              <div className="settings-types__mobile">
-                <select onChange={(e) => setTab(e.target.value)} value={tab}>
-                  <option value={"/appointments"}>Scheduled</option>
-                  <option value={"/appointments/requests"}>Requests</option>
-                  <option value={"/appointments/invitations"}>
-                    Invitations (Waiting for payment)
-                  </option>
-                </select>
-              </div>
               <InvitationsList invitations={invitations} />
             </Fade>
           )}
