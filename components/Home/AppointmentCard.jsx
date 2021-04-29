@@ -39,7 +39,7 @@ const AppointmentCard = ({ data }) => {
             Start the video
           </a>
         </Link>
-        {data.status.toLowerCase().includes("awaiting-payment") && (
+        {data?.status?.toLowerCase().includes("awaiting-payment") && (
           <span className="payment-not-paid">
             This session has not been paid by your client.{" "}
             <Link href={`/appointments/${data.id}`}>See details here</Link>

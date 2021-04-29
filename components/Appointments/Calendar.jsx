@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import onClickOutside from "react-onclickoutside";
 
 // styles
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import styles from "../../styles/Calendar.module.sass";
 
 import "react-date-range/dist/styles.css";

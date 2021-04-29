@@ -24,6 +24,9 @@ $breakpointPhone: 519px
   box-sizing: border-box
   font-family: 'Open Sans'
 
+html
+  overflow-y: scroll
+
 body
   background: #FFF
   margin: 0
@@ -63,6 +66,9 @@ body
   &__day-name
     color: #5c5c5c !important
 
+.rdrCalendarWrapper
+  font-size: 10px !important
+
 .rdrDateRangeWrapper
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px
   border-radius: 15px
@@ -92,7 +98,7 @@ body
       font-weight: 600
 
   .rdrWeekDay
-    font-size: 0.9rem !important
+    font-size: 0.75rem !important
     font-weight: 600 !important
 
   .rdrDayNumber
@@ -811,7 +817,8 @@ body
       margin-right: 17px
 .wrp-1
   flex-direction: row !important
-
+  align-items: baseline;
+  
   @media(max-width: 768px)
     flex-direction: column !important
 
@@ -822,7 +829,7 @@ body
   padding: 16px 64px 0 32px
   @include flex
   flex-direction: column
-  align-items: baseline;
+  
 
 
 
@@ -1413,14 +1420,17 @@ body
     margin-top: 48px
     position: relative
     flex-basis: 35%
+    order: 1
 
     @media(max-width: 768px)
       width: 100%
       flex-basis: 0
+      order: 0
 
     &__newApp
-      position: absolute
-      top: 0
+      // position: absolute
+      // top: 0
+      width: 15rem
       padding: 11px 24px 12px
       background: #39BDCD
       border-radius: 5px
@@ -3336,18 +3346,21 @@ body
 
 .no-appointments
   flex-grow: 1
-  height: 195px
+  // height: 195px
   display: flex
-  align-items: center
-  justify-content: center
+  // align-items: center
+  // justify-content: center
   position: relative
+  flex-direction: column
 
   @media(max-width: 768px)
     width: 100%
     flex-grow: 0
   p
     margin: 0
-    color: #999        
+    margin-top: 2rem
+    color: #999
+    align-self: center        
 
 .requests-badge
   position: absolute
@@ -4512,7 +4525,7 @@ body
   .appointments
     &-top
       margin-top: 24px
-      justify-content: flex-start
+      // justify-content: flex-start
       &__newApp
         position: relative
       &__btn

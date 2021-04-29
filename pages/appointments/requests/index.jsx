@@ -58,7 +58,6 @@ export default function Appointments() {
         config
       );
       const _data = await response.json();
-
       setRequests(_data.reverse());
     } catch (err) {
       setRequests([]);

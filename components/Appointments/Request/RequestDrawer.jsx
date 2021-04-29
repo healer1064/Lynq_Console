@@ -40,7 +40,15 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
       return date == currentDate;
     });
 
-    setAppointments(filteredArray);
+    if (filteredArray.length > 0) {
+      const sortedList = filteredArray[0].appointments.sort(
+        (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
+      );
+
+      setAppointments(sortedList);
+    } else {
+      setAppointments([]);
+    }
   }, []);
 
   return (
@@ -52,40 +60,40 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
       onClose={toggle}
       visible={isOpen}
     >
-      <Fade duration={600}>
-        <>
-          {!appointments ? (
-            <h1>Loading...</h1>
-          ) : appointments.length == 0 ? (
-            <div>
-              <h3>No Appointments</h3>
+      {/* <Fade duration={600}> */}
+      <>
+        {!appointments ? (
+          <h1>Loading...</h1>
+        ) : appointments.length == 0 ? (
+          <div>
+            <h3>No Appointments</h3>
+          </div>
+        ) : (
+          appointments.map((item, index) => (
+            <div
+              key={index}
+              className={`${styles.request_drawer_item} ${
+                item.status === "CONFIRMED" ? styles.blue : styles.red
+              }`}
+            >
+              <div className={styles.title}>{item.activity_name}</div>
+              <div className={styles.det}>
+                {moment(item.starting_date).format("ddd, MMM DD, YYYY")}
+                <div className={styles.line}></div>
+                <b>
+                  {moment(item.starting_date).format("hh:mm a")} -
+                  {moment(item.starting_date)
+                    .add(item.session_duration, "minutes")
+                    .format("hh:mm a")}
+                </b>
+                <div className={styles.line}></div>
+                <b>{item.session_duration} mins</b>
+              </div>
             </div>
-          ) : (
-            appointments.map((i) =>
-              i.appointments.map((item, index) => (
-                <div
-                  key={index}
-                  className={`${styles.request_drawer_item} ${styles.blue}`}
-                >
-                  <div className={styles.title}>{item.activity_name}</div>
-                  <div className={styles.det}>
-                    {moment(item.starting_date).format("ddd, MMM DD, YYYY")}
-                    <div className={styles.line}></div>
-                    <b>
-                      {moment(item.starting_date).format("hh:mm a")} -
-                      {moment(item.starting_date)
-                        .add(item.session_duration, "minutes")
-                        .format("hh:mm a")}
-                    </b>
-                    <div className={styles.line}></div>
-                    <b>{item.session_duration} mins</b>
-                  </div>
-                </div>
-              ))
-            )
-          )}
-        </>
-      </Fade>
+          ))
+        )}
+      </>
+      {/* </Fade> */}
     </Drawer>
   );
 };
