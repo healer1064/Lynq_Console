@@ -6,12 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // context
-import ProfileContext from "../../context/profile";
+import ProfileContext from "../../../context/profile";
 
-import Loading from "../../components/common/Loading";
-import PageLoading from "../../components/common/PageLoading";
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
+import Loading from "../../../components/common/Loading";
+import PageLoading from "../../../components/common/PageLoading";
+import Navbar from "../../../components/Navbar";
+import Leftbar from "../../../components/Leftbar";
 
 const SettingsCallSync = () => {
   // contect
@@ -54,37 +54,39 @@ const SettingsCallSync = () => {
     }
   };
 
-  const disconnectCal = () => {
-    setLoading(true);
-    async function accept() {
-      const response = await fetch(
-        `https://cal.lynq.app/toggle?uid=${profile.id}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
+  console.log(isConnected);
 
-      return await response;
-    }
+  // const disconnectCal = () => {
+  //   setLoading(true);
+  //   async function accept() {
+  //     const response = await fetch(
+  //       `https://cal.lynq.app/toggle?uid=${profile.id}`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
 
-    accept()
-      .then((res) => {
-        setLoading(false);
-        if (res.status === 200) {
-          setIsConnected(res.connected);
-        } else {
-          toast.error("Error, Failed To Disconnect Calendar");
-        }
-      })
-      .catch(() => {
-        toast.error("Error, Failed To Disconnect Calendar");
-        setLoading(false);
-      });
-  };
+  //     return await response;
+  //   }
+
+  //   accept()
+  //     .then((res) => {
+  //       setLoading(false);
+  //       if (res.status === 200) {
+  //         setIsConnected(res.connected);
+  //       } else {
+  //         toast.error("Error, Failed To Disconnect Calendar");
+  //       }
+  //     })
+  //     .catch(() => {
+  //       toast.error("Error, Failed To Disconnect Calendar");
+  //       setLoading(false);
+  //     });
+  // };
 
   return (
     <>
@@ -104,7 +106,7 @@ const SettingsCallSync = () => {
             <ToastContainer />
             <Fade duration={1000}>
               <div className="call-sync__wrp">
-                {pageLoading ? (
+                {pageLoading && !profile ? (
                   <div style={{ height: "40vh", alignSelf: "center" }}>
                     <PageLoading />
                   </div>
@@ -119,11 +121,16 @@ const SettingsCallSync = () => {
                       <img src="/img/google-calendar.svg" alt="" />
                       <a
                         href={
-                          !isConnected &&
-                          `https://cal.lynq.app/?uid=${profile.id}`
+                          !isConnected
+                            ? `https://cal.lynq.app/?uid=${
+                                profile && profile.id
+                              }`
+                            : `https://cal.lynq.app/disconnect?uid=${
+                                profile && profile.id
+                              }`
                         }
-                        target="_blank"
-                        onClick={() => isConnected && disconnectCal()}
+                        // target="_blank"
+                        // onClick={() => isConnected && disconnectCal()}
                         style={{
                           textTransform: "capitalize !important",
                           textDecoration: "none",

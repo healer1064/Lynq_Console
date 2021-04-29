@@ -1969,7 +1969,7 @@ body
   &-table
     width: 100%
     background: #FFF
-    border: 1px solid #D9E0E9
+    // border: 1px solid #D9E0E9
     box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
     border-radius: 5px
     padding-bottom: 8px
@@ -1982,19 +1982,22 @@ body
     .row
       width: 100%
       height: 48px
-      background: #F2F3FF
+      background: #f9f9f9
+      margin: 10px 0
       @include flex
-      &:nth-child(2n)
-        background: #FFF
+      &:hover
+         background: #efefef
+      // &:nth-child(2n)
+      //   background: #FFF
       &.head
-        background: $lavender
+        background: rgba(126, 136, 244, 0.8)
         color: #FFF
     .col
       height: 100%
       @include flex
       align-items: center
       justify-content: centerv
-      border-right: 2px solid #D9E0E9
+      // border-right: 2px solid #D9E0E9
       padding: 0 10px
       &:last-child
         border-right: none
@@ -3356,7 +3359,7 @@ body
   justify-content: flex-end
 
 .requests-dropdown-btn
-  width: 250px
+  width: 280px
   display: flex !important
   align-items: center !important
   justify-content: space-between !important
@@ -4076,6 +4079,10 @@ body
       justify-content: center
       align-items: center
       text-align: center
+      a
+        display: flex
+        align-items: center
+        
     .mobile-nav-other-link
       display: flex
       flex-direction: column

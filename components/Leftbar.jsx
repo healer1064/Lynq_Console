@@ -131,7 +131,7 @@ const Leftbar = ({ active }) => {
                 <BsDot /> Event Types
               </p>
             </Link>
-            <Link href="/cal-sync">
+            <Link href="/settings/calendar">
               <p
                 style={{
                   background: `${

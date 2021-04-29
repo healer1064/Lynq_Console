@@ -1,6 +1,9 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 
+// styles
+import "antd/dist/antd.css";
+
 const SearchInut = ({ setState }) => {
   return (
     <Input

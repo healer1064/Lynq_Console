@@ -14,13 +14,13 @@ const PaymentsDetailItem = ({ data }) => {
     <div className="row">
       <ReactTooltip />
       <div className="col first__name">
-        <span>{type}</span>
+        <span>{type || "-"}</span>
       </div>
       <div className="col last__name">
-        <span>{client_email}</span>
+        <span>{client_email || "-"}</span>
       </div>
       <div className="col email">
-        <span>${price}</span>
+        <span>{`${price ? "$" + price : "-"}`}</span>
       </div>
       <div className="col session">
         <span>{moment(starting_date).format("DD MMM, YYYY")}</span>
@@ -33,7 +33,9 @@ const PaymentsDetailItem = ({ data }) => {
             ? "Completed"
             : status === "PENDING_PAYMENT"
             ? "Awaiting Payment"
-            : "Awaiting Teacher's Validation"}
+            : status === "PENDING_TEACHER_VALIDATION"
+            ? "Awaiting Teacher's Validation"
+            : "-"}
         </strong>
       </div>
     </div>

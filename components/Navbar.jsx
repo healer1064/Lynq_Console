@@ -4,10 +4,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Rotate from "react-reveal/Rotate";
 import Fade from "react-reveal/Fade";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const Navbar = ({ active }) => {
   // states
   const [open, setOpen] = useState(false);
+  const [activities, setActivities] = useState(false);
+  const [settings, setSettings] = useState(false);
+  const [payment, setPayment] = useState(false);
 
   const router = useRouter();
 
@@ -50,20 +54,56 @@ const Navbar = ({ active }) => {
                   <span>Home</span>
                 </a>
               </Link>
-              <Link href="/appointments">
-                <a className={active === "appointments" ? "active" : ""}>
-                  <span>Activities</span>
-                </a>
-              </Link>
+              {/* <Link href="/appointments"> */}
+              <a
+                onClick={() => setActivities(!activities)}
+                className={active === "appointments" ? "active" : ""}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <span>Activities</span>
+                {activities ? (
+                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                ) : (
+                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                )}
+              </a>
+              {activities && (
+                <div className="sub-links">
+                  <Link href="/appointments">
+                    <span>Calendar</span>
+                  </Link>
+                  <Link href="/appointments/requests">
+                    <span>Requests</span>
+                  </Link>
+                  <Link href="/appointments/answers">
+                    <span>Answers</span>
+                  </Link>
+                </div>
+              )}
+              <a className={active === "settings" ? "active" : ""}>
+                <span>Settings</span>
+                {settings ? (
+                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                ) : (
+                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                )}
+              </a>
+              {settings && (
+                <div className="sub-links">
+                  <Link href="/settings">
+                    <span>Availabilities</span>
+                  </Link>
+                  <Link href="/event-types">
+                    <span>Event Types</span>
+                  </Link>
+                  <Link href="/settings/calendar">
+                    <span>Cal Sync</span>
+                  </Link>
+                </div>
+              )}
               <Link href="/public-profile">
                 <a className={active === "profile" ? "active" : ""}>
                   <span>Public Profile</span>
-                </a>
-              </Link>
-              <div className="space"></div>
-              <Link href="/settings">
-                <a className={active === "settings" ? "active" : ""}>
-                  <span>Settings</span>
                 </a>
               </Link>
               <Link href="/clients">

@@ -13,51 +13,6 @@ import Leftbar from "../../components/Leftbar";
 import PageLoading from "../../components/common/PageLoading";
 import PaymentsDetails from "../../components/Payment/PaymentsDetails";
 
-const details = [
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Completed",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Coming",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Awaiting Payment",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Completed",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Coming",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Awaiting Payment",
-  },
-];
-
 export default function PaymentDetails() {
   // context
   const { token } = useContext(ProfileContext);

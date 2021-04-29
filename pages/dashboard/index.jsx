@@ -2,6 +2,9 @@
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 
+// context
+import ProfileContext from "../../context/profile";
+
 // components
 import Leftbar from "../../components/Leftbar";
 import Navbar from "../../components/Navbar";
@@ -9,10 +12,8 @@ import Navbar from "../../components/Navbar";
 import ClientsTable from "../../components/Clients/ClientsTable";
 import PageLoading from "../../components/common/PageLoading";
 import EmptyData from "../../components/common/EmptyData";
+import SearchInput from "../../components/common/SearchInput";
 import HomeStats from "../../components/Home/HomeStats";
-
-// context
-import ProfileContext from "../../context/profile";
 
 export default function Clients() {
   // context
@@ -92,19 +93,31 @@ export default function Clients() {
           ) : (
             <>
               <HomeStats data={statsData} setStats={setStats} />
+              <br />
+              <h3
+                style={{ margin: "0", fontWeight: "700", fontSize: "1.4rem" }}
+              >
+                Detail by clients
+              </h3>
               {data.length === 0 ? (
                 <EmptyData title="No clients to show" />
               ) : (
                 <div className="clients-wrp">
                   <div className="clients-wrp__top">
                     {/* <AddNewButton title="New Client" /> */}
-                    <input
+                    {/* <input
                       type="text"
                       placeholder="Search by name"
                       className="clients-wrp__search"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+                    /> */}
+                    <div
+                      style={{ width: "100%" }}
+                      className="invitations-menu-search"
+                    >
+                      <SearchInput setState={setSearchTerm} />
+                    </div>
                   </div>
                   <ClientsTable
                     data={
@@ -112,12 +125,14 @@ export default function Clients() {
                         ? data
                         : data.filter(
                             (i) =>
-                              i.first_name
-                                .toLowerCase()
-                                .includes(searchTerm.toLowerCase()) ||
-                              i.last_name
-                                .toLowerCase()
-                                .includes(searchTerm.toLowerCase())
+                              (i.first_name &&
+                                i.first_name
+                                  .toLowerCase()
+                                  .includes(searchTerm.toLowerCase())) ||
+                              (i.last_name &&
+                                i.last_name
+                                  .toLowerCase()
+                                  .includes(searchTerm.toLowerCase()))
                           )
                     }
                   />

@@ -19,15 +19,17 @@ const fake = [
   {
     id: 1,
     name: "Full Meditaion",
-    date: "04/25/2021",
+    create_date: "04/25/2021",
     first_name: "Chuck",
     last_name: "Norris",
+    email: "chuck@chuck.com",
   },
   {
     id: 2,
     name: "Half Meditaion",
-    date: "04/27/2021",
+    create_date: "04/27/2021",
     first_name: "Chucky",
+    email: "chuck@chuck.com",
     last_name: "Chuck",
   },
 ];
