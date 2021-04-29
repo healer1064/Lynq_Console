@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { format } from "date-fns";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -58,7 +59,7 @@ export default function Appointments() {
       );
 
       const _data = await response.json();
-
+      console.log(_data);
       setData(filterByCurrWeek(groupAppointment(_data)));
       setTemp(groupAppointment(_data));
     } catch (err) {
@@ -122,10 +123,13 @@ export default function Appointments() {
   };
 
   const onWeekChange = (_start, _end) => {
+    _start = format(_start, "yyyy-MM-dd");
+    _end = format(_end, "yyyy-MM-dd");
+
     let filter = temp.filter(
       (item) =>
-        new Date(item.date).getTime() >= _start.getTime() &&
-        new Date(item.date).getTime() <= _end.getTime()
+        new Date(item.date).getTime() >= new Date(_start).getTime() &&
+        new Date(item.date).getTime() <= new Date(_end).getTime()
     );
 
     setData(filter);
@@ -188,7 +192,7 @@ export default function Appointments() {
       <ToastContainer />
       <div className="page-wrp">
         <Leftbar active="appointments" />
-        <div className="content-wrp">
+        <div className="content-wrp wrp-1">
           {!data || !requests ? (
             <PageLoading />
           ) : (
@@ -202,18 +206,18 @@ export default function Appointments() {
                   data={apptData}
                 />
               )}
-              <Fade>
-                <Fade duration={1200}>
-                  <div>
-                    <AppointmentsTop onWeekChange={onWeekChange} />
-                    <AppointmentsList
-                      appointmentList={data}
-                      toggleSuccess={toggleSuccess}
-                      toggle={toggle}
-                    />
-                  </div>
-                </Fade>
-              </Fade>
+              {/* <Fade> */}
+              {/* <Fade duration={1200}> */}
+              <>
+                <AppointmentsTop onWeekChange={onWeekChange} />
+                <AppointmentsList
+                  appointmentList={data}
+                  toggleSuccess={toggleSuccess}
+                  toggle={toggle}
+                />
+              </>
+              {/* </Fade>
+              </Fade> */}
             </>
           )}
         </div>

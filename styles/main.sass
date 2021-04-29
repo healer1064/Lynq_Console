@@ -29,7 +29,78 @@ body
   margin: 0
   font-family: 'Open Sans'
 
-.half-div
+.react-datepicker 
+  border-radius: 15px !important
+  border: none !important
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+
+  .react-datepicker__navigation
+    border: 2.35px solid #90C4B1
+    border-top: 0
+    border-left: 0
+    width: 9px
+    height: 9px
+    top: 27px
+
+    &--next
+      transform: rotate(-45deg)
+      right: 15px
+    
+    &--previous
+      transform: rotate(134deg)
+      left: 15px
+    
+  .react-datepicker__header 
+    background: none !important
+    border: none !important
+
+    .react-datepicker__current-month
+      padding: .75rem 0
+      font-weight: 600
+      text-transform: uppercase
+      color: #5c5c5c
+
+  &__day-name
+    color: #5c5c5c !important
+
+.rdrDateRangeWrapper
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px
+  border-radius: 15px
+
+  .rdrMonthAndYearWrapper
+    .rdrNextPrevButton
+      background: none
+
+      & > i
+        border: 2px solid #5ac19b
+        width: 8.5px
+        height: 8.5px
+        border-left: 0
+        border-top: 0
+        background: non
+
+    .rdrPprevButton
+      & > i
+        transform: rotate(136deg)
+    .rdrNextButton
+      & > i
+        transform: rotate(-45deg)
+
+    .rdrMonthAndYearPickers
+      text-transform: uppercase
+      font-size: 1rem
+      font-weight: 600
+
+  .rdrWeekDay
+    font-size: 0.9rem !important
+    font-weight: 600 !important
+
+  .rdrDayNumber
+    & > span
+      font-size: 0.9rem !important
+      font-weight: 600 !important
+    
+.half-div 
   width: calc(50% - 12px)
 
 .leftbar-icon
@@ -738,13 +809,37 @@ body
       line-height: 24px
       color: #F6FAF9
       margin-right: 17px
+.wrp-1
+  flex-direction: row !important
+
+  @media(max-width: 768px)
+    flex-direction: column !important
+
 .content-wrp
   width: calc(100% - 17.78%)
   min-height: calc(100vh - 90px)
   background: #FFF
-  padding: 0 64px 0 32px
+  padding: 16px 64px 0 32px
   @include flex
   flex-direction: column
+  align-items: baseline;
+
+
+
+  .toLeft
+    display: none
+
+    @media(max-width: 768px)
+      display: flex
+      left: 10px
+
+  .toRight
+    display: flex  
+    right: 10px
+
+    @media(max-width: 768px)
+      display: none
+
   .content-tabs
     margin-top: 32px
     padding: .5rem 0
@@ -1311,23 +1406,28 @@ body
         color: white
 .appointments
   &-top
-    width: 100%
     @include flex
     align-items: baseline
     justify-content: center
     flex-wrap: wrap
     margin-top: 48px
     position: relative
+    flex-basis: 35%
+
+    @media(max-width: 768px)
+      width: 100%
+      flex-basis: 0
+
     &__newApp
       position: absolute
-      left: 0
-      top: 10px
+      top: 0
       padding: 11px 24px 12px
       background: #39BDCD
       border-radius: 5px
       cursor: pointer
       @include flex
       align-items: center
+
       span
         font-weight: 600
         font-size: 16px
@@ -1384,6 +1484,16 @@ body
           line-height: 22px
           color: $black-2
           user-select: none
+  &-list_wrapper
+    flex-grow: 1
+    position: relative
+    
+    @media(max-width: 768px)
+      width: 100%
+      margin-top: 30px
+      & > div
+        margin-top: 0
+
   &-col
     width: 100%
     @include flex
@@ -3222,11 +3332,16 @@ body
   left: 10px
 
 .no-appointments
-  width: 100%
-  height: 250px
+  flex-grow: 1
+  height: 195px
   display: flex
   align-items: center
   justify-content: center
+  position: relative
+
+  @media(max-width: 768px)
+    width: 100%
+    flex-grow: 0
   p
     margin: 0
     color: #999        
@@ -3595,6 +3710,7 @@ body
     padding: 0 32px
     width: calc(100% - 240px)
     min-height: calc(100vh - 66px)
+  
   .settings
     &-types
       margin-top: 24px
@@ -3810,7 +3926,7 @@ body
           line-height: 19px
           margin-left: 8px
       &__calendar
-        margin-top: 24px
+        margin-top: 60px
         margin-left: 0
         .dates
           img
@@ -3818,7 +3934,7 @@ body
           span
             font-size: 16px
     &-col
-      margin-top: 30px
+      
       &__card
         padding: 12px 16px
         .det

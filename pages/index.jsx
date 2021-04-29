@@ -35,7 +35,7 @@ const home = () => {
 
   useEffect(() => {
     if (token) {
-      fetchAppointments();
+      // fetchAppointments();
     }
   }, [token]);
 
@@ -175,6 +175,8 @@ const home = () => {
      ${moment(date).format("DD")}, ${moment(date).format("YYYY")}`;
   };
 
+  console.log(appointmentList);
+
   return (
     <>
       <Head>
@@ -190,7 +192,7 @@ const home = () => {
       <div className="page-wrp">
         <Leftbar active="" />
         <div className="home-wrp">
-          {!appointmentList ? (
+          {appointmentList === null ? (
             <PageLoading />
           ) : (
             <>
@@ -239,7 +241,7 @@ const home = () => {
                       </h5>
                     </span>
                   </div>
-                  <HomeAppointmentsList appointmentList={appointmentList} />
+                  {/* <HomeAppointmentsList appointmentList={appointmentList} /> */}
                 </div>
               </Fade>
             </>

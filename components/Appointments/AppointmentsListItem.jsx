@@ -33,7 +33,12 @@ const AppointmentsListItem = ({ data, toggle }) => {
         }}
         className="appointments-col__card"
       >
-        <div className="det">
+        <div
+          className="det"
+          style={{
+            fontWeight: status ? "600" : "400",
+          }}
+        >
           {moment(date).format("dddd")}
           <div className="line"></div>
           {moment(date).format("MMMM DD, YYYY")}
