@@ -1,5 +1,6 @@
 // libraries
 import { useState } from "react";
+import Fade from "react-reveal/Fade";
 
 // utils
 import {
@@ -45,8 +46,13 @@ const AppointmentsTop = ({ onWeekChange }) => {
 
   return (
     <div className="appointments-top">
-      <NewAppointmentButton />
-      <div className="appointments-top__calendar">
+      <NewAppointmentButton isLeft={true} />
+      <Calendar
+        currDate={currWeek}
+        handleChange={handleChange}
+        setOpen={setOpen}
+      />
+      {/* <div className="appointments-top__calendar">
         <div className="prev" onClick={showPreviousWeek}>
           <img src="/img/appointments-calendar-prev.svg" alt="" />
         </div>
@@ -60,11 +66,12 @@ const AppointmentsTop = ({ onWeekChange }) => {
               handleChange={handleChange}
             />
           )}
+          
         </div>
         <div className="next" onClick={showNextWeek}>
           <img src="/img/appointments-calendar-next.svg" alt="" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

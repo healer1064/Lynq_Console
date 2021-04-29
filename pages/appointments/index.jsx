@@ -5,6 +5,7 @@ import { useState, useContext, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { format } from "date-fns";
 
 // components
 import Navbar from "../../components/Navbar";
@@ -31,7 +32,6 @@ export default function Appointments() {
   const [data, setData] = useState(null);
   const [requests, setRequests] = useState(null);
   const [temp, setTemp] = useState([]);
-  const [tab, setTab] = useState(router.pathname.toString());
   const [success, setSuccess] = useState(false);
   const [id, setId] = useState();
   const [showModel, setShowModel] = useState(false);
@@ -44,16 +44,6 @@ export default function Appointments() {
       fetchRequests();
     }
   }, [token, success]);
-
-  useEffect(() => {
-    if (tab == "/appointments/invitations") {
-      router.push("/appointments/invitations");
-    } else if (tab == "/appointments/requests") {
-      router.push("/appointments/requests");
-    } else {
-      router.push("/appointments");
-    }
-  }, [tab]);
 
   const fetchAppointments = async () => {
     const config = {
@@ -69,7 +59,7 @@ export default function Appointments() {
       );
 
       const _data = await response.json();
-
+      console.log(_data);
       setData(filterByCurrWeek(groupAppointment(_data)));
       setTemp(groupAppointment(_data));
     } catch (err) {
@@ -133,10 +123,13 @@ export default function Appointments() {
   };
 
   const onWeekChange = (_start, _end) => {
+    _start = format(_start, "yyyy-MM-dd");
+    _end = format(_end, "yyyy-MM-dd");
+
     let filter = temp.filter(
       (item) =>
-        new Date(item.date).getTime() >= _start.getTime() &&
-        new Date(item.date).getTime() <= _end.getTime()
+        new Date(item.date).getTime() >= new Date(_start).getTime() &&
+        new Date(item.date).getTime() <= new Date(_end).getTime()
     );
 
     setData(filter);
@@ -188,7 +181,7 @@ export default function Appointments() {
   return (
     <>
       <Head>
-        <title>Appointments</title>
+        <title>Activities | Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
@@ -199,11 +192,12 @@ export default function Appointments() {
       <ToastContainer />
       <div className="page-wrp">
         <Leftbar active="appointments" />
-        <div className="content-wrp">
+        <div className="content-wrp wrp-1">
           {!data || !requests ? (
             <PageLoading />
           ) : (
             <>
+              <br />
               {showModel && (
                 <Modal
                   setModal={setShowModel}
@@ -212,52 +206,18 @@ export default function Appointments() {
                   data={apptData}
                 />
               )}
-              <Fade>
-                <div className="settings-types">
-                  <div
-                    onClick={() => router.push("/appointments")}
-                    className="option active"
-                  >
-                    Scheduled
-                  </div>
-                  <div
-                    onClick={() => router.push("/appointments/requests")}
-                    className="option"
-                    style={{ position: "relative" }}
-                  >
-                    Requests{" "}
-                    {requests.length > 0 ? (
-                      <span className="requests-badge">{requests.length}</span>
-                    ) : null}
-                  </div>
-                  <div
-                    onClick={() => router.push("/appointments/invitations")}
-                    className="option"
-                    style={{ position: "relative" }}
-                  >
-                    Invitations (Waiting for payment)
-                  </div>
-                </div>
-                <div className="settings-types__mobile">
-                  <select onChange={(e) => setTab(e.target.value)} value={tab}>
-                    <option value={"/appointments"}>Scheduled</option>
-                    <option value={"/appointments/requests"}>Requests</option>
-                    <option value={"/appointments/invitations"}>
-                      Invitations (Waiting for payment)
-                    </option>
-                  </select>
-                </div>
-                <Fade duration={1200}>
-                  <div>
-                    <AppointmentsTop onWeekChange={onWeekChange} />
-                    <AppointmentsList
-                      appointmentList={data}
-                      toggleSuccess={toggleSuccess}
-                      toggle={toggle}
-                    />
-                  </div>
-                </Fade>
-              </Fade>
+              {/* <Fade> */}
+              {/* <Fade duration={1200}> */}
+              <>
+                <AppointmentsTop onWeekChange={onWeekChange} />
+                <AppointmentsList
+                  appointmentList={data}
+                  toggleSuccess={toggleSuccess}
+                  toggle={toggle}
+                />
+              </>
+              {/* </Fade>
+              </Fade> */}
             </>
           )}
         </div>

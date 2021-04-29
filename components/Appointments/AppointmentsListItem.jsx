@@ -20,6 +20,12 @@ const AppointmentsListItem = ({ data, toggle }) => {
     setStatus(serverDate >= currentDate);
   }, [data]);
 
+  const sortList = (list) => {
+    return list.sort(
+      (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
+    );
+  };
+
   return (
     <div
       className={`appointments-col__card__wrp
@@ -33,7 +39,12 @@ const AppointmentsListItem = ({ data, toggle }) => {
         }}
         className="appointments-col__card"
       >
-        <div className="det">
+        <div
+          className="det"
+          style={{
+            fontWeight: status ? "600" : "400",
+          }}
+        >
           {moment(date).format("dddd")}
           <div className="line"></div>
           {moment(date).format("MMMM DD, YYYY")}
@@ -55,7 +66,7 @@ const AppointmentsListItem = ({ data, toggle }) => {
       {open && appointments && (
         <>
           <div style={{ width: "100%" }}>
-            {appointments.map((data, index) => (
+            {sortList(appointments).map((data, index) => (
               <Fade key={index} collapse duration={1000}>
                 <AppointmentCard key={index} data={data} toggle={toggle} />
               </Fade>

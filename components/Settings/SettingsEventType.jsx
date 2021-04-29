@@ -1,5 +1,6 @@
 // libraries
 import { useContext, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -15,6 +16,9 @@ const SettingsEventType = ({ setTab }) => {
 
   const [data, setData] = useState();
   const [response, setResponse] = useState(false);
+
+  // router
+  const router = useRouter();
 
   const getEventTypes = async () => {
     let config = {
@@ -48,7 +52,7 @@ const SettingsEventType = ({ setTab }) => {
         }}
       >
         <AddNewButton
-          onClick={() => setTab("eventtypeadd")}
+          onClick={() => router.push("select-event-type")}
           title="Add Event Type"
         />
       </div>
@@ -61,7 +65,6 @@ const SettingsEventType = ({ setTab }) => {
           response={response}
           setResponse={setResponse}
           events={data}
-          setTab={setTab}
         />
       )}
     </>

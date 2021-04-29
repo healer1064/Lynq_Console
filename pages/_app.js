@@ -1,6 +1,8 @@
 // libraries
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // styles
 import "../styles/main.sass";
@@ -25,7 +27,8 @@ function MyApp({ Component, pageProps }) {
         router.pathname != "/signup" &&
         router.pathname != "/login" &&
         router.pathname != "/forgot-password" &&
-        router.pathname != "/reset-password"
+        router.pathname != "/terms-and-conditions" &&
+        !router.pathname.includes("/reset-password/")
       )
         router.push("/plans");
       setPreLoading(false);
@@ -54,7 +57,10 @@ function MyApp({ Component, pageProps }) {
           <PageLoading />
         </div>
       ) : (
-        <Component {...pageProps} />
+        <>
+          <ToastContainer />
+          <Component {...pageProps} />
+        </>
       )}
     </ProfileProvider>
   );

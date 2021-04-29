@@ -1,5 +1,6 @@
 // libraries
 import { useState, useContext } from "react";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
@@ -10,7 +11,7 @@ import ProfileContext from "../../context/profile";
 // components
 import Loading from "../common/Loading";
 
-const SettingsEventTypeAdd = ({ setTab }) => {
+const SettingsEventTypeAdd = () => {
   // states
   const [descriptionCount, setDescriptionCount] = useState(0);
   const [needsCount, setNeedsCount] = useState(0);
@@ -32,7 +33,11 @@ const SettingsEventTypeAdd = ({ setTab }) => {
   const [hourTwo, setHourTwo] = useState("6");
   const [per, setPer] = useState("50");
 
+  // context
   const { token } = useContext(ProfileContext);
+
+  // router
+  const router = useRouter();
 
   const handleSave = () => {
     if (eventName !== "" && desc !== "" && duration !== "" && price !== "") {
@@ -93,7 +98,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
       setLoading(false);
       if (res.status == 200) {
         console.log("Event type added", res);
-        setTab("eventtype");
+        router.push("/event-types");
       } else {
         console.log("Error Event type added", res);
         toast.error("An error has occurred");
@@ -284,7 +289,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
-            <img src="img/dollar.svg" alt="dollar" />
+            <img src="/img/dollar.svg" alt="dollar" />
           </div>
           {error && (
             <p
@@ -301,7 +306,7 @@ const SettingsEventTypeAdd = ({ setTab }) => {
         </div>
         <div className="events-edit__btns">
           <button
-            onClick={() => setTab("eventtype")}
+            onClick={() => router.push("/event-types")}
             className="events-edit__btns-cancel"
           >
             Cancel

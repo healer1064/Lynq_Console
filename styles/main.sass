@@ -24,13 +24,120 @@ $breakpointPhone: 519px
   box-sizing: border-box
   font-family: 'Open Sans'
 
+html
+  overflow-y: scroll
+
 body
   background: #FFF
   margin: 0
   font-family: 'Open Sans'
 
-.half-div
+.react-datepicker 
+  border-radius: 15px !important
+  border: none !important
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+
+  .react-datepicker__navigation
+    border: 2.35px solid #90C4B1
+    border-top: 0
+    border-left: 0
+    width: 9px
+    height: 9px
+    top: 27px
+
+    &--next
+      transform: rotate(-45deg)
+      right: 15px
+    
+    &--previous
+      transform: rotate(134deg)
+      left: 15px
+    
+  .react-datepicker__header 
+    background: none !important
+    border: none !important
+
+    .react-datepicker__current-month
+      padding: .75rem 0
+      font-weight: 600
+      text-transform: uppercase
+      color: #5c5c5c
+
+  &__day-name
+    color: #5c5c5c !important
+
+.rdrCalendarWrapper
+  font-size: 10px !important
+
+.rdrDateRangeWrapper
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px
+  border-radius: 15px
+
+  .rdrMonthAndYearWrapper
+    .rdrNextPrevButton
+      background: none
+
+      & > i
+        border: 2px solid #5ac19b
+        width: 8.5px
+        height: 8.5px
+        border-left: 0
+        border-top: 0
+        background: non
+
+    .rdrPprevButton
+      & > i
+        transform: rotate(136deg)
+    .rdrNextButton
+      & > i
+        transform: rotate(-45deg)
+
+    .rdrMonthAndYearPickers
+      text-transform: uppercase
+      font-size: 1rem
+      font-weight: 600
+
+  .rdrWeekDay
+    font-size: 0.75rem !important
+    font-weight: 600 !important
+
+  .rdrDayNumber
+    & > span
+      font-size: 0.9rem !important
+      font-weight: 600 !important
+    
+.half-div 
   width: calc(50% - 12px)
+
+.leftbar-icon
+  position: absolute
+  right: 15%
+  color: white
+
+.nav-sub-links
+  display: flex
+  flex-direction: column
+  justify-content: center
+  padding: 0 20px
+  margin-bottom: 10px
+  animation-name: sublinksDown
+  animation-duration: 200ms
+  user-select: none
+
+  p 
+    margin: 0
+    font-size: 15px
+    color: white
+    display: flex
+    align-items: center
+    cursor: pointer
+    padding: 8px 10px
+    user-select: none
+
+    svg
+      color: white
+      font-size: 20px
+      margin-right: 10px
 
 .send-invite-btn
   background: $lavender
@@ -46,6 +153,110 @@ body
   &:focus
   	outline: none
   	border: none
+
+.async-download-video
+  background: #0080ff
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 100px
+  width: 170px
+  cursor: pointer
+  margin-bottom: 5px
+  svg 
+    color: white
+    font-size: 1.5rem
+
+.video-modal
+  position: fixed
+  left: 0
+  top: 0
+  right: 0
+  bottom: 0
+  z-index: 1000
+  display: flex
+  align-items: center
+  justify-content: center
+  background: rgba(0,0,0,0.4)
+  svg
+    position: absolute
+    right: 20px
+    top: 20px
+    font-size: 1.5rem
+    cursor: pointer
+  
+  iframe
+    width: 60%
+    height: 70%
+
+.video-upload-input
+  width: 60%
+  height: 170px
+  border: 2px dashed #aaa
+  margin-top: 5px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  cursor: pointer
+  position: relative
+
+  svg
+    color: #aaa
+    font-size: 4rem
+  h6
+    margin: 10px 0
+    font-size: 1rem
+    text-align: center
+  p
+    margin: 0
+    font-size: 1.2rem
+    text-align: center
+
+  input[type="file"] 
+    display: none
+
+.video-upload-textarea
+    width: 60%
+    position: relative
+
+.video-upload-textarea > textarea
+    width: 100%
+    height: 100%
+    height: 180px
+    border: 1pxsolid #9fa8b5
+    border-radius: 8px
+    padding: 8px 16px
+    font-family: 'Open Sans'
+    font-size: 14px
+    line-height: 24px
+    resize: none
+
+.video-upload-textarea > .count
+    position: absolute
+    bottom: 8px
+    right: 16px
+    font-size: 12px
+    line-height: 24px
+    color: $super-grey
+
+.video-upload-textarea > textarea:focus
+  outline: none
+
+.video-upload-textarea::placeholder
+  font-family: 'Open Sans'
+  font-size: 14px
+  line-height: 24px
+  color: $super-grey
+
+.delete-video-icon
+  position: absolute
+  right: 20px
+  top: 20px
+  cursor: pointer
+  color: #999
+  &:hover
+    opacity: 0.7
 
 .payment-not-paid
   color: red
@@ -604,13 +815,38 @@ body
       line-height: 24px
       color: #F6FAF9
       margin-right: 17px
+.wrp-1
+  flex-direction: row !important
+  align-items: baseline;
+  
+  @media(max-width: 768px)
+    flex-direction: column !important
+
 .content-wrp
   width: calc(100% - 17.78%)
   min-height: calc(100vh - 90px)
   background: #FFF
-  padding: 0 64px 0 32px
+  padding: 16px 64px 0 32px
   @include flex
   flex-direction: column
+  
+
+
+
+  .toLeft
+    display: none
+
+    @media(max-width: 768px)
+      display: flex
+      left: 10px
+
+  .toRight
+    display: flex  
+    right: 10px
+
+    @media(max-width: 768px)
+      display: none
+
   .content-tabs
     margin-top: 32px
     padding: .5rem 0
@@ -1160,7 +1396,7 @@ body
         font-weight: 600
   &__calendar
     @include flex
-    align-items: center
+    
     a
       margin-left: 64px
       padding: 12px 24px
@@ -1177,23 +1413,31 @@ body
         color: white
 .appointments
   &-top
-    width: 100%
     @include flex
     align-items: baseline
     justify-content: center
     flex-wrap: wrap
     margin-top: 48px
     position: relative
+    flex-basis: 35%
+    order: 1
+
+    @media(max-width: 768px)
+      width: 100%
+      flex-basis: 0
+      order: 0
+
     &__newApp
-      position: absolute
-      left: 0
-      top: 10px
+      // position: absolute
+      // top: 0
+      width: 15rem
       padding: 11px 24px 12px
       background: #39BDCD
       border-radius: 5px
       cursor: pointer
       @include flex
       align-items: center
+
       span
         font-weight: 600
         font-size: 16px
@@ -1250,6 +1494,16 @@ body
           line-height: 22px
           color: $black-2
           user-select: none
+  &-list_wrapper
+    flex-grow: 1
+    position: relative
+    
+    @media(max-width: 768px)
+      width: 100%
+      margin-top: 30px
+      & > div
+        margin-top: 0
+
   &-col
     width: 100%
     @include flex
@@ -1835,7 +2089,7 @@ body
   &-table
     width: 100%
     background: #FFF
-    border: 1px solid #D9E0E9
+    // border: 1px solid #D9E0E9
     box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
     border-radius: 5px
     padding-bottom: 8px
@@ -1848,19 +2102,22 @@ body
     .row
       width: 100%
       height: 48px
-      background: #F2F3FF
+      background: #f9f9f9
+      margin: 10px 0
       @include flex
-      &:nth-child(2n)
-        background: #FFF
+      &:hover
+         background: #efefef
+      // &:nth-child(2n)
+      //   background: #FFF
       &.head
-        background: $lavender
+        background: rgba(126, 136, 244, 0.8)
         color: #FFF
     .col
       height: 100%
       @include flex
       align-items: center
       justify-content: centerv
-      border-right: 2px solid #D9E0E9
+      // border-right: 2px solid #D9E0E9
       padding: 0 10px
       &:last-child
         border-right: none
@@ -1904,7 +2161,7 @@ body
       font-weight: 600
 
 .payment
-  width: 75%
+  width: 100%
   display: flex
   flex-direction: column
   h3
@@ -3088,14 +3345,22 @@ body
   left: 10px
 
 .no-appointments
-  width: 100%
-  height: 250px
+  flex-grow: 1
+  // height: 195px
   display: flex
-  align-items: center
-  justify-content: center
+  // align-items: center
+  // justify-content: center
+  position: relative
+  flex-direction: column
+
+  @media(max-width: 768px)
+    width: 100%
+    flex-grow: 0
   p
     margin: 0
-    color: #999        
+    margin-top: 2rem
+    color: #999
+    align-self: center        
 
 .requests-badge
   position: absolute
@@ -3148,6 +3413,101 @@ body
   display: flex
   gap: 28px
 
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn 
+    color: $lavender !important
+
+
+.card-container p 
+  margin: 0
+
+.card-container > .ant-tabs-card .ant-tabs-content
+  margin-top: -16px
+
+.card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane 
+  padding: 16px
+  background: #fff
+  
+.card-container > .ant-tabs-card > .ant-tabs-nav::before 
+  display: none
+
+.card-container > .ant-tabs-card .ant-tabs-tab,
+[data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-tab 
+  background: transparent
+  border-color: transparent
+
+.card-container > .ant-tabs-card .ant-tabs-tab-active,
+[data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-tab-active 
+  background: #fff
+  border-color: #fff
+
+#components-tabs-demo-card-top .code-box-demo 
+  padding: 24px
+  overflow: hidden
+  background: #f5f5f5
+
+[data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-content 
+  height: 120px
+  margin-top: -8px
+
+[data-theme='dark'] .card-container > .ant-tabs-card .ant-tabs-tab 
+  background: transparent
+  border-color: transparent
+
+[data-theme='dark'] #components-tabs-demo-card-top .code-box-demo 
+  background: #000
+
+[data-theme='dark'] .card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane 
+  background: #141414
+
+[data-theme='dark'] .card-container > .ant-tabs-card .ant-tabs-tab-active 
+  background: #141414
+  border-color: #141414
+
+.ant-btn:hover
+  color: $lavender !important
+  border-color: $lavender !important
+
+.ant-tabs-nav-wrap
+  display: inline-block
+
+.ant-tabs-tab
+  width: 120px 
+  display: flex
+  justify-content: center
+  align-items: center
+
+.requests-menu-search
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.invitations-menu-search
+  display: flex
+  align-items: center
+  justify-content: flex-end
+
+.requests-dropdown-btn
+  width: 280px
+  display: flex !important
+  align-items: center !important
+  justify-content: space-between !important
+
+.requests-search-input
+  width: 250px !important
+  display: flex !important
+  align-items: center !important
+  justify-content: space-between !important
+  &:hover
+    border-color: $lavender !important
+
+.ant-input-affix-wrapper-focused
+  box-shadow: 0 0 0 2px rgba(126,136,244,0.2) !important
+  border-color: $lavender !important
+
+.sub-links
+  display: flex
+  flex-direction: column
+  align-items: center
             
 @media (max-width: $breakpointLaptop)
 
@@ -3371,6 +3731,7 @@ body
     padding: 0 32px
     width: calc(100% - 240px)
     min-height: calc(100vh - 66px)
+  
   .settings
     &-types
       margin-top: 24px
@@ -3586,7 +3947,7 @@ body
           line-height: 19px
           margin-left: 8px
       &__calendar
-        margin-top: 24px
+        margin-top: 60px
         margin-left: 0
         .dates
           img
@@ -3594,7 +3955,7 @@ body
           span
             font-size: 16px
     &-col
-      margin-top: 30px
+      
       &__card
         padding: 12px 16px
         .det
@@ -3852,6 +4213,10 @@ body
       justify-content: center
       align-items: center
       text-align: center
+      a
+        display: flex
+        align-items: center
+
     .mobile-nav-other-link
       display: flex
       flex-direction: column
@@ -4165,7 +4530,7 @@ body
   .appointments
     &-top
       margin-top: 24px
-      justify-content: flex-start
+      // justify-content: flex-start
       &__newApp
         position: relative
       &__btn
@@ -5066,3 +5431,48 @@ body
             line-height: 39px 
   .settings-event-type-select
     padding: 0 10px
+
+  .video-modal
+    iframe
+      width: 95%
+      height: 50%
+
+  .video-upload-input
+    width: 100%
+    height: 150px
+
+  .video-upload-textarea
+      width: 100%
+
+  .video-upload-textarea > textarea
+      height: 250px
+
+  .card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane 
+    padding: 0
+
+  .ant-tabs-nav-wrap
+    width: 100%
+    display: block
+    margin-bottom: 20px
+
+  .ant-tabs-tab
+    width: 50% 
+
+  .requests-menu-search
+    flex-direction: column
+
+  .requests-dropdown-btn
+    width: 100%
+    margin-bottom: 20px
+
+  .requests-search-input
+    width: 100% !important
+
+
+@keyframes sublinksDown
+  from 
+    margin-top: -50px
+    opacity: 0
+  to
+    margin-top: 0px
+    opacity: 1

@@ -10,12 +10,45 @@ import ForgotPasswordForm from "../../components/ForgotPassword/ForgotPasswordFo
 import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 
 const index = () => {
+  const [emailInput, setEmailInput] = useState("");
   const [loading, setLoading] = useState(false);
 
   // handle submit
-  const handleSubmit = () => {
-    toast.success("Email Sent");
-    setLoading(true);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (emailInput === "") {
+      toast.error("Please fill email field!");
+    } else {
+      setLoading(true);
+      forgotPassword();
+    }
+  };
+
+  const forgotPassword = () => {
+    async function forgot() {
+      const response = await fetch(
+        `https://api.lynq.app/account/reset-password?email=${emailInput}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      return await response;
+    }
+
+    forgot().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res.status == 200) {
+        toast.success("Reset link is sent to your email!");
+      } else {
+        toast.error(res.message);
+      }
+    });
   };
 
   return (
@@ -37,7 +70,12 @@ const index = () => {
               <img src="/img/lynq-logo.png" alt="" />
             </a>
           </Link>
-          <ForgotPasswordForm onSubmit={handleSubmit} loading={loading} />
+          <ForgotPasswordForm
+            onSubmit={handleSubmit}
+            loading={loading}
+            input={emailInput}
+            setInput={setEmailInput}
+          />
         </div>
       </div>
     </>

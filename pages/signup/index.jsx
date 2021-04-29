@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 // components
 import SignupForm from "../../components/Signup/SignupForm";
 import SignupLeftbar from "../../components/Signup/SignupLeftbar";
-import Terms from "../../components/Terms";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -19,10 +18,8 @@ export default function Signup() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   const router = useRouter();
-  const toggle = () => setIsOpen(!isOpen);
 
   const onSignUp = (_data) => {
     setLoading(true);
@@ -76,10 +73,8 @@ export default function Signup() {
             showPassword={showPassword}
             signUp={onSignUp}
             loading={loading}
-            toggle={toggle}
           />
         </div>
-        {isOpen && <Terms toggle={toggle} />}
       </div>
     </>
   );

@@ -236,7 +236,7 @@ const AppointmentDetails = () => {
                           https://us.lynq.app/{slugData.slug}/{data.id}
                         </a>
                       </div>
-                      {message ? (
+                      {/* {message ? (
                         <div>
                           <p
                             style={{
@@ -295,7 +295,7 @@ const AppointmentDetails = () => {
                             </button>
                           )}
                         </>
-                      )}
+                      )} */}
                       <div className="appointment-request__btns">
                         <button
                           onClick={toggle}

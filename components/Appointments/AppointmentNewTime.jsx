@@ -12,6 +12,7 @@ const AppointmentNewTime = ({
   loading,
   handleNextArrow,
   handlePrevArrow,
+  prevDisable,
 }) => {
   // states
   const [headDates, setHeadDates] = useState();
@@ -38,6 +39,12 @@ const AppointmentNewTime = ({
     }
   }, [times]);
 
+  const sortArr = (arr) => {
+    return arr.sort((a, b) => {
+      return moment(a).toDate() - moment(b).toDate();
+    });
+  };
+
   return (
     <div className="appointment-new__time">
       {loading ? (
@@ -46,7 +53,11 @@ const AppointmentNewTime = ({
         <div />
       ) : (
         <div className="top">
-          <div className="arr prev" onClick={handlePrevArrow}>
+          <div
+            style={{ cursor: `${prevDisable ? "no-drop" : "pointer"}` }}
+            className="arr prev"
+            onClick={() => !prevDisable && handlePrevArrow()}
+          >
             <img src="/img/appointment-time-prev.svg" alt="" />
           </div>
           <div className="days">
@@ -79,7 +90,7 @@ const AppointmentNewTime = ({
                 bodyTimes.map((item, index) => (
                   <div key={index} className="col">
                     {item &&
-                      item.map((time, ind) => (
+                      sortArr(item).map((time, ind) => (
                         <AppointmentTimeButton
                           key={ind}
                           time={time}

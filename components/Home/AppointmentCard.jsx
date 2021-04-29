@@ -34,12 +34,12 @@ const AppointmentCard = ({ data }) => {
         <Link href={`/appointments/${data.id}`}>
           <a className="btnCancel">Manage Session</a>
         </Link>
-        <Link href={`https://us.lynq.app/${slugData?.slug}/${data.id}`}>
+        <Link href={`https://us.lynq.app/${slugData?.slug}/teacher/${data.id}`}>
           <a target="_blank" className="btnGoto">
             Start the video
           </a>
         </Link>
-        {data.status.toLowerCase().includes("awaiting-payment") && (
+        {data?.status?.toLowerCase().includes("awaiting-payment") && (
           <span className="payment-not-paid">
             This session has not been paid by your client.{" "}
             <Link href={`/appointments/${data.id}`}>See details here</Link>

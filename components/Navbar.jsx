@@ -1,13 +1,17 @@
 // libraries
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Rotate from "react-reveal/Rotate";
 import Fade from "react-reveal/Fade";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const Navbar = ({ active }) => {
   // states
   const [open, setOpen] = useState(false);
+  const [activities, setActivities] = useState(false);
+  const [settings, setSettings] = useState(false);
+  const [payment, setPayment] = useState(false);
 
   const router = useRouter();
 
@@ -15,6 +19,24 @@ const Navbar = ({ active }) => {
     localStorage.removeItem("linqToken");
     router.push("/login");
   };
+
+  useEffect(() => {
+    if (
+      active === "appointments" ||
+      active === "requests" ||
+      active === "answers"
+    ) {
+      setActivities(true);
+    } else if (
+      active === "cal-sync" ||
+      active === "eventtypes" ||
+      active === "settings"
+    ) {
+      setSettings(true);
+    } else if (active === "payment-details" || active === "payments") {
+      setPayment(true);
+    }
+  }, []);
 
   return (
     <>
@@ -50,32 +72,80 @@ const Navbar = ({ active }) => {
                   <span>Home</span>
                 </a>
               </Link>
-              <Link href="/appointments">
-                <a className={active === "appointments" ? "active" : ""}>
-                  <span>Activities</span>
-                </a>
-              </Link>
+              {/* <Link href="/appointments"> */}
+              <a
+                onClick={() => setActivities(!activities)}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <span style={{ paddingRight: "15px" }}>Activities</span>
+                {activities ? (
+                  <FaChevronUp size={14} />
+                ) : (
+                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                )}
+              </a>
+              {activities && (
+                <div className="sub-links">
+                  <Link href="/appointments">
+                    <span>Calendar</span>
+                  </Link>
+                  <Link href="/appointments/requests">
+                    <span>Requests</span>
+                  </Link>
+                  <Link href="/appointments/answers">
+                    <span>Answers</span>
+                  </Link>
+                </div>
+              )}
+              <a onClick={() => setSettings(!settings)}>
+                <span>Settings</span>
+                {settings ? (
+                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                ) : (
+                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                )}
+              </a>
+              {settings && (
+                <div className="sub-links">
+                  <Link href="/settings">
+                    <span>Availabilities</span>
+                  </Link>
+                  <Link href="/event-types">
+                    <span>Event Types</span>
+                  </Link>
+                  <Link href="/settings/calendar">
+                    <span>Cal Sync</span>
+                  </Link>
+                </div>
+              )}
               <Link href="/public-profile">
                 <a className={active === "profile" ? "active" : ""}>
                   <span>Public Profile</span>
                 </a>
               </Link>
-              <div className="space"></div>
-              <Link href="/settings">
-                <a className={active === "settings" ? "active" : ""}>
-                  <span>Settings</span>
+              <Link href="/dashboard">
+                <a className={active === "dashboard" ? "active" : ""}>
+                  <span>Dashboard</span>
                 </a>
               </Link>
-              <Link href="/clients">
-                <a className={active === "clients" ? "active" : ""}>
-                  <span>Clients</span>
-                </a>
-              </Link>
-              <Link href="/payment">
-                <a className={active === "payments" ? "active" : ""}>
-                  <span>Payment</span>
-                </a>
-              </Link>
+              <a onClick={() => setPayment(!payment)}>
+                <span>Payment</span>
+                {payment ? (
+                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                ) : (
+                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                )}
+              </a>
+              {payment && (
+                <div className="sub-links">
+                  <Link href="/payment">
+                    <span>Balance</span>
+                  </Link>
+                  <Link href="/payment-details">
+                    <span>Details</span>
+                  </Link>
+                </div>
+              )}
               <Link href="/support">
                 <a className={active === "contact" ? "active" : ""}>
                   <span>Support</span>

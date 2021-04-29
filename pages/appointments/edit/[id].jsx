@@ -37,6 +37,7 @@ export default function AppointmentNew() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [timeLoading, setTimeLoading] = useState(false);
+  const [prevDisable, setPrevDisable] = useState(false);
 
   // use context
   const { token } = useContext(ProfileContext);
@@ -128,7 +129,7 @@ export default function AppointmentNew() {
         `https://api.lynq.app/account/public-profile/availability?t=${token}&start=${moment(
           day
         ).format("YYYY-MM-DD")}&end=${moment(day)
-          .add(4, "days")
+          .add(5, "days")
           .format("YYYY-MM-DD")}&activity_id=${eventId}`,
         config
       );
@@ -173,6 +174,14 @@ export default function AppointmentNew() {
       fetchTimes();
     }
   }, [day, eventId]);
+
+  useEffect(() => {
+    if (moment(day).format("MM-DD-YYYY") === moment().format("MM-DD-YYYY")) {
+      setPrevDisable(true);
+    } else {
+      setPrevDisable(false);
+    }
+  }, [day]);
 
   const handleBook = () => {
     if (
@@ -232,7 +241,15 @@ export default function AppointmentNew() {
     setDay(moment(day).add(2, "days").toString());
   };
   const handlePrevArrow = () => {
-    setDay(moment(day).subtract(2, "days").toString());
+    if (moment(day) < moment().toDate()) {
+      setDay(moment().toDate());
+    } else {
+      if (moment(day).subtract(2, "days") < moment().toDate()) {
+        setDay(moment().toDate());
+      } else {
+        setDay(moment(day).subtract(2, "days").toString());
+      }
+    }
   };
 
   return (
@@ -283,6 +300,7 @@ export default function AppointmentNew() {
               <label style={{ position: "relative" }} className="quarter">
                 <strong>Day</strong>
                 <DatePicker
+                  minDate={moment().toDate()}
                   selected={pickerDay}
                   onChange={(date) => {
                     setPicker(date);
@@ -298,6 +316,7 @@ export default function AppointmentNew() {
                     loading={timeLoading}
                     handleNextArrow={handleNextArrow}
                     handlePrevArrow={handlePrevArrow}
+                    prevDisable={prevDisable}
                   />
                 )}
               </label>

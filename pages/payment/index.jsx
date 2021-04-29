@@ -1,6 +1,5 @@
 // libraries
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,58 +14,8 @@ import Leftbar from "../../components/Leftbar";
 import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
 import PageLoading from "../../components/common/PageLoading";
-import PaymentTabs from "../../components/Payment/PaymentTabs";
-import PaymentsDetails from "../../components/Payment/PaymentsDetails";
-
-const details = [
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Completed",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Coming",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Awaiting Payment",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Completed",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Coming",
-  },
-  {
-    type: "Test Type",
-    client_email: "Test@email.com",
-    price: 50,
-    starting_date: "Mar 21, 2021",
-    status: "Awaiting Payment",
-  },
-];
 
 export default function Payment() {
-  // router
-  const router = useRouter();
-
   // context
   const { token } = useContext(ProfileContext);
 
@@ -92,8 +41,6 @@ export default function Payment() {
 
     setData(data);
   };
-
-  console.log(data);
 
   const getBusinessData = async () => {
     setLoading(true);
@@ -177,20 +124,16 @@ export default function Payment() {
           ) : (
             <Fade>
               <div className="payment">
-                <PaymentTabs tabIndex={tabIndex} setTabIndex={setTabIndex} />
-                {tabIndex == 1 ? (
-                  <>
-                    <RequestPayment
-                      data={data}
-                      payment={payment}
-                      loading={loading}
-                      getBusinessData={getBusinessData}
-                    />
-                    <PaymentHistory data={data.transfer_history} />
-                  </>
-                ) : (
-                  <PaymentsDetails data={details} />
-                )}
+                <>
+                  <br />
+                  <RequestPayment
+                    data={data}
+                    payment={payment}
+                    loading={loading}
+                    getBusinessData={getBusinessData}
+                  />
+                  <PaymentHistory data={data.transfer_history} />
+                </>
               </div>
             </Fade>
           )}

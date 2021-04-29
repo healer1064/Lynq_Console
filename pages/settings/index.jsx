@@ -1,23 +1,12 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
 
 // components
 import Leftbar from "../../components/Leftbar";
 import Navbar from "../../components/Navbar";
-import SettingsTabs from "../../components/Settings/SettingsTabs";
 import SettingsSetup from "../../components/Settings/SettingsSetup";
-import SettingsEventType from "../../components/Settings/SettingsEventType";
-import SettingsCallSync from "../../components/Settings/SettingsCallSync";
-
-// fake data
-import SettingsEventTypeEdit from "../../components/Settings/SettingsEventTypeEdit";
-import SettingsEventTypeAdd from "../../components/Settings/SettingsEventTypeAdd";
 
 export default function Settings() {
-  // states
-  const [tab, setTab] = useState("setup");
-
   return (
     <>
       <Head>
@@ -32,18 +21,8 @@ export default function Settings() {
       <div className="page-wrp">
         <Leftbar active="settings" />
         <div className="content-wrp">
-          <SettingsTabs active="setup" setTab={setTab} tab={tab} />
-          {tab === "setup" ? (
-            <SettingsSetup />
-          ) : tab === "eventtype" ? (
-            <SettingsEventType setTab={setTab} />
-          ) : tab === "calsync" ? (
-            <SettingsCallSync />
-          ) : tab === "eventtypeedit" ? (
-            <SettingsEventTypeEdit setTab={setTab} />
-          ) : (
-            <SettingsEventTypeAdd setTab={setTab} />
-          )}
+          <br />
+          <SettingsSetup />
         </div>
       </div>
     </>

@@ -20,7 +20,7 @@ const index = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const onSignIn = ({ email, password, logged }) => {
+  const onSignIn = ({ email, password }) => {
     setLoading(true);
 
     async function signInReq() {

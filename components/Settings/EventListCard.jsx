@@ -1,15 +1,17 @@
 // libraries
 import { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
+import { v4 as uuidv4 } from "uuid";
+import { IoCopyOutline } from "react-icons/io5";
 
 // context
 import ProfileContext from "../../context/profile";
 
 const EventListCard = ({
   card,
-  setTab,
   deleteEventType,
   setResponse,
   response,
@@ -19,7 +21,10 @@ const EventListCard = ({
   const [open, setOpen] = useState(false);
 
   // useContext
-  const { setEventType, token } = useContext(ProfileContext);
+  const { token } = useContext(ProfileContext);
+
+  // router
+  const router = useRouter();
 
   const changeEventTypeStatus = (card) => {
     const _reqData = {
@@ -64,6 +69,48 @@ const EventListCard = ({
     });
   };
 
+  const duplicateEventType = () => {
+    setOpen(false);
+    setLoading(true);
+    const _reqData = {
+      id: uuidv4(),
+      name: `Copy of ${card.name}`,
+      teacherId: card.teacherId,
+      description: card.description,
+      duration: card.duration,
+      price: card.price,
+      cancellation_policy: card.cancellation_policy,
+      material_needed: card.material_needed,
+    };
+
+    async function add() {
+      const response = await fetch(
+        `https://api.lynq.app/account/event-type?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_reqData),
+        }
+      );
+
+      return await response;
+    }
+
+    add().then((res) => {
+      setLoading(false);
+      if (res.status == 200) {
+        console.log("Event type added", res);
+        setResponse(!response);
+      } else {
+        console.log("Error Event type added", res);
+        toast.error("An error has occurred");
+      }
+    });
+  };
+
   return (
     <div className="events-row__card">
       <ToastContainer />
@@ -91,12 +138,15 @@ const EventListCard = ({
           <div className="actions__popup-wrp">
             <span
               onClick={() => {
-                setEventType(card);
-                setTab("eventtypeedit");
+                router.push(`/event-types/${card.id}`);
               }}
             >
               <img src="/img/events-edit-icon.svg" alt="" />
               Edit
+            </span>
+            <span onClick={duplicateEventType}>
+              <IoCopyOutline size={15} style={{ marginRight: "8px" }} />
+              Duplicate
             </span>
             <span onClick={() => deleteEventType(card.id)}>
               <img src="/img/events-delete-icon.svg" alt="" />
