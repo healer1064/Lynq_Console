@@ -60,7 +60,7 @@ export default function EventTypeEdit() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="settings" />
+      <Navbar active="eventtypes" />
       <div className="page-wrp">
         <Leftbar active="eventtypes" />
         <div className="content-wrp">

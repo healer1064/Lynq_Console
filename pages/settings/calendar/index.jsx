@@ -98,7 +98,7 @@ const SettingsCallSync = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="settings" />
+      <Navbar active="cal-sync" />
       <div className="page-wrp">
         <Leftbar active="cal-sync" />
         <div className="content-wrp">
