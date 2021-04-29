@@ -14,13 +14,13 @@
 
 .answers_single_item {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr 0.2fr;
   width: 100%;
-  background: #fff;
   padding: 15px 20px;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
+  background-color: #f9f9f9 !important;
   transition: 1s all cubic-bezier(0.215, 0.61, 0.355, 1);
+  margin: 10px 0;
 }
 .answers_single_item:hover {
   background: #efefef;
@@ -34,16 +34,33 @@
 
 .answers_head {
   width: 100%;
-  background: #eee;
+  background: rgba(126, 136, 244, 0.8);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr 0.5fr 0.2fr;
   padding: 15px 20px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
 .answers_head > p {
   margin: 0;
-  color: #000;
+  color: white;
   font-size: 14px;
-  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 519px) {
+  .answers__list {
+    overflow-x: scroll;
+    width: 100%;
+  }
+  .answers_single_item {
+    grid-template-columns: 200px 200px 150px 200px 150px 50px;
+    width: fit-content;
+  }
+  .answers_head {
+    width: fit-content;
+    grid-template-columns: 200px 200px 150px 200px 150px 50px;
+  }
 }
