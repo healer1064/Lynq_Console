@@ -84,10 +84,10 @@ export default function Appointments() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="appointments" />
+      <Navbar active="requests" />
       <ToastContainer />
       <div className="page-wrp">
-        <Leftbar active="appointments" />
+        <Leftbar active="requests" />
         <div className="content-wrp">
           {!invitations || !requests ? (
             <PageLoading />

@@ -1,7 +1,7 @@
 // libraries
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Rotate from "react-reveal/Rotate";
 import Fade from "react-reveal/Fade";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -19,6 +19,24 @@ const Navbar = ({ active }) => {
     localStorage.removeItem("linqToken");
     router.push("/login");
   };
+
+  useEffect(() => {
+    if (
+      active === "appointments" ||
+      active === "requests" ||
+      active === "answers"
+    ) {
+      setActivities(true);
+    } else if (
+      active === "cal-sync" ||
+      active === "eventtypes" ||
+      active === "settings"
+    ) {
+      setSettings(true);
+    } else if (active === "payment-details" || active === "payments") {
+      setPayment(true);
+    }
+  }, []);
 
   return (
     <>
@@ -57,12 +75,11 @@ const Navbar = ({ active }) => {
               {/* <Link href="/appointments"> */}
               <a
                 onClick={() => setActivities(!activities)}
-                className={active === "appointments" ? "active" : ""}
                 style={{ display: "flex", alignItems: "center" }}
               >
-                <span>Activities</span>
+                <span style={{ paddingRight: "15px" }}>Activities</span>
                 {activities ? (
-                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                  <FaChevronUp size={14} />
                 ) : (
                   <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
                 )}
@@ -80,7 +97,7 @@ const Navbar = ({ active }) => {
                   </Link>
                 </div>
               )}
-              <a className={active === "settings" ? "active" : ""}>
+              <a onClick={() => setSettings(!settings)}>
                 <span>Settings</span>
                 {settings ? (
                   <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
@@ -106,16 +123,29 @@ const Navbar = ({ active }) => {
                   <span>Public Profile</span>
                 </a>
               </Link>
-              <Link href="/clients">
-                <a className={active === "clients" ? "active" : ""}>
-                  <span>Clients</span>
+              <Link href="/dashboard">
+                <a className={active === "dashboard" ? "active" : ""}>
+                  <span>Dashboard</span>
                 </a>
               </Link>
-              <Link href="/payment">
-                <a className={active === "payments" ? "active" : ""}>
-                  <span>Payment</span>
-                </a>
-              </Link>
+              <a onClick={() => setPayment(!payment)}>
+                <span>Payment</span>
+                {payment ? (
+                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                ) : (
+                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                )}
+              </a>
+              {payment && (
+                <div className="sub-links">
+                  <Link href="/payment">
+                    <span>Balance</span>
+                  </Link>
+                  <Link href="/payment-details">
+                    <span>Details</span>
+                  </Link>
+                </div>
+              )}
               <Link href="/support">
                 <a className={active === "contact" ? "active" : ""}>
                   <span>Support</span>
