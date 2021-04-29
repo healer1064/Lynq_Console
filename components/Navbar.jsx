@@ -72,7 +72,6 @@ const Navbar = ({ active }) => {
                   <span>Home</span>
                 </a>
               </Link>
-              {/* <Link href="/appointments"> */}
               <a
                 onClick={() => setActivities(!activities)}
                 style={{ display: "flex", alignItems: "center" }}
@@ -81,40 +80,52 @@ const Navbar = ({ active }) => {
                 {activities ? (
                   <FaChevronUp size={14} />
                 ) : (
-                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                  <FaChevronDown size={14} />
                 )}
               </a>
               {activities && (
                 <div className="sub-links">
                   <Link href="/appointments">
-                    <span>Calendar</span>
+                    <span className={active === "appointments" ? "active" : ""}>
+                      Calendar
+                    </span>
                   </Link>
                   <Link href="/appointments/requests">
-                    <span>Requests</span>
+                    <span className={active === "requests" ? "active" : ""}>
+                      Requests
+                    </span>
                   </Link>
                   <Link href="/appointments/answers">
-                    <span>Answers</span>
+                    <span className={active === "answers" ? "active" : ""}>
+                      Answers
+                    </span>
                   </Link>
                 </div>
               )}
               <a onClick={() => setSettings(!settings)}>
-                <span>Settings</span>
+                <span style={{ paddingRight: "15px" }}>Settings</span>
                 {settings ? (
-                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                  <FaChevronUp size={14} />
                 ) : (
-                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                  <FaChevronDown size={14} />
                 )}
               </a>
               {settings && (
                 <div className="sub-links">
                   <Link href="/settings">
-                    <span>Availabilities</span>
+                    <span className={active === "settings" ? "active" : ""}>
+                      Availabilities
+                    </span>
                   </Link>
                   <Link href="/event-types">
-                    <span>Event Types</span>
+                    <span className={active === "eventtypes" ? "active" : ""}>
+                      Event Types
+                    </span>
                   </Link>
                   <Link href="/settings/calendar">
-                    <span>Cal Sync</span>
+                    <span className={active === "cal-sync" ? "active" : ""}>
+                      Cal Sync
+                    </span>
                   </Link>
                 </div>
               )}
@@ -129,20 +140,26 @@ const Navbar = ({ active }) => {
                 </a>
               </Link>
               <a onClick={() => setPayment(!payment)}>
-                <span>Payment</span>
+                <span style={{ paddingRight: "15px" }}>Payment</span>
                 {payment ? (
-                  <FaChevronUp size={14} style={{ marginLeft: "15px" }} />
+                  <FaChevronUp size={14} />
                 ) : (
-                  <FaChevronDown size={14} style={{ marginLeft: "15px" }} />
+                  <FaChevronDown size={14} />
                 )}
               </a>
               {payment && (
                 <div className="sub-links">
                   <Link href="/payment">
-                    <span>Balance</span>
+                    <span className={active === "payments" ? "active" : ""}>
+                      Balance
+                    </span>
                   </Link>
                   <Link href="/payment-details">
-                    <span>Details</span>
+                    <span
+                      className={active === "payment-details" ? "active" : ""}
+                    >
+                      Details
+                    </span>
                   </Link>
                 </div>
               )}

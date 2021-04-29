@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
+import { BsInfoCircleFill } from "react-icons/bs";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -290,6 +291,34 @@ const SettingsEventTypeAdd = () => {
               onChange={(e) => setPrice(e.target.value)}
             />
             <img src="/img/dollar.svg" alt="dollar" />
+          </div>
+          <div className="events-edit__price" />
+          <div>
+            <h3
+              style={{
+                fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "5px",
+              }}
+            >
+              Listing Price{" "}
+              <BsInfoCircleFill
+                style={{ marginLeft: "10px", cursor: "pointer" }}
+                color="#7a7a7a"
+              />
+            </h3>
+            <h3
+              style={{
+                marginTop: "0px",
+                fontWeight: "600",
+                display: "flex",
+                alignItems: "center",
+                color: "#777",
+              }}
+            >
+              $10
+            </h3>
           </div>
           {error && (
             <p

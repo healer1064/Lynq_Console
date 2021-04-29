@@ -59,7 +59,6 @@ export default function Appointments() {
       );
 
       const _data = await response.json();
-      console.log(_data);
       setData(filterByCurrWeek(groupAppointment(_data)));
       setTemp(groupAppointment(_data));
     } catch (err) {

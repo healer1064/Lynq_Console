@@ -226,6 +226,14 @@ const AppointmentDetails = () => {
                           margin: "10px 0 20px",
                         }}
                       />
+                      <p>
+                        Invitation sent at:{" "}
+                        <span style={{ color: "#7E88F4", fontWeight: "500" }}>
+                          {moment(data.create_date).format(
+                            "ddd, DD MMM, yyyy, hh:mm a"
+                          )}
+                        </span>{" "}
+                      </p>
                       <div className="info__col">
                         <strong>Invitation URL</strong>
                         <a
