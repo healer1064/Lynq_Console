@@ -7,14 +7,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // context
-import ProfileContext from "../../context/profile";
+import ProfileContext from "../../../context/profile";
 
 // components
-import PageLoading from "../../components/common/PageLoading";
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
-import Loading from "../../components/common/Loading";
-import Modal from "../../components/common/Modal";
+import PageLoading from "../../../components/common/PageLoading";
+import Navbar from "../../../components/Navbar";
+import Leftbar from "../../../components/Leftbar";
+import Loading from "../../../components/common/Loading";
+import Modal from "../../../components/common/Modal";
 
 const AppointmentDetails = () => {
   // router

@@ -11,15 +11,15 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 // context
-import ProfileContext from "../../context/profile";
+import ProfileContext from "../../../context/profile";
 
 // components
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
+import Navbar from "../../../components/Navbar";
+import Leftbar from "../../../components/Leftbar";
 // import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
-import AppointmentNewButtons from "../../components/Appointments/AppointmentNewButtons";
-import AppointmentNewTime from "../../components/Appointments/AppointmentNewTime";
-import PageLoading from "../../components/common/PageLoading";
+import AppointmentNewButtons from "../../../components/Appointments/AppointmentNewButtons";
+import AppointmentNewTime from "../../../components/Appointments/AppointmentNewTime";
+import PageLoading from "../../../components/common/PageLoading";
 
 export default function AppointmentNew() {
   // states

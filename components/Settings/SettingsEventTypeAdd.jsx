@@ -27,6 +27,8 @@ const SettingsEventTypeAdd = () => {
   );
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [listingPrice, setLisitngPrice] = useState(null);
+  const [listingLoading, setLisitngLoading] = useState(false);
 
   // cancel policy states
   const [isAddMore, setIsAddMore] = useState(false);
@@ -105,6 +107,39 @@ const SettingsEventTypeAdd = () => {
         toast.error("An error has occurred");
       }
     });
+  };
+
+  const findListingPrice = async (price) => {
+    if (price != "") {
+      setLisitngLoading(true);
+      async function get() {
+        const response = await fetch(
+          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setLisitngPrice(await response.json());
+
+        return await response;
+      }
+
+      get()
+        .then((res) => {
+          setLisitngLoading(false);
+          if (res.status != 200) {
+            toast.error("An error has occurred");
+          }
+        })
+        .catch(() => {
+          toast.error("An error has occurred");
+        });
+    }
   };
 
   return (
@@ -288,37 +323,42 @@ const SettingsEventTypeAdd = () => {
               type="number"
               min={1}
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                setPrice(e.target.value);
+                findListingPrice(e.target.value);
+              }}
             />
             <img src="/img/dollar.svg" alt="dollar" />
           </div>
           <div className="events-edit__price" />
-          <div>
-            <h3
-              style={{
-                fontWeight: "600",
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "5px",
-              }}
-            >
+          <div className="listing-price-info-wrap">
+            <h3>
               Listing Price{" "}
               <BsInfoCircleFill
-                style={{ marginLeft: "10px", cursor: "pointer" }}
-                color="#7a7a7a"
+                className="listing-price-info-icon"
+                // onMouseOver={() => setLisitng(true)}
               />
+              <div className="listing-price-info">
+                <h6>
+                  The price a customer pays to purchase the service and that
+                  includes Lynq's fees.
+                </h6>
+                <p>Fees are based on your subscription plan on Amazon</p>
+              </div>
             </h3>
-            <h3
-              style={{
-                marginTop: "0px",
-                fontWeight: "600",
-                display: "flex",
-                alignItems: "center",
-                color: "#777",
-              }}
-            >
-              $10
-            </h3>
+            {listingLoading ? (
+              <img
+                style={{ width: "18px", height: "18px", marginTop: "5px" }}
+                src="/img/Rolling-dark.svg"
+                alt="rolling"
+              />
+            ) : (
+              <h3 style={{}}>
+                {listingPrice
+                  ? `$${listingPrice.simulated_price}`
+                  : "Please enter price above to get listing price"}
+              </h3>
+            )}
           </div>
           {error && (
             <p

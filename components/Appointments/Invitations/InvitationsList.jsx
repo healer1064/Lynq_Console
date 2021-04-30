@@ -21,7 +21,10 @@ const InvitationsList = ({ invitationsList }) => {
 
   return invitationsList.length === 0 ? (
     <div className="no-appointments">
-      <p>No invitations to show</p>
+      <br />
+      <p style={{ alignSelf: "flex-start", marginTop: "50px" }}>
+        No invitations to show
+      </p>
     </div>
   ) : (
     <div className={styles.request__list}>

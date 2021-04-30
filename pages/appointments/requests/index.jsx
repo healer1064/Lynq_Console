@@ -105,6 +105,7 @@ export default function Appointments() {
             <div className="card-container">
               <Tabs type="card" centered size="large">
                 <TabPane tab="Received" key="1">
+                  <br />
                   {!requests ? (
                     <PageLoading />
                   ) : (
@@ -153,6 +154,7 @@ export default function Appointments() {
                   )}
                 </TabPane>
                 <TabPane tab="Sent" key="2">
+                  <br />
                   {!invitations ? (
                     <PageLoading />
                   ) : (

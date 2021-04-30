@@ -23,7 +23,7 @@ const PaymentsDetails = ({ data }) => {
     } else if (filter === "Cancelled") {
       let arr = data.filter((i) => i.status === "CANCELLED");
       setArray(arr);
-    } else if (filter === "Awaiting Teacher's Validation") {
+    } else if (filter === "Requests Awaiting Approval") {
       let arr = data.filter((i) => i.status === "PENDING_TEACHER_VALIDATION");
       setArray(arr);
     } else {
@@ -46,7 +46,7 @@ const PaymentsDetails = ({ data }) => {
               "All",
               "Confirmed",
               "Pending Payment",
-              "Awaiting Teacher's Validation",
+              "Requests Awaiting Approval",
               "Cancelled",
             ]}
           />

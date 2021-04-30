@@ -817,7 +817,7 @@ body
       margin-right: 17px
 .wrp-1
   flex-direction: row !important
-  align-items: baseline;
+  align-items: baseline
   
   @media(max-width: 768px)
     flex-direction: column !important
@@ -3414,8 +3414,13 @@ body
   gap: 28px
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn 
-    color: $lavender !important
+    color: white !important
 
+.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active
+    background: $lavender !important
+
+.ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab
+  margin-left: 10px !important
 
 .card-container p 
   margin: 0
@@ -3513,6 +3518,57 @@ body
     margin: 5px 0
     color: #7a7a7a
     font-size: 1.2rem
+
+.listing-price-info-wrap
+  position: relative
+  width: 100%
+
+  h3
+    font-weight: 600
+    display: flex
+    align-items: center
+    margin-top: 0px
+    font-weight: 600
+    display: flex
+    align-items: center
+    color: #777
+    font-size: 1rem
+
+    &:not(:last-child)
+      margin-bottom: 5px
+      margin-top: 10px
+      color: black
+
+    .listing-price-info-icon
+      z-index: 10
+      cursor: pointer
+      margin-left: 10px
+      color: #7a7a7a
+      &:hover ~ .listing-price-info
+        display: inline-block
+
+  .listing-price-info
+    display: none
+    position: absolute
+    top: -100px
+    background: white
+    z-index: 10
+    padding: 15px 25px
+    width: 40%
+    // flex-direction: column
+    // align-items: center
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1)
+    border-radius: 8px
+
+    h6
+      margin: 0
+      margin-bottom: 5px
+      font-size: 0.9rem
+    p
+      margin: 0
+      font-size: 0.8rem
+      font-style: italic
+      text-align: left
             
 @media (max-width: $breakpointLaptop)
 
