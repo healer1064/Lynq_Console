@@ -12,6 +12,7 @@ import { ProfileProvider } from "../context/profile";
 
 // components
 import PageLoading from "../components/common/PageLoading";
+import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }) {
   // states
@@ -59,6 +60,7 @@ function MyApp({ Component, pageProps }) {
       ) : (
         <>
           <ToastContainer />
+          <Navbar active="" />
           <Component {...pageProps} />
         </>
       )}
