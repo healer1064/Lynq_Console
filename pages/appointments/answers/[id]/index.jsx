@@ -1,11 +1,12 @@
 // libraries
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 // import moment from "moment";
 import Fade from "react-reveal/Fade";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReactPlayer from "react-player";
 
 // context
 import ProfileContext from "../../../../context/profile";
@@ -32,6 +33,10 @@ const Answer = () => {
   // states
   const [videoModal, setVideoModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  // ref
+  const playerRef = useRef(null);
 
   // const getFromTime = () => {
   //   let now = moment();
@@ -39,6 +44,12 @@ const Answer = () => {
 
   //   return start.from(now);
   // };
+
+  useEffect(() => {
+    if (playerRef) {
+      playerRef.current.showPreview();
+    }
+  }, [index]);
 
   return (
     <>
@@ -84,10 +95,11 @@ const Answer = () => {
                       <strong>Event Name</strong>
                       <p>Full Meditation</p>
                     </div>
-                    {/* <div className="info__col">
-                      <strong>Price</strong>
-                      <p>$60</p>
-                    </div> */}
+                    <div className="info__col">
+                      <strong>Answer</strong>
+                      <p>Standard: 7 days</p>
+                      <p>Time Limit: 05/05/2021</p>
+                    </div>
                     <div style={{ display: "flex" }}>
                       <div
                         style={{ marginRight: "30px" }}
@@ -106,12 +118,28 @@ const Answer = () => {
                       <p>chucknorris@gmail.com</p>
                     </div>
                     <div className="info__col">
-                      <strong>Video file</strong>
+                      <strong
+                        style={{
+                          marginBottom: "16px",
+                        }}
+                      >
+                        Video file
+                      </strong>
                       <div
-                        onClick={() => setVideoModal(true)}
+                        onClick={() => {
+                          setVideoModal(true);
+                          setIndex((index) => (index += 1));
+                        }}
                         className="async-download-video"
                       >
-                        <FaPlay />
+                        {/* <FaPlay /> */}
+                        <ReactPlayer
+                          url="https://www.youtube.com/embed/tgbNymZ7vqY"
+                          width={170}
+                          height={100}
+                          light={true}
+                          ref={playerRef}
+                        />
                       </div>
                       <span
                         style={{

@@ -35,7 +35,7 @@ const home = () => {
 
   useEffect(() => {
     if (token) {
-      // fetchAppointments();
+      fetchAppointments();
     }
   }, [token]);
 
@@ -69,6 +69,7 @@ const home = () => {
       );
 
       const _data = await response.json();
+      console.log(_data);
 
       var groupArrays = [];
 
@@ -175,8 +176,6 @@ const home = () => {
      ${moment(date).format("DD")}, ${moment(date).format("YYYY")}`;
   };
 
-  console.log(appointmentList);
-
   return (
     <>
       <Head>
@@ -241,7 +240,7 @@ const home = () => {
                       </h5>
                     </span>
                   </div>
-                  {/* <HomeAppointmentsList appointmentList={appointmentList} /> */}
+                  <HomeAppointmentsList appointmentList={appointmentList} />
                 </div>
               </Fade>
             </>
