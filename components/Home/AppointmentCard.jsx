@@ -23,12 +23,18 @@ const AppointmentCard = ({ data }) => {
         <div className="line"></div>
         <b>
           {moment(data.starting_date).format("hh:mm a")} -{" "}
-          {moment(data.starting_date)
-            .add(data.session_duration, "minutes")
-            .format("hh:mm a")}
+          {moment(data.ending_date).format("hh:mm a")}
         </b>
         <div className="line"></div>
-        <b>{data.session_duration} mins</b>
+        <b>
+          {data.activity_name
+            ? data.session_duration
+            : moment(data.ending_date).diff(
+                moment(data.starting_date),
+                "minutes"
+              )}{" "}
+          mins
+        </b>
       </div>
       {data.activity_name && (
         <div className="client">
@@ -37,7 +43,12 @@ const AppointmentCard = ({ data }) => {
           {data.email}
         </div>
       )}
-
+      {!data.activity_name && (
+        <>
+          <br />
+          <span>Booking from Google Calendar</span>
+        </>
+      )}
       {data.activity_name && (
         <div style={{ marginTop: "1rem" }}>
           <Link href={`/appointments/${data.id}`}>

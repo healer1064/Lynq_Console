@@ -103,8 +103,9 @@ export default function Appointments() {
           <Fade>
             <br />
             <div className="card-container">
-              <Tabs type="card" centered size="large">
+              <Tabs type="card" size="large">
                 <TabPane tab="Received" key="1">
+                  <br />
                   <br />
                   {!requests ? (
                     <PageLoading />
@@ -154,6 +155,7 @@ export default function Appointments() {
                   )}
                 </TabPane>
                 <TabPane tab="Sent" key="2">
+                  <br />
                   <br />
                   {!invitations ? (
                     <PageLoading />

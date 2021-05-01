@@ -186,7 +186,7 @@ const home = () => {
           rel="stylesheet"
         />
       </Head>
-      {/* <Navbar active="" /> */}
+      <Navbar active="" />
       <ToastContainer />
       <div className="page-wrp">
         <Leftbar active="" />

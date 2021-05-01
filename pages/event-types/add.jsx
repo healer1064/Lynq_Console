@@ -1,6 +1,5 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
 
 // components
 import Leftbar from "../../components/Leftbar";

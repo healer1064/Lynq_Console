@@ -17,14 +17,26 @@ const SettingsEventTypeSelect = () => {
 
   return (
     <div className="settings-event-type-select">
-      <p>Select the type of event</p>
+      <p
+        style={{
+          fontWeight: "bold",
+          fontSize: "20px",
+          lineHeight: "25px",
+          color: "#303030",
+          margin: "0",
+          marginTop: "32px",
+          marginBottom: "24px",
+        }}
+      >
+        Select the type of event
+      </p>
       <button onClick={() => router.push("/event-types/add")}>
         <GoPrimitiveDot /> 1:1 Live video call
       </button>
       <button onClick={() => router.push("event-types/add-async")}>
         <GoPrimitiveDot /> 1:1 Asynchronous video call
       </button>
-      <div className="select-event-type-info" onClick={() => setInfo(true)}>
+      <div className="select-event-type-info" onClick={() => setInfo(!info)}>
         <BsFillInfoCircleFill color="#7E88F4" />
         How does it work?
         {!info ? (

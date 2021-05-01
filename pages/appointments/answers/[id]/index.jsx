@@ -90,6 +90,10 @@ const Answer = () => {
                       {/* Received: 'no created at field in backend' */}
                       Received: 04-28-2021 - 10:22PM
                     </span>
+                    <span className="sent__time">
+                      {/* Received: 'no created at field in backend' */}
+                      Answer sent: 05-01-2021 - 9:35PM
+                    </span>
                     <ToastContainer />
                     <div className="info__col">
                       <strong>Event Name</strong>

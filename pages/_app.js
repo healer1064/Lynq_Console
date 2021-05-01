@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps }) {
       ) : (
         <>
           <ToastContainer />
-          <Navbar active="" />
+          {/* <Navbar active="" /> */}
           <Component {...pageProps} />
         </>
       )}
