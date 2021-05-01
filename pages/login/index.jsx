@@ -43,7 +43,7 @@ const index = () => {
       setLoading(false);
       if (res?.message === undefined) {
         setToken(res.token);
-        router.push("/");
+        window.location.href = "/";
       } else {
         toast.error(res.message);
       }

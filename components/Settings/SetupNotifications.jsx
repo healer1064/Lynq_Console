@@ -16,6 +16,19 @@ const SetupNotifications = () => {
         <span>24 hours before event</span>
         <span>1 hour before event</span>
       </div>
+      <div className="setup-notifications__card">
+        <div className="title">
+          <img
+            src="/img/not-allow.svg"
+            alt=""
+            style={{ height: "17px", width: "17px" }}
+          />
+          <strong>Do Not Allow Clients To</strong>
+        </div>
+        <span className="donot-allow-clients">
+          Schedule fewer than <input type="number" /> hours in advance
+        </span>
+      </div>
     </div>
   );
 };

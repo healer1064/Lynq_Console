@@ -13,15 +13,30 @@ import { ProfileProvider } from "../context/profile";
 // components
 import PageLoading from "../components/common/PageLoading";
 import Navbar from "../components/Navbar";
+import Leftbar from "../components/Leftbar";
 
 function MyApp({ Component, pageProps }) {
   // states
   const [preLoading, setPreLoading] = useState(true);
+  const [sidebar, setSidebar] = useState(true);
 
   // router
   const router = useRouter();
 
   useEffect(() => {
+    if (
+      router.pathname != "/plans" &&
+      router.pathname != "/signup" &&
+      router.pathname != "/login" &&
+      router.pathname != "/forgot-password" &&
+      router.pathname != "/terms-and-conditions" &&
+      !router.pathname.includes("/reset-password/") &&
+      router.pathname != "/404"
+    ) {
+      setSidebar(true);
+    } else {
+      setSidebar(false);
+    }
     if (!localStorage.getItem("linqToken")) {
       if (
         router.pathname != "/plans" &&
@@ -30,13 +45,23 @@ function MyApp({ Component, pageProps }) {
         router.pathname != "/forgot-password" &&
         router.pathname != "/terms-and-conditions" &&
         !router.pathname.includes("/reset-password/")
-      )
-        router.push("/plans");
+      ) {
+        window.location.href = "/plans";
+        setSidebar(true);
+      } else {
+        setSidebar(false);
+      }
       setPreLoading(false);
     } else {
       setPreLoading(false);
     }
+
+    return () => {
+      setSidebar(true);
+    };
   }, []);
+
+  console.log(sidebar);
 
   return (
     <ProfileProvider>
@@ -57,10 +82,18 @@ function MyApp({ Component, pageProps }) {
         >
           <PageLoading />
         </div>
+      ) : sidebar ? (
+        <>
+          <ToastContainer />
+          <Navbar active="" />
+          <div className="page-wrp">
+            <Leftbar active="" />
+            <Component {...pageProps} />
+          </div>
+        </>
       ) : (
         <>
           <ToastContainer />
-          {/* <Navbar active="" /> */}
           <Component {...pageProps} />
         </>
       )}

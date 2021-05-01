@@ -2,7 +2,7 @@
 import { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import Fade from "react-reveal/Fade";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { Tabs } from "antd";
 import { Dropdown, Button } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
@@ -15,8 +15,6 @@ import "react-toastify/dist/ReactToastify.css";
 import ProfileContext from "../../../context/profile";
 
 // components
-import Navbar from "../../../components/Navbar";
-import Leftbar from "../../../components/Leftbar";
 import RequestList from "../../../components/Appointments/Request/RequestList";
 import PageLoading from "../../../components/common/PageLoading";
 import DropdownMenu from "../../../components/common/DropdownMenu";
@@ -95,99 +93,89 @@ export default function Appointments() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="requests" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="requests" />
-        <div className="content-wrp">
-          <Fade>
-            <br />
-            <div className="card-container">
-              <Tabs type="card" size="large">
-                <TabPane tab="Received" key="1">
-                  <br />
-                  <br />
-                  {!requests ? (
-                    <PageLoading />
-                  ) : (
-                    <>
-                      <div className="requests-menu-search">
-                        <Dropdown
-                          arrow
-                          overlay={
-                            <DropdownMenu
-                              state={filter}
-                              setState={setFilter}
-                              data={["All", "Scheduled", "Asynchronous"]}
-                            />
-                          }
-                          placement="bottomCenter"
-                        >
-                          <Button
-                            className="requests-dropdown-btn"
-                            size="large"
-                          >
-                            {filter} <CaretDownOutlined />
-                          </Button>
-                        </Dropdown>
-                        <SearchInput setState={setRequestSearchTerm} />
-                      </div>
-                      <RequestList
-                        requestList={
-                          requestSearchTerm === ""
-                            ? requests
-                            : requests.filter(
-                                (item) =>
-                                  item.activity_name
-                                    .toLowerCase()
-                                    .includes(
-                                      requestSearchTerm.toLowerCase()
-                                    ) ||
-                                  item.email
-                                    .toLowerCase()
-                                    .includes(requestSearchTerm.toLowerCase())
-                              )
+      <div className="content-wrp">
+        <Fade>
+          <br />
+          <div className="card-container">
+            <Tabs type="card" size="large">
+              <TabPane tab="Received" key="1">
+                <br />
+                <br />
+                {!requests ? (
+                  <PageLoading />
+                ) : (
+                  <>
+                    <div className="requests-menu-search">
+                      <Dropdown
+                        arrow
+                        overlay={
+                          <DropdownMenu
+                            state={filter}
+                            setState={setFilter}
+                            data={["All", "Scheduled", "Asynchronous"]}
+                          />
                         }
-                        success={success}
-                        setSuccess={setSuccess}
-                      />
-                    </>
-                  )}
-                </TabPane>
-                <TabPane tab="Sent" key="2">
-                  <br />
-                  <br />
-                  {!invitations ? (
-                    <PageLoading />
-                  ) : (
-                    <>
-                      <div className="invitations-menu-search">
-                        <SearchInput setState={setSentSearchTerm} />
-                      </div>
-                      <InvitationsList
-                        invitationsList={
-                          sentSearchTerm === ""
-                            ? invitations
-                            : invitations.filter(
-                                (item) =>
-                                  item.activity_name
-                                    .toLowerCase()
-                                    .includes(sentSearchTerm.toLowerCase()) ||
-                                  item.email
-                                    .toLowerCase()
-                                    .includes(sentSearchTerm.toLowerCase())
-                              )
-                        }
-                        success={success}
-                        setSuccess={setSuccess}
-                      />
-                    </>
-                  )}
-                </TabPane>
-              </Tabs>
-            </div>
-          </Fade>
-        </div>
+                        placement="bottomCenter"
+                      >
+                        <Button className="requests-dropdown-btn" size="large">
+                          {filter} <CaretDownOutlined />
+                        </Button>
+                      </Dropdown>
+                      <SearchInput setState={setRequestSearchTerm} />
+                    </div>
+                    <RequestList
+                      requestList={
+                        requestSearchTerm === ""
+                          ? requests
+                          : requests.filter(
+                              (item) =>
+                                item.activity_name
+                                  .toLowerCase()
+                                  .includes(requestSearchTerm.toLowerCase()) ||
+                                item.email
+                                  .toLowerCase()
+                                  .includes(requestSearchTerm.toLowerCase())
+                            )
+                      }
+                      success={success}
+                      setSuccess={setSuccess}
+                    />
+                  </>
+                )}
+              </TabPane>
+              <TabPane tab="Sent" key="2">
+                <br />
+                <br />
+                {!invitations ? (
+                  <PageLoading />
+                ) : (
+                  <>
+                    <div className="invitations-menu-search">
+                      <SearchInput setState={setSentSearchTerm} />
+                    </div>
+                    <InvitationsList
+                      invitationsList={
+                        sentSearchTerm === ""
+                          ? invitations
+                          : invitations.filter(
+                              (item) =>
+                                item.activity_name
+                                  .toLowerCase()
+                                  .includes(sentSearchTerm.toLowerCase()) ||
+                                item.email
+                                  .toLowerCase()
+                                  .includes(sentSearchTerm.toLowerCase())
+                            )
+                      }
+                      success={success}
+                      setSuccess={setSuccess}
+                    />
+                  </>
+                )}
+              </TabPane>
+            </Tabs>
+          </div>
+        </Fade>
       </div>
     </>
   );

@@ -1,19 +1,14 @@
 // libraries
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
-import Fade from "react-reveal/Fade";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { format } from "date-fns";
 
 // components
-import Navbar from "../../components/Navbar";
 import AppointmentsTop from "../../components/Appointments/AppointmentsTop";
-import Leftbar from "../../components/Leftbar";
 import AppointmentsList from "../../components/Appointments/AppointmentsList";
 import PageLoading from "../../components/common/PageLoading";
-import Modal from "../../components/common/Modal";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -22,28 +17,18 @@ import ProfileContext from "../../context/profile";
 import { getCurrentWeek } from "../../utils/DateHelper";
 
 export default function Appointments() {
-  // router
-  const router = useRouter();
-
   // context
   const { token } = useContext(ProfileContext);
 
   // states
   const [data, setData] = useState(null);
-  const [requests, setRequests] = useState(null);
   const [temp, setTemp] = useState([]);
-  const [success, setSuccess] = useState(false);
-  const [id, setId] = useState();
-  const [showModel, setShowModel] = useState(false);
-  const [rejectLoading, setRejectLoading] = useState(false);
-  const [apptData, setApptData] = useState(null);
 
   useEffect(() => {
     if (token) {
       fetchAppointments();
-      fetchRequests();
     }
-  }, [token, success]);
+  }, [token]);
 
   const fetchAppointments = async () => {
     const config = {
@@ -62,29 +47,8 @@ export default function Appointments() {
       setData(filterByCurrWeek(groupAppointment(_data)));
       setTemp(groupAppointment(_data));
     } catch (err) {
-      toast.error("Error, Failed to Fetch Appointment List!!!");
+      toast.error("Error, Failed to Fetch Appointment List!");
       setData([]);
-    }
-  };
-
-  const fetchRequests = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/requests?t=${token}`,
-        config
-      );
-      const _data = await response.json();
-
-      setRequests(_data);
-    } catch (err) {
-      setRequests([]);
-      toast.error("Error, Failed to Fetch Request List!!!");
     }
   };
 
@@ -134,49 +98,6 @@ export default function Appointments() {
     setData(filter);
   };
 
-  const toggleSuccess = () => {
-    setSuccess(!success);
-  };
-
-  const toggle = (_data) => {
-    setShowModel(true);
-    setId(_data._id);
-    setApptData(_data);
-  };
-
-  const onDelete = () => {
-    setRejectLoading(true);
-    async function reject() {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments/${id}/cancel?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return await response;
-    }
-
-    reject()
-      .then((res) => {
-        setRejectLoading(false);
-        if (res.status === 200) {
-          setShowModel(false);
-          toggleSuccess();
-        } else {
-          toast.error("Something went wrong!!, appointment cancel failed");
-        }
-      })
-      .catch((err) => {
-        setRejectLoading(false);
-        toast.error("Something went wrong!!, appointment cancel failed");
-      });
-  };
-
   return (
     <>
       <Head>
@@ -187,39 +108,18 @@ export default function Appointments() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="appointments" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="appointments" />
-        <div className="content-wrp wrp-1">
-          {!data || !requests ? (
-            <PageLoading />
-          ) : (
+      <div className="content-wrp wrp-1">
+        {!data ? (
+          <PageLoading />
+        ) : (
+          <>
+            <br />
             <>
-              <br />
-              {showModel && (
-                <Modal
-                  setModal={setShowModel}
-                  onDelete={onDelete}
-                  loading={rejectLoading}
-                  data={apptData}
-                />
-              )}
-              {/* <Fade> */}
-              {/* <Fade duration={1200}> */}
-              <>
-                <AppointmentsTop onWeekChange={onWeekChange} />
-                <AppointmentsList
-                  appointmentList={data}
-                  toggleSuccess={toggleSuccess}
-                  toggle={toggle}
-                />
-              </>
-              {/* </Fade>
-              </Fade> */}
+              <AppointmentsTop onWeekChange={onWeekChange} />
+              <AppointmentsList appointmentList={data} />
             </>
-          )}
-        </div>
+          </>
+        )}
       </div>
     </>
   );

@@ -8,8 +8,6 @@ import Fade from "react-reveal/Fade";
 import ProfileContext from "../../context/profile";
 
 // components
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
 import PageLoading from "../../components/common/PageLoading";
 import PaymentsDetails from "../../components/Payment/PaymentsDetails";
 
@@ -52,21 +50,17 @@ export default function PaymentDetails() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="payment-details" />
-      <div className="page-wrp">
-        <Leftbar active="payment-details" />
-        <div className="content-wrp ">
-          {!data ? (
-            <PageLoading />
-          ) : (
-            <Fade>
-              <div className="payment">
-                <PaymentsDetails data={data} />
-              </div>
-            </Fade>
-          )}
-          <br />
-        </div>
+      <div className="content-wrp ">
+        {!data ? (
+          <PageLoading />
+        ) : (
+          <Fade>
+            <div className="payment">
+              <PaymentsDetails data={data} />
+            </div>
+          </Fade>
+        )}
+        <br />
       </div>
     </>
   );

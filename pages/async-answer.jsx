@@ -69,8 +69,6 @@ const AsyncAnswer = () => {
   //   return start.from(now);
   // };
 
-  console.log(selectedFile);
-
   return (
     <>
       {videoModal && (
@@ -84,139 +82,131 @@ const AsyncAnswer = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="appointments" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="appointments" />
-        <div className="content-wrp">
-          {/* {!data ? (
+      <div className="content-wrp">
+        {/* {!data ? (
             <PageLoading />
           ) : ( */}
-          <Fade>
-            <>
-              <Fade>
-                <div style={{ marginTop: "-30px" }} className="content-wrp">
-                  <div className="appointment-request">
-                    <a
-                      className="appointment-request__back"
-                      style={{ cursor: "pointer", marginTop: "40px" }}
-                      onClick={() => router.back()}
-                    >
-                      Back
-                    </a>
-                    <h2>Appointment Request</h2>
-                    <span className="received__time">
-                      {/* Received: 'no created at field in backend' */}
-                      Received: 04-28-2021 - 10:22PM
-                    </span>
-                    <ToastContainer />
-                    <div className="info__col">
-                      <strong>Event Name</strong>
-                      <p>Full Meditation</p>
-                    </div>
-                    {/* <div className="info__col">
+        <Fade>
+          <>
+            <Fade>
+              <div style={{ marginTop: "-30px" }} className="content-wrp">
+                <div className="appointment-request">
+                  <a
+                    className="appointment-request__back"
+                    style={{ cursor: "pointer", marginTop: "40px" }}
+                    onClick={() => router.back()}
+                  >
+                    Back
+                  </a>
+                  <h2>Appointment Request</h2>
+                  <span className="received__time">
+                    {/* Received: 'no created at field in backend' */}
+                    Received: 04-28-2021 - 10:22PM
+                  </span>
+
+                  <div className="info__col">
+                    <strong>Event Name</strong>
+                    <p>Full Meditation</p>
+                  </div>
+                  {/* <div className="info__col">
                       <strong>Price</strong>
                       <p>$60</p>
                     </div> */}
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{ marginRight: "30px" }}
-                        className="info__col"
-                      >
-                        <strong>First Name</strong>
-                        <p>Chuck</p>
-                      </div>
-                      <div className="info__col">
-                        <strong>Last Name</strong>
-                        <p>Norris</p>
-                      </div>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ marginRight: "30px" }} className="info__col">
+                      <strong>First Name</strong>
+                      <p>Chuck</p>
                     </div>
                     <div className="info__col">
-                      <strong>Email</strong>
-                      <p>chucknorris@gmail.com</p>
+                      <strong>Last Name</strong>
+                      <p>Norris</p>
                     </div>
-                    {/* <div className="info__col">
+                  </div>
+                  <div className="info__col">
+                    <strong>Email</strong>
+                    <p>chucknorris@gmail.com</p>
+                  </div>
+                  {/* <div className="info__col">
                       <strong>Information Provided</strong>
                       <p>
                         I need to improve my swing as I can't drive far enough
                       </p>
                     </div> */}
-                    <div className="info__col">
-                      <strong>Upload your Video</strong>
-                      <label className="video-upload-input">
-                        <input
-                          disabled={selectedFile}
-                          type="file"
-                          accept=".mp4,.avi"
-                          onChange={handleFileInput}
-                        />
-                        {selectedFile ? (
-                          <>
-                            <RiDeleteBin6Fill
-                              className="delete-video-icon"
-                              size={20}
-                              onClick={() => setSelectedFile(null)}
-                            />
-                            <div
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setVideoModal(true);
-                              }}
-                              className="async-download-video"
-                            >
-                              <FaPlay color="white" />
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <RiUploadCloudFill />
-                            <h6>Drop your video or select file</h6>
-                            <p>
-                              Please upload mp4 or avi files only <br /> Max 1.5
-                              GB
-                            </p>
-                          </>
-                        )}
-                      </label>
-                    </div>
-                    <div className="info__col">
-                      <strong>Other information</strong>
-                      <div className="video-upload-textarea">
-                        <textarea
-                          maxLength="300"
-                          value={info}
-                          onChange={(e) => {
-                            setInfoCount(e.target.value.length);
-                            setInfo(e.target.value);
-                          }}
-                          placeholder="300 Characters max"
-                        ></textarea>
-                        <div className="count">{infoCount}/300</div>
-                      </div>
-                    </div>
-                    <div className="appointment-request__btns">
-                      <button
-                        className="reject"
-                        // onClick={() => requestReject(data.id)}
-                      >
-                        {/* {rejectLoading && <Loading color="#fff" />}  */}
-                        CANCEL
-                      </button>
-                      <button
-                        className="accept"
-                        onClick={() => router.push("/async-answer")}
-                      >
-                        {/* {acceptLoading && <Loading />} */}
-                        ANSWER
-                      </button>
+                  <div className="info__col">
+                    <strong>Upload your Video</strong>
+                    <label className="video-upload-input">
+                      <input
+                        disabled={selectedFile}
+                        type="file"
+                        accept=".mp4,.avi"
+                        onChange={handleFileInput}
+                      />
+                      {selectedFile ? (
+                        <>
+                          <RiDeleteBin6Fill
+                            className="delete-video-icon"
+                            size={20}
+                            onClick={() => setSelectedFile(null)}
+                          />
+                          <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setVideoModal(true);
+                            }}
+                            className="async-download-video"
+                          >
+                            <FaPlay color="white" />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <RiUploadCloudFill />
+                          <h6>Drop your video or select file</h6>
+                          <p>
+                            Please upload mp4 or avi files only <br /> Max 1.5
+                            GB
+                          </p>
+                        </>
+                      )}
+                    </label>
+                  </div>
+                  <div className="info__col">
+                    <strong>Other information</strong>
+                    <div className="video-upload-textarea">
+                      <textarea
+                        maxLength="300"
+                        value={info}
+                        onChange={(e) => {
+                          setInfoCount(e.target.value.length);
+                          setInfo(e.target.value);
+                        }}
+                        placeholder="300 Characters max"
+                      ></textarea>
+                      <div className="count">{infoCount}/300</div>
                     </div>
                   </div>
+                  <div className="appointment-request__btns">
+                    <button
+                      className="reject"
+                      // onClick={() => requestReject(data.id)}
+                    >
+                      {/* {rejectLoading && <Loading color="#fff" />}  */}
+                      CANCEL
+                    </button>
+                    <button
+                      className="accept"
+                      onClick={() => router.push("/async-answer")}
+                    >
+                      {/* {acceptLoading && <Loading />} */}
+                      ANSWER
+                    </button>
+                  </div>
                 </div>
-              </Fade>
-            </>
-          </Fade>
-          {/* )} */}
-        </div>
+              </div>
+            </Fade>
+          </>
+        </Fade>
+        {/* )} */}
       </div>
     </>
   );

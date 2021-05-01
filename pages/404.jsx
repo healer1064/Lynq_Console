@@ -1,6 +1,4 @@
-import React from "react";
 import Head from "next/head";
-import Link from "next/link";
 
 // styles
 import styles from "../styles/Error.module.sass";
@@ -27,9 +25,9 @@ const ErrorPage = () => {
           <img src="/img/bears.gif" alt="" />
           <h3>Looks like this page went on vacation</h3>
           <h4>Try our homepage instead</h4>
-          <Link href="/">
+          <a href="/">
             <button>Lynq Home</button>
-          </Link>
+          </a>
         </div>
       </div>
     </>

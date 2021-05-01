@@ -1,23 +1,17 @@
 // libraries
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState, useContext } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../../context/profile";
 
 // components
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
 import NewAppointmentModal from "../../components/Support/NewAppointmentModal";
 import Loading from "../../components/common/Loading";
 
 export default function Contact() {
-  // router
-  const router = useRouter();
-
   // states
   const [modal, setModal] = useState(false);
   const [message, setMessage] = useState("");
@@ -80,36 +74,31 @@ export default function Contact() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="contact" />
-      <div className="page-wrp">
-        <Leftbar active="contact" />
-        <div className="content-wrp">
-          <div className="new-appointment">
-            <ToastContainer />
-            <h3>Support</h3>
-            <p>
-              At Lynq, we are commited to providing you with a great and
-              reliable experience.
-            </p>
-            <div>
-              <h3>Type your request</h3>
-              <textarea
-                value={message}
-                onChange={(e) => {
-                  setMessage(e.target.value);
-                  e.target.value !== "" && setMessageError(false);
-                }}
-              ></textarea>
-            </div>
-            {messageError && (
-              <p style={{ color: "red", marginTop: "-0px" }}>
-                *Please type your request
-              </p>
-            )}
-            <button style={{ position: "relative" }} onClick={handleSubmit}>
-              {loading && <Loading />}Send Request
-            </button>
+      <div className="content-wrp">
+        <div className="new-appointment">
+          <h3>Support</h3>
+          <p>
+            At Lynq, we are commited to providing you with a great and reliable
+            experience.
+          </p>
+          <div>
+            <h3>Type your request</h3>
+            <textarea
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+                e.target.value !== "" && setMessageError(false);
+              }}
+            ></textarea>
           </div>
+          {messageError && (
+            <p style={{ color: "red", marginTop: "-0px" }}>
+              *Please type your request
+            </p>
+          )}
+          <button style={{ position: "relative" }} onClick={handleSubmit}>
+            {loading && <Loading />}Send Request
+          </button>
         </div>
       </div>
       {modal && <NewAppointmentModal setModal={setModal} />}

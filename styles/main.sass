@@ -133,11 +133,15 @@ body
     cursor: pointer
     padding: 8px 10px
     user-select: none
+    padding-left: 50px
+    &:hover
+      background: #717BE4
 
     svg
       color: white
       font-size: 20px
       margin-right: 10px
+      display: none
 
 .send-invite-btn
   background: $lavender
@@ -782,6 +786,8 @@ body
       @include flex
       align-items: center
       text-decoration: none
+      &:hover
+        background: #717BE4
       &.active
         background: #717BE4
       img
@@ -1551,12 +1557,24 @@ body
         &.inactive
           .appointments-col__card
             background: #E1E1E1
-            pointer-events: none
+            pointer-events: all
             .det
               color: $grey
               b
                 color: $grey
             .arrow
+              path
+                fill: $grey
+        &.inactive-active
+          .appointments-col__card
+            background: #E1E1E1
+            pointer-events: all
+            .det
+              color: $grey
+              b
+                color: $grey
+            .arrow
+              transform: rotate(180deg)
               path
                 fill: $grey
         &.active
@@ -1591,6 +1609,8 @@ body
         border-color: $lavender
       &.yellow
         border-color: rgb(255, 255, 0)
+      &.gray
+        border-color: #E1E1E1
       .title
         font-weight: 600
         font-size: 24px
@@ -3616,6 +3636,23 @@ body
       text-align: center
     li
       margin: 10px 0px
+
+.donot-allow-clients
+  input
+    width: 50px
+    text-align: center
+    font-size: 1.1rem
+    &:focus
+      outline: none
+
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+  -webkit-appearance: none;
+  margin: 0
+
+  input[type=number]
+    -moz-appearance: textfield
+
             
 @media (max-width: $breakpointLaptop)
 

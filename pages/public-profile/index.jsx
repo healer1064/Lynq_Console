@@ -1,8 +1,7 @@
 // libraries
 import { useState, useRef, useContext, useEffect } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // styles
@@ -19,15 +18,11 @@ import { FaImage } from "react-icons/fa";
 import { AiOutlineCopy } from "react-icons/ai";
 
 // components
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
 import EditProfileDDCheck from "../../components/EditProfile/EditProfileDDCheck";
 import Loading from "../../components/common/Loading";
 import PageLoading from "../../components/common/PageLoading";
 
 const EditProfile = () => {
-  // router
-  const router = useRouter();
   // context
   const { token, profile } = useContext(ProfileContext);
 
@@ -46,9 +41,9 @@ const EditProfile = () => {
   const [generalPres, setGeneralPres] = useState("");
   const [whatToExpect, setWhatToExpect] = useState("");
   const [specialities, setSpecialities] = useState([]);
-  const [certifications, setCertifications] = useState("");
+  // const [certifications, setCertifications] = useState("");
   const [image, setImage] = useState(null);
-  const [specImage, setSpecImage] = useState(null);
+  // const [specImage, setSpecImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
@@ -56,7 +51,7 @@ const EditProfile = () => {
   const [slugCopy, setSlugCopy] = useState(false);
   const [slugNotAvail, setSlugNotAvail] = useState(false);
   const [slugRule, setSlugRule] = useState(false);
-  const [allowMsg, setAllowMsg] = useState(false);
+  // const [allowMsg, setAllowMsg] = useState(false);
 
   const imgRef = useRef();
 
@@ -168,7 +163,7 @@ const EditProfile = () => {
       name: `${firstName} ${lastName}`,
       expect_details: whatToExpect,
       speciality: specArr,
-      public_image: image || specImage,
+      public_image: image,
     };
 
     async function update() {
@@ -223,7 +218,8 @@ const EditProfile = () => {
       .then((res) => {
         setLoading(false);
         console.log("profile pic", res);
-        setSpecImage(res.public_image);
+        // setSpecImage(res.public_image);
+        setImage(res.public_image);
         toast.success("Profile picture updated!");
       })
       .catch((res) => {
@@ -286,7 +282,7 @@ const EditProfile = () => {
     }
   };
 
-  const toggleAllowMsg = () => setAllowMsg(!allowMsg);
+  // const toggleAllowMsg = () => setAllowMsg(!allowMsg);
 
   return (
     <>
@@ -298,42 +294,38 @@ const EditProfile = () => {
           rel="stylesheet"
         />
       </Head>
-      <ToastContainer />
-      <Navbar active="profile" />
-      <div className="page-wrp">
-        <Leftbar active="profile" />
-        <div className="content-wrp">
-          {profileLoading ? (
-            <PageLoading />
-          ) : (
-            <div className={styles.edit_profile}>
-              <h3>Public Profile</h3>
-              <form onSubmit={(e) => checkSlugAvailability(e)}>
-                <div className={styles.edit_profile_img_container}>
-                  {image !== null ? (
-                    <img src={image} className={styles.edit_profile_img} />
-                  ) : (
-                    <div className={styles.place_holder}>
-                      <FaImage size={26} />
-                    </div>
-                  )}
-                  <div className={styles.edit_profile_btn_container}>
-                    <input
-                      type="file"
-                      accept=".jpg, .jpeg, .png"
-                      ref={imgRef}
-                      style={{ display: "none" }}
-                      onChange={handleImgUpload}
-                    />
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        imgRef.current.click();
-                      }}
-                    >
-                      Upload Picture
-                    </button>
-                    {/* <button
+      <div className="content-wrp">
+        {profileLoading ? (
+          <PageLoading />
+        ) : (
+          <div className={styles.edit_profile}>
+            <h3>Public Profile</h3>
+            <form onSubmit={(e) => checkSlugAvailability(e)}>
+              <div className={styles.edit_profile_img_container}>
+                {image !== null ? (
+                  <img src={image} className={styles.edit_profile_img} />
+                ) : (
+                  <div className={styles.place_holder}>
+                    <FaImage size={26} />
+                  </div>
+                )}
+                <div className={styles.edit_profile_btn_container}>
+                  <input
+                    type="file"
+                    accept=".jpg, .jpeg, .png"
+                    ref={imgRef}
+                    style={{ display: "none" }}
+                    onChange={handleImgUpload}
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      imgRef.current.click();
+                    }}
+                  >
+                    Upload Picture
+                  </button>
+                  {/* <button
                       onClick={(e) => {
                         e.preventDefault();
                         alert("no set yet");
@@ -341,18 +333,60 @@ const EditProfile = () => {
                     >
                       Delete
                     </button> */}
-                  </div>
                 </div>
-                <div>
-                  <label>Personalize your Public Lynq url *</label>
-                  <input
-                    type="text"
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                    placeholder="e.g chuck-norris"
+              </div>
+              <div>
+                <label>Personalize your Public Lynq url *</label>
+                <input
+                  type="text"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  placeholder="e.g chuck-norris"
+                />
+              </div>
+              {slugRule && (
+                <p
+                  style={{
+                    marginTop: "-5px",
+                    marginBottom: "12px",
+                    marginLeft: "0px",
+                    fontSize: "12px",
+                    color: "red",
+                  }}
+                >
+                  Please use only Alphanumeric characters and dot!
+                </p>
+              )}
+              <div>
+                <label style={{ color: "#7E88F4" }}>
+                  Here is how your public Lynq url will look like
+                </label>{" "}
+                {slugCopy && (
+                  <span
+                    style={{
+                      marginBottom: "12px",
+                      marginLeft: "20px",
+                      fontSize: "11px",
+                      color: "#aaa",
+                    }}
+                  >
+                    Text copied!
+                  </span>
+                )}
+                <div className={styles.slug_container}>
+                  <p>
+                    {`us.lynq.app/${slug === "" && !slug ? "your-slug" : slug}`}
+                  </p>
+                  <AiOutlineCopy
+                    color="#7E88F4"
+                    size={23}
+                    onClick={() => {
+                      navigator.clipboard.writeText(`us.lynq.app/${slug}`);
+                      copyStatus();
+                    }}
                   />
                 </div>
-                {slugRule && (
+                {slugNotAvail && (
                   <p
                     style={{
                       marginTop: "-5px",
@@ -362,141 +396,97 @@ const EditProfile = () => {
                       color: "red",
                     }}
                   >
-                    Please use only Alphanumeric characters and dot!
+                    Slug not available! Try something else
                   </p>
                 )}
-                <div>
-                  <label style={{ color: "#7E88F4" }}>
-                    Here is how your public Lynq url will look like
-                  </label>{" "}
-                  {slugCopy && (
-                    <span
-                      style={{
-                        marginBottom: "12px",
-                        marginLeft: "20px",
-                        fontSize: "11px",
-                        color: "#aaa",
-                      }}
-                    >
-                      Text copied!
-                    </span>
-                  )}
-                  <div className={styles.slug_container}>
-                    <p>
-                      {`us.lynq.app/${
-                        slug === "" && !slug ? "your-slug" : slug
-                      }`}
-                    </p>
-                    <AiOutlineCopy
-                      color="#7E88F4"
-                      size={23}
-                      onClick={() => {
-                        navigator.clipboard.writeText(`us.lynq.app/${slug}`);
-                        copyStatus();
-                      }}
-                    />
-                  </div>
-                  {slugNotAvail && (
-                    <p
-                      style={{
-                        marginTop: "-5px",
-                        marginBottom: "12px",
-                        marginLeft: "0px",
-                        fontSize: "12px",
-                        color: "red",
-                      }}
-                    >
-                      Slug not available! Try something else
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label>First Name*</label>
-                  <input
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Last Name*</label>
-                  <input
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
+              </div>
+              <div>
+                <label>First Name*</label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Last Name*</label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
 
-                <div>
-                  <label>City*</label>
-                  <input
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>State*</label>
-                  <select
-                    className={styles.states_select}
-                    // type="text"
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                  >
-                    <option>-- Select State --</option>
-                    {states.map((state, index) => {
-                      return (
-                        <option key={index} value={state}>
-                          {state}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                <div style={{ position: "relative" }}>
-                  <label>
-                    Main Categories* <span>(Choose upto 3)</span>
-                  </label>
-                  <EditProfileDDCheck
-                    state={categories}
-                    setState={setCategories}
-                    categories={categoriesData}
-                  />
-                </div>
-                <h3>Social Information</h3>
-                <div>
-                  <label>Facebook</label>
-                  <input
-                    type="text"
-                    value={facebook}
-                    onChange={(e) => setFacebook(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Instagram</label>
-                  <input
-                    type="text"
-                    value={instagram}
-                    onChange={(e) => setInstagram(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Youtube</label>
-                  <input
-                    type="text"
-                    value={youtube}
-                    onChange={(e) => setYoutube(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Personal Website</label>
-                  <input
-                    type="text"
-                    value={website}
-                    onChange={(e) => setWebsite(e.target.value)}
-                  />
-                </div>
-                {/* <div style={{ display: "flex", alignItems: "center" }}>
+              <div>
+                <label>City*</label>
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>State*</label>
+                <select
+                  className={styles.states_select}
+                  // type="text"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                >
+                  <option>-- Select State --</option>
+                  {states.map((state, index) => {
+                    return (
+                      <option key={index} value={state}>
+                        {state}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div style={{ position: "relative" }}>
+                <label>
+                  Main Categories* <span>(Choose upto 3)</span>
+                </label>
+                <EditProfileDDCheck
+                  state={categories}
+                  setState={setCategories}
+                  categories={categoriesData}
+                />
+              </div>
+              <h3>Social Information</h3>
+              <div>
+                <label>Facebook</label>
+                <input
+                  type="text"
+                  value={facebook}
+                  onChange={(e) => setFacebook(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Instagram</label>
+                <input
+                  type="text"
+                  value={instagram}
+                  onChange={(e) => setInstagram(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Youtube</label>
+                <input
+                  type="text"
+                  value={youtube}
+                  onChange={(e) => setYoutube(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Personal Website</label>
+                <input
+                  type="text"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </div>
+              {/* <div style={{ display: "flex", alignItems: "center" }}>
                   <img
                     src={
                       !allowMsg
@@ -512,22 +502,22 @@ const EditProfile = () => {
                     Allow clients to send you messages
                   </span>
                 </div> */}
-                <h3>About</h3>
-                <div>
-                  <label>General presentation*</label>
-                  <textarea
-                    value={generalPres}
-                    onChange={(e) => setGeneralPres(e.target.value)}
-                  ></textarea>
-                </div>
-                <div>
-                  <label>What to expect*</label>
-                  <textarea
-                    value={whatToExpect}
-                    onChange={(e) => setWhatToExpect(e.target.value)}
-                  ></textarea>
-                </div>
-                {/* <div>
+              <h3>About</h3>
+              <div>
+                <label>General presentation*</label>
+                <textarea
+                  value={generalPres}
+                  onChange={(e) => setGeneralPres(e.target.value)}
+                ></textarea>
+              </div>
+              <div>
+                <label>What to expect*</label>
+                <textarea
+                  value={whatToExpect}
+                  onChange={(e) => setWhatToExpect(e.target.value)}
+                ></textarea>
+              </div>
+              {/* <div>
                   <label>
                     Specialities{" "}
                     <span>(Press enter after each speciality)</span>
@@ -547,16 +537,15 @@ const EditProfile = () => {
                     onChange={(e) => setCertifications(e.target.value)}
                   ></textarea>
                 </div> */}
-                <div className={styles.text_uppercase}>
-                  <button type="submit" style={{ position: "relative" }}>
-                    {loading && <Loading />}Save Profile
-                  </button>
-                  {/* <button>Cancel</button> */}
-                </div>
-              </form>
-            </div>
-          )}
-        </div>
+              <div className={styles.text_uppercase}>
+                <button type="submit" style={{ position: "relative" }}>
+                  {loading && <Loading />}Save Profile
+                </button>
+                {/* <button>Cancel</button> */}
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </>
   );

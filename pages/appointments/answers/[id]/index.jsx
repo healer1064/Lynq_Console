@@ -4,20 +4,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 // import moment from "moment";
 import Fade from "react-reveal/Fade";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReactPlayer from "react-player";
 
 // context
 import ProfileContext from "../../../../context/profile";
 
-// icons
-import { FaPlay } from "react-icons/fa";
-
 // components
 // import Loading from "../../../../components/common/Loading";
-import Navbar from "../../../../components/Navbar";
-import Leftbar from "../../../../components/Leftbar";
 // import PageLoading from "../../../../components/common/PageLoading";
 import Modal from "../../../../components/common/Modal";
 import VideoModal from "../../../../components/Appointments/Request/VideoModal";
@@ -70,117 +65,109 @@ const Answer = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="answers" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="answers" />
-        <div className="content-wrp">
-          {/* {!data ? (
+
+      <div className="content-wrp">
+        {/* {!data ? (
             <PageLoading />
           ) : ( */}
-          <Fade>
-            <br />
-            <br />
-            <>
-              <Fade>
-                <div style={{ marginTop: "-30px" }} className="content-wrp">
-                  <div className="appointment-request">
-                    {/* <h2></h2> */}
-                    <span className="received__time">
-                      {/* Received: 'no created at field in backend' */}
-                      Received: 04-28-2021 - 10:22PM
-                    </span>
-                    <span className="sent__time">
-                      {/* Received: 'no created at field in backend' */}
-                      Answer sent: 05-01-2021 - 9:35PM
-                    </span>
-                    <ToastContainer />
-                    <div className="info__col">
-                      <strong>Event Name</strong>
-                      <p>Full Meditation</p>
+        <Fade>
+          <br />
+          <br />
+          <>
+            <Fade>
+              <div style={{ marginTop: "-30px" }} className="content-wrp">
+                <div className="appointment-request">
+                  {/* <h2></h2> */}
+                  <span className="received__time">
+                    {/* Received: 'no created at field in backend' */}
+                    Received: 04-28-2021 - 10:22PM
+                  </span>
+                  <span className="sent__time">
+                    {/* Received: 'no created at field in backend' */}
+                    Answer sent: 05-01-2021 - 9:35PM
+                  </span>
+                  <div className="info__col">
+                    <strong>Event Name</strong>
+                    <p>Full Meditation</p>
+                  </div>
+                  <div className="info__col">
+                    <strong>Answer</strong>
+                    <p>Standard: 7 days</p>
+                    <p>Time Limit: 05/05/2021</p>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <div style={{ marginRight: "30px" }} className="info__col">
+                      <strong>First Name</strong>
+                      <p>Chuck</p>
                     </div>
                     <div className="info__col">
-                      <strong>Answer</strong>
-                      <p>Standard: 7 days</p>
-                      <p>Time Limit: 05/05/2021</p>
-                    </div>
-                    <div style={{ display: "flex" }}>
-                      <div
-                        style={{ marginRight: "30px" }}
-                        className="info__col"
-                      >
-                        <strong>First Name</strong>
-                        <p>Chuck</p>
-                      </div>
-                      <div className="info__col">
-                        <strong>Last Name</strong>
-                        <p>Norris</p>
-                      </div>
-                    </div>
-                    <div className="info__col">
-                      <strong>Email</strong>
-                      <p>chucknorris@gmail.com</p>
-                    </div>
-                    <div className="info__col">
-                      <strong
-                        style={{
-                          marginBottom: "16px",
-                        }}
-                      >
-                        Video file
-                      </strong>
-                      <div
-                        onClick={() => {
-                          setVideoModal(true);
-                          setIndex((index) => (index += 1));
-                        }}
-                        className="async-download-video"
-                      >
-                        {/* <FaPlay /> */}
-                        <ReactPlayer
-                          url="https://www.youtube.com/embed/tgbNymZ7vqY"
-                          width={170}
-                          height={100}
-                          light={true}
-                          ref={playerRef}
-                        />
-                      </div>
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          color: "#777",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Download Video
-                      </span>
-                    </div>
-                    <div className="info__col">
-                      <strong>Information Provided</strong>
-                      <p>
-                        I need to improve my swing as I can't drive far enough
-                      </p>
-                    </div>
-                    <div className="appointment-request__btns">
-                      <button className="reject" onClick={() => router.back()}>
-                        {/* {rejectLoading && <Loading color="#fff" />}  */}
-                        CANCEL
-                      </button>
-                      <button
-                        className="accept"
-                        onClick={() => setDeleteModal(true)}
-                      >
-                        {/* {acceptLoading && <Loading />} */}
-                        DELETE
-                      </button>
+                      <strong>Last Name</strong>
+                      <p>Norris</p>
                     </div>
                   </div>
+                  <div className="info__col">
+                    <strong>Email</strong>
+                    <p>chucknorris@gmail.com</p>
+                  </div>
+                  <div className="info__col">
+                    <strong
+                      style={{
+                        marginBottom: "16px",
+                      }}
+                    >
+                      Video file
+                    </strong>
+                    <div
+                      onClick={() => {
+                        setVideoModal(true);
+                        setIndex((index) => (index += 1));
+                      }}
+                      className="async-download-video"
+                    >
+                      {/* <FaPlay /> */}
+                      <ReactPlayer
+                        url="https://www.youtube.com/embed/tgbNymZ7vqY"
+                        width={170}
+                        height={100}
+                        light={true}
+                        ref={playerRef}
+                      />
+                    </div>
+                    <span
+                      style={{
+                        fontSize: "0.8rem",
+                        color: "#777",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Download Video
+                    </span>
+                  </div>
+                  <div className="info__col">
+                    <strong>Information Provided</strong>
+                    <p>
+                      I need to improve my swing as I can't drive far enough
+                    </p>
+                  </div>
+                  <div className="appointment-request__btns">
+                    <button className="reject" onClick={() => router.back()}>
+                      {/* {rejectLoading && <Loading color="#fff" />}  */}
+                      CANCEL
+                    </button>
+                    <button
+                      className="accept"
+                      onClick={() => setDeleteModal(true)}
+                    >
+                      {/* {acceptLoading && <Loading />} */}
+                      DELETE
+                    </button>
+                  </div>
                 </div>
-              </Fade>
-            </>
-          </Fade>
-          {/* )} */}
-        </div>
+              </div>
+            </Fade>
+          </>
+        </Fade>
+        {/* )} */}
       </div>
     </>
   );

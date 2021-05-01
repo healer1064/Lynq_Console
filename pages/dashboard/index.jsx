@@ -6,8 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import ProfileContext from "../../context/profile";
 
 // components
-import Leftbar from "../../components/Leftbar";
-import Navbar from "../../components/Navbar";
 // import AddNewButton from "../../components/common/AddNewButton";
 import ClientsTable from "../../components/Clients/ClientsTable";
 import PageLoading from "../../components/common/PageLoading";
@@ -84,64 +82,58 @@ export default function Clients() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="dashboard" />
-      <div className="page-wrp">
-        <Leftbar active="dashboard" />
-        <div className="content-wrp">
-          {!data ? (
-            <PageLoading />
-          ) : (
-            <>
-              <HomeStats data={statsData} setStats={setStats} />
-              <br />
-              <h3
-                style={{ margin: "0", fontWeight: "700", fontSize: "1.4rem" }}
-              >
-                Detail by clients
-              </h3>
-              {data.length === 0 ? (
-                <EmptyData title="No clients to show" />
-              ) : (
-                <div className="clients-wrp">
-                  <div className="clients-wrp__top">
-                    {/* <AddNewButton title="New Client" /> */}
-                    {/* <input
+      <div className="content-wrp">
+        {!data ? (
+          <PageLoading />
+        ) : (
+          <>
+            <HomeStats data={statsData} setStats={setStats} />
+            <br />
+            <h3 style={{ margin: "0", fontWeight: "700", fontSize: "1.4rem" }}>
+              Detail by clients
+            </h3>
+            {data.length === 0 ? (
+              <EmptyData title="No clients to show" />
+            ) : (
+              <div className="clients-wrp">
+                <div className="clients-wrp__top">
+                  {/* <AddNewButton title="New Client" /> */}
+                  {/* <input
                       type="text"
                       placeholder="Search by name"
                       className="clients-wrp__search"
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
                     /> */}
-                    <div
-                      style={{ width: "100%" }}
-                      className="invitations-menu-search"
-                    >
-                      <SearchInput setState={setSearchTerm} />
-                    </div>
+                  <div
+                    style={{ width: "100%" }}
+                    className="invitations-menu-search"
+                  >
+                    <SearchInput setState={setSearchTerm} />
                   </div>
-                  <ClientsTable
-                    data={
-                      searchTerm === ""
-                        ? data
-                        : data.filter(
-                            (i) =>
-                              (i.first_name &&
-                                i.first_name
-                                  .toLowerCase()
-                                  .includes(searchTerm.toLowerCase())) ||
-                              (i.last_name &&
-                                i.last_name
-                                  .toLowerCase()
-                                  .includes(searchTerm.toLowerCase()))
-                          )
-                    }
-                  />
                 </div>
-              )}
-            </>
-          )}
-          <br />
-        </div>
+                <ClientsTable
+                  data={
+                    searchTerm === ""
+                      ? data
+                      : data.filter(
+                          (i) =>
+                            (i.first_name &&
+                              i.first_name
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase())) ||
+                            (i.last_name &&
+                              i.last_name
+                                .toLowerCase()
+                                .includes(searchTerm.toLowerCase()))
+                        )
+                  }
+                />
+              </div>
+            )}
+          </>
+        )}
+        <br />
       </div>
     </>
   );

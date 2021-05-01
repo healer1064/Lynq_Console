@@ -2,8 +2,6 @@
 import Head from "next/head";
 
 // components
-import Leftbar from "../../components/Leftbar";
-import Navbar from "../../components/Navbar";
 import SettingsEventTypeSelect from "../../components/Settings/SettingsEventTypeSelect";
 
 export default function Settings() {
@@ -17,14 +15,10 @@ export default function Settings() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="eventtypes" />
-      <div className="page-wrp">
-        <Leftbar active="eventtypes" />
-        <div className="content-wrp">
-          <br />
-          <br />
-          <SettingsEventTypeSelect />
-        </div>
+      <div className="content-wrp">
+        <br />
+        <br />
+        <SettingsEventTypeSelect />
       </div>
     </>
   );
