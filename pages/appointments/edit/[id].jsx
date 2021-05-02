@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // styles
@@ -14,8 +14,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import ProfileContext from "../../../context/profile";
 
 // components
-import Navbar from "../../../components/Navbar";
-import Leftbar from "../../../components/Leftbar";
 import AppointmentNewButtons from "../../../components/Appointments/AppointmentNewButtons";
 import AppointmentNewTime from "../../../components/Appointments/AppointmentNewTime";
 import PageLoading from "../../../components/common/PageLoading";
@@ -65,8 +63,6 @@ export default function AppointmentNew() {
       const status = await response.status;
 
       const data = await response.json();
-
-      // console.log(new Date(data.starting_date));
 
       if (status == 200) {
         setEventType(data.activity_name);
@@ -262,85 +258,76 @@ export default function AppointmentNew() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="appointments" />
-      <div className="page-wrp">
-        <Leftbar active="appointments" />
-        <div className="content-wrp">
-          {!data ? (
-            <PageLoading />
-          ) : (
-            <div className="appointment-new">
-              <h2>Appointment</h2>
-              <ToastContainer />
-              <label>
-                <strong>Event Type</strong>
-                <input readOnly value={eventType} />
-              </label>
-              <label>
-                <strong>Duration (in minutes)</strong>
-                <input value={duration} readOnly />
-              </label>
-              <label className="small" style={{ position: "relative" }}>
-                <strong>Price</strong>
-                <input value={price} readOnly style={{ paddingLeft: "25px" }} />
-                <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
-              </label>
-              <label className="small">
-                <strong>Client's Email</strong>
-                <input readOnly value={email} />
-              </label>
-              <label className="small">
-                <strong>Client's First Name</strong>
-                <input readOnly value={firstName} />
-              </label>
-              <label className="small">
-                <strong>Client's Last Name</strong>
-                <input readOnly value={lastName} />
-              </label>
-              <label style={{ position: "relative" }} className="quarter">
-                <strong>Day</strong>
-                <DatePicker
-                  minDate={moment().toDate()}
-                  selected={pickerDay}
-                  onChange={(date) => {
-                    setPicker(date);
-                    setDay(moment(date));
-                  }}
-                />
-              </label>
-              <label className="three-quarter">
-                {day && eventId !== "" && (
-                  <AppointmentNewTime
-                    times={times}
-                    setTime={setTime}
-                    loading={timeLoading}
-                    handleNextArrow={handleNextArrow}
-                    handlePrevArrow={handlePrevArrow}
-                    prevDisable={prevDisable}
-                  />
-                )}
-              </label>
-              {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
-              {error && (
-                <div>
-                  <p
-                    style={{
-                      color: "red",
-                      paddingBottom: "20px",
-                      width: "100%",
-                    }}
-                  >
-                    Please fill all fields
-                  </p>
-                </div>
-              )}
-              <AppointmentNewButtons
-                handleBook={handleBook}
-                loading={loading}
+      <div className="content-wrp">
+        {!data ? (
+          <PageLoading />
+        ) : (
+          <div className="appointment-new">
+            <h2>Appointment</h2>
+            <label>
+              <strong>Event Type</strong>
+              <input readOnly value={eventType} />
+            </label>
+            <label>
+              <strong>Duration (in minutes)</strong>
+              <input value={duration} readOnly />
+            </label>
+            <label className="small" style={{ position: "relative" }}>
+              <strong>Price</strong>
+              <input value={price} readOnly style={{ paddingLeft: "25px" }} />
+              <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
+            </label>
+            <label className="small">
+              <strong>Client's Email</strong>
+              <input readOnly value={email} />
+            </label>
+            <label className="small">
+              <strong>Client's First Name</strong>
+              <input readOnly value={firstName} />
+            </label>
+            <label className="small">
+              <strong>Client's Last Name</strong>
+              <input readOnly value={lastName} />
+            </label>
+            <label style={{ position: "relative" }} className="quarter">
+              <strong>Day</strong>
+              <DatePicker
+                minDate={moment().toDate()}
+                selected={pickerDay}
+                onChange={(date) => {
+                  setPicker(date);
+                  setDay(moment(date));
+                }}
               />
-            </div>
-          )}
-        </div>
+            </label>
+            <label className="three-quarter">
+              {day && eventId !== "" && (
+                <AppointmentNewTime
+                  times={times}
+                  setTime={setTime}
+                  loading={timeLoading}
+                  handleNextArrow={handleNextArrow}
+                  handlePrevArrow={handlePrevArrow}
+                  prevDisable={prevDisable}
+                />
+              )}
+            </label>
+            {error && (
+              <div>
+                <p
+                  style={{
+                    color: "red",
+                    paddingBottom: "20px",
+                    width: "100%",
+                  }}
+                >
+                  Please fill all fields
+                </p>
+              </div>
+            )}
+            <AppointmentNewButtons handleBook={handleBook} loading={loading} />
+          </div>
+        )}
       </div>
     </>
   );

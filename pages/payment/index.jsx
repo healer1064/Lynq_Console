@@ -1,7 +1,7 @@
 // libraries
 import Head from "next/head";
 import { useState, useContext, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
 
@@ -9,8 +9,6 @@ import Fade from "react-reveal/Fade";
 import ProfileContext from "../../context/profile";
 
 // components
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
 import RequestPayment from "../../components/Payment/RequestPayment";
 import PaymentHistory from "../../components/Payment/PaymentHistory";
 import PageLoading from "../../components/common/PageLoading";
@@ -22,7 +20,6 @@ export default function Payment() {
   // states
   const [payment, setPayment] = useState();
   const [loading, setLoading] = useState(false);
-  const [tabIndex, setTabIndex] = useState(1);
   const [data, setData] = useState(null);
 
   const getPayments = async () => {
@@ -114,30 +111,25 @@ export default function Payment() {
           rel="stylesheet"
         />
       </Head>
-      <ToastContainer />
-      <Navbar active="payments" />
-      <div className="page-wrp">
-        <Leftbar active="payments" />
-        <div className="content-wrp ">
-          {!data ? (
-            <PageLoading />
-          ) : (
-            <Fade>
-              <div className="payment">
-                <>
-                  <br />
-                  <RequestPayment
-                    data={data}
-                    payment={payment}
-                    loading={loading}
-                    getBusinessData={getBusinessData}
-                  />
-                  <PaymentHistory data={data.transfer_history} />
-                </>
-              </div>
-            </Fade>
-          )}
-        </div>
+      <div className="content-wrp ">
+        {!data ? (
+          <PageLoading />
+        ) : (
+          <Fade>
+            <div className="payment">
+              <>
+                <br />
+                <RequestPayment
+                  data={data}
+                  payment={payment}
+                  loading={loading}
+                  getBusinessData={getBusinessData}
+                />
+                <PaymentHistory data={data.transfer_history} />
+              </>
+            </div>
+          </Fade>
+        )}
       </div>
     </>
   );

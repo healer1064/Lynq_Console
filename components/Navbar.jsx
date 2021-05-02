@@ -1,6 +1,6 @@
 // libraries
 import Link from "next/link";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Rotate from "react-reveal/Rotate";
 import Fade from "react-reveal/Fade";
@@ -13,11 +13,11 @@ const Navbar = ({ active }) => {
   const [settings, setSettings] = useState(false);
   const [payment, setPayment] = useState(false);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const logout = () => {
     localStorage.removeItem("linqToken");
-    router.push("/login");
+    window.location.href = "/login";
   };
 
   useEffect(() => {

@@ -133,11 +133,15 @@ body
     cursor: pointer
     padding: 8px 10px
     user-select: none
+    padding-left: 50px
+    &:hover
+      background: #717BE4
 
     svg
       color: white
       font-size: 20px
       margin-right: 10px
+      display: none
 
 .send-invite-btn
   background: $lavender
@@ -782,6 +786,8 @@ body
       @include flex
       align-items: center
       text-decoration: none
+      &:hover
+        background: #717BE4
       &.active
         background: #717BE4
       img
@@ -1551,12 +1557,24 @@ body
         &.inactive
           .appointments-col__card
             background: #E1E1E1
-            pointer-events: none
+            pointer-events: all
             .det
               color: $grey
               b
                 color: $grey
             .arrow
+              path
+                fill: $grey
+        &.inactive-active
+          .appointments-col__card
+            background: #E1E1E1
+            pointer-events: all
+            .det
+              color: $grey
+              b
+                color: $grey
+            .arrow
+              transform: rotate(180deg)
               path
                 fill: $grey
         &.active
@@ -1591,6 +1609,8 @@ body
         border-color: $lavender
       &.yellow
         border-color: rgb(255, 255, 0)
+      &.gray
+        border-color: #E1E1E1
       .title
         font-weight: 600
         font-size: 24px
@@ -2031,6 +2051,13 @@ body
       line-height: 15px
       color: #FA1317
       margin-bottom: 24px
+    .sent__time
+        font-weight: 400
+        font-size: 12px
+        line-height: 15px
+        margin-bottom: 24px
+        margin-top: -10px
+        color: $lavender
     .info__col
       @include flex
       flex-direction: column
@@ -3468,6 +3495,9 @@ body
   background: #141414
   border-color: #141414
 
+.card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane
+    padding: 0 !important
+
 .ant-btn:hover
   color: $lavender !important
   border-color: $lavender !important
@@ -3569,6 +3599,60 @@ body
       font-size: 0.8rem
       font-style: italic
       text-align: left
+
+.select-event-type-info
+  display: flex
+  align-items: center
+  margin-top: 100px
+  margin-left: 10px
+  gap: 10px
+  color: #7E88F4
+  cursor: pointer
+  position: relative
+
+  .select-event-type-info-main
+    display: flex
+    flex-direction: column
+    position: absolute
+    background: white
+    left: 200px
+    top: -280px
+    color: #444
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1)
+    border-radius: 8px
+    width: 650px
+    z-index: 1000000
+    padding: 20px 10px
+    margin-bottom: 50px
+
+    .select-event-type-info-close
+      position: absolute
+      right: 10px
+      top: 10px
+
+    h1
+      font-size: 1.3rem
+      font-weight: 700
+      text-align: center
+    li
+      margin: 10px 0px
+
+.donot-allow-clients
+  input
+    width: 50px
+    text-align: center
+    font-size: 1.1rem
+    &:focus
+      outline: none
+
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button 
+  -webkit-appearance: none;
+  margin: 0
+
+  input[type=number]
+    -moz-appearance: textfield
+
             
 @media (max-width: $breakpointLaptop)
 

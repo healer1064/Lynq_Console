@@ -6,7 +6,7 @@ import Fade from "react-reveal/Fade";
 // components
 import AppointmentCard from "../Home/AppointmentCard";
 
-const AppointmentsListItem = ({ data, toggle }) => {
+const AppointmentsListItem = ({ data }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
@@ -38,6 +38,7 @@ const AppointmentsListItem = ({ data, toggle }) => {
           appointments && setOpen(!open);
         }}
         className="appointments-col__card"
+        style={{ backgroundColor: `${!status && "#E1E1E1"}` }}
       >
         <div
           className="det"
@@ -68,7 +69,7 @@ const AppointmentsListItem = ({ data, toggle }) => {
           <div style={{ width: "100%" }}>
             {sortList(appointments).map((data, index) => (
               <Fade key={index} collapse duration={1000}>
-                <AppointmentCard key={index} data={data} toggle={toggle} />
+                <AppointmentCard key={index} data={data} />
               </Fade>
             ))}
           </div>

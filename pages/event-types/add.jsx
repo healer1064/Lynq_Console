@@ -1,10 +1,7 @@
 // libraries
 import Head from "next/head";
-import { useState } from "react";
 
 // components
-import Leftbar from "../../components/Leftbar";
-import Navbar from "../../components/Navbar";
 import SettingsEventTypeAdd from "../../components/Settings/SettingsEventTypeAdd";
 
 export default function EventTypesAdd() {
@@ -18,13 +15,9 @@ export default function EventTypesAdd() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="eventtypes" />
-      <div className="page-wrp">
-        <Leftbar active="eventtypes" />
-        <div className="content-wrp">
-          <br />
-          <SettingsEventTypeAdd />
-        </div>
+      <div className="content-wrp">
+        <br />
+        <SettingsEventTypeAdd />
       </div>
     </>
   );

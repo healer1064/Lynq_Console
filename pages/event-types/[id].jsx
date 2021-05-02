@@ -7,8 +7,6 @@ import { useState, useContext, useEffect } from "react";
 import ProfileContext from "../../context/profile";
 
 // components
-import Leftbar from "../../components/Leftbar";
-import Navbar from "../../components/Navbar";
 import SettingsEventTypeEdit from "../../components/Settings/SettingsEventTypeEdit";
 import PageLoading from "../../components/common/PageLoading";
 
@@ -60,13 +58,9 @@ export default function EventTypeEdit() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="eventtypes" />
-      <div className="page-wrp">
-        <Leftbar active="eventtypes" />
-        <div className="content-wrp">
-          <br />
-          {data ? <SettingsEventTypeEdit eventType={data} /> : <PageLoading />}
-        </div>
+      <div className="content-wrp">
+        <br />
+        {data ? <SettingsEventTypeEdit eventType={data} /> : <PageLoading />}
       </div>
     </>
   );

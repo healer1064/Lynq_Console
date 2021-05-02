@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // styles
@@ -14,8 +14,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import ProfileContext from "../../../context/profile";
 
 // components
-import Navbar from "../../../components/Navbar";
-import Leftbar from "../../../components/Leftbar";
 // import AppointmentNewShare from "../../components/Appointments/AppointmentNewShare";
 import AppointmentNewButtons from "../../../components/Appointments/AppointmentNewButtons";
 import AppointmentNewTime from "../../../components/Appointments/AppointmentNewTime";
@@ -215,128 +213,120 @@ export default function AppointmentNew() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="appointments" />
-      <div className="page-wrp">
-        <Leftbar active="appointments" />
-        <div className="content-wrp">
-          {!data ? (
-            <PageLoading />
-          ) : (
-            <div className="appointment-new">
-              <h2>Appointment</h2>
-              <ToastContainer />
-              <label>
-                <strong>Event Type</strong>
-                <select
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    if (value !== -1) {
-                      let event = data.find((item) => item.id == value);
-                      setDuration(event.duration);
-                      setPrice(event.price);
-                      setEventType(event.name);
-                      setEventId(event.id);
-                    }
+      <div className="content-wrp">
+        {!data ? (
+          <PageLoading />
+        ) : (
+          <div className="appointment-new">
+            <h2>Appointment</h2>
+            <label>
+              <strong>Event Type</strong>
+              <select
+                onChange={(e) => {
+                  const { value } = e.target;
+                  if (value !== -1) {
+                    let event = data.find((item) => item.id == value);
+                    setDuration(event.duration);
+                    setPrice(event.price);
+                    setEventType(event.name);
+                    setEventId(event.id);
+                  }
+                }}
+              >
+                <option value={-1}>Select Event Type</option>
+                {data
+                  .filter((i) => i.isActive == true)
+                  .map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <label>
+              <strong>Duration (in minutes)</strong>
+              <input
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+                type="text"
+                placeholder="Example: 120 Min"
+              />
+            </label>
+            <label className="small" style={{ position: "relative" }}>
+              <strong>Price</strong>
+              <input
+                type="number"
+                min="0"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                style={{ paddingLeft: "25px" }}
+              />
+              <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
+            </label>
+            <label className="small">
+              <strong>Client's Email</strong>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+            <label className="small">
+              <strong>Client's First Name</strong>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </label>
+            <label className="small">
+              <strong>Client's Last Name</strong>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </label>
+            <label style={{ position: "relative" }} className="quarter">
+              <strong>Day</strong>
+              <DatePicker
+                minDate={moment().toDate()}
+                selected={pickerDay}
+                onChange={(date) => {
+                  setPicker(date);
+                  setDay(moment(date));
+                }}
+              />
+            </label>
+            <label className="three-quarter">
+              {day && eventId !== "" && (
+                <AppointmentNewTime
+                  times={times}
+                  setTime={setTime}
+                  loading={timeLoading}
+                  handleNextArrow={handleNextArrow}
+                  handlePrevArrow={handlePrevArrow}
+                  prevDisable={prevDisable}
+                />
+              )}
+            </label>
+            {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
+            {error && (
+              <div>
+                <p
+                  style={{
+                    color: "red",
+                    paddingBottom: "20px",
+                    width: "100%",
                   }}
                 >
-                  <option value={-1}>Select Event Type</option>
-                  {data
-                    .filter((i) => i.isActive == true)
-                    .map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))}
-                </select>
-              </label>
-              <label>
-                <strong>Duration (in minutes)</strong>
-                <input
-                  value={duration}
-                  onChange={(e) => setDuration(e.target.value)}
-                  type="text"
-                  placeholder="Example: 120 Min"
-                />
-              </label>
-              <label className="small" style={{ position: "relative" }}>
-                <strong>Price</strong>
-                <input
-                  type="number"
-                  min="0"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  style={{ paddingLeft: "25px" }}
-                />
-                <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
-              </label>
-              <label className="small">
-                <strong>Client's Email</strong>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </label>
-              <label className="small">
-                <strong>Client's First Name</strong>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </label>
-              <label className="small">
-                <strong>Client's Last Name</strong>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </label>
-              <label style={{ position: "relative" }} className="quarter">
-                <strong>Day</strong>
-                <DatePicker
-                  minDate={moment().toDate()}
-                  selected={pickerDay}
-                  onChange={(date) => {
-                    setPicker(date);
-                    setDay(moment(date));
-                  }}
-                />
-              </label>
-              <label className="three-quarter">
-                {day && eventId !== "" && (
-                  <AppointmentNewTime
-                    times={times}
-                    setTime={setTime}
-                    loading={timeLoading}
-                    handleNextArrow={handleNextArrow}
-                    handlePrevArrow={handlePrevArrow}
-                    prevDisable={prevDisable}
-                  />
-                )}
-              </label>
-              {/* <AppointmentNewShare email={email} setEmail={setEmail} /> */}
-              {error && (
-                <div>
-                  <p
-                    style={{
-                      color: "red",
-                      paddingBottom: "20px",
-                      width: "100%",
-                    }}
-                  >
-                    Please fill all fields
-                  </p>
-                </div>
-              )}
-              <AppointmentNewButtons
-                handleBook={handleBook}
-                loading={loading}
-              />
-            </div>
-          )}
-        </div>
+                  Please fill all fields
+                </p>
+              </div>
+            )}
+            <AppointmentNewButtons handleBook={handleBook} loading={loading} />
+          </div>
+        )}
       </div>
     </>
   );

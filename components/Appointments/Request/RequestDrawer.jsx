@@ -1,7 +1,6 @@
 // libraries
 import React, { useEffect, useState } from "react";
 import { Drawer } from "antd";
-import Fade from "react-reveal/Fade";
 
 // styles
 import "antd/dist/antd.css";
@@ -51,6 +50,8 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
     }
   }, []);
 
+  console.log(appointments);
+
   return (
     <Drawer
       width={440}
@@ -73,22 +74,40 @@ const RequestDrawer = ({ isOpen, toggle, apt, day, thatDate }) => {
             <div
               key={index}
               className={`${styles.request_drawer_item} ${
-                item.status === "CONFIRMED" ? styles.blue : styles.red
+                !item.activity_name
+                  ? styles.yellow
+                  : item.status === "CONFIRMED"
+                  ? styles.blue
+                  : styles.red
               }`}
             >
-              <div className={styles.title}>{item.activity_name}</div>
+              <div className={styles.title}>
+                {item.activity_name ? item.activity_name : item.summary}
+              </div>
               <div className={styles.det}>
                 {moment(item.starting_date).format("ddd, MMM DD, YYYY")}
                 <div className={styles.line}></div>
                 <b>
                   {moment(item.starting_date).format("hh:mm a")} -
-                  {moment(item.starting_date)
-                    .add(item.session_duration, "minutes")
-                    .format("hh:mm a")}
+                  {moment(item.ending_date).format("hh:mm a")}
                 </b>
                 <div className={styles.line}></div>
-                <b>{item.session_duration} mins</b>
+                <b>
+                  {item.activity_name
+                    ? item.session_duration
+                    : moment(item.ending_date).diff(
+                        moment(item.starting_date),
+                        "minutes"
+                      )}{" "}
+                  mins
+                </b>
               </div>
+              {!item.activity_name && (
+                <>
+                  <br />
+                  <span>Booking from Google Calendar</span>
+                </>
+              )}
             </div>
           ))
         )}

@@ -20,29 +20,29 @@ const Leftbar = ({ active }) => {
   // router
   const router = useRouter();
 
-  useEffect(() => {
-    if (
-      active === "appointments" ||
-      active === "answers" ||
-      active === "requests"
-    ) {
-      setActivities(true);
-    } else if (active === "payment-details" || active === "payments") {
-      setPayments(true);
-    } else if (
-      active === "cal-sync" ||
-      active === "eventtypes" ||
-      active === "settings"
-    ) {
-      setSettings(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     active === "appointments" ||
+  //     active === "answers" ||
+  //     active === "requests"
+  //   ) {
+  //     setActivities(true);
+  //   } else if (active === "payment-details" || active === "payments") {
+  //     setPayments(true);
+  //   } else if (
+  //     active === "cal-sync" ||
+  //     active === "eventtypes" ||
+  //     active === "settings"
+  //   ) {
+  //     setSettings(true);
+  //   }
+  // }, []);
 
   return (
     <div className="side-nav">
       <nav>
         <Link href="/">
-          <a className={active === "" ? "active" : ""}>
+          <a className={router.pathname === "/" ? "active" : ""}>
             <img src="/img/nav-home.svg" alt="" />
             <span>Home</span>
           </a>
@@ -65,9 +65,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "appointments"
-                      ? "rgba(0,0,0,0.15)"
-                      : "transparent"
+                    router.pathname === "/appointments" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -78,7 +76,9 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "requests" ? "rgba(0,0,0,0.15)" : "transparent"
+                    router.pathname === "/appointments/requests"
+                      ? "#717BE4"
+                      : ""
                   }`,
                 }}
               >
@@ -89,7 +89,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "answers" ? "rgba(0,0,0,0.15)" : "transparent"
+                    router.pathname === "/appointments/answers" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -113,7 +113,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "settings" ? "rgba(0,0,0,0.15)" : "transparent"
+                    router.pathname === "/settings" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -124,7 +124,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "eventtypes" ? "rgba(0,0,0,0.15)" : "transparent"
+                    router.pathname === "/event-types" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -135,7 +135,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "cal-sync" ? "rgba(0,0,0,0.15)" : "transparent"
+                    router.pathname === "/settings/calendar" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -145,14 +145,14 @@ const Leftbar = ({ active }) => {
           </div>
         )}
         <Link href="/public-profile">
-          <a className={active === "profile" ? "active" : ""}>
+          <a className={router.pathname === "/public-profile" ? "active" : ""}>
             <img src="/img/nav-profile.svg" alt="" />
             <span>Public Profile</span>
           </a>
         </Link>
         {/* <div className="space"></div> */}
         <Link href="/dashboard">
-          <a className={active === "dashboard" ? "active" : ""}>
+          <a className={router.pathname === "/dashboard" ? "active" : ""}>
             <FaChartLine
               color="white"
               style={{ marginRight: "8px" }}
@@ -176,7 +176,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "payments" ? "rgba(0,0,0,0.15)" : "transparent"
+                    router.pathname === "/payment" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -187,9 +187,7 @@ const Leftbar = ({ active }) => {
               <p
                 style={{
                   background: `${
-                    active === "payment-details"
-                      ? "rgba(0,0,0,0.15)"
-                      : "transparent"
+                    router.pathname === "/payment-details" ? "#717BE4" : ""
                   }`,
                 }}
               >
@@ -199,7 +197,7 @@ const Leftbar = ({ active }) => {
           </div>
         )}
         <Link href="/support">
-          <a className={active === "contact" ? "active" : ""}>
+          <a className={router.pathname === "/support" ? "active" : ""}>
             <img src="/img/nav-contact.svg" alt="" />
             <span>Support</span>
           </a>

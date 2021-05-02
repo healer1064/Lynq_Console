@@ -1,8 +1,9 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BsInfoCircleFill } from "react-icons/bs";
+import { useRouter } from "next/router";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -23,6 +24,8 @@ const SettingsEventTypeEdit = ({ eventType }) => {
   const [price, setPrice] = useState();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [listingPrice, setLisitngPrice] = useState(null);
+  const [listingLoading, setLisitngLoading] = useState(false);
 
   // context
   const { token } = useContext(ProfileContext);
@@ -39,6 +42,12 @@ const SettingsEventTypeEdit = ({ eventType }) => {
     setPolicy(eventType.cancellation_policy);
     setPrice(eventType.price);
   }, []);
+
+  useEffect(() => {
+    if (price !== "" && price) {
+      findListingPrice(price);
+    }
+  }, [price]);
 
   const handleEdit = () => {
     if (
@@ -98,6 +107,39 @@ const SettingsEventTypeEdit = ({ eventType }) => {
         toast.error("An error has occurred");
       }
     });
+  };
+
+  const findListingPrice = async (price) => {
+    if (price != "") {
+      setLisitngLoading(true);
+      async function get() {
+        const response = await fetch(
+          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setLisitngPrice(await response.json());
+
+        return await response;
+      }
+
+      get()
+        .then((res) => {
+          setLisitngLoading(false);
+          if (res.status != 200) {
+            toast.error("An error has occurred");
+          }
+        })
+        .catch(() => {
+          toast.error("An error has occurred");
+        });
+    }
   };
 
   return (
@@ -221,9 +263,39 @@ const SettingsEventTypeEdit = ({ eventType }) => {
               type="number"
               min={1}
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                setPrice(e.target.value);
+                // findListingPrice(e.target.value);
+              }}
             />
             <img src="/img/dollar.svg" alt="dollar" />
+          </div>
+          <div className="events-edit__price" />
+          <div className="listing-price-info-wrap">
+            <h3>
+              Listing Price{" "}
+              <BsInfoCircleFill className="listing-price-info-icon" />
+              <div className="listing-price-info">
+                <h6>
+                  The price a customer pays to purchase the service and that
+                  includes Lynq's fees.
+                </h6>
+                <p>Fees are based on your subscription plan on Lynq</p>
+              </div>
+            </h3>
+            {listingLoading ? (
+              <img
+                style={{ width: "18px", height: "18px", marginTop: "5px" }}
+                src="/img/Rolling-dark.svg"
+                alt="rolling"
+              />
+            ) : (
+              <h3>
+                {listingPrice
+                  ? `$${listingPrice.simulated_price}`
+                  : "Please enter price above to get listing price"}
+              </h3>
+            )}
           </div>
           {error && (
             <p

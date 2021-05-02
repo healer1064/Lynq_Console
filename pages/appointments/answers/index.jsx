@@ -1,14 +1,11 @@
 // libraries
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState, useContext, useEffect } from "react";
 import Fade from "react-reveal/Fade";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // components
-import Navbar from "../../../components/Navbar";
-import Leftbar from "../../../components/Leftbar";
 import AnswersList from "../../../components/Appointments/Answers/AnswersList";
 import PageLoading from "../../../components/common/PageLoading";
 
@@ -35,9 +32,6 @@ const fake = [
 ];
 
 export default function Answers() {
-  // router
-  const router = useRouter();
-
   // context
   const { token } = useContext(ProfileContext);
 
@@ -85,39 +79,19 @@ export default function Answers() {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="answers" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="answers" />
-        <div className="content-wrp">
-          {!answers ? (
-            <PageLoading />
-          ) : (
-            <Fade>
-              {/* <div style={{ margin: "0px" }} className="payment-filter">
-                <select
-                  value={filter}
-                  onChange={(e) => setFilter(e.target.value)}
-                >
-                  <option value="all">All</option>
-                  <option value="completed">Scheduled video call</option>
-                  <option value="coming">Asynchronous video call</option>
-                </select>
-              </div> */}
-              {/* <RequestList
-                requestList={requests}
-                success={success}
-                setSuccess={setSuccess}
-              /> */}
-              <AnswersList
-                answersList={answers}
-                success={success}
-                setSuccess={setSuccess}
-              />
-              <br />
-            </Fade>
-          )}
-        </div>
+      <div className="content-wrp">
+        {!answers ? (
+          <PageLoading />
+        ) : (
+          <Fade>
+            <AnswersList
+              answersList={answers}
+              success={success}
+              setSuccess={setSuccess}
+            />
+            <br />
+          </Fade>
+        )}
       </div>
     </>
   );

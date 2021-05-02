@@ -3,7 +3,8 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
+import { BsInfoCircleFill } from "react-icons/bs";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -24,12 +25,8 @@ const SettingsEventTypeAsync = () => {
   const [info, setInfo] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  // cancel policy states
-  const [isAddMore, setIsAddMore] = useState(false);
-  const [hourOne, setHourOne] = useState("24");
-  const [hourTwo, setHourTwo] = useState("6");
-  const [per, setPer] = useState("50");
+  const [listingPrice, setLisitngPrice] = useState(null);
+  const [listingLoading, setLisitngLoading] = useState(false);
 
   // context
   const { token } = useContext(ProfileContext);
@@ -89,6 +86,39 @@ const SettingsEventTypeAsync = () => {
   //       }
   //     });
   //   };
+
+  const findListingPrice = async (price) => {
+    if (price != "") {
+      setLisitngLoading(true);
+      async function get() {
+        const response = await fetch(
+          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setLisitngPrice(await response.json());
+
+        return await response;
+      }
+
+      get()
+        .then((res) => {
+          setLisitngLoading(false);
+          if (res.status != 200) {
+            toast.error("An error has occurred");
+          }
+        })
+        .catch(() => {
+          toast.error("An error has occurred");
+        });
+    }
+  };
 
   return (
     <div className="events-wrp">
@@ -189,9 +219,55 @@ const SettingsEventTypeAsync = () => {
                 type="number"
                 min={1}
                 value={expressPrice}
+                onChange={(e) => {
+                  setExpressPrice(e.target.value);
+                  findListingPrice(e.target.value);
+                }}
+              />
+              <img src="/img/dollar.svg" alt="dollar" />
+            </div>
+          </div>
+          <div className="event-type-async-price-time">
+            <div className="events-edit__price"></div>
+            <div className="events-edit__price">
+              {/* <strong>Express Price</strong>
+              <input
+                type="number"
+                min={1}
+                value={expressPrice}
                 onChange={(e) => setExpressPrice(e.target.value)}
               />
               <img src="/img/dollar.svg" alt="dollar" />
+            </div> */}
+              <div className="listing-price-info-wrap">
+                <h3>
+                  Listing Price{" "}
+                  <BsInfoCircleFill className="listing-price-info-icon" />
+                  <div
+                    style={{ top: "-80px", width: "100%" }}
+                    className="listing-price-info"
+                  >
+                    <h6>
+                      The price a customer pays to purchase the service and that
+                      includes Lynq's fees.
+                    </h6>
+                    <p>Fees are based on your subscription plan on Lynq</p>
+                  </div>
+                </h3>
+                {listingLoading ? (
+                  <img
+                    style={{ width: "18px", height: "18px", marginTop: "5px" }}
+                    src="/img/Rolling-dark.svg"
+                    alt="rolling"
+                  />
+                ) : (
+                  <h3>
+                    {listingPrice
+                      ? `$${listingPrice.simulated_price}`
+                      : "Please enter price above to get listing price"}
+                  </h3>
+                )}
+              </div>
             </div>
           </div>
           {error && (

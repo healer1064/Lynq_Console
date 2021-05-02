@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // context
@@ -13,8 +13,6 @@ import ProfileContext from "../../../../context/profile";
 // components
 import Loading from "../../../../components/common/Loading";
 import RequestDrawer from "../../../../components/Appointments/Request/RequestDrawer";
-import Navbar from "../../../../components/Navbar";
-import Leftbar from "../../../../components/Leftbar";
 import PageLoading from "../../../../components/common/PageLoading";
 
 const RequestDetail = () => {
@@ -28,7 +26,6 @@ const RequestDetail = () => {
   // states
   const [apt, setApt] = useState(null);
   const [data, setData] = useState(null);
-  const [requests, setRequests] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [rejectLoading, setRejectLoading] = useState(false);
   const [acceptLoading, setAcceptLoading] = useState(false);
@@ -54,7 +51,6 @@ const RequestDetail = () => {
       );
       const _data = await response.json();
 
-      setRequests(_data);
       setData(_data.find((i) => i.id == id));
     } catch (err) {
       toast.error("Error, Failed to Fetch Request!!!");
@@ -166,99 +162,88 @@ const RequestDetail = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="requests" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="requests" />
-        <div className="content-wrp">
-          {!data || !apt ? (
-            <PageLoading />
-          ) : (
+      <div className="content-wrp">
+        {!data || !apt ? (
+          <PageLoading />
+        ) : (
+          <Fade>
+            <br />
+            <br />
             <Fade>
-              <br />
-              <br />
-              <Fade>
-                <div style={{ marginTop: "-30px" }} className="content-wrp">
-                  <div className="appointment-request">
-                    {isOpen && (
-                      <RequestDrawer
-                        isOpen={isOpen}
-                        toggle={toggleDrawer}
-                        apt={apt}
-                        day={moment(data.starting_date).format(
-                          "ddd, MMM DD, YYYY"
-                        )}
-                        thatDate={data.starting_date}
-                      />
-                    )}
-                    <a
-                      className="appointment-request__back"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => router.back()}
-                    >
-                      Back
-                    </a>
-                    <h2>Appointment Request</h2>
-                    <span className="received__time">
-                      {/* Received: 'no created at field in backend' */}
-                      Received: {getFromTime()}
+              <div style={{ marginTop: "-30px" }} className="content-wrp">
+                <div className="appointment-request">
+                  {isOpen && (
+                    <RequestDrawer
+                      isOpen={isOpen}
+                      toggle={toggleDrawer}
+                      apt={apt}
+                      day={moment(data.starting_date).format(
+                        "ddd, MMM DD, YYYY"
+                      )}
+                      thatDate={data.starting_date}
+                    />
+                  )}
+                  <a
+                    className="appointment-request__back"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => router.back()}
+                  >
+                    Back
+                  </a>
+                  <h2>Appointment Request</h2>
+                  <span className="received__time">
+                    {/* Received: 'no created at field in backend' */}
+                    Received: {getFromTime()}
+                  </span>
+                  <div className="info__col">
+                    <strong>Event type</strong>
+                    <p>{data.activity_name}</p>
+                  </div>
+                  <div className="info__col">
+                    <strong>Duration</strong>
+                    <p>{data.session_duration}mins</p>
+                  </div>
+                  <div className="info__col">
+                    <strong>Price</strong>
+                    <p>${data.display_price || "0"}</p>
+                  </div>
+                  <div className="info__col">
+                    <strong>Day</strong>
+                    <p>
+                      {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
+                    </p>
+                    <span className="see__day" onClick={() => setIsOpen(true)}>
+                      See you how your day look like
                     </span>
-                    <ToastContainer />
-                    <div className="info__col">
-                      <strong>Event type</strong>
-                      <p>{data.activity_name}</p>
-                    </div>
-                    <div className="info__col">
-                      <strong>Duration</strong>
-                      <p>{data.session_duration}mins</p>
-                    </div>
-                    <div className="info__col">
-                      <strong>Price</strong>
-                      <p>${data.display_price || "0"}</p>
-                    </div>
-                    <div className="info__col">
-                      <strong>Day</strong>
-                      <p>
-                        {moment(data.starting_date).format(
-                          "dddd, MMMM DD, YYYY"
-                        )}
-                      </p>
-                      <span
-                        className="see__day"
-                        onClick={() => setIsOpen(true)}
-                      >
-                        See you how your day look like
-                      </span>
-                    </div>
+                  </div>
 
-                    <div className="info__col">
-                      <strong>Time</strong>
-                      <p>{moment(data.starting_date).format("hh:mm a")}</p>
-                    </div>
-                    <div className="info__col">
-                      <strong>Appointment made by</strong>
-                      <p>{`${data.first_name} ${data.last_name}`}</p>
-                    </div>
-                    <div className="appointment-request__btns">
-                      <button
-                        className="reject"
-                        onClick={() => requestReject(data.id)}
-                      >
-                        {rejectLoading && <Loading color="#fff" />}REJECT
-                      </button>
-                      <button
-                        className="accept"
-                        onClick={() => requestAccept(data.id)}
-                      >
-                        {acceptLoading && <Loading />}ACCEPT
-                      </button>
-                    </div>
+                  <div className="info__col">
+                    <strong>Time</strong>
+                    <p>{moment(data.starting_date).format("hh:mm a")}</p>
+                  </div>
+                  <div className="info__col">
+                    <strong>Appointment made by</strong>
+                    <p>{`${data.first_name} ${data.last_name}`}</p>
+                  </div>
+                  <div className="appointment-request__btns">
+                    <button
+                      className="reject"
+                      onClick={() => requestReject(data.id)}
+                    >
+                      {rejectLoading && <Loading color="#fff" />}REJECT
+                    </button>
+                    <button
+                      className="accept"
+                      onClick={() => requestAccept(data.id)}
+                    >
+                      {acceptLoading && <Loading />}ACCEPT
+                    </button>
                   </div>
                 </div>
-              </Fade>
+              </div>
             </Fade>
-          )}
-        </div>
+          </Fade>
+        )}
       </div>
     </>
   );

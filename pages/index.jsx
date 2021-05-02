@@ -3,15 +3,13 @@ import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
 import Fade from "react-reveal/Fade";
 import moment from "moment";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../context/profile";
 
 // components
-import Navbar from "../components/Navbar";
-import Leftbar from "../components/Leftbar";
 // import EmailConfirmation from "../components/Home/EmailConfirmation";
 import PageLoading from "../components/common/PageLoading";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
@@ -67,7 +65,6 @@ const home = () => {
       );
 
       const _data = await response.json();
-      console.log(_data);
 
       var groupArrays = [];
 
@@ -110,7 +107,6 @@ const home = () => {
   const getCurrentSession = (_data) => {
     let format = "hh:mm A";
 
-    // let time = moment(`2021-04-14T16:00:00.262608`);
     let time = moment();
 
     _data.forEach((appt) => {
@@ -130,7 +126,6 @@ const home = () => {
     console.log(_data);
     let format = "hh:mm A";
 
-    // let time = moment(`2021-04-14T16:00:00.262608`);
     let time = moment();
 
     _data.sort(compare);
@@ -186,78 +181,73 @@ const home = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="" />
-      <ToastContainer />
-      <div className="page-wrp">
-        <Leftbar active="" />
-        <div className="home-wrp">
-          {appointmentList === null ? (
-            <PageLoading />
-          ) : (
-            <>
-              <div className="notifications__col">
-                {/* <EmailConfirmation /> */}
-                {currSession.time !== null && slugData !== null && (
-                  <div className="session">
-                    <span>
-                      {currSession.name !== null
-                        ? "Current live session"
-                        : "From google calender"}
-                      | {currSession.time}
-                    </span>
-                    {currSession.name !== null && (
-                      <a
-                        href={`https://us.lynq.app/${slugData.slug}/teacher/${currSession.id}`}
-                        className="access__live"
-                        target="_blank"
-                      >
-                        ACCESS THE LIVE
-                      </a>
-                    )}
-                  </div>
-                )}
-                {nextSession.time !== null && slugData !== null && (
-                  <div className="session">
-                    <span>
-                      {nextSession.name !== null
-                        ? "Click here to start your next session"
-                        : "From google calender"}
-                      | {nextSession.time}
-                    </span>
-                    {nextSession.name !== null && (
-                      <a
-                        href={`https://us.lynq.app/${slugData?.slug}/teacher/${nextSession.id}`}
-                        className="start__live"
-                        target="blank"
-                      >
-                        START THE LIVE
-                      </a>
-                    )}
-                  </div>
-                )}
-              </div>
-              <Fade duration={1000}>
-                <div className="home-cnt">
-                  <div className="home-cnt__date">
-                    <div className="date-slug-inner">
-                      {fullDate()}
-                      <h2>Today’s Session</h2>
-                    </div>
-                    <span>
-                      <h4>Your Lynq url</h4>
-                      <h5>
-                        {slugData && slugData.slug
-                          ? `us.lynq.app/${slugData.slug}`
-                          : "You need to customize it in Public Profile"}
-                      </h5>
-                    </span>
-                  </div>
-                  <HomeAppointmentsList appointmentList={appointmentList} />
+      <div className="home-wrp">
+        {appointmentList === null ? (
+          <PageLoading />
+        ) : (
+          <>
+            <div className="notifications__col">
+              {/* <EmailConfirmation /> */}
+              {currSession.time !== null && slugData !== null && (
+                <div className="session">
+                  <span>
+                    {currSession.name !== null
+                      ? "Current live session"
+                      : "From google calender"}
+                    | {currSession.time}
+                  </span>
+                  {currSession.name !== null && (
+                    <a
+                      href={`https://us.lynq.app/${slugData.slug}/teacher/${currSession.id}`}
+                      className="access__live"
+                      target="_blank"
+                    >
+                      ACCESS THE LIVE
+                    </a>
+                  )}
                 </div>
-              </Fade>
-            </>
-          )}
-        </div>
+              )}
+              {nextSession.time !== null && slugData !== null && (
+                <div className="session">
+                  <span>
+                    {nextSession.name !== null
+                      ? "Click here to start your next session"
+                      : "From google calender"}
+                    | {nextSession.time}
+                  </span>
+                  {nextSession.name !== null && (
+                    <a
+                      href={`https://us.lynq.app/${slugData?.slug}/teacher/${nextSession.id}`}
+                      className="start__live"
+                      target="blank"
+                    >
+                      START THE LIVE
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+            <Fade duration={1000}>
+              <div className="home-cnt">
+                <div className="home-cnt__date">
+                  <div className="date-slug-inner">
+                    {fullDate()}
+                    <h2>Today’s Session</h2>
+                  </div>
+                  <span>
+                    <h4>Your Lynq url</h4>
+                    <h5>
+                      {slugData && slugData.slug
+                        ? `us.lynq.app/${slugData.slug}`
+                        : "You need to customize it in Public Profile"}
+                    </h5>
+                  </span>
+                </div>
+                <HomeAppointmentsList appointmentList={appointmentList} />
+              </div>
+            </Fade>
+          </>
+        )}
       </div>
     </>
   );

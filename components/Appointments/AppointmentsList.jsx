@@ -2,7 +2,7 @@
 import AppointmentsListItem from "./AppointmentsListItem";
 import NewAppointmentButton from "./NewAppointmentButton";
 
-const AppointmentsList = ({ appointmentList, toggle }) => {
+const AppointmentsList = ({ appointmentList }) => {
   const sortList = (list) => {
     return list.sort((a, b) => new Date(b.date) - new Date(a.date));
   };
@@ -22,9 +22,7 @@ const AppointmentsList = ({ appointmentList, toggle }) => {
       <br />
       <div className="appointments-col">
         {sortList(appointmentList).map((item, index) => {
-          return (
-            <AppointmentsListItem data={item} key={index} toggle={toggle} />
-          );
+          return <AppointmentsListItem data={item} key={index} />;
         })}
       </div>
     </div>

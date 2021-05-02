@@ -1,13 +1,11 @@
 // libraries
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // components
-import Navbar from "../../components/Navbar";
-import Leftbar from "../../components/Leftbar";
 import PersonalInformation from "../../components/Account/PersonalInformation";
 import BusinessPayments from "../../components/Account/BusinessPayments";
 import ChangePassword from "../../components/Account/ChangePassword";
@@ -15,7 +13,6 @@ import PageLoading from "../../components/common/PageLoading";
 
 // context
 import ProfileContext from "../../context/profile";
-import { createRef } from "react";
 
 const Account = () => {
   const { token } = useContext(ProfileContext);
@@ -278,120 +275,115 @@ const Account = () => {
           rel="stylesheet"
         />
       </Head>
-      <Navbar active="account" />
-      <div className="page-wrp">
-        <Leftbar />
-        <div className="content-wrp">
-          {!profile || !business ? (
-            <PageLoading />
-          ) : (
-            <div className="account">
-              <div className="account-tab">
-                <ToastContainer />
-                <p onClick={() => router.push("/account")} className="active">
-                  Account
-                </p>
-                {/* <p onClick={() => router.push("/account/billing")}>Billing</p> */}
+      <div className="content-wrp">
+        {!profile || !business ? (
+          <PageLoading />
+        ) : (
+          <div className="account">
+            <div className="account-tab">
+              <p onClick={() => router.push("/account")} className="active">
+                Account
+              </p>
+              {/* <p onClick={() => router.push("/account/billing")}>Billing</p> */}
+            </div>
+            <div className="account-content">
+              <div className="account-content-side-nav">
+                <div onClick={() => setSection("plans")}>
+                  <img src="/img/account-send.svg" alt="current-plan" />
+                  <p>Current Plan</p>
+                </div>
+                <div onClick={() => setSection("personal")}>
+                  <img src="/img/account-send.svg" alt="current-plan" />
+                  <p>Personal Information</p>
+                </div>
+                <div onClick={() => setSection("payments")}>
+                  <img src="/img/account-send.svg" alt="current-plan" />
+                  <p>Business & Payments</p>
+                </div>
+                <div className="last" onClick={() => setSection("password")}>
+                  <img src="/img/account-send.svg" alt="current-plan" />
+                  <p>Change Password</p>
+                </div>
               </div>
-              <div className="account-content">
-                <div className="account-content-side-nav">
-                  <div onClick={() => setSection("plans")}>
-                    <img src="/img/account-send.svg" alt="current-plan" />
-                    <p>Current Plan</p>
-                  </div>
-                  <div onClick={() => setSection("personal")}>
-                    <img src="/img/account-send.svg" alt="current-plan" />
-                    <p>Personal Information</p>
-                  </div>
-                  <div onClick={() => setSection("payments")}>
-                    <img src="/img/account-send.svg" alt="current-plan" />
-                    <p>Business & Payments</p>
-                  </div>
-                  <div className="last" onClick={() => setSection("password")}>
-                    <img src="/img/account-send.svg" alt="current-plan" />
-                    <p>Change Password</p>
-                  </div>
+              <select
+                value={section}
+                onChange={(e) => setSection(e.target.value)}
+                className="account-content-side-nav-mob"
+              >
+                <option value="plans">Current Plan</option>
+                <option value="personal">Personal Information</option>
+                <option value="payments">Business & Payments</option>
+                <option value="password">Change Password</option>
+              </select>
+              <div className="account-info">
+                <div className="account-subscription">
+                  <h3>Subscription</h3>
+                  <h6>Your Current Plan</h6>
+                  <p>
+                    EARLY BIRD with 10% commission added on top of your session
+                    price
+                  </p>
+                  <h6>Processing Fees On Payments</h6>
+                  <p>2.9%</p>
+                  <h6>Example On $10 Ticket</h6>
+                  <p>You will be paid $10 - $0.29 =$9.71</p>
                 </div>
-                <select
-                  value={section}
-                  onChange={(e) => setSection(e.target.value)}
-                  className="account-content-side-nav-mob"
-                >
-                  <option value="plans">Current Plan</option>
-                  <option value="personal">Personal Information</option>
-                  <option value="payments">Business & Payments</option>
-                  <option value="password">Change Password</option>
-                </select>
-                <div className="account-info">
-                  <div className="account-subscription">
-                    <h3>Subscription</h3>
-                    <h6>Your Current Plan</h6>
-                    <p>
-                      EARLY BIRD with 10% commission added on top of your
-                      session price
-                    </p>
-                    <h6>Processing Fees On Payments</h6>
-                    <p>2.9%</p>
-                    <h6>Example On $10 Ticket</h6>
-                    <p>You will be paid $10 - $0.29 =$9.71</p>
-                  </div>
-                  <PersonalInformation
-                    profile={profile}
-                    setPersonalInfoShow={setPersonalInfoShow}
-                    personalInfoShow={personalInfoShow}
-                    updateProfile={updateProfile}
-                    name={name}
-                    email={email}
-                    address={address}
-                    city={city}
-                    zip={zip}
-                    phone={phone}
-                    setName={setName}
-                    setEmail={setEmail}
-                    setAddress={setAddress}
-                    setCity={setCity}
-                    setZip={setZip}
-                    setPhone={setPhone}
-                    personalInfoError={personalInfoError}
-                    loading={loading}
-                  />
-                  <BusinessPayments
-                    business={business}
-                    accountBusShow={accountBusShow}
-                    setAccountBusShow={setAccountBusShow}
-                    updateBusiness={updateBusiness}
-                    businessName={businessName}
-                    setBusinessName={setBusinessName}
-                    bank={bank}
-                    setBank={setBank}
-                    iban={iban}
-                    setIban={setIban}
-                    account={account}
-                    setAccount={setAccount}
-                    paymentsError={paymentsError}
-                    loading={loading}
-                    routing={routing}
-                    setRouting={setRouting}
-                  />
-                  <ChangePassword
-                    passShow={passShow}
-                    setPassShow={setPassShow}
-                    updatePassword={updatePassword}
-                    prevPass={prevPass}
-                    setPrevPass={setPrevPass}
-                    newPass={newPass}
-                    setNewPass={setNewPass}
-                    confirmPass={confirmPass}
-                    setConfirmPass={setConfirmPass}
-                    passError={passError}
-                    passCheck={passCheck}
-                    loading={loading}
-                  />
-                </div>
+                <PersonalInformation
+                  profile={profile}
+                  setPersonalInfoShow={setPersonalInfoShow}
+                  personalInfoShow={personalInfoShow}
+                  updateProfile={updateProfile}
+                  name={name}
+                  email={email}
+                  address={address}
+                  city={city}
+                  zip={zip}
+                  phone={phone}
+                  setName={setName}
+                  setEmail={setEmail}
+                  setAddress={setAddress}
+                  setCity={setCity}
+                  setZip={setZip}
+                  setPhone={setPhone}
+                  personalInfoError={personalInfoError}
+                  loading={loading}
+                />
+                <BusinessPayments
+                  business={business}
+                  accountBusShow={accountBusShow}
+                  setAccountBusShow={setAccountBusShow}
+                  updateBusiness={updateBusiness}
+                  businessName={businessName}
+                  setBusinessName={setBusinessName}
+                  bank={bank}
+                  setBank={setBank}
+                  iban={iban}
+                  setIban={setIban}
+                  account={account}
+                  setAccount={setAccount}
+                  paymentsError={paymentsError}
+                  loading={loading}
+                  routing={routing}
+                  setRouting={setRouting}
+                />
+                <ChangePassword
+                  passShow={passShow}
+                  setPassShow={setPassShow}
+                  updatePassword={updatePassword}
+                  prevPass={prevPass}
+                  setPrevPass={setPrevPass}
+                  newPass={newPass}
+                  setNewPass={setNewPass}
+                  confirmPass={confirmPass}
+                  setConfirmPass={setConfirmPass}
+                  passError={passError}
+                  passCheck={passCheck}
+                  loading={loading}
+                />
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

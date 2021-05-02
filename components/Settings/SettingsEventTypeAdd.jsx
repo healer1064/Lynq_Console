@@ -334,16 +334,13 @@ const SettingsEventTypeAdd = () => {
           <div className="listing-price-info-wrap">
             <h3>
               Listing Price{" "}
-              <BsInfoCircleFill
-                className="listing-price-info-icon"
-                // onMouseOver={() => setLisitng(true)}
-              />
+              <BsInfoCircleFill className="listing-price-info-icon" />
               <div className="listing-price-info">
                 <h6>
                   The price a customer pays to purchase the service and that
                   includes Lynq's fees.
                 </h6>
-                <p>Fees are based on your subscription plan on Amazon</p>
+                <p>Fees are based on your subscription plan on Lynq</p>
               </div>
             </h3>
             {listingLoading ? (
@@ -353,7 +350,7 @@ const SettingsEventTypeAdd = () => {
                 alt="rolling"
               />
             ) : (
-              <h3 style={{}}>
+              <h3>
                 {listingPrice
                   ? `$${listingPrice.simulated_price}`
                   : "Please enter price above to get listing price"}
