@@ -22,12 +22,10 @@ const home = () => {
   const [appointmentList, setAppointmentList] = useState(null);
   const [currSession, setCurrSession] = useState({
     time: null,
-    link: null,
     id: null,
   });
   const [nextSession, setNextSession] = useState({
     time: null,
-    link: null,
     id: null,
   });
 
@@ -37,21 +35,21 @@ const home = () => {
     }
   }, [token]);
 
-  useEffect(() => {
-    if (slugData !== null) {
-      setCurrSession({
-        ...currSession,
-        link: `us.lynq.app/${slugData.slug}/teacher/${currSession.id}`,
-      });
-    }
+  // useEffect(() => {
+  //   if (slugData !== null) {
+  //     setCurrSession({
+  //       ...currSession,
+  //       link: `us.lynq.app/${slugData.slug}/teacher/${currSession.id}`,
+  //     });
+  //   }
 
-    if (slugData !== null) {
-      setNextSession({
-        ...nextSession,
-        link: `us.lynq.app/${slugData.slug}/teacher/${nextSession.id}`,
-      });
-    }
-  }, [slugData]);
+  //   if (slugData !== null) {
+  //     setNextSession({
+  //       ...nextSession,
+  //       link: `us.lynq.app/${slugData.slug}/teacher/${nextSession.id}`,
+  //     });
+  //   }
+  // }, [slugData]);
 
   const fetchAppointments = async () => {
     const config = {
@@ -116,15 +114,16 @@ const home = () => {
       let end = moment(appt.ending_date);
       if (time.isBetween(start, end)) {
         setCurrSession({
-          link: `us.lynq.app/${slugData.slug}/teacher/${appt.id}`,
           time: `${start.format(format)} - ${end.format(format)}`,
           id: appt.id,
+          name: appt.activity_name,
         });
       }
     });
   };
 
   const getNextSession = (_data) => {
+    console.log(_data);
     let format = "hh:mm A";
 
     let time = moment();
@@ -136,14 +135,15 @@ const home = () => {
       let end = moment(_data[i].ending_date);
 
       if (time.isBefore(start, end)) {
+        console.log(_data[i]);
         setNextSession({
-          link: `us.lynq.app/${slugData?.slug}/teacher/${_data[i].id}`,
           time: time.isSame(start, "day")
             ? `${start.format(format)} - ${end.format(format)}`
             : `${start.format(format)} - ${end.format(format)} ${start.format(
                 "MMM DD YYYY"
               )}`,
           id: _data[i].id,
+          name: _data[i].activity_name,
         });
 
         break;
@@ -188,30 +188,42 @@ const home = () => {
           <>
             <div className="notifications__col">
               {/* <EmailConfirmation /> */}
-              {currSession.time !== null && (
-                <div className="session">
-                  <span>Current live session | {currSession.time}</span>
-                  <a
-                    href={`https://${currSession.link}`}
-                    className="access__live"
-                    target="_blank"
-                  >
-                    ACCESS THE LIVE
-                  </a>
-                </div>
-              )}
-              {nextSession.time !== null && (
+              {currSession.time !== null && slugData !== null && (
                 <div className="session">
                   <span>
-                    Click here to start your next session | {nextSession.time}
+                    {currSession.name !== null
+                      ? "Current live session"
+                      : "From google calender"}
+                    | {currSession.time}
                   </span>
-                  <a
-                    href={`https://${nextSession.link}`}
-                    className="start__live"
-                    target="blank"
-                  >
-                    START THE LIVE
-                  </a>
+                  {currSession.name !== null && (
+                    <a
+                      href={`https://us.lynq.app/${slugData.slug}/teacher/${currSession.id}`}
+                      className="access__live"
+                      target="_blank"
+                    >
+                      ACCESS THE LIVE
+                    </a>
+                  )}
+                </div>
+              )}
+              {nextSession.time !== null && slugData !== null && (
+                <div className="session">
+                  <span>
+                    {nextSession.name !== null
+                      ? "Click here to start your next session"
+                      : "From google calender"}
+                    | {nextSession.time}
+                  </span>
+                  {nextSession.name !== null && (
+                    <a
+                      href={`https://us.lynq.app/${slugData?.slug}/teacher/${nextSession.id}`}
+                      className="start__live"
+                      target="blank"
+                    >
+                      START THE LIVE
+                    </a>
+                  )}
                 </div>
               )}
             </div>
