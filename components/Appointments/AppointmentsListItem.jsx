@@ -15,9 +15,16 @@ const AppointmentsListItem = ({ data }) => {
 
   useEffect(() => {
     var currentDate = new Date();
-    var serverDate = new Date(date);
+    // var serverDate = new Date(date);
 
-    setStatus(serverDate >= currentDate);
+    // setStatus(serverDate >= currentDate);
+
+    const stat = appointments.map((apt) => apt.starting_date);
+    var bool = false;
+    stat.forEach((i) => {
+      bool = new Date(i) >= currentDate;
+    });
+    setStatus(bool);
   }, [data]);
 
   const sortList = (list) => {

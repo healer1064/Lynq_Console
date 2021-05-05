@@ -61,8 +61,6 @@ export const ProfileProvider = ({ children }) => {
         setToken,
         profile,
         slugData,
-        eventType,
-        setEventType,
       }}
     >
       {children}

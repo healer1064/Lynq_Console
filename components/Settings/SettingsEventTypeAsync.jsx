@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { BsInfoCircleFill } from "react-icons/bs";
 
 // context
@@ -18,11 +18,11 @@ const SettingsEventTypeAsync = () => {
   const [infoCount, setInfoCount] = useState(0);
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
+  const [info, setInfo] = useState("");
   const [standardDelivery, setStandardDelivery] = useState(7);
   const [standardPrice, setStandardPrice] = useState();
   const [expressDelivery, setExpressDelivery] = useState();
   const [expressPrice, setExpressPrice] = useState();
-  const [info, setInfo] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [listingPrice, setLisitngPrice] = useState(null);
@@ -34,58 +34,82 @@ const SettingsEventTypeAsync = () => {
   // router
   const router = useRouter();
 
-  //   const handleSave = () => {
-  //     if (eventName !== "" && desc !== "" && duration !== "" && price !== "") {
-  //       if (duration === "custom" && customDur === "") {
-  //         setError(true);
-  //       } else {
-  //         setLoading(true);
-  //         setError(false);
-  //         addEventType();
-  //       }
-  //     } else {
-  //       setError(true);
-  //     }
-  //   };
+  const handleSave = () => {
+    if (
+      eventName !== "" &&
+      desc !== "" &&
+      info !== "" &&
+      standardDelivery !== "" &&
+      standardPrice !== "" &&
+      expressDelivery !== "" &&
+      expressPrice !== ""
+    ) {
+      setError(true);
+      setLoading(true);
+      addEventType();
+    } else {
+      setError(true);
+    }
+  };
 
-  //   const addEventType = () => {
-  //     const _reqData = {
-  //       id: uuidv4(),
-  //       name: eventName,
-  //       teacherId: "string",
-  //       description: desc,
-  //       duration: duration === "custom" ? customDur : duration,
-  //       price,
-  //       material_needed: info,
-  //     };
+  const addEventType = () => {
+    // "name": "string",
+    // "userId": "string",
+    // "packages": [
+    //   {
+    //     "id": "string",
+    //     "name": "string",
+    //     "price": 0
+    //   }
+    // ]
 
-  //     async function add() {
-  //       const response = await fetch(
-  //         `https://api.lynq.app/account/event-type?t=${token}`,
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify(_reqData),
-  //         }
-  //       );
+    const standard = {
+      name: "Standard",
+      price: standardPrice,
+    };
+    const express = {
+      name: "Express",
+      price: expressPrice,
+    };
 
-  //       return await response;
-  //     }
+    const _reqData = {
+      id: uuidv4(),
+      name: eventName,
+      description: desc,
+      clientNeeds: info,
+      packages: [standard, express],
+    };
 
-  //     add().then((res) => {
-  //       setLoading(false);
-  //       if (res.status == 200) {
-  //         console.log("Event type added", res);
-  //         setTab("eventtype");
-  //       } else {
-  //         console.log("Error Event type added", res);
-  //         toast.error("An error has occurred");
-  //       }
-  //     });
-  //   };
+    console.log(_reqData);
+
+    async function add() {
+      const response = await fetch(
+        `https://api.lynq.app/async/type?t=${token}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(_reqData),
+        }
+      );
+
+      return await response;
+    }
+
+    add()
+      .then((res) => {
+        setLoading(false);
+        if (res.status == 200) {
+          console.log("Event type added", res);
+        } else {
+          console.log("Error Event type added", res);
+          toast.error("An error has occurred");
+        }
+      })
+      .then(() => toast.error("An error has occurred"));
+  };
 
   const findListingPrice = async (price) => {
     if (price != "") {
@@ -230,15 +254,6 @@ const SettingsEventTypeAsync = () => {
           <div className="event-type-async-price-time">
             <div className="events-edit__price"></div>
             <div className="events-edit__price">
-              {/* <strong>Express Price</strong>
-              <input
-                type="number"
-                min={1}
-                value={expressPrice}
-                onChange={(e) => setExpressPrice(e.target.value)}
-              />
-              <img src="/img/dollar.svg" alt="dollar" />
-            </div> */}
               <div className="listing-price-info-wrap">
                 <h3>
                   Listing Price{" "}
@@ -295,7 +310,7 @@ const SettingsEventTypeAsync = () => {
             style={{
               position: "relative",
             }}
-            // onClick={handleSave}
+            onClick={handleSave}
           >
             {loading && <Loading />}Save
           </button>

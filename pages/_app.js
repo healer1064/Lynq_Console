@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps }) {
         <>
           <ToastContainer />
           <Navbar active="" />
-          <div className="page-wrp">
+          <div style={{ height: "auto" }} className="page-wrp">
             <Leftbar active="" />
             <Component {...pageProps} />
           </div>
