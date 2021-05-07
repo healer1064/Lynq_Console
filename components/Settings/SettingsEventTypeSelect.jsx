@@ -13,8 +13,6 @@ const SettingsEventTypeSelect = () => {
   // state
   const [info, setInfo] = useState(false);
 
-  console.log(info);
-
   return (
     <div className="settings-event-type-select">
       <p
@@ -33,17 +31,21 @@ const SettingsEventTypeSelect = () => {
       <button onClick={() => router.push("/event-types/add")}>
         <GoPrimitiveDot /> 1:1 Live video call
       </button>
-      <button onClick={() => router.push("event-types/add-async")}>
+      <button onClick={() => router.push("/event-types/async/add")}>
         <GoPrimitiveDot /> 1:1 Asynchronous video call
       </button>
       <div className="select-event-type-info" onClick={() => setInfo(!info)}>
         <BsFillInfoCircleFill color="#7E88F4" />
-        How does it work?
-        {!info ? (
-          <span></span>
-        ) : (
+        How does it work?{" "}
+      </div>
+      {info && (
+        <div
+          className="select-event-type-info-main-wrap"
+          onClick={() => setInfo(false)}
+        >
           <div className="select-event-type-info-main">
             <AiFillCloseCircle
+              size={24}
               onClick={(e) => {
                 e.stopPropagation();
                 setInfo(false);
@@ -103,8 +105,8 @@ const SettingsEventTypeSelect = () => {
               </ol>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

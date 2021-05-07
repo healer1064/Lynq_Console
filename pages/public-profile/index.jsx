@@ -15,6 +15,8 @@ import { categoriesData, states } from "../../utils/data/publicprofile";
 
 // icons
 import { FaImage } from "react-icons/fa";
+import { BsFillPlusCircleFill } from "react-icons/bs";
+import { ImBin2 } from "react-icons/im";
 import { AiOutlineCopy } from "react-icons/ai";
 
 // components
@@ -34,6 +36,8 @@ const EditProfile = () => {
   const [city, setCity] = useState("");
   const [state, setState] = useState();
   const [categories, setCategories] = useState([]);
+  const [otherOne, setOtherOne] = useState("");
+  const [otherTwo, setOtherTwo] = useState("");
   const [facebook, setFacebook] = useState("");
   const [instagram, setInstagram] = useState("");
   const [youtube, setYoutube] = useState("");
@@ -52,6 +56,8 @@ const EditProfile = () => {
   const [slugNotAvail, setSlugNotAvail] = useState(false);
   const [slugRule, setSlugRule] = useState(false);
   // const [allowMsg, setAllowMsg] = useState(false);
+  const [showOther, setShowOther] = useState(false);
+  const [secondOther, setSecondOther] = useState(false);
 
   const imgRef = useRef();
 
@@ -154,7 +160,7 @@ const EditProfile = () => {
       id: profile.id,
       slug,
       location: `${city} - ${state}`,
-      category: JSON.stringify(categories),
+      category: JSON.stringify(showOther ? [otherOne, otherTwo] : categories),
       about: generalPres,
       facebook,
       instagram,
@@ -281,6 +287,10 @@ const EditProfile = () => {
       }
     }
   };
+
+  useEffect(() => {
+    setShowOther(categories.find((cat) => cat === "Other"));
+  }, [categories]);
 
   // const toggleAllowMsg = () => setAllowMsg(!allowMsg);
 
@@ -416,7 +426,6 @@ const EditProfile = () => {
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
-
               <div>
                 <label>City*</label>
                 <input
@@ -453,6 +462,48 @@ const EditProfile = () => {
                   categories={categoriesData}
                 />
               </div>
+              {showOther && (
+                <p style={{ color: "#838383", fontSize: "0.8rem" }}>
+                  Note: When you select other, you can't add pre-existing
+                  categories at the same time
+                </p>
+              )}
+              {showOther && (
+                <div>
+                  <label>Name your categories</label>
+                  <input
+                    type="text"
+                    value={otherOne}
+                    onChange={(e) => setOtherOne(e.target.value)}
+                  />
+                  {!secondOther && (
+                    <BsFillPlusCircleFill
+                      onClick={() => setSecondOther(true)}
+                      size={22}
+                      color="#7E88F4"
+                      style={{ cursor: "pointer" }}
+                    />
+                  )}
+                  {secondOther && (
+                    <>
+                      <input
+                        type="text"
+                        value={otherTwo}
+                        onChange={(e) => setOtherTwo(e.target.value)}
+                      />
+                      <ImBin2
+                        color="#838383"
+                        onClick={() => {
+                          setSecondOther(false);
+                          setOtherTwo("");
+                        }}
+                        size={22}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </>
+                  )}
+                </div>
+              )}
               <h3>Social Information</h3>
               <div>
                 <label>Facebook</label>

@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
-import { BsInfoCircleFill, BsFillPlusCircleFill } from "react-icons/bs";
-import { ImBin2 } from "react-icons/im";
+import { BsInfoCircleFill } from "react-icons/bs";
 
 // context
 import ProfileContext from "../../context/profile";
@@ -30,7 +29,6 @@ const SettingsEventTypeAsync = () => {
   const [standardList, setStandardList] = useState(null);
   const [listingLoading, setLisitngLoading] = useState(false);
   const [standardListing, setStandardLisitng] = useState(false);
-  const [showPremium, setShowPremium] = useState(false);
 
   // context
   const { token } = useContext(ProfileContext);
@@ -247,7 +245,7 @@ const SettingsEventTypeAsync = () => {
           </div>
           {/* <div className="events-edit__price"> */}
           <div
-            style={{ marginTop: "-15px", marginBottom: "15px" }}
+            style={{ marginTop: "-15px" }}
             className="listing-price-info-wrap"
           >
             <h3>
@@ -278,97 +276,73 @@ const SettingsEventTypeAsync = () => {
               </h3>
             )}
           </div>
-          {showPremium && (
-            <>
-              <div className="event-type-async-price-time">
-                <div className="events-edit__price">
-                  <strong>Express Delivery Time (in days)</strong>
-                  <input
-                    type="number"
-                    style={{ paddingLeft: "16px" }}
-                    min={1}
-                    value={expressDelivery}
-                    onChange={(e) => setExpressDelivery(e.target.value)}
-                    placeholder="Enter express delivery time in days"
-                  />
-                </div>
-                <div className="events-edit__price">
-                  <strong>Express Price</strong>
-                  <input
-                    type="number"
-                    min={1}
-                    value={expressPrice}
-                    name="express"
-                    onChange={(e) => {
-                      setExpressPrice(e.target.value);
-                      // findListingPrice(e.target.value);
-                      findListingPrice(e);
-                    }}
-                  />
-                  <img src="/img/dollar.svg" alt="dollar" />
-                </div>
-              </div>
-              <div
-                style={{ marginBottom: "15px" }}
-                className="event-type-async-price-time"
-              >
+          {/* </div> */}
+          <div className="event-type-async-price-time">
+            <div className="events-edit__price">
+              <strong>Express Delivery Time (in days)</strong>
+              <input
+                type="number"
+                style={{ paddingLeft: "16px" }}
+                min={1}
+                value={expressDelivery}
+                onChange={(e) => setExpressDelivery(e.target.value)}
+                placeholder="Enter express delivery time in days"
+              />
+            </div>
+            <div className="events-edit__price">
+              <strong>Express Price</strong>
+              <input
+                type="number"
+                min={1}
+                value={expressPrice}
+                name="express"
+                onChange={(e) => {
+                  setExpressPrice(e.target.value);
+                  // findListingPrice(e.target.value);
+                  findListingPrice(e);
+                }}
+              />
+              <img src="/img/dollar.svg" alt="dollar" />
+            </div>
+          </div>
+          <div className="event-type-async-price-time">
+            {/* <div className="events-edit__price"></div> */}
+            {/* <div className="events-edit__price"> */}
+            <div
+              style={{ marginTop: "-15px" }}
+              className="listing-price-info-wrap"
+            >
+              <h3>
+                Listing Price{" "}
+                <BsInfoCircleFill className="listing-price-info-icon" />
                 <div
-                  style={{ marginTop: "-15px" }}
-                  className="listing-price-info-wrap"
+                  style={{ top: "-80px", width: "100%" }}
+                  className="listing-price-info"
                 >
-                  <h3>
-                    Listing Price{" "}
-                    <BsInfoCircleFill className="listing-price-info-icon" />
-                    <div
-                      style={{ top: "-80px", width: "100%" }}
-                      className="listing-price-info"
-                    >
-                      <h6>
-                        The price a customer pays to purchase the service and
-                        that includes Lynq's fees.
-                      </h6>
-                      <p>Fees are based on your subscription plan on Lynq</p>
-                    </div>
-                  </h3>
-                  {listingLoading ? (
-                    <img
-                      style={{
-                        width: "18px",
-                        height: "18px",
-                        marginTop: "5px",
-                      }}
-                      src="/img/Rolling-dark.svg"
-                      alt="rolling"
-                    />
-                  ) : (
-                    <h3>
-                      {listingPrice
-                        ? `$${listingPrice.simulated_price}`
-                        : "Please enter price above to get listing price"}
-                    </h3>
-                  )}
+                  <h6>
+                    The price a customer pays to purchase the service and that
+                    includes Lynq's fees.
+                  </h6>
+                  <p>Fees are based on your subscription plan on Lynq</p>
                 </div>
-                <br />
-              </div>
-            </>
-          )}
-
-          {showPremium ? (
-            <span
-              onClick={() => setShowPremium(false)}
-              className="add-remove-premium"
-            >
-              <ImBin2 /> <span>Remove premium package</span>
-            </span>
-          ) : (
-            <span
-              onClick={() => setShowPremium(true)}
-              className="add-remove-premium"
-            >
-              <BsFillPlusCircleFill size={22} color="#7E88F4" />{" "}
-              <span>Add premium package</span>
-            </span>
-          )}
+              </h3>
+              {listingLoading ? (
+                <img
+                  style={{ width: "18px", height: "18px", marginTop: "5px" }}
+                  src="/img/Rolling-dark.svg"
+                  alt="rolling"
+                />
+              ) : (
+                <h3>
+                  {listingPrice
+                    ? `$${listingPrice.simulated_price}`
+                    : "Please enter price above to get listing price"}
+                </h3>
+              )}
+            </div>
+            <br />
+            {/* </div> */}
+          </div>
           {error && (
             <p
               style={{

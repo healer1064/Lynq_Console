@@ -2,7 +2,7 @@
 import Head from "next/head";
 
 // components
-import SettingsEventTypeSelect from "../../components/Settings/SettingsEventTypeSelect";
+import SettingsEventTypeSelect from "../../../components/Settings/SettingsEventTypeSelect";
 
 export default function Settings() {
   return (

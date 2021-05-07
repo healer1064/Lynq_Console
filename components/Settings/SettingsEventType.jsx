@@ -61,12 +61,12 @@ const SettingsEventType = () => {
     );
     const data = await response.json();
 
-    setAsyncData(data);
+    setAsyncData(data.content);
   };
 
   useEffect(() => {
     getEventTypes();
-    // getAsync();
+    getAsync();
   }, [response, token]);
 
   return (
@@ -79,7 +79,7 @@ const SettingsEventType = () => {
         }}
       >
         <AddNewButton
-          onClick={() => router.push("select-event-type")}
+          onClick={() => router.push("event-types/select")}
           title="Add Event Type"
         />
       </div>
@@ -98,16 +98,16 @@ const SettingsEventType = () => {
           )}
         </TabPane>
         <TabPane tab="Asynchronous" key="2">
-          {!data ? (
+          {!asyncData ? (
             <PageLoading />
-          ) : data.length === 0 ? (
+          ) : asyncData.length === 0 ? (
             <EmptyData title="No event types to show" />
           ) : (
             <EventList
               response={response}
               setResponse={setResponse}
-              events={data}
-              // events={asyncData}
+              // events={data}
+              events={asyncData}
             />
           )}
         </TabPane>

@@ -2,9 +2,9 @@
 import Head from "next/head";
 
 // components
-import SettingsEventTypeAsync from "../../components/Settings/SettingsEventTypeAsync";
+import SettingsEventTypeAsync from "../../../components/Settings/SettingsEventTypeAsync";
 
-export default function Settings() {
+export default function AsyncAdd() {
   return (
     <>
       <Head>
