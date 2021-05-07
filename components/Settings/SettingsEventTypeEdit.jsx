@@ -1,7 +1,6 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { BsInfoCircleFill } from "react-icons/bs";
 import { useRouter } from "next/router";
 
@@ -144,7 +143,6 @@ const SettingsEventTypeEdit = ({ eventType }) => {
 
   return (
     <div className="events-wrp">
-      <ToastContainer />
       <div className="events-edit">
         <h2>Edit Event Type</h2>
         <div className="events-edit__inner">

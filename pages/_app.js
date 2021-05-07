@@ -61,8 +61,6 @@ function MyApp({ Component, pageProps }) {
     };
   }, []);
 
-  console.log(sidebar);
-
   return (
     <ProfileProvider>
       {preLoading ? (

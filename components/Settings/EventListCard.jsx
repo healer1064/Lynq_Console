@@ -1,10 +1,8 @@
 // libraries
 import { useState, useContext } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import "react-toastify/dist/ReactToastify.css";
 import Fade from "react-reveal/Fade";
-import { v4 as uuidv4 } from "uuid";
 import { IoCopyOutline } from "react-icons/io5";
 
 // context
@@ -73,7 +71,6 @@ const EventListCard = ({
     setOpen(false);
     setLoading(true);
     const _reqData = {
-      id: uuidv4(),
       name: `Copy of ${card.name}`,
       teacherId: card.teacherId,
       description: card.description,
@@ -113,7 +110,6 @@ const EventListCard = ({
 
   return (
     <div className="events-row__card">
-      <ToastContainer />
       <Fade duration={1000}>
         <strong>{card.name}</strong>
         <div className="btm">
@@ -148,7 +144,12 @@ const EventListCard = ({
               <IoCopyOutline size={15} style={{ marginRight: "8px" }} />
               Duplicate
             </span>
-            <span onClick={() => deleteEventType(card.id)}>
+            <span
+              onClick={() => {
+                setOpen(false);
+                deleteEventType(card.id);
+              }}
+            >
               <img src="/img/events-delete-icon.svg" alt="" />
               Delete
             </span>

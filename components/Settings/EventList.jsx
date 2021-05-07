@@ -1,7 +1,6 @@
 // libraries
 import { useContext, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 // components
 import EventListCard from "./EventListCard";
@@ -60,7 +59,6 @@ const EventList = ({ events, setResponse, response }) => {
           <img src="/img/loading.gif" width={60} />
         </div>
       )}
-      <ToastContainer />
       <div className="events-row">
         {events.map((card, index) => (
           <EventListCard

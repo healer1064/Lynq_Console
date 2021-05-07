@@ -1,7 +1,6 @@
 // libraries
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // components
 import AsyncEventListCard from "./AsyncEventListCard";
@@ -16,6 +15,7 @@ const AsyncEventList = ({ events, setResponse, response }) => {
   const [loading, setLoading] = useState(false);
 
   const deleteEventType = (id) => {
+    setLoading(true);
     async function del() {
       const response = await fetch(
         `https://api.lynq.app/async/type/${id}?t=${token}`,
@@ -33,11 +33,12 @@ const AsyncEventList = ({ events, setResponse, response }) => {
 
     del()
       .then((res) => {
+        setLoading(false);
         if (res.status == 200) {
-          console.log("Event type Delete", res);
+          console.log("Async Event type Delete", res);
           setResponse(!response);
         } else {
-          console.log("Error Event type deleted", res);
+          console.log("Async Error Event type deleted", res);
           toast.error("An error has occurred");
         }
       })
@@ -62,7 +63,6 @@ const AsyncEventList = ({ events, setResponse, response }) => {
           <img src="/img/loading.gif" width={60} />
         </div>
       )}
-      <ToastContainer />
       <div className="events-row">
         {events.map((card, index) => (
           <AsyncEventListCard

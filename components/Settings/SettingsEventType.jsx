@@ -11,6 +11,7 @@ import ProfileContext from "../../context/profile";
 
 // components
 import EventList from "./EventList";
+import AsyncEventsList from "./AsyncEventsList";
 import AddNewButton from "../common/AddNewButton";
 import PageLoading from "../common/PageLoading";
 import EmptyData from "../common/EmptyData";
@@ -103,10 +104,9 @@ const SettingsEventType = () => {
           ) : asyncData.length === 0 ? (
             <EmptyData title="No event types to show" />
           ) : (
-            <EventList
+            <AsyncEventsList
               response={response}
               setResponse={setResponse}
-              // events={data}
               events={asyncData}
             />
           )}

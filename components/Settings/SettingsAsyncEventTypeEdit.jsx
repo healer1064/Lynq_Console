@@ -1,5 +1,5 @@
 // libraries
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { BsInfoCircleFill, BsFillPlusCircleFill } from "react-icons/bs";
@@ -11,23 +11,26 @@ import ProfileContext from "../../context/profile";
 // components
 import Loading from "../common/Loading";
 
-const SettingsEventTypeAsync = () => {
+const SettingsAsyncEventTypeEdit = ({ eventType }) => {
   // states
   const [descriptionCount, setDescriptionCount] = useState(0);
   const [infoCount, setInfoCount] = useState(0);
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
   const [info, setInfo] = useState("");
-  const [standardDelivery, setStandardDelivery] = useState(7);
-  const [standardPrice, setStandardPrice] = useState();
-  const [expressDelivery, setExpressDelivery] = useState();
-  const [expressPrice, setExpressPrice] = useState();
+  const [standardDelivery, setStandardDelivery] = useState("");
+  const [standardPrice, setStandardPrice] = useState("");
+  const [expressDelivery, setExpressDelivery] = useState("");
+  const [expressPrice, setExpressPrice] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [listingPrice, setLisitngPrice] = useState(null);
-  const [standardList, setStandardList] = useState(null);
-  const [listingLoading, setLisitngLoading] = useState(false);
-  const [standardListing, setStandardLisitng] = useState(false);
+  // listing price for both
+  const [standardListingPrice, setStandardListingPrice] = useState(null);
+  const [expressListingPrice, setExpressListingPrice] = useState(null);
+  // listing loading for both
+  const [expressListingLoading, setExpressListingLoading] = useState(false);
+  const [standardListingLoading, setStandardLisitngLoading] = useState(false);
+  // show premium packgafe
   const [showPremium, setShowPremium] = useState(false);
 
   // context
@@ -36,19 +39,44 @@ const SettingsEventTypeAsync = () => {
   // router
   const router = useRouter();
 
+  useEffect(() => {
+    setEventName(eventType.name);
+    setDesc(eventType.description);
+    setInfo(eventType.clientNeeds);
+    if (eventType.packages.length == 1) {
+      setStandardDelivery(eventType.packages[0].delivery);
+      setStandardPrice(eventType.packages[0].price);
+    }
+    if (eventType.packages.length == 2) {
+      setShowPremium(true);
+      setStandardDelivery(eventType.packages[0].delivery);
+      setStandardPrice(eventType.packages[0].price);
+      setExpressDelivery(eventType.packages[1].delivery);
+      setExpressPrice(eventType.packages[1].price);
+    }
+  }, []);
+
   const handleSave = () => {
     if (
       eventName !== "" &&
       desc !== "" &&
       info !== "" &&
       standardDelivery !== "" &&
-      standardPrice !== "" &&
-      expressDelivery !== "" &&
-      expressPrice !== ""
+      standardPrice !== ""
     ) {
-      setError(true);
-      setLoading(true);
-      addEventType();
+      if (showPremium) {
+        if (expressDelivery !== "" && expressPrice !== "") {
+          setError(false);
+          setLoading(true);
+          addEventType();
+        } else {
+          setError(true);
+        }
+      } else {
+        setError(false);
+        setLoading(true);
+        addEventType();
+      }
     } else {
       setError(true);
     }
@@ -75,9 +103,9 @@ const SettingsEventTypeAsync = () => {
 
     async function add() {
       const response = await fetch(
-        `https://api.lynq.app/async/type?t=${token}`,
+        `https://api.lynq.app/async/type/${eventType.id}?t=${token}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -93,8 +121,9 @@ const SettingsEventTypeAsync = () => {
       .then((res) => {
         setLoading(false);
         if (res.status == 200) {
-          console.log("Event type added", res.json());
+          console.log("Event type added", res);
           router.push("/event-types");
+          toast.success("Updated successfully");
         } else {
           console.log("Error Event type added", res);
           toast.error("An error has occurred");
@@ -106,9 +135,9 @@ const SettingsEventTypeAsync = () => {
   const findListingPrice = async (e) => {
     if (e.target.value != "") {
       if (e.target.name == "standard") {
-        setStandardLisitng(true);
+        setStandardLisitngLoading(true);
       } else {
-        setLisitngLoading(true);
+        setExpressListingLoading(true);
       }
 
       async function get() {
@@ -124,9 +153,9 @@ const SettingsEventTypeAsync = () => {
         );
 
         if (e.target.name == "standard") {
-          setStandardList(await response.json());
+          setStandardListingPrice(await response.json());
         } else {
-          setLisitngPrice(await response.json());
+          setExpressListingPrice(await response.json());
         }
 
         return await response;
@@ -135,9 +164,9 @@ const SettingsEventTypeAsync = () => {
       get()
         .then((res) => {
           if (e.target.name == "standard") {
-            setStandardLisitng(false);
+            setStandardLisitngLoading(false);
           } else {
-            setLisitngLoading(false);
+            setExpressListingLoading(false);
           }
           if (res.status != 200) {
             toast.error("An error has occurred");
@@ -146,6 +175,12 @@ const SettingsEventTypeAsync = () => {
         .catch(() => {
           toast.error("An error has occurred");
         });
+    } else {
+      if (e.target.name === "standard") {
+        setStandardListingPrice(null);
+      } else {
+        setExpressListingPrice(null);
+      }
     }
   };
 
@@ -234,6 +269,7 @@ const SettingsEventTypeAsync = () => {
               <img src="/img/dollar.svg" alt="dollar" />
             </div>
           </div>
+          {/* <div className="events-edit__price"> */}
           <div className="event-type-async-price-time">
             <div className="events-edit__price" />
             <div className="events-edit__list">
@@ -255,7 +291,7 @@ const SettingsEventTypeAsync = () => {
                     <p>Fees are based on your subscription plan on Lynq</p>
                   </div>
                 </h3>
-                {standardListing ? (
+                {standardListingLoading ? (
                   <img
                     style={{ width: "18px", height: "18px", marginTop: "5px" }}
                     src="/img/Rolling-dark.svg"
@@ -263,8 +299,8 @@ const SettingsEventTypeAsync = () => {
                   />
                 ) : (
                   <h3>
-                    {standardList
-                      ? `$${standardList.simulated_price}`
+                    {standardListingPrice
+                      ? `$${standardListingPrice.simulated_price}`
                       : "Please enter price above to get listing price"}
                   </h3>
                 )}
@@ -322,7 +358,7 @@ const SettingsEventTypeAsync = () => {
                         <p>Fees are based on your subscription plan on Lynq</p>
                       </div>
                     </h3>
-                    {listingLoading ? (
+                    {expressListingLoading ? (
                       <img
                         style={{
                           width: "18px",
@@ -334,8 +370,8 @@ const SettingsEventTypeAsync = () => {
                       />
                     ) : (
                       <h3>
-                        {listingPrice
-                          ? `$${listingPrice.simulated_price}`
+                        {expressListingPrice
+                          ? `$${expressListingPrice.simulated_price}`
                           : "Please enter price above to get listing price"}
                       </h3>
                     )}
@@ -397,4 +433,4 @@ const SettingsEventTypeAsync = () => {
   );
 };
 
-export default SettingsEventTypeAsync;
+export default SettingsAsyncEventTypeEdit;
