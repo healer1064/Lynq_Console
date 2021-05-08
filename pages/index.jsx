@@ -191,9 +191,10 @@ const home = () => {
               {currSession.time !== null && slugData !== null && (
                 <div className="session">
                   <span>
-                    {currSession.name !== null
-                      ? "Current live session"
-                      : "From google calender"}
+                    Current live session
+                    {currSession.name == null &&
+                      // ? "Current live session"
+                      " | From google calender"}
                     | {currSession.time}
                   </span>
                   {currSession.name !== null && (
@@ -210,9 +211,10 @@ const home = () => {
               {nextSession.time !== null && slugData !== null && (
                 <div className="session">
                   <span>
-                    {nextSession.name !== null
-                      ? "Click here to start your next session"
-                      : "From google calender"}
+                    Next Session
+                    {nextSession.name == null &&
+                      // ? "Click here to start your next session"
+                      " | From google calender"}
                     | {nextSession.time}
                   </span>
                   {nextSession.name !== null && (

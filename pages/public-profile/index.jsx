@@ -58,6 +58,8 @@ const EditProfile = () => {
   // const [allowMsg, setAllowMsg] = useState(false);
   const [showOther, setShowOther] = useState(false);
   const [secondOther, setSecondOther] = useState(false);
+  // cat error
+  const [catError, setCatError] = useState(false);
 
   const imgRef = useRef();
 
@@ -111,7 +113,6 @@ const EditProfile = () => {
       setNewSlug(_data.slug || "");
       setCity(_data.location?.split("-")[0] ?? "");
       setState(_data.location?.split(" - ")[1] ?? "");
-      setCategories(JSON.parse(_data.category) || []);
       setGeneralPres(_data.about || "");
       setFacebook(_data.facebook || "");
       setInstagram(_data.instagram || "");
@@ -122,6 +123,27 @@ const EditProfile = () => {
       setWhatToExpect(_data.expect_details || "");
       setImage(_data.public_image || null);
 
+      // categories
+      const intersection = JSON.parse(_data.category).filter((element) =>
+        categoriesData.includes(element)
+      );
+
+      if (intersection.length > 0) {
+        setCategories(JSON.parse(_data.category) || []);
+      } else {
+        setCategories(["Other"]);
+        setShowOther(true);
+        if (JSON.parse(_data.category).length === 1) {
+          setSecondOther(false);
+          setOtherOne(JSON.parse(_data.category)[0]);
+        } else {
+          setSecondOther(true);
+          setOtherOne(JSON.parse(_data.category)[0]);
+          setOtherTwo(JSON.parse(_data.category)[1]);
+        }
+      }
+
+      // specialties
       const arr = [];
 
       if (_data.speciality) {
@@ -160,7 +182,13 @@ const EditProfile = () => {
       id: profile.id,
       slug,
       location: `${city} - ${state}`,
-      category: JSON.stringify(showOther ? [otherOne, otherTwo] : categories),
+      category: JSON.stringify(
+        !showOther
+          ? categories
+          : secondOther && otherTwo.length > 0
+          ? [otherOne, otherTwo]
+          : [otherOne]
+      ),
       about: generalPres,
       facebook,
       instagram,
@@ -251,10 +279,13 @@ const EditProfile = () => {
     ) {
       toast.error("Please fill all required fields");
     } else {
-      setLoading(true);
-
       if (slug === newSlug) {
-        updateProfile();
+        if (catError) {
+          toast.error("Please clear the error first");
+        } else {
+          setLoading(true);
+          updateProfile();
+        }
       } else {
         async function check() {
           const response = await fetch(
@@ -289,6 +320,7 @@ const EditProfile = () => {
   };
 
   useEffect(() => {
+    setCatError(categories.length > 1 && categories.includes("Other"));
     setShowOther(categories.find((cat) => cat === "Other"));
   }, [categories]);
 
@@ -462,13 +494,13 @@ const EditProfile = () => {
                   categories={categoriesData}
                 />
               </div>
-              {showOther && (
-                <p style={{ color: "#838383", fontSize: "0.8rem" }}>
-                  Note: When you select other, you can't add pre-existing
-                  categories at the same time
+              {catError && (
+                <p style={{ color: "red", fontSize: "0.8rem" }}>
+                  You can't select a pre-existing category and other at the same
+                  time
                 </p>
               )}
-              {showOther && (
+              {!catError && showOther && (
                 <div>
                   <label>Name your categories</label>
                   <input
@@ -479,7 +511,7 @@ const EditProfile = () => {
                   {!secondOther && (
                     <BsFillPlusCircleFill
                       onClick={() => setSecondOther(true)}
-                      size={22}
+                      size={18}
                       color="#7E88F4"
                       style={{ cursor: "pointer" }}
                     />
@@ -497,7 +529,7 @@ const EditProfile = () => {
                           setSecondOther(false);
                           setOtherTwo("");
                         }}
-                        size={22}
+                        size={18}
                         style={{ cursor: "pointer" }}
                       />
                     </>

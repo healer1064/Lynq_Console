@@ -351,7 +351,7 @@ const SettingsEventTypeAsync = () => {
               onClick={() => setShowPremium(false)}
               className="add-remove-premium"
             >
-              <ImBin2 size={18} /> <span>Remove premium package</span>
+              <ImBin2 size={18} /> <span>Remove express delivery option</span>
             </span>
           ) : (
             <span
@@ -359,7 +359,7 @@ const SettingsEventTypeAsync = () => {
               className="add-remove-premium"
             >
               <BsFillPlusCircleFill size={18} color="#7E88F4" />{" "}
-              <span>Add premium package</span>
+              <span>Add an express delivery option</span>
             </span>
           )}
           {error && (
