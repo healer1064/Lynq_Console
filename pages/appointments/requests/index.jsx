@@ -28,8 +28,8 @@ export default function Appointments() {
   // states
   const [requests, setRequests] = useState(null);
   const [invitations, setInvitations] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("Active");
+  const [sentFilter, setSentFilter] = useState("Active");
   const [requestSearchTerm, setRequestSearchTerm] = useState("");
   const [sentSearchTerm, setSentSearchTerm] = useState("");
 
@@ -41,7 +41,7 @@ export default function Appointments() {
       fetchRequests();
       fetchInvitations();
     }
-  }, [token, success]);
+  }, [token]);
 
   const fetchRequests = async () => {
     const config = {
@@ -76,6 +76,7 @@ export default function Appointments() {
         config
       );
       const _data = await response.json();
+
       setInvitations(_data.reverse());
     } catch (err) {
       setInvitations([]);
@@ -112,7 +113,12 @@ export default function Appointments() {
                           <DropdownMenu
                             state={filter}
                             setState={setFilter}
-                            data={["All", "Scheduled", "Asynchronous"]}
+                            data={[
+                              "Active",
+                              "Scheduled",
+                              "Asynchronous",
+                              "Past",
+                            ]}
                           />
                         }
                         placement="bottomCenter"
@@ -137,8 +143,7 @@ export default function Appointments() {
                                   .includes(requestSearchTerm.toLowerCase())
                             )
                       }
-                      success={success}
-                      setSuccess={setSuccess}
+                      filter={filter}
                     />
                   </>
                 )}
@@ -150,7 +155,25 @@ export default function Appointments() {
                   <PageLoading />
                 ) : (
                   <>
-                    <div className="invitations-menu-search">
+                    {/* <div className="invitations-menu-search">
+                      <SearchInput setState={setSentSearchTerm} />
+                    </div> */}
+                    <div className="requests-menu-search">
+                      <Dropdown
+                        arrow
+                        overlay={
+                          <DropdownMenu
+                            state={sentFilter}
+                            setState={setSentFilter}
+                            data={["Active", "Expired"]}
+                          />
+                        }
+                        placement="bottomCenter"
+                      >
+                        <Button className="requests-dropdown-btn" size="large">
+                          {sentFilter} <CaretDownOutlined />
+                        </Button>
+                      </Dropdown>
                       <SearchInput setState={setSentSearchTerm} />
                     </div>
                     <InvitationsList
@@ -167,8 +190,7 @@ export default function Appointments() {
                                   .includes(sentSearchTerm.toLowerCase())
                             )
                       }
-                      success={success}
-                      setSuccess={setSuccess}
+                      filter={sentFilter}
                     />
                   </>
                 )}

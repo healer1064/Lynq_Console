@@ -70,7 +70,7 @@ const AppointmentDetails = () => {
         setDeleteLoading(false);
         console.log("res reject", res);
         if (res.status === 200) {
-          router.push("/appointments");
+          router.push("/appointments/requests");
         } else {
           toast.error("An error has occurred");
           console.log("res reject error", res);
@@ -180,50 +180,56 @@ const AppointmentDetails = () => {
                       <strong>Client's Email</strong>
                       <p>{data.email}</p>
                     </div>
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "2px",
-                        background: "#7E88F4",
-                        margin: "10px 0 20px",
-                      }}
-                    />
-                    <p>
-                      Invitation sent at:{" "}
-                      <span style={{ color: "#7E88F4", fontWeight: "500" }}>
-                        {moment(data.create_date).format(
-                          "ddd, DD MMM, yyyy, hh:mm a"
+                    <>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "2px",
+                          background: "#7E88F4",
+                          margin: "10px 0 20px",
+                        }}
+                      />
+                      <p>
+                        Invitation sent at:{" "}
+                        <span style={{ color: "#7E88F4", fontWeight: "500" }}>
+                          {moment(data.create_date).format(
+                            "ddd, DD MMM, yyyy, hh:mm a"
+                          )}
+                        </span>{" "}
+                      </p>
+                      <div className="info__col">
+                        <strong>Invitation URL</strong>
+                        <a
+                          style={{ color: "black" }}
+                          href={`https://us.lynq.app/${slugData.slug}/${data.id}`}
+                          target="_blank"
+                        >
+                          https://us.lynq.app/{slugData.slug}/{data.id}
+                        </a>
+                      </div>
+                      <div className="appointment-request__btns">
+                        <button
+                          onClick={toggle}
+                          className="cancel"
+                          style={{ position: "relative" }}
+                        >
+                          {deleteLoading && <Loading color="#dd677a" />}
+                          {new Date(data.starting_date) > new Date()
+                            ? "Cancel Appointment"
+                            : "Delete Appointment"}
+                        </button>
+                        {new Date(data.starting_date) > new Date() && (
+                          <button
+                            onClick={() =>
+                              router.push(`/appointments/edit/${data.id}`)
+                            }
+                            className="modify"
+                          >
+                            Modify Appointment
+                          </button>
                         )}
-                      </span>{" "}
-                    </p>
-                    <div className="info__col">
-                      <strong>Invitation URL</strong>
-                      <a
-                        style={{ color: "black" }}
-                        href={`https://us.lynq.app/${slugData.slug}/${data.id}`}
-                        target="_blank"
-                      >
-                        https://us.lynq.app/{slugData.slug}/{data.id}
-                      </a>
-                    </div>
-                    <div className="appointment-request__btns">
-                      <button
-                        onClick={toggle}
-                        className="cancel"
-                        style={{ position: "relative" }}
-                      >
-                        {deleteLoading && <Loading color="#dd677a" />}
-                        Cancel Appointment
-                      </button>
-                      <button
-                        onClick={() =>
-                          router.push(`/appointments/edit/${data.id}`)
-                        }
-                        className="modify"
-                      >
-                        Modify Appointment
-                      </button>
-                    </div>
+                      </div>
+                    </>
                   </div>
                 </div>
               </Fade>

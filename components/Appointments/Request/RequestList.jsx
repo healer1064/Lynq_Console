@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,7 +8,10 @@ import { CaretRightOutlined } from "@ant-design/icons";
 // style
 import styles from "./Request.module.css";
 
-const RequestList = ({ requestList }) => {
+const RequestList = ({ requestList, filter }) => {
+  // states
+  const [requests, setRequests] = useState(requestList);
+
   // router
   const router = useRouter();
 
@@ -19,7 +22,19 @@ const RequestList = ({ requestList }) => {
     return start.from(now);
   };
 
-  return requestList.length === 0 ? (
+  useEffect(() => {
+    if (filter.toLowerCase() === "active") {
+      setRequests(
+        requestList.filter((req) => new Date(req.ending_date) > new Date())
+      );
+    } else if (filter.toLowerCase() === "past") {
+      setRequests(
+        requestList.filter((req) => new Date(req.ending_date) < new Date())
+      );
+    }
+  }, [filter, requestList]);
+
+  return requests.length === 0 ? (
     <div className="no-appointments">
       <br />
       <p style={{ alignSelf: "flex-start", marginTop: "50px" }}>
@@ -35,12 +50,18 @@ const RequestList = ({ requestList }) => {
         <p>Email</p>
         <p>Answer</p>
       </div>
-      {requestList.map((item, i) => (
+      {requests.map((item, i) => (
         <Fade key={i} duration={800} delay={50}>
           <div
             key={item}
             onClick={() => router.push(`/appointments/requests/${item.id}`)}
             className={styles.request_single_item}
+            // style={{
+            //   backgroundColor:
+            //     new Date(item.starting_date) < new Date()
+            //       ? "#e0e0e0"
+            //       : "#f9f9f9",
+            // }}
           >
             <p>
               {moment(item.create_date).format("ddd MM, YYYY")}
@@ -55,7 +76,9 @@ const RequestList = ({ requestList }) => {
             <p>{item.activity_name}</p>
             <p style={{ color: "#7e88f4" }}>Live</p>
             <p>{item.email}</p>
-            <p>N/A</p>
+            <p>
+              {new Date(item.starting_date) < new Date() ? "Expired" : "N/A"}
+            </p>
             <CaretRightOutlined
               style={{
                 display: "flex",

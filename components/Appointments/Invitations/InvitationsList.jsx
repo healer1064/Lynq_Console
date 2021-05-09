@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,7 +8,10 @@ import { CaretRightOutlined } from "@ant-design/icons";
 // style
 import styles from "./styles.module.css";
 
-const InvitationsList = ({ invitationsList }) => {
+const InvitationsList = ({ invitationsList, filter }) => {
+  // states
+  const [sents, setSents] = useState(invitationsList);
+
   // router
   const router = useRouter();
 
@@ -19,7 +22,19 @@ const InvitationsList = ({ invitationsList }) => {
     return start.from(now);
   };
 
-  return invitationsList.length === 0 ? (
+  useEffect(() => {
+    if (filter.toLowerCase() === "active") {
+      setSents(
+        invitationsList.filter((req) => new Date(req.ending_date) > new Date())
+      );
+    } else if (filter.toLowerCase() === "expired") {
+      setSents(
+        invitationsList.filter((req) => new Date(req.ending_date) < new Date())
+      );
+    }
+  }, [filter, invitationsList]);
+
+  return sents.length === 0 ? (
     <div className="no-appointments">
       <br />
       <p style={{ alignSelf: "flex-start", marginTop: "50px" }}>
@@ -35,7 +50,7 @@ const InvitationsList = ({ invitationsList }) => {
         <p>First Name</p>
         <p>Last Name</p>
       </div>
-      {invitationsList.map((item, i) => (
+      {sents.map((item, i) => (
         <Fade key={i} duration={800} delay={50}>
           <div
             key={item}

@@ -18,12 +18,12 @@
   width: 100%;
   padding: 15px 20px;
   cursor: pointer;
-  background-color: #f9f9f9 !important;
+  background-color: #f9f9f9;
   transition: 1s all cubic-bezier(0.215, 0.61, 0.355, 1);
   margin: 10px 0;
 }
 .request_single_item:hover {
-  background-color: #efefef !important;
+  background-color: #efefef;
 }
 .request_single_item > p {
   margin: 0;

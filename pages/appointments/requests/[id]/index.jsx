@@ -195,6 +195,18 @@ const RequestDetail = () => {
                     {/* Received: 'no created at field in backend' */}
                     Received: {getFromTime()}
                   </span>
+                  {new Date(data.ending_date) < new Date() && (
+                    <p
+                      style={{
+                        fontStyle: "italic",
+                        color: "#777",
+                        fontSize: "1rem",
+                        marginTop: "-7px",
+                      }}
+                    >
+                      Expired
+                    </p>
+                  )}
                   <div className="info__col">
                     <strong>Event type</strong>
                     <p>{data.activity_name}</p>
@@ -216,7 +228,6 @@ const RequestDetail = () => {
                       See you how your day look like
                     </span>
                   </div>
-
                   <div className="info__col">
                     <strong>Time</strong>
                     <p>{moment(data.starting_date).format("hh:mm a")}</p>
@@ -230,14 +241,19 @@ const RequestDetail = () => {
                       className="reject"
                       onClick={() => requestReject(data.id)}
                     >
-                      {rejectLoading && <Loading color="#fff" />}REJECT
+                      {rejectLoading && <Loading color="#fff" />}
+                      {new Date(data.ending_date) > new Date()
+                        ? "REJECT"
+                        : "DELETE"}
                     </button>
-                    <button
-                      className="accept"
-                      onClick={() => requestAccept(data.id)}
-                    >
-                      {acceptLoading && <Loading />}ACCEPT
-                    </button>
+                    {new Date(data.ending_date) > new Date() && (
+                      <button
+                        className="accept"
+                        onClick={() => requestAccept(data.id)}
+                      >
+                        {acceptLoading && <Loading />}ACCEPT
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>

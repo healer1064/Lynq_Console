@@ -27,13 +27,14 @@ const Modal = ({
             alt="close"
           />
           <h6>{title || "Cancel The Appointment"}</h6>
-          <p>
-            {subtitle ||
-              `Are you sure you want to cancel the appointment?,
-            ${(<br />)}
-            ${
+          <p style={{ margin: "0 0 5px 0" }}>
+            Are you sure you want to cancel the appointment?
+          </p>
+          <p style={{ margin: "0 0 20px 0" }}>
+            {`${
               data && moment(data.starting_date).format("dddd, MMMM DD, YYYY")
-            }`}
+            }
+            `}
           </p>
           <button
             style={{ position: "relative" }}
