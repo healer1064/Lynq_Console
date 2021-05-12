@@ -123,23 +123,25 @@ const EditProfile = () => {
       setWhatToExpect(_data.expect_details || "");
       setImage(_data.public_image || null);
 
-      // categories
-      const intersection = JSON.parse(_data.category).filter((element) =>
-        categoriesData.includes(element)
-      );
+      if (_data.categories) {
+        // categories
+        const intersection = JSON.parse(_data.category).filter((element) =>
+          categoriesData.includes(element)
+        );
 
-      if (intersection.length > 0) {
-        setCategories(JSON.parse(_data.category) || []);
-      } else {
-        setCategories(["Other"]);
-        setShowOther(true);
-        if (JSON.parse(_data.category).length === 1) {
-          setSecondOther(false);
-          setOtherOne(JSON.parse(_data.category)[0]);
+        if (intersection.length > 0) {
+          setCategories(JSON.parse(_data.category) || []);
         } else {
-          setSecondOther(true);
-          setOtherOne(JSON.parse(_data.category)[0]);
-          setOtherTwo(JSON.parse(_data.category)[1]);
+          setCategories(["Other"]);
+          setShowOther(true);
+          if (JSON.parse(_data.category).length === 1) {
+            setSecondOther(false);
+            setOtherOne(JSON.parse(_data.category)[0]);
+          } else {
+            setSecondOther(true);
+            setOtherOne(JSON.parse(_data.category)[0]);
+            setOtherTwo(JSON.parse(_data.category)[1]);
+          }
         }
       }
 

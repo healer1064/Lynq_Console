@@ -6,6 +6,7 @@ import { useState, useContext, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BsInfoCircleFill } from "react-icons/bs";
 
 // styles
 import "react-datepicker/dist/react-datepicker.css";
@@ -37,12 +38,47 @@ export default function AppointmentNew() {
   const [loading, setLoading] = useState(false);
   const [timeLoading, setTimeLoading] = useState(false);
   const [prevDisable, setPrevDisable] = useState(false);
+  const [listingPrice, setLisitngPrice] = useState(null);
+  const [listingLoading, setLisitngLoading] = useState(false);
 
   // use context
   const { token } = useContext(ProfileContext);
 
   // router
   const router = useRouter();
+
+  const findListingPrice = async (price) => {
+    if (price != "") {
+      setLisitngLoading(true);
+      async function get() {
+        const response = await fetch(
+          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setLisitngPrice(await response.json());
+
+        return await response;
+      }
+
+      get()
+        .then((res) => {
+          setLisitngLoading(false);
+          if (res.status != 200) {
+            toast.error("An error has occurred");
+          }
+        })
+        .catch(() => {
+          toast.error("An error has occurred");
+        });
+    }
+  };
 
   const getEventTypes = async () => {
     let config = {
@@ -258,10 +294,43 @@ export default function AppointmentNew() {
                 type="number"
                 min="0"
                 value={price}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                  findListingPrice(e.target.value);
+                }}
                 style={{ paddingLeft: "25px" }}
               />
-              <img className="abs-img" src="/img/dollar.svg" alt="dollar" />
+              <img
+                className="abs-list-img"
+                src="/img/dollar.svg"
+                alt="dollar"
+              />
+              <div className="listing-price-info-wrap">
+                <h3>
+                  Listing Price{" "}
+                  <BsInfoCircleFill className="listing-price-info-icon" />
+                  <div className="listing-price-info">
+                    <h6>
+                      The price a customer pays to purchase the service and that
+                      includes Lynq's fees.
+                    </h6>
+                    <p>Fees are based on your subscription plan on Lynq</p>
+                  </div>
+                </h3>
+                {listingLoading ? (
+                  <img
+                    style={{ width: "18px", height: "18px", marginTop: "5px" }}
+                    src="/img/Rolling-dark.svg"
+                    alt="rolling"
+                  />
+                ) : (
+                  <h3>
+                    {listingPrice
+                      ? `$${listingPrice.simulated_price}`
+                      : "Please enter price above to get listing price"}
+                  </h3>
+                )}
+              </div>
             </label>
             <label className="small">
               <strong>Client's Email</strong>

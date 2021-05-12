@@ -37,16 +37,18 @@ export default function Signup() {
       return await response.json();
     }
 
-    signUpReq().then((res) => {
-      console.log("res", res);
-      setLoading(false);
-      if (res?.message === undefined) {
-        setToken(res.token);
-        window.location.href = "/";
-      } else {
-        toast.error(res.message);
-      }
-    });
+    signUpReq()
+      .then((res) => {
+        console.log("res", res);
+        setLoading(false);
+        if (res?.message === undefined) {
+          setToken(res.token);
+          window.location.href = "/";
+        } else {
+          toast.error(res.message);
+        }
+      })
+      .catch((err) => toast.error(err.message));
   };
 
   return (
