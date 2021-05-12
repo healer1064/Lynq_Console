@@ -76,7 +76,7 @@ const AsyncEventListCard = ({
       client_needs: card.clientNeeds,
       description: card.description,
       packages: card.packages,
-      enabled: card.enabled ? !enabled : true,
+      enabled: card.enabled ? !card.enabled : true,
     };
 
     async function add() {
@@ -158,7 +158,7 @@ const AsyncEventListCard = ({
           <label className="events-row__toggle">
             <input
               type="checkbox"
-              checked={card.isActive}
+              checked={card.enabled}
               onChange={() => changeEventTypeStatus(card)}
             />
             <div className="toggle-control" />
