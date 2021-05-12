@@ -41,6 +41,8 @@ const EventList = ({ events, setResponse, response }) => {
     });
   };
 
+  console.log(events);
+
   return (
     <div className="events-wrp" style={{ position: "relative" }}>
       {loading && (

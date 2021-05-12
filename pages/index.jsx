@@ -13,10 +13,11 @@ import ProfileContext from "../context/profile";
 // import EmailConfirmation from "../components/Home/EmailConfirmation";
 import PageLoading from "../components/common/PageLoading";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
+import Onboarding from "../components/Home/Onboarding";
 
 const home = () => {
   // context
-  const { token, slugData } = useContext(ProfileContext);
+  const { token, slugData, onboarding } = useContext(ProfileContext);
 
   // states
   const [appointmentList, setAppointmentList] = useState(null);
@@ -123,7 +124,6 @@ const home = () => {
   };
 
   const getNextSession = (_data) => {
-    console.log(_data);
     let format = "hh:mm A";
 
     let time = moment();
@@ -135,7 +135,6 @@ const home = () => {
       let end = moment(_data[i].ending_date);
 
       if (time.isBefore(start, end)) {
-        console.log(_data[i]);
         setNextSession({
           time: time.isSame(start, "day")
             ? `${start.format(format)} - ${end.format(format)}`
@@ -251,6 +250,7 @@ const home = () => {
           </>
         )}
       </div>
+      {onboarding && <Onboarding />}
     </>
   );
 };

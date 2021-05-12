@@ -14,7 +14,7 @@ import SignupLeftbar from "../../components/Signup/SignupLeftbar";
 import ProfileContext from "../../context/profile";
 
 export default function Signup() {
-  const { setToken } = useContext(ProfileContext);
+  const { setToken, setOnboarding } = useContext(ProfileContext);
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -43,6 +43,7 @@ export default function Signup() {
         setLoading(false);
         if (res?.message === undefined) {
           setToken(res.token);
+          setOnboarding(true);
           window.location.href = "/";
         } else {
           toast.error(res.message);

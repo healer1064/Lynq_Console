@@ -8,7 +8,7 @@ export const ProfileProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
   const [slugData, setslugData] = useState(null);
-  const [eventType, setEventType] = useState(null);
+  const [onboarding, setOnboarding] = useState(false);
 
   useEffect(() => {
     if (token !== null) {
@@ -61,6 +61,8 @@ export const ProfileProvider = ({ children }) => {
         setToken,
         profile,
         slugData,
+        onboarding,
+        setOnboarding,
       }}
     >
       {children}
