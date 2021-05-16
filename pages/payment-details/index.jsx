@@ -40,8 +40,6 @@ export default function PaymentDetails() {
     getDetails();
   }, [token]);
 
-  console.log(data);
-
   return (
     <>
       <Head>

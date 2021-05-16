@@ -5,7 +5,7 @@ const PaymentsDetailItem = ({ data }) => {
   const {
     activity_name: type,
     email: client_email,
-    price,
+    base_price_teacher: price,
     starting_date,
     status,
   } = data;
@@ -30,11 +30,13 @@ const PaymentsDetailItem = ({ data }) => {
           {status === "CANCELLED"
             ? "Cancelled"
             : status === "CONFIRMED"
-            ? "Completed"
+            ? "Confirmed"
             : status === "PENDING_PAYMENT"
             ? "Awaiting Payment"
             : status === "PENDING_TEACHER_VALIDATION"
             ? "Awaiting Teacher's Validation"
+            : status === "SUCCESS"
+            ? "Completed"
             : "-"}
         </strong>
       </div>
