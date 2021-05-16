@@ -47,26 +47,22 @@ export default function Answers() {
   }, [token, success]);
 
   const fetchAnswers = async () => {
-    // const config = {
-    //   method: "GET",
-    //   Accept: "application/json",
-    //   "Content-Type": "application/json",
-    // };
-    // try {
-    //   const response = await fetch(
-    //     `https://api.lynq.app/account/appointments/requests?t=${token}`,
-    //     config
-    //   );
-    //   const _data = await response.json();
-    //   setRequests(_data);
-    // } catch (err) {
-    //   setRequests([]);
-    //   toast.error("Error, Failed to Fetch Request List!!!");
-    // }
-
-    setTimeout(() => {
-      setAnswers(fake);
-    }, 1500);
+    const config = {
+      method: "GET",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/async/requests/archived?t=${token}`,
+        config
+      );
+      const _data = await response.json();
+      setAnswers(_data.content);
+    } catch (err) {
+      setAnswers([]);
+      toast.error("Error, Failed to Fetch Answers List!");
+    }
   };
 
   return (
@@ -84,11 +80,7 @@ export default function Answers() {
           <PageLoading />
         ) : (
           <Fade>
-            <AnswersList
-              answersList={answers}
-              success={success}
-              setSuccess={setSuccess}
-            />
+            <AnswersList answersList={answers} />
             <br />
           </Fade>
         )}

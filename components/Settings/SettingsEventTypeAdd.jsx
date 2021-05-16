@@ -22,9 +22,9 @@ const SettingsEventTypeAdd = () => {
   const [needToBring, setNeedToBring] = useState("");
   const [duration, setDuration] = useState("");
   const [customDur, setCustomDur] = useState("");
-  const [policy, setPolicy] = useState(
-    "- If the session is cancelled with 12 hours (or more) notice, then a full refund is given.\n- If the session is cancelled with less than 12 hours notice, no refund is given.\n- If you don't show for whatever reason, no refund is given."
-  );
+  // const [policy, setPolicy] = useState(
+  //   "- If the session is cancelled with 12 hours (or more) notice, then a full refund is given.\n- If the session is cancelled with less than 12 hours notice, no refund is given.\n- If you don't show for whatever reason, no refund is given."
+  // );
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [listingPrice, setLisitngPrice] = useState(null);
