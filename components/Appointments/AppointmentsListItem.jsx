@@ -32,9 +32,9 @@ const AppointmentsListItem = ({ data }) => {
 
   return (
     <div
-      className={`appointments-col__card__wrp
-      ${status ? "" : "inactive"}
-      ${open && "active"}
+      className={`appointments-col__card__wrp ${status ? "" : "inactive"} ${
+        open ? "active" : ""
+      }
       `}
     >
       <div
@@ -42,7 +42,7 @@ const AppointmentsListItem = ({ data }) => {
           appointments && setOpen(!open);
         }}
         className="appointments-col__card"
-        style={{ backgroundColor: `${!status && "#E1E1E1"}` }}
+        // style={{ backgroundColor: `${!status && "#E1E1E1"}` }}
       >
         <div
           className="det"

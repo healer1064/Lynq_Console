@@ -4,6 +4,7 @@ import NewAppointmentButton from "./NewAppointmentButton";
 
 const AppointmentsList = ({ appointmentList }) => {
   const sortList = (list) => {
+    console.log("from appoitments", list);
     return list.sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
