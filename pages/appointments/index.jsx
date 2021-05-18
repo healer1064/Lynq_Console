@@ -41,23 +41,23 @@ export default function Appointments() {
     };
 
     // comment out this code
-    // try {
-    //   const response = await fetch(
-    //     `https://api.lynq.app/account/appointments?t=${token}`,
-    //     config
-    //   );
+    try {
+      const response = await fetch(
+        `https://api.lynq.app/account/appointments?t=${token}`,
+        config
+      );
 
-    //   const _data = await response.json();
-    //   setData(filterByCurrWeek(groupAppointment(_data)));
-    //   setTemp(groupAppointment(_data));
-    // } catch (err) {
-    //   toast.error("Error, Failed to Fetch Appointment List!");
-    //   setData([]);
-    // }
+      const _data = await response.json();
+      setData(filterByCurrWeek(groupAppointment(_data)));
+      setTemp(groupAppointment(_data));
+    } catch (err) {
+      toast.error("Error, Failed to Fetch Appointment List!");
+      setData([]);
+    }
 
     // remove this lines
-    setData(filterByCurrWeek(groupAppointment(mockUpData.appointments)));
-    setTemp(groupAppointment(mockUpData.appointments));
+    // setData(filterByCurrWeek(groupAppointment(mockUpData.appointments)));
+    // setTemp(groupAppointment(mockUpData.appointments));
   };
 
   const groupAppointment = (data) => {

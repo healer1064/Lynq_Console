@@ -26,6 +26,9 @@ const PaymentsDetails = ({ data }) => {
     } else if (filter === "Requests Awaiting Approval") {
       let arr = data.filter((i) => i.status === "PENDING_TEACHER_VALIDATION");
       setArray(arr);
+    } else if (filter === "Completed") {
+      let arr = data.filter((i) => i.status === "SUCCESS");
+      setArray(arr);
     } else {
       let arr = data.filter((i) => i.status === "PENDING_PAYMENT");
       setArray(arr);
@@ -44,6 +47,7 @@ const PaymentsDetails = ({ data }) => {
             setState={setFilter}
             data={[
               "All",
+              "Completed",
               "Confirmed",
               "Pending Payment",
               "Requests Awaiting Approval",

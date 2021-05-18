@@ -60,6 +60,7 @@ const EditProfile = () => {
   const [secondOther, setSecondOther] = useState(false);
   // cat error
   const [catError, setCatError] = useState(false);
+  const [delayed, setDelayed] = useState();
 
   const imgRef = useRef();
 
@@ -122,6 +123,7 @@ const EditProfile = () => {
       setLastName(_data.name?.split(" ")[1] ?? "");
       setWhatToExpect(_data.expect_details || "");
       setImage(_data.public_image || null);
+      setDelayed(_data.delay_booking_hours);
 
       if (_data.categories) {
         // categories
@@ -200,6 +202,7 @@ const EditProfile = () => {
       expect_details: whatToExpect,
       speciality: specArr,
       public_image: image,
+      delay_booking_hours: delayed,
     };
 
     async function update() {

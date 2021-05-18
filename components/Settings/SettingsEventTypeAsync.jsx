@@ -18,10 +18,10 @@ const SettingsEventTypeAsync = () => {
   const [eventName, setEventName] = useState("");
   const [desc, setDesc] = useState("");
   const [info, setInfo] = useState("");
-  const [standardDelivery, setStandardDelivery] = useState(7);
-  const [standardPrice, setStandardPrice] = useState();
-  const [expressDelivery, setExpressDelivery] = useState();
-  const [expressPrice, setExpressPrice] = useState();
+  const [standardDelivery, setStandardDelivery] = useState("7");
+  const [standardPrice, setStandardPrice] = useState("");
+  const [expressDelivery, setExpressDelivery] = useState("");
+  const [expressPrice, setExpressPrice] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [listingPrice, setLisitngPrice] = useState(null);
@@ -42,13 +42,21 @@ const SettingsEventTypeAsync = () => {
       desc !== "" &&
       info !== "" &&
       standardDelivery !== "" &&
-      standardPrice !== "" &&
-      expressDelivery !== "" &&
-      expressPrice !== ""
+      standardPrice !== ""
     ) {
-      setError(true);
-      setLoading(true);
-      addEventType();
+      if (showPremium) {
+        if (expressDelivery !== "" && expressPrice !== "") {
+          setError(false);
+          setLoading(true);
+          addEventType();
+        } else {
+          setError(true);
+        }
+      } else {
+        setError(false);
+        setLoading(true);
+        addEventType();
+      }
     } else {
       setError(true);
     }

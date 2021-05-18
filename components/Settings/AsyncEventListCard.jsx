@@ -151,9 +151,14 @@ const AsyncEventListCard = ({
         <strong>{card.name}</strong>
         <div className="btm">
           <div>
+            {card.packages.map((pkg, index) => {
+              return (
+                <span key={index} className="duration">
+                  {pkg.name}: {pkg.delivery} days for ${pkg.displayPrice}
+                </span>
+              );
+            })}
             {/* <span className="duration">{card.description}</span> */}
-            {/* <span className="duration">{card.duration} min</span> */}
-            {/* <span>${card.price}</span> */}
           </div>
           <label className="events-row__toggle">
             <input

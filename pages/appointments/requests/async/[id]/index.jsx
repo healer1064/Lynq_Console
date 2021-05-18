@@ -67,12 +67,12 @@ const Async = () => {
 
   return (
     <>
-      {videoModal &&
-        // <VideoModal
-        //   setVideoModal={setVideoModal}
-        //   source={async && async.content[0].fileUrl}
-        // />
-        null}
+      {videoModal && (
+        <VideoModal
+          setVideoModal={setVideoModal}
+          source={async && async?.content[0].fileUrl}
+        />
+      )}
       <Head>
         <title>Async | Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -129,29 +129,37 @@ const Async = () => {
                       <strong>Email</strong>
                       <p>{async.customerEmail}</p>
                     </div>
-                    <div className="info__col">
-                      <strong>Information Provided</strong>
-                      <p>{async?.content[1]?.content}</p>
-                    </div>
-                    <div className="info__col">
-                      <strong>Video file</strong>
-                      <VideoPreview url={test2} />
-                      {/* <div
-                        onClick={() => setVideoModal(true)}
-                        className="async-download-video"
-                      >
-                        <FaPlay color="black" />
-                      </div> */}
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          color: "#777",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Download Video
-                      </span>
-                    </div>
+                    {async?.content.length > 0 ? (
+                      <>
+                        <div className="info__col">
+                          <strong>Information Provided</strong>
+                          <p>{async.content[1].content}</p>
+                        </div>
+                        <div className="info__col">
+                          <strong>Video file</strong>
+                          <div
+                            onClick={() => setVideoModal(true)}
+                            className="async-download-video"
+                          >
+                            <FaPlay color="black" />
+                          </div>
+                          <span
+                            style={{
+                              fontSize: "0.8rem",
+                              color: "#777",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Download Video
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <p style={{ color: "#7E88F4" }}>
+                        The client has not provided anything
+                      </p>
+                    )}
+
                     <div className="appointment-request__btns">
                       <button className="reject">CANCEL</button>
                       <button

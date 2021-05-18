@@ -46,15 +46,28 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
     if (eventType.packages.length == 1) {
       setStandardDelivery(eventType.packages[0].delivery);
       setStandardPrice(eventType.packages[0].price);
+      console.log(eventType.packages[0].displayPrice);
     }
     if (eventType.packages.length == 2) {
       setShowPremium(true);
       setStandardDelivery(eventType.packages[0].delivery);
       setStandardPrice(eventType.packages[0].price);
+      setStandardListingPrice(
+        eventType.packages[0].displayPrice && eventType.packages[0].displayPrice
+      );
       setExpressDelivery(eventType.packages[1].delivery);
       setExpressPrice(eventType.packages[1].price);
+      setExpressListingPrice(eventType.packages[1].displayPrice);
     }
   }, []);
+
+  useEffect(() => {
+    findExpressListingPrice();
+  }, [expressPrice]);
+
+  useEffect(() => {
+    findStandarListingPrice();
+  }, [standardPrice]);
 
   const handleSave = () => {
     if (
@@ -99,6 +112,7 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
       description: desc,
       client_needs: info,
       packages: showPremium ? [standard, express] : [standard],
+      enabled: eventType.enabled,
     };
 
     async function add() {
@@ -132,17 +146,13 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
       .catch(() => toast.error("An error has occurred"));
   };
 
-  const findListingPrice = async (e) => {
-    if (e.target.value != "") {
-      if (e.target.name == "standard") {
-        setStandardLisitngLoading(true);
-      } else {
-        setExpressListingLoading(true);
-      }
+  const findStandarListingPrice = async () => {
+    if (standardPrice != "") {
+      setStandardLisitngLoading(true);
 
       async function get() {
         const response = await fetch(
-          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${e.target.value}`,
+          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${standardPrice}`,
           {
             method: "GET",
             headers: {
@@ -152,22 +162,13 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
           }
         );
 
-        if (e.target.name == "standard") {
-          setStandardListingPrice(await response.json());
-        } else {
-          setExpressListingPrice(await response.json());
-        }
-
+        setStandardListingPrice(await response.json());
         return await response;
       }
 
       get()
         .then((res) => {
-          if (e.target.name == "standard") {
-            setStandardLisitngLoading(false);
-          } else {
-            setExpressListingLoading(false);
-          }
+          setStandardLisitngLoading(false);
           if (res.status != 200) {
             toast.error("An error has occurred");
           }
@@ -176,11 +177,43 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
           toast.error("An error has occurred");
         });
     } else {
-      if (e.target.name === "standard") {
-        setStandardListingPrice(null);
-      } else {
-        setExpressListingPrice(null);
+      setStandardListingPrice(null);
+    }
+  };
+
+  const findExpressListingPrice = async () => {
+    if (expressPrice != "") {
+      setExpressListingLoading(true);
+
+      async function get() {
+        const response = await fetch(
+          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${expressPrice}`,
+          {
+            method: "GET",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        setExpressListingPrice(await response.json());
+
+        return await response;
       }
+
+      get()
+        .then((res) => {
+          setExpressListingLoading(false);
+          if (res.status != 200) {
+            toast.error("An error has occurred");
+          }
+        })
+        .catch(() => {
+          toast.error("An error has occurred");
+        });
+    } else {
+      setExpressListingPrice(null);
     }
   };
 
@@ -263,7 +296,7 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
                 onChange={(e) => {
                   setStandardPrice(e.target.value);
                   // setStandardList(e.target.value);
-                  findListingPrice(e);
+                  findStandarListingPrice();
                 }}
               />
               <img src="/img/dollar.svg" alt="dollar" />
@@ -331,7 +364,7 @@ const SettingsAsyncEventTypeEdit = ({ eventType }) => {
                     onChange={(e) => {
                       setExpressPrice(e.target.value);
                       // findListingPrice(e.target.value);
-                      findListingPrice(e);
+                      findExpressListingPrice();
                     }}
                   />
                   <img src="/img/dollar.svg" alt="dollar" />

@@ -38,19 +38,19 @@ const RequestList = ({ answersList }) => {
             className={styles.answers_single_item}
           >
             <p>
-              {moment(item.create_date).format("ddd MM, YYYY")}
+              {moment(item.requestDate).format("ddd MM, YYYY")}
               <span
                 style={{
                   borderLeft: "1px solid #aaa",
                   margin: "0 5px",
                 }}
               ></span>
-              {getFromTime(item.create_date)}
+              {getFromTime(item.requestDate)}
             </p>
-            <p>{item.name}</p>
-            <p>{item.email}</p>
-            <p>{item.first_name}</p>
-            <p>{item.last_name}</p>
+            <p>{item.activityName}</p>
+            <p>{item.customerEmail}</p>
+            <p>{item.customerFirstName}</p>
+            <p>{item.customerLastName}</p>
             <CaretRightOutlined
               style={{
                 display: "flex",

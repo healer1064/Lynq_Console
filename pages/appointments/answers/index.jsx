@@ -12,39 +12,18 @@ import PageLoading from "../../../components/common/PageLoading";
 // context
 import ProfileContext from "../../../context/profile";
 
-const fake = [
-  {
-    id: 1,
-    name: "Full Meditaion",
-    create_date: "04/25/2021",
-    first_name: "Chuck",
-    last_name: "Norris",
-    email: "chuck@chuck.com",
-  },
-  {
-    id: 2,
-    name: "Half Meditaion",
-    create_date: "04/27/2021",
-    first_name: "Chucky",
-    email: "chuck@chuck.com",
-    last_name: "Chuck",
-  },
-];
-
 export default function Answers() {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
   const [answers, setAnswers] = useState(null);
-  const [success, setSuccess] = useState(false);
-  //   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     if (token) {
       fetchAnswers();
     }
-  }, [token, success]);
+  }, [token]);
 
   const fetchAnswers = async () => {
     const config = {
