@@ -40,6 +40,7 @@ export default function Appointments() {
       "Content-Type": "application/json",
     };
 
+    // comment out this code
     // try {
     //   const response = await fetch(
     //     `https://api.lynq.app/account/appointments?t=${token}`,
@@ -54,6 +55,7 @@ export default function Appointments() {
     //   setData([]);
     // }
 
+    // remove this lines
     setData(filterByCurrWeek(groupAppointment(mockUpData.appointments)));
     setTemp(groupAppointment(mockUpData.appointments));
   };

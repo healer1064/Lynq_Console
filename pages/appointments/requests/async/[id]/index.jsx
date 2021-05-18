@@ -16,6 +16,13 @@ import { FaPlay } from "react-icons/fa";
 // components
 import PageLoading from "../../../../../components/common/PageLoading";
 import VideoModal from "../../../../../components/Appointments/Request/VideoModal";
+import VideoPreview from "../../../../../components/common/VideoPreview/VideoPreview";
+
+let test1 =
+  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+
+let test2 =
+  "http://lynq-app.storage.googleapis.com/ff8080817969b771017969baeefb0000/bandicam%202021-02-05%2003-22-52-994.mp4";
 
 const Async = () => {
   // router
@@ -48,6 +55,7 @@ const Async = () => {
         config
       );
       const _data = await response.json();
+      console.log(_data);
       setAsync(_data.content.find((as) => as.id == id));
     } catch (err) {
       console.log(err);
@@ -55,14 +63,16 @@ const Async = () => {
     }
   };
 
+  console.log(async);
+
   return (
     <>
-      {videoModal && (
-        <VideoModal
-          setVideoModal={setVideoModal}
-          source={async && async.content[0].fileUrl}
-        />
-      )}
+      {videoModal &&
+        // <VideoModal
+        //   setVideoModal={setVideoModal}
+        //   source={async && async.content[0].fileUrl}
+        // />
+        null}
       <Head>
         <title>Async | Lynq</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -121,16 +131,17 @@ const Async = () => {
                     </div>
                     <div className="info__col">
                       <strong>Information Provided</strong>
-                      <p>{async.content[1].content}</p>
+                      <p>{async?.content[1]?.content}</p>
                     </div>
                     <div className="info__col">
                       <strong>Video file</strong>
-                      <div
+                      <VideoPreview url={test2} />
+                      {/* <div
                         onClick={() => setVideoModal(true)}
                         className="async-download-video"
                       >
                         <FaPlay color="black" />
-                      </div>
+                      </div> */}
                       <span
                         style={{
                           fontSize: "0.8rem",
