@@ -63,8 +63,6 @@ const Async = () => {
     }
   };
 
-  console.log(async);
-
   return (
     <>
       {videoModal && (
@@ -143,15 +141,21 @@ const Async = () => {
                           >
                             <FaPlay color="black" />
                           </div>
-                          <span
-                            style={{
-                              fontSize: "0.8rem",
-                              color: "#777",
-                              cursor: "pointer",
-                            }}
+                          <a
+                            style={{ textDecoration: "none", color: "#777" }}
+                            href={async.content[0].fileUrl}
+                            download
                           >
-                            Download Video
-                          </span>
+                            <span
+                              style={{
+                                fontSize: "0.8rem",
+                                color: "#777",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Download Video
+                            </span>
+                          </a>
                         </div>
                       </>
                     ) : (

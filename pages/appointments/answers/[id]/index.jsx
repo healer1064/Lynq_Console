@@ -12,7 +12,6 @@ import ReactPlayer from "react-player";
 import ProfileContext from "../../../../context/profile";
 
 // components
-import Loading from "../../../../components/common/Loading";
 import PageLoading from "../../../../components/common/PageLoading";
 import Modal from "../../../../components/common/Modal";
 import VideoModal from "../../../../components/Appointments/Request/VideoModal";
@@ -57,9 +56,16 @@ const Answer = () => {
     }
   };
 
+  console.log(data);
+
   return (
     <>
-      {videoModal && <VideoModal setVideoModal={setVideoModal} />}
+      {videoModal && (
+        <VideoModal
+          setVideoModal={setVideoModal}
+          source={data && data.content[2].fileUrl}
+        />
+      )}
       {deleteModal && (
         <Modal
           setModal={setDeleteModal}
@@ -154,15 +160,21 @@ const Answer = () => {
                           ref={playerRef}
                         />
                       </div>
-                      <span
-                        style={{
-                          fontSize: "0.8rem",
-                          color: "#777",
-                          cursor: "pointer",
-                        }}
+                      <a
+                        style={{ textDecoration: "none", color: "#777" }}
+                        href={data.content[2].fileUrl}
+                        download
                       >
-                        Download Video
-                      </span>
+                        <span
+                          style={{
+                            fontSize: "0.8rem",
+                            color: "#777",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Download Video
+                        </span>
+                      </a>
                     </div>
                     <div className="info__col">
                       <strong>Information Provided</strong>
