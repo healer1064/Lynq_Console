@@ -1,18 +1,18 @@
 // libraries
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDropzone } from "react-dropzone";
 
 // context
 import ProfileContext from "../../../../../context/profile";
 
 // icons
 import { RiUploadCloudFill, RiDeleteBin6Fill } from "react-icons/ri";
-import { FaPlay } from "react-icons/fa";
 
 // components
 import Loading from "../../../../../components/common/Loading";
@@ -43,6 +43,15 @@ const AsyncAnswer = () => {
     }
   }, [token]);
 
+  const onDrop = useCallback((acceptedFiles) => {
+    handleFileInput(acceptedFiles[0]);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
+
   const fetchAsync = async () => {
     const config = {
       method: "GET",
@@ -63,10 +72,10 @@ const AsyncAnswer = () => {
     }
   };
 
-  const handleFileInput = (e) => {
+  const handleFileInput = (_file) => {
     // handle validations
-    if (e.target.files) {
-      const file = e.target.files.length && e.target.files[0];
+    const file = _file;
+    if (file) {
       if (file.size > 1536 * 1000000) {
         toast("File size cannot exceed more than 1.5GB");
       } else {
@@ -82,7 +91,7 @@ const AsyncAnswer = () => {
     if (!selectedFile) {
       setMessageError(false);
       setVideoError(true);
-    } else if (info.length < 10) {
+    } else if (info == "") {
       setMessageError(true);
       setVideoError(false);
     } else {
@@ -190,21 +199,15 @@ const AsyncAnswer = () => {
                     </a>
                     <h2>Appointment Request</h2>
                     <span className="received__time">
-                      {/* Received: 'no created at field in backend' */}
                       Received:{" "}
                       {moment(async.requestDate).format(
                         "DD-MMM-yyyy - hh:mm a"
                       )}
                     </span>
-
                     <div className="info__col">
                       <strong>Event Name</strong>
                       <p>{async.activityName}</p>
                     </div>
-                    {/* <div className="info__col">
-                      <strong>Price</strong>
-                      <p>$60</p>
-                    </div> */}
                     <div style={{ display: "flex" }}>
                       <div
                         style={{ marginRight: "30px" }}
@@ -222,27 +225,45 @@ const AsyncAnswer = () => {
                       <strong>Email</strong>
                       <p>{async.customerEmail}</p>
                     </div>
-                    {/* <div className="info__col">
-                      <strong>Information Provided</strong>
-                      <p>
-                        I need to improve my swing as I can't drive far enough
-                      </p>
-                    </div> */}
                     <div className="info__col">
-                      <strong>Upload your Video</strong>
-                      <label className="video-upload-input">
-                        <input
-                          disabled={selectedFile}
-                          type="file"
-                          accept=".mp4,.avi,.mp3,.wav,.jpeg,.png,.pdf,.doc,.docx"
-                          onChange={handleFileInput}
-                        />
-                        {selectedFile ? (
+                      <strong>Upload your Document</strong>
+                      <div className="video-upload-input">
+                        {!selectedFile && (
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                            }}
+                            {...getRootProps()}
+                          >
+                            <input
+                              {...getInputProps()}
+                              accept=".mp4,.avi,.mp3,.wav,.pdf,.doc,.docx,.png,.jpeg"
+                            />
+                            <>
+                              <RiUploadCloudFill />
+                              <h6>Drop or select your file</h6>
+                              <p>
+                                Video (mp4, avi), Picture (jpeg, png), Audio
+                                (mp3, wav), Document (pdf, docx, doc)
+                                <br /> Max 400 MB
+                              </p>
+                            </>
+                          </div>
+                        )}
+                        {selectedFile && (
                           <>
                             <RiDeleteBin6Fill
                               className="delete-video-icon"
                               size={20}
-                              onClick={() => setSelectedFile(null)}
+                              onClick={(e) => {
+                                setSelectedFile(null);
+                                e.stopPropagation();
+                              }}
                             />
                             <div
                               onClick={(e) => {
@@ -251,20 +272,53 @@ const AsyncAnswer = () => {
                               }}
                               className="async-download-video"
                             >
-                              <FaPlay color="black" />
+                              {selectedFile.videoFileObject.name
+                                .toLowerCase()
+                                .includes(".mp3") ||
+                              selectedFile.videoFileObject.name
+                                .toLowerCase()
+                                .includes(".wav") ||
+                              selectedFile.videoFileObject.name
+                                .toLowerCase()
+                                .includes(".mp4") ||
+                              selectedFile.videoFileObject.name
+                                .toLowerCase()
+                                .includes(".avi") ? (
+                                <img
+                                  className="thumbnail"
+                                  src="/img/thumb_music.jpeg"
+                                  alt="thumb"
+                                />
+                              ) : selectedFile.videoFileObject.name
+                                  .toLowerCase()
+                                  .includes(".jpeg") ||
+                                selectedFile.videoFileObject.name
+                                  .toLowerCase()
+                                  .includes(".png") ? (
+                                <img
+                                  className="thumbnail"
+                                  src="/img/thumb_img.jpeg"
+                                  alt="thumb"
+                                />
+                              ) : selectedFile.videoFileObject.name
+                                  .toLowerCase()
+                                  .includes(".pdf") ? (
+                                <img
+                                  className="thumbnail"
+                                  src="/img/thumb_pdf.jpeg"
+                                  alt="thumb"
+                                />
+                              ) : (
+                                <img
+                                  className="thumbnail"
+                                  src="/img/thumb_file.jpeg"
+                                  alt="thumb"
+                                />
+                              )}
                             </div>
                           </>
-                        ) : (
-                          <>
-                            <RiUploadCloudFill />
-                            <h6>Drop your video or select file</h6>
-                            <p>
-                              Please upload mp4, avi, mp3, wav, jpeg, png, pdf
-                              or doc files only <br /> Max 1.5 GB
-                            </p>
-                          </>
                         )}
-                      </label>
+                      </div>
                       {selectedFile && (
                         <p style={{ margin: "10px 0px 0px" }}>
                           {selectedFile.videoFileObject.name}
@@ -288,14 +342,14 @@ const AsyncAnswer = () => {
                     </div>
                     {messageError ? (
                       <p style={{ margin: "10px 0", color: "red" }}>
-                        Please write more than 10 characters
+                        Please write a description
                       </p>
                     ) : (
                       <></>
                     )}
                     {videoError ? (
                       <p style={{ margin: "10px 0", color: "red" }}>
-                        Please select a video file
+                        Please select your file
                       </p>
                     ) : (
                       <></>

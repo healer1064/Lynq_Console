@@ -58,9 +58,9 @@ const Async = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (url) => {
     const link = document.createElement("a");
-    link.href = changeHead(data.content[2].fileUrl);
+    link.href = changeHead(url);
     link.download = "video";
 
     document.body.appendChild(link);
@@ -162,7 +162,7 @@ const Async = () => {
                           <p>{async.content[0].fileName}</p>
 
                           <span
-                            onClick={handleClick}
+                            onClick={() => handleClick(data.content[2].fileUrl)}
                             style={{
                               fontSize: "0.8rem",
                               color: "#7E88F4",

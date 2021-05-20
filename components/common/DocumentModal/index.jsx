@@ -6,8 +6,6 @@ import VideoModal from "../../Appointments/Request/VideoModal";
 import ImageContent from "./ImageContent";
 
 const index = ({ setState, data }) => {
-  console.log(data);
-
   return (
     <div className="video-modal">
       <AiFillCloseCircle
@@ -24,12 +22,13 @@ const index = ({ setState, data }) => {
         ) : data.videoFileObject.name.toLowerCase().includes(".png") ||
           data.videoFileObject.name.toLowerCase().includes(".jpeg") ? (
           <ImageContent source={data.videoFileURL} />
-        ) : data.videoFileObject.name.toLowerCase().includes(".doc") ||
-          data.videoFileObject.name.toLowerCase().includes(".docs") ||
-          data.videoFileObject.name.toLowerCase().includes(".pdf") ? (
-          <div></div>
         ) : (
-          <div></div>
+          <iframe
+            style={{ border: "none" }}
+            width="100%"
+            height="100%"
+            src={data.videoFileURL}
+          ></iframe>
         )
       ) : data.toLowerCase().includes(".mp3") ||
         data.toLowerCase().includes(".wav") ||
@@ -39,12 +38,15 @@ const index = ({ setState, data }) => {
       ) : data.toLowerCase().includes(".png") ||
         data.toLowerCase().includes(".jpeg") ? (
         <ImageContent source={data} />
-      ) : data.toLowerCase().includes(".doc") ||
-        data.toLowerCase().includes(".docs") ||
-        data.toLowerCase().includes(".pdf") ? (
-        <div></div>
       ) : (
-        <div></div>
+        <div>
+          <iframe
+            style={{ border: "none" }}
+            width="80%"
+            height="80%"
+            src={data}
+          ></iframe>
+        </div>
       )}
     </div>
   );

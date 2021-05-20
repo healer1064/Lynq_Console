@@ -23,7 +23,7 @@ const InvitationsList = ({ invitationsList, filter }) => {
   };
 
   useEffect(() => {
-    if (filter.toLowerCase() === "active") {
+    if (filter.toLowerCase() === "all active") {
       setSents(
         invitationsList.filter((req) => new Date(req.ending_date) > new Date())
       );

@@ -29,8 +29,8 @@ export default function Appointments() {
   const [requests, setRequests] = useState(null);
   const [asyncs, setAsyncs] = useState(null);
   const [invitations, setInvitations] = useState(null);
-  const [filter, setFilter] = useState("Active");
-  const [sentFilter, setSentFilter] = useState("Active");
+  const [filter, setFilter] = useState("All Active");
+  const [sentFilter, setSentFilter] = useState("All Active");
   const [requestSearchTerm, setRequestSearchTerm] = useState("");
   const [sentSearchTerm, setSentSearchTerm] = useState("");
 
@@ -135,10 +135,10 @@ export default function Appointments() {
                             state={filter}
                             setState={setFilter}
                             data={[
-                              "Active",
-                              "Scheduled",
+                              "All Active",
+                              "Live Sessions",
                               "Asynchronous",
-                              "Past",
+                              "Expired",
                             ]}
                           />
                         }
@@ -152,7 +152,7 @@ export default function Appointments() {
                     </div>
                     <RequestList
                       requestList={
-                        requestSearchTerm === ""
+                        requestSearchTerm == ""
                           ? requests
                           : requests.filter(
                               (item) =>
@@ -165,7 +165,7 @@ export default function Appointments() {
                             )
                       }
                       asyncList={
-                        requestSearchTerm === ""
+                        requestSearchTerm == ""
                           ? asyncs
                           : asyncs.filter(
                               (item) =>
@@ -199,7 +199,7 @@ export default function Appointments() {
                           <DropdownMenu
                             state={sentFilter}
                             setState={setSentFilter}
-                            data={["Active", "Expired"]}
+                            data={["All Active", "Expired"]}
                           />
                         }
                         placement="bottomCenter"

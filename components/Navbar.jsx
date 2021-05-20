@@ -68,7 +68,10 @@ const Navbar = ({ active }) => {
           <Fade duration={1000}>
             <div className="mobile-nav-main-link">
               <Link href="/">
-                <a className={active === "" ? "active" : ""}>
+                <a
+                  onClick={() => setOpen(false)}
+                  className={active === "" ? "active" : ""}
+                >
                   <span>Home</span>
                 </a>
               </Link>
@@ -86,17 +89,26 @@ const Navbar = ({ active }) => {
               {activities && (
                 <div className="sub-links">
                   <Link href="/appointments">
-                    <span className={active === "appointments" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "appointments" ? "active" : ""}
+                    >
                       Calendar
                     </span>
                   </Link>
                   <Link href="/appointments/requests">
-                    <span className={active === "requests" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "requests" ? "active" : ""}
+                    >
                       Requests
                     </span>
                   </Link>
                   <Link href="/appointments/answers">
-                    <span className={active === "answers" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "answers" ? "active" : ""}
+                    >
                       Answers
                     </span>
                   </Link>
@@ -113,29 +125,44 @@ const Navbar = ({ active }) => {
               {settings && (
                 <div className="sub-links">
                   <Link href="/settings">
-                    <span className={active === "settings" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "settings" ? "active" : ""}
+                    >
                       Availabilities
                     </span>
                   </Link>
                   <Link href="/event-types">
-                    <span className={active === "eventtypes" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "eventtypes" ? "active" : ""}
+                    >
                       Event Types
                     </span>
                   </Link>
                   <Link href="/settings/calendar">
-                    <span className={active === "cal-sync" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "cal-sync" ? "active" : ""}
+                    >
                       Cal Sync
                     </span>
                   </Link>
                 </div>
               )}
               <Link href="/public-profile">
-                <a className={active === "profile" ? "active" : ""}>
+                <a
+                  onClick={() => setOpen(false)}
+                  className={active === "profile" ? "active" : ""}
+                >
                   <span>Public Profile</span>
                 </a>
               </Link>
               <Link href="/dashboard">
-                <a className={active === "dashboard" ? "active" : ""}>
+                <a
+                  onClick={() => setOpen(false)}
+                  className={active === "dashboard" ? "active" : ""}
+                >
                   <span>Dashboard</span>
                 </a>
               </Link>
@@ -150,12 +177,16 @@ const Navbar = ({ active }) => {
               {payment && (
                 <div className="sub-links">
                   <Link href="/payment">
-                    <span className={active === "payments" ? "active" : ""}>
+                    <span
+                      onClick={() => setOpen(false)}
+                      className={active === "payments" ? "active" : ""}
+                    >
                       Balance
                     </span>
                   </Link>
                   <Link href="/payment-details">
                     <span
+                      onClick={() => setOpen(false)}
                       className={active === "payment-details" ? "active" : ""}
                     >
                       Details
@@ -164,14 +195,20 @@ const Navbar = ({ active }) => {
                 </div>
               )}
               <Link href="/support">
-                <a className={active === "contact" ? "active" : ""}>
+                <a
+                  onClick={() => setOpen(false)}
+                  className={active === "contact" ? "active" : ""}
+                >
                   <span>Support</span>
                 </a>
               </Link>
             </div>
             <div className="mobile-nav-other-link">
               <Link href="/account">
-                <a className={active === "account" ? "active" : ""}>
+                <a
+                  onClick={() => setOpen(false)}
+                  className={active === "account" ? "active" : ""}
+                >
                   <span>My Account</span>
                 </a>
               </Link>
