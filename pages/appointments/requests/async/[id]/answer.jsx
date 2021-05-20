@@ -17,7 +17,7 @@ import { FaPlay } from "react-icons/fa";
 // components
 import Loading from "../../../../../components/common/Loading";
 import PageLoading from "../../../../../components/common/PageLoading";
-import VideoModal from "../../../../../components/Appointments/Request/VideoModal";
+import DocumentModal from "../../../../../components/common/DocumentModal";
 
 const AsyncAnswer = () => {
   // router
@@ -28,7 +28,7 @@ const AsyncAnswer = () => {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [videoModal, setVideoModal] = useState(false);
+  const [docModal, setDocModal] = useState(false);
   const [info, setInfo] = useState("");
   const [infoCount, setInfoCount] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -65,14 +65,16 @@ const AsyncAnswer = () => {
 
   const handleFileInput = (e) => {
     // handle validations
-    const file = e.target.files.length && e.target.files[0];
-    if (file.size > 1536 * 1000000) {
-      toast("File size cannot exceed more than 1.5GB");
-    } else {
-      setSelectedFile({
-        videoFileURL: URL.createObjectURL(file),
-        videoFileObject: file,
-      });
+    if (e.target.files) {
+      const file = e.target.files.length && e.target.files[0];
+      if (file.size > 1536 * 1000000) {
+        toast("File size cannot exceed more than 1.5GB");
+      } else {
+        setSelectedFile({
+          videoFileURL: URL.createObjectURL(file),
+          videoFileObject: file,
+        });
+      }
     }
   };
 
@@ -152,10 +154,15 @@ const AsyncAnswer = () => {
       });
   };
 
+  console.log(selectedFile);
+
   return (
     <>
-      {videoModal && (
-        <VideoModal setVideoModal={setVideoModal} source={selectedFile} />
+      {docModal && (
+        <DocumentModal
+          setState={setDocModal}
+          data={selectedFile && selectedFile}
+        />
       )}
       <Head>
         <title>Appointments</title>
@@ -227,7 +234,7 @@ const AsyncAnswer = () => {
                         <input
                           disabled={selectedFile}
                           type="file"
-                          accept=".mp4,.avi"
+                          accept=".mp4,.avi,.mp3,.wav,.jpeg,.png,.pdf,.doc,.docx"
                           onChange={handleFileInput}
                         />
                         {selectedFile ? (
@@ -240,7 +247,7 @@ const AsyncAnswer = () => {
                             <div
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setVideoModal(true);
+                                setDocModal(true);
                               }}
                               className="async-download-video"
                             >
@@ -252,12 +259,17 @@ const AsyncAnswer = () => {
                             <RiUploadCloudFill />
                             <h6>Drop your video or select file</h6>
                             <p>
-                              Please upload mp4 or avi files only <br /> Max 1.5
-                              GB
+                              Please upload mp4, avi, mp3, wav, jpeg, png, pdf
+                              or doc files only <br /> Max 1.5 GB
                             </p>
                           </>
                         )}
                       </label>
+                      {selectedFile && (
+                        <p style={{ margin: "10px 0px 0px" }}>
+                          {selectedFile.videoFileObject.name}
+                        </p>
+                      )}
                     </div>
                     <div className="info__col">
                       <strong>Other information</strong>

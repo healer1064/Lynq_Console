@@ -14,7 +14,7 @@ import ProfileContext from "../../../../context/profile";
 // components
 import PageLoading from "../../../../components/common/PageLoading";
 import Modal from "../../../../components/common/Modal";
-import VideoModal from "../../../../components/Appointments/Request/VideoModal";
+import DocumentModal from "../../../../components/common/DocumentModal";
 
 const Answer = () => {
   // router
@@ -26,7 +26,7 @@ const Answer = () => {
 
   // states
   const [data, setData] = useState(null);
-  const [videoModal, setVideoModal] = useState(false);
+  const [docModal, setDocModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
   // ref
@@ -56,14 +56,30 @@ const Answer = () => {
     }
   };
 
-  console.log(data);
+  const handleClick = () => {
+    const link = document.createElement("a");
+    link.href = changeHead(data.content[2].fileUrl);
+    link.download = "video";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const changeHead = (_str) => {
+    if (_str.indexOf("https") === -1) {
+      _str = _str.replace("http", "https");
+    }
+    console.log(_str);
+    return _str;
+  };
 
   return (
     <>
-      {videoModal && (
-        <VideoModal
-          setVideoModal={setVideoModal}
-          source={data && data.content[2].fileUrl}
+      {docModal && (
+        <DocumentModal
+          setState={setDocModal}
+          data={data && data.content[2].fileUrl}
         />
       )}
       {deleteModal && (
@@ -147,34 +163,41 @@ const Answer = () => {
                       </strong>
                       <div
                         onClick={() => {
-                          setVideoModal(true);
+                          setDocModal(true);
                         }}
                         className="async-download-video"
                       >
                         {/* <FaPlay /> */}
-                        <ReactPlayer
+                        {/* <ReactPlayer
                           url={data.content[2].fileUrl}
                           width={170}
                           height={100}
                           light={true}
                           ref={playerRef}
+                        /> */}
+                        <img
+                          src={data.content[2].thumbnailUrl}
+                          alt="doc"
+                          style={{ width: "100%", height: "100%" }}
                         />
                       </div>
-                      <a
+                      <p>{data.content[0].fileName}</p>
+                      {/* <a
                         style={{ textDecoration: "none", color: "#777" }}
                         href={data.content[2].fileUrl}
                         download
+                      > */}
+                      <span
+                        onClick={handleClick}
+                        style={{
+                          fontSize: "0.8rem",
+                          color: "#777",
+                          cursor: "pointer",
+                        }}
                       >
-                        <span
-                          style={{
-                            fontSize: "0.8rem",
-                            color: "#777",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Download Video
-                        </span>
-                      </a>
+                        Download Video
+                      </span>
+                      {/* </a> */}
                     </div>
                     <div className="info__col">
                       <strong>Information Provided</strong>

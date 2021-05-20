@@ -5,24 +5,20 @@ import { useRouter } from "next/router";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
 import { toast } from "react-toastify";
+
+// styles
 import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../../../../../context/profile";
 
 // icons
-import { FaPlay } from "react-icons/fa";
+// import { FaPlay } from "react-icons/fa";
 
 // components
 import PageLoading from "../../../../../components/common/PageLoading";
-import VideoModal from "../../../../../components/Appointments/Request/VideoModal";
-import VideoPreview from "../../../../../components/common/VideoPreview/VideoPreview";
-
-let test1 =
-  "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-
-let test2 =
-  "http://lynq-app.storage.googleapis.com/ff8080817969b771017969baeefb0000/bandicam%202021-02-05%2003-22-52-994.mp4";
+import DocumentModal from "../../../../../components/common/DocumentModal";
+// import VideoPreview from "../../../../../components/common/VideoPreview/VideoPreview";
 
 const Async = () => {
   // router
@@ -33,7 +29,7 @@ const Async = () => {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [videoModal, setVideoModal] = useState(false);
+  const [docModal, setDocModal] = useState(false);
   const [async, setAsync] = useState(null);
 
   useEffect(() => {
@@ -55,7 +51,6 @@ const Async = () => {
         config
       );
       const _data = await response.json();
-      console.log(_data);
       setAsync(_data.content.find((as) => as.id == id));
     } catch (err) {
       console.log(err);
@@ -65,10 +60,10 @@ const Async = () => {
 
   return (
     <>
-      {videoModal && (
-        <VideoModal
-          setVideoModal={setVideoModal}
-          source={async && async?.content[0].fileUrl}
+      {docModal && (
+        <DocumentModal
+          setState={setDocModal}
+          data={async && async?.content[0].fileUrl}
         />
       )}
       <Head>
@@ -134,13 +129,19 @@ const Async = () => {
                           <p>{async.content[1].content}</p>
                         </div>
                         <div className="info__col">
-                          <strong>Video file</strong>
+                          <strong>Document</strong>
                           <div
-                            onClick={() => setVideoModal(true)}
+                            onClick={() => setDocModal(true)}
                             className="async-download-video"
                           >
-                            <FaPlay color="black" />
+                            {/* <FaPlay color="black" /> */}
+                            <img
+                              src={async.content[0].thumbnailUrl}
+                              alt="doc"
+                              style={{ width: "100%", height: "100%" }}
+                            />
                           </div>
+                          <p>{async.content[0].fileName}</p>
                           <a
                             style={{ textDecoration: "none", color: "#777" }}
                             href={async.content[0].fileUrl}
@@ -149,11 +150,11 @@ const Async = () => {
                             <span
                               style={{
                                 fontSize: "0.8rem",
-                                color: "#777",
+                                color: "#7E88F4",
                                 cursor: "pointer",
                               }}
                             >
-                              Download Video
+                              Download
                             </span>
                           </a>
                         </div>
