@@ -58,6 +58,24 @@ const Async = () => {
     }
   };
 
+  const handleClick = () => {
+    const link = document.createElement("a");
+    link.href = changeHead(data.content[2].fileUrl);
+    link.download = "video";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const changeHead = (_str) => {
+    if (_str.indexOf("https") === -1) {
+      _str = _str.replace("http", "https");
+    }
+    console.log(_str);
+    return _str;
+  };
+
   return (
     <>
       {docModal && (
@@ -142,21 +160,17 @@ const Async = () => {
                             />
                           </div>
                           <p>{async.content[0].fileName}</p>
-                          <a
-                            style={{ textDecoration: "none", color: "#777" }}
-                            href={async.content[0].fileUrl}
-                            download
+
+                          <span
+                            onClick={handleClick}
+                            style={{
+                              fontSize: "0.8rem",
+                              color: "#7E88F4",
+                              cursor: "pointer",
+                            }}
                           >
-                            <span
-                              style={{
-                                fontSize: "0.8rem",
-                                color: "#7E88F4",
-                                cursor: "pointer",
-                              }}
-                            >
-                              Download
-                            </span>
-                          </a>
+                            Download
+                          </span>
                         </div>
                       </>
                     ) : (
