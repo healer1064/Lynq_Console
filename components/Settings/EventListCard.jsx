@@ -26,11 +26,11 @@ const EventListCard = ({
   // router
   const router = useRouter();
 
-  useEffect(() => {
-    if (card?.price) {
-      findListingPrice(card.price);
-    }
-  }, [card]);
+  // useEffect(() => {
+  //   if (card?.price) {
+  //     findListingPrice(card.price);
+  //   }
+  // }, [card]);
 
   const changeEventTypeStatus = (card) => {
     const _reqData = {
@@ -117,88 +117,90 @@ const EventListCard = ({
     });
   };
 
-  const findListingPrice = async (price) => {
-    if (price) {
-      async function get() {
-        const response = await fetch(
-          `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
+  // const findListingPrice = async (price) => {
+  //   if (price == 0) {
+  //     setListingPrice(0);
+  //   } else if (price) {
+  //     async function get() {
+  //       const response = await fetch(
+  //         `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             Accept: "application/json",
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
 
-        setListingPrice(await response.json());
+  //       setListingPrice(await response.json());
 
-        return await response;
-      }
+  //       return await response;
+  //     }
 
-      get()
-        .then((res) => {
-          // setLisitngLoading(false);
-          if (res.status != 200) {
-            toast.error("An error has occurred");
-          }
-        })
-        .catch(() => {
-          toast.error("An error has occurred");
-        });
-    }
-  };
+  //     get()
+  //       .then((res) => {
+  //         // setLisitngLoading(false);
+  //         if (res.status != 200) {
+  //           toast.error("An error has occurred");
+  //         }
+  //       })
+  //       .catch(() => {
+  //         toast.error("An error has occurred");
+  //       });
+  //   }
+  // };
 
   return (
     <div className="events-row__card">
-      {listingPrice && (
-        <Fade duration={1000}>
-          <strong>{card.name}</strong>
-          <div className="btm">
-            <div>
-              {/* <span className="duration">{card.description}</span> */}
-              <span className="duration">{card.duration} min</span>
-              <span>${listingPrice.simulated_price}</span>
-            </div>
-            <label className="events-row__toggle">
-              <input
-                type="checkbox"
-                checked={card.isActive}
-                onChange={() => changeEventTypeStatus(card)}
-              />
-              <div className="toggle-control" />
-            </label>
+      {/* {listingPrice && ( */}
+      <Fade duration={1000}>
+        <strong>{card.name}</strong>
+        <div className="btm">
+          <div>
+            {/* <span className="duration">{card.description}</span> */}
+            <span className="duration">{card.duration} min</span>
+            <span>{card.price == 0 ? "Free" : `$${card.price}`}</span>
           </div>
-          <div className="see__more" onClick={() => setOpen(!open)}>
-            <img src="/img/events-see-more.svg" alt="" />
+          <label className="events-row__toggle">
+            <input
+              type="checkbox"
+              checked={card.isActive}
+              onChange={() => changeEventTypeStatus(card)}
+            />
+            <div className="toggle-control" />
+          </label>
+        </div>
+        <div className="see__more" onClick={() => setOpen(!open)}>
+          <img src="/img/events-see-more.svg" alt="" />
+        </div>
+        <div className={`actions__popup ${open ? "show" : ""}`}>
+          <div className="actions__popup-wrp">
+            <span
+              onClick={() => {
+                router.push(`/event-types/${card.id}`);
+              }}
+            >
+              <img src="/img/events-edit-icon.svg" alt="" />
+              Edit
+            </span>
+            <span onClick={duplicateEventType}>
+              <IoCopyOutline size={15} style={{ marginRight: "8px" }} />
+              Duplicate
+            </span>
+            <span
+              onClick={() => {
+                setOpen(false);
+                deleteEventType(card.id);
+              }}
+            >
+              <img src="/img/events-delete-icon.svg" alt="" />
+              Delete
+            </span>
           </div>
-          <div className={`actions__popup ${open ? "show" : ""}`}>
-            <div className="actions__popup-wrp">
-              <span
-                onClick={() => {
-                  router.push(`/event-types/${card.id}`);
-                }}
-              >
-                <img src="/img/events-edit-icon.svg" alt="" />
-                Edit
-              </span>
-              <span onClick={duplicateEventType}>
-                <IoCopyOutline size={15} style={{ marginRight: "8px" }} />
-                Duplicate
-              </span>
-              <span
-                onClick={() => {
-                  setOpen(false);
-                  deleteEventType(card.id);
-                }}
-              >
-                <img src="/img/events-delete-icon.svg" alt="" />
-                Delete
-              </span>
-            </div>
-          </div>
-        </Fade>
-      )}
+        </div>
+      </Fade>
+      {/* // )} */}
     </div>
   );
 };

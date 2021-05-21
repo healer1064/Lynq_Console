@@ -195,7 +195,7 @@ const Answer = () => {
                           cursor: "pointer",
                         }}
                       >
-                        Download Video
+                        Download
                       </span>
                       {/* </a> */}
                     </div>

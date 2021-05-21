@@ -18,7 +18,6 @@ import EmptyData from "../common/EmptyData";
 
 const SettingsEventType = () => {
   const { token } = useContext(ProfileContext);
-
   const [data, setData] = useState();
   const [asyncData, setAsyncData] = useState();
   const [response, setResponse] = useState(false);

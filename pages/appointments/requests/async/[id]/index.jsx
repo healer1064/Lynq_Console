@@ -72,7 +72,6 @@ const Async = () => {
     if (_str.indexOf("https") === -1) {
       _str = _str.replace("http", "https");
     }
-    console.log(_str);
     return _str;
   };
 
@@ -151,22 +150,59 @@ const Async = () => {
                           <div
                             onClick={() => setDocModal(true)}
                             className="async-download-video"
+                            style={{ justifyContent: "flex-start" }}
                           >
                             {/* <FaPlay color="black" /> */}
                             <img
-                              src={async.content[0].thumbnailUrl}
+                              src={
+                                async.content[0].fileName
+                                  .toLowerCase()
+                                  .includes(".mp3") ||
+                                async.content[0].fileName
+                                  .toLowerCase()
+                                  .includes(".mp4") ||
+                                async.content[0].fileName
+                                  .toLowerCase()
+                                  .includes(".wav") ||
+                                async.content[0].fileName
+                                  .toLowerCase()
+                                  .includes(".avi")
+                                  ? "/img/thumb_music.jpeg"
+                                  : async.content[0].fileName
+                                      .toLowerCase()
+                                      .includes(".jpeg") ||
+                                    async.content[0].fileName
+                                      .toLowerCase()
+                                      .includes(".png")
+                                  ? "/img/thumb_img.jpeg"
+                                  : async.content[0].fileName
+                                      .toLowerCase()
+                                      .includes(".pdf")
+                                  ? "/img/thumb_pdf.jpeg"
+                                  : "/img/thumb_file.jpeg"
+                              }
                               alt="doc"
-                              style={{ width: "100%", height: "100%" }}
+                              style={{ height: "100%" }}
                             />
                           </div>
-                          <p>{async.content[0].fileName}</p>
-
-                          <span
-                            onClick={() => handleClick(data.content[2].fileUrl)}
+                          <p
                             style={{
                               fontSize: "0.8rem",
+                              color: "#333",
+                            }}
+                          >
+                            {async.content[0].fileName}
+                          </p>
+
+                          <span
+                            onClick={() =>
+                              handleClick(async.content[0].fileUrl)
+                            }
+                            style={{
+                              fontSize: "0.9rem",
                               color: "#7E88F4",
                               cursor: "pointer",
+                              marginTop: "10px",
                             }}
                           >
                             Download

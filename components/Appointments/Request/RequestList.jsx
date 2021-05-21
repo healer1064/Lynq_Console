@@ -73,7 +73,7 @@ const RequestList = ({ requestList, filter, asyncList }) => {
         <p>Event Name</p>
         <p>Type</p>
         <p>Email</p>
-        <p>Answer</p>
+        <p>Status</p>
       </div>
       {list
         .sort(function (a, b) {
@@ -120,10 +120,10 @@ const RequestList = ({ requestList, filter, asyncList }) => {
               <p>
                 {/* {} */}
                 {item.requestDate
-                  ? "Yes"
+                  ? "[No duration field for countdown timer]"
                   : new Date(item.starting_date) < new Date()
                   ? "Expired"
-                  : "N/A"}
+                  : "To Validate"}
               </p>
               <CaretRightOutlined
                 style={{

@@ -1,23 +1,27 @@
 // libraries
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDropzone } from "react-dropzone";
 
 // context
 import ProfileContext from "../../../../../context/profile";
 
-// icons
-import { RiUploadCloudFill, RiDeleteBin6Fill } from "react-icons/ri";
+// requests
+import {
+  fetchAsyncReq,
+  uploadFileReq,
+  uploadMessageReq,
+} from "../../../../../utils/requests/async";
 
 // components
-import Loading from "../../../../../components/common/Loading";
-import PageLoading from "../../../../../components/common/PageLoading";
+import Dropzone from "../../../../../components/Appointments/Answers/Dropzone";
 import DocumentModal from "../../../../../components/common/DocumentModal";
+import PageLoading from "../../../../../components/common/PageLoading";
+import Loading from "../../../../../components/common/Loading";
 
 const AsyncAnswer = () => {
   // router
@@ -34,152 +38,48 @@ const AsyncAnswer = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [async, setAsync] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [videoError, setVideoError] = useState(false);
-  const [messageError, setMessageError] = useState(false);
 
   useEffect(() => {
     if (token) {
-      fetchAsync();
+      fetchAsyncReq(token)
+        .then((res) => setAsync(res.content.find((as) => as.id == id)))
+        .catch(() => toast.error("Failed to fetch Asynchronous List"));
     }
   }, [token]);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    handleFileInput(acceptedFiles[0]);
-  }, []);
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    multiple: false,
-  });
-
-  const fetchAsync = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/async/requests?t=${token}`,
-        config
-      );
-      const _data = await response.json();
-      setAsync(_data.content.find((as) => as.id == id));
-    } catch (err) {
-      console.log(err);
-      toast.error("Error, Failed to Fetch Asynchronous List!");
-    }
-  };
-
-  const handleFileInput = (_file) => {
-    // handle validations
-    const file = _file;
-    if (file) {
-      if (file.size > 1536 * 1000000) {
-        toast("File size cannot exceed more than 1.5GB");
-      } else {
-        setSelectedFile({
-          videoFileURL: URL.createObjectURL(file),
-          videoFileObject: file,
-        });
-      }
-    }
-  };
-
   const handleConfirm = () => {
     if (!selectedFile) {
-      setMessageError(false);
-      setVideoError(true);
-    } else if (info == "") {
-      setMessageError(true);
-      setVideoError(false);
+      toast.error("Please select your file");
     } else {
-      setMessageError(false);
-      setVideoError(false);
       setLoading(true);
-      uploadVideo(selectedFile.videoFileObject);
+      uploadFileReq(id, token, selectedFile.videoFileObject)
+        .then(() => {
+          uploadMessageReq(token, id, info)
+            .then(() => {
+              setLoading(false);
+              toast.success("Your answer has been sent!");
+              router.push("/appointments/requests");
+            })
+            .catch(() => {
+              setLoading(false);
+              toast.error("Failed to send info to client.");
+            });
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error("Failed to send your file to client.");
+        });
     }
   };
-
-  const uploadVideo = (videoFile) => {
-    async function upload() {
-      var formData = new FormData();
-      formData.append("image", videoFile);
-
-      const response = await fetch(
-        `https://api.lynq.app/async/${id}/upload?t=${token}`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      return await response.json();
-    }
-
-    upload()
-      .then((res) => {
-        handleMessage();
-        console.log("video upload", res);
-      })
-      .catch((res) => {
-        console.log("error video upload", res);
-        toast.error("An error has occurred while uploading video");
-      });
-  };
-
-  const handleMessage = async () => {
-    async function send() {
-      const _reqData = {
-        file: "string",
-        content: info,
-      };
-
-      const response = await fetch(
-        `https://api.lynq.app/async/${id}/message?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(_reqData),
-        }
-      );
-
-      return await response.json();
-    }
-
-    send()
-      .then((res) => {
-        console.log("message sent", res);
-        setLoading(false);
-        toast.success("Your answer has been sent!");
-        router.push("/appointments/requests");
-      })
-      .catch(() => {
-        toast.error("Error, Failed To Send Info to Client.");
-      });
-  };
-
-  console.log(selectedFile);
 
   return (
     <>
-      {docModal && (
-        <DocumentModal
-          setState={setDocModal}
-          data={selectedFile && selectedFile}
-        />
-      )}
       <Head>
-        <title>Appointments</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <title>
+          {async
+            ? `${async.customerFirstName} ${async.customerLastName} | Asychronous Answer | Lynq`
+            : "Asychronous Answer | Lynq"}
+        </title>
       </Head>
       <div className="content-wrp">
         {!async ? (
@@ -226,104 +126,11 @@ const AsyncAnswer = () => {
                       <p>{async.customerEmail}</p>
                     </div>
                     <div className="info__col">
-                      <strong>Upload your Document</strong>
-                      <div className="video-upload-input">
-                        {!selectedFile && (
-                          <div
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                            {...getRootProps()}
-                          >
-                            <input
-                              {...getInputProps()}
-                              accept=".mp4,.avi,.mp3,.wav,.pdf,.doc,.docx,.png,.jpeg"
-                            />
-                            <>
-                              <RiUploadCloudFill />
-                              <h6>Drop or select your file</h6>
-                              <p>
-                                Video (mp4, avi), Picture (jpeg, png), Audio
-                                (mp3, wav), Document (pdf, docx, doc)
-                                <br /> Max 400 MB
-                              </p>
-                            </>
-                          </div>
-                        )}
-                        {selectedFile && (
-                          <>
-                            <RiDeleteBin6Fill
-                              className="delete-video-icon"
-                              size={20}
-                              onClick={(e) => {
-                                setSelectedFile(null);
-                                e.stopPropagation();
-                              }}
-                            />
-                            <div
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setDocModal(true);
-                              }}
-                              className="async-download-video"
-                            >
-                              {selectedFile.videoFileObject.name
-                                .toLowerCase()
-                                .includes(".mp3") ||
-                              selectedFile.videoFileObject.name
-                                .toLowerCase()
-                                .includes(".wav") ||
-                              selectedFile.videoFileObject.name
-                                .toLowerCase()
-                                .includes(".mp4") ||
-                              selectedFile.videoFileObject.name
-                                .toLowerCase()
-                                .includes(".avi") ? (
-                                <img
-                                  className="thumbnail"
-                                  src="/img/thumb_music.jpeg"
-                                  alt="thumb"
-                                />
-                              ) : selectedFile.videoFileObject.name
-                                  .toLowerCase()
-                                  .includes(".jpeg") ||
-                                selectedFile.videoFileObject.name
-                                  .toLowerCase()
-                                  .includes(".png") ? (
-                                <img
-                                  className="thumbnail"
-                                  src="/img/thumb_img.jpeg"
-                                  alt="thumb"
-                                />
-                              ) : selectedFile.videoFileObject.name
-                                  .toLowerCase()
-                                  .includes(".pdf") ? (
-                                <img
-                                  className="thumbnail"
-                                  src="/img/thumb_pdf.jpeg"
-                                  alt="thumb"
-                                />
-                              ) : (
-                                <img
-                                  className="thumbnail"
-                                  src="/img/thumb_file.jpeg"
-                                  alt="thumb"
-                                />
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      {selectedFile && (
-                        <p style={{ margin: "10px 0px 0px" }}>
-                          {selectedFile.videoFileObject.name}
-                        </p>
-                      )}
+                      <Dropzone
+                        selectedFile={selectedFile}
+                        // handleFileInput={handleFileInput}
+                        setSelectedFile={setSelectedFile}
+                      />
                     </div>
                     <div className="info__col">
                       <strong>Other information</strong>
@@ -340,20 +147,6 @@ const AsyncAnswer = () => {
                         <div className="count">{infoCount}/300</div>
                       </div>
                     </div>
-                    {messageError ? (
-                      <p style={{ margin: "10px 0", color: "red" }}>
-                        Please write a description
-                      </p>
-                    ) : (
-                      <></>
-                    )}
-                    {videoError ? (
-                      <p style={{ margin: "10px 0", color: "red" }}>
-                        Please select your file
-                      </p>
-                    ) : (
-                      <></>
-                    )}
                     <div className="appointment-request__btns">
                       <button
                         className="reject"
@@ -375,6 +168,12 @@ const AsyncAnswer = () => {
           </Fade>
         )}
       </div>
+      {docModal && (
+        <DocumentModal
+          setState={setDocModal}
+          data={selectedFile && selectedFile}
+        />
+      )}
     </>
   );
 };
