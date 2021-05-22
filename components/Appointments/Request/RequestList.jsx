@@ -45,6 +45,8 @@ const RequestList = ({ requestList, filter, asyncList }) => {
     setOrder(!order);
   };
 
+  console.log(asyncList);
+
   return list.length === 0 ? (
     <div className="no-appointments">
       <br />

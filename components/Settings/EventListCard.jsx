@@ -117,40 +117,6 @@ const EventListCard = ({
     });
   };
 
-  // const findListingPrice = async (price) => {
-  //   if (price == 0) {
-  //     setListingPrice(0);
-  //   } else if (price) {
-  //     async function get() {
-  //       const response = await fetch(
-  //         `https://api.lynq.app/account/event-type/simulate?t=${token}&price=${price}`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-
-  //       setListingPrice(await response.json());
-
-  //       return await response;
-  //     }
-
-  //     get()
-  //       .then((res) => {
-  //         // setLisitngLoading(false);
-  //         if (res.status != 200) {
-  //           toast.error("An error has occurred");
-  //         }
-  //       })
-  //       .catch(() => {
-  //         toast.error("An error has occurred");
-  //       });
-  //   }
-  // };
-
   return (
     <div className="events-row__card">
       {/* {listingPrice && ( */}
@@ -160,7 +126,7 @@ const EventListCard = ({
           <div>
             {/* <span className="duration">{card.description}</span> */}
             <span className="duration">{card.duration} min</span>
-            <span>{card.price == 0 ? "Free" : `$${card.price}`}</span>
+            <span>{card.price == 0 ? "Free" : `$${card.displayPrice}`}</span>
           </div>
           <label className="events-row__toggle">
             <input
