@@ -17,7 +17,7 @@ import Onboarding from "../components/Home/Onboarding";
 
 const home = () => {
   // context
-  const { token, slugData, onboarding } = useContext(ProfileContext);
+  const { token, slugData } = useContext(ProfileContext);
 
   // states
   const [appointmentList, setAppointmentList] = useState(null);
@@ -250,7 +250,7 @@ const home = () => {
           </>
         )}
       </div>
-      {onboarding && <Onboarding />}
+      {!localStorage.getItem("lynqOnboarding") && <Onboarding />}
     </>
   );
 };

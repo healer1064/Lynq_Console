@@ -1,12 +1,11 @@
 // libraries
-import { useState, useContext, useEffect, useRef } from "react";
+import { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ReactPlayer from "react-player";
 
 // context
 import ProfileContext from "../../../../context/profile";
@@ -28,9 +27,6 @@ const Answer = () => {
   const [data, setData] = useState(null);
   const [docModal, setDocModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-
-  // ref
-  const playerRef = useRef(null);
 
   useEffect(() => {
     if (token) {
@@ -166,53 +162,67 @@ const Answer = () => {
                           setDocModal(true);
                         }}
                         className="async-download-video"
+                        style={{ justifyContent: "flex-start" }}
                       >
-                        {/* <FaPlay /> */}
-                        {/* <ReactPlayer
-                          url={data.content[2].fileUrl}
-                          width={170}
-                          height={100}
-                          light={true}
-                          ref={playerRef}
-                        /> */}
                         <img
-                          src={data.content[2].thumbnailUrl}
+                          src={
+                            data.content[2].fileName
+                              .toLowerCase()
+                              .includes(".mp3") ||
+                            data.content[2].fileName
+                              .toLowerCase()
+                              .includes(".mp4") ||
+                            data.content[2].fileName
+                              .toLowerCase()
+                              .includes(".wav") ||
+                            data.content[2].fileName
+                              .toLowerCase()
+                              .includes(".avi")
+                              ? "/img/thumb_music.jpeg"
+                              : data.content[2].fileName
+                                  .toLowerCase()
+                                  .includes(".jpeg") ||
+                                data.content[2].fileName
+                                  .toLowerCase()
+                                  .includes(".png")
+                              ? "/img/thumb_img.jpeg"
+                              : data.content[2].fileName
+                                  .toLowerCase()
+                                  .includes(".pdf")
+                              ? "/img/thumb_pdf.jpeg"
+                              : "/img/thumb_file.jpeg"
+                          }
                           alt="doc"
-                          style={{ width: "100%", height: "100%" }}
+                          style={{ height: "100%" }}
                         />
                       </div>
-                      <p>{data.content[0].fileName}</p>
-                      {/* <a
-                        style={{ textDecoration: "none", color: "#777" }}
-                        href={data.content[2].fileUrl}
-                        download
-                      > */}
+                      <p>{data.content[2].fileName}</p>
                       <span
                         onClick={handleClick}
                         style={{
-                          fontSize: "0.8rem",
-                          color: "#777",
+                          fontSize: "0.9rem",
+                          color: "#7E88F4",
                           cursor: "pointer",
+                          marginTop: "10px",
                         }}
                       >
                         Download
                       </span>
-                      {/* </a> */}
                     </div>
-                    <div className="info__col">
-                      <strong>Information Provided</strong>
-                      <p>{data.content[3].content}</p>
-                    </div>
+                    {data.content[3].content !== "" && (
+                      <div className="info__col">
+                        <strong>Information Provided</strong>
+                        <p>{data.content[3].content}</p>
+                      </div>
+                    )}
                     <div className="appointment-request__btns">
                       <button className="reject" onClick={() => router.back()}>
-                        {/* {rejectLoading && <Loading color="#fff" />}  */}
                         CANCEL
                       </button>
                       <button
                         className="accept"
                         onClick={() => setDeleteModal(true)}
                       >
-                        {/* {acceptLoading && <Loading />} */}
                         DELETE
                       </button>
                     </div>

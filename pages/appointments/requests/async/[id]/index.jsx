@@ -12,13 +12,9 @@ import "react-toastify/dist/ReactToastify.css";
 // context
 import ProfileContext from "../../../../../context/profile";
 
-// icons
-// import { FaPlay } from "react-icons/fa";
-
 // components
 import PageLoading from "../../../../../components/common/PageLoading";
 import DocumentModal from "../../../../../components/common/DocumentModal";
-// import VideoPreview from "../../../../../components/common/VideoPreview/VideoPreview";
 
 const Async = () => {
   // router
@@ -152,7 +148,6 @@ const Async = () => {
                             className="async-download-video"
                             style={{ justifyContent: "flex-start" }}
                           >
-                            {/* <FaPlay color="black" /> */}
                             <img
                               src={
                                 async.content[0].fileName

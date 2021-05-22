@@ -347,7 +347,7 @@ const EditProfile = () => {
         ) : (
           <div className={styles.edit_profile}>
             <h3>Public Profile</h3>
-            <form onSubmit={(e) => checkSlugAvailability(e)}>
+            <form>
               <div className={styles.edit_profile_img_container}>
                 {image !== null ? (
                   <img src={image} className={styles.edit_profile_img} />
@@ -372,14 +372,6 @@ const EditProfile = () => {
                   >
                     Upload Picture
                   </button>
-                  {/* <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        alert("no set yet");
-                      }}
-                    >
-                      Delete
-                    </button> */}
                 </div>
               </div>
               <div>
@@ -626,10 +618,12 @@ const EditProfile = () => {
                   ></textarea>
                 </div> */}
               <div className={styles.text_uppercase}>
-                <button type="submit" style={{ position: "relative" }}>
+                <button
+                  onClick={(e) => checkSlugAvailability(e)}
+                  style={{ position: "relative" }}
+                >
                   {loading && <Loading />}Save Profile
                 </button>
-                {/* <button>Cancel</button> */}
               </div>
             </form>
           </div>

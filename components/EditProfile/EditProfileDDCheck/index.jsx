@@ -37,6 +37,15 @@ const EditProfileDDCheck = ({ state, setState, categories }) => {
               />
             ))}
           </ul>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setIsOpen(false);
+            }}
+            style={{ marginTop: "10px" }}
+          >
+            Okay
+          </button>
         </div>
       )}
       <div className={styles.icon_wrapper}>

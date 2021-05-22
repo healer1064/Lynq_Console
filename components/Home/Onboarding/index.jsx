@@ -1,20 +1,18 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 // styles
 import styles from "./styles.module.sass";
 
-// context
-import ProfileContext from "../../../context/profile";
-
 const Onboarding = () => {
   // states
-  const [index, setIndex] = useState(3);
-
-  // context
-  const { setOnboarding } = useContext(ProfileContext);
+  const [index, setIndex] = useState(1);
+  const [done, setDone] = useState(false);
 
   return (
-    <div className={styles.onboarding}>
+    <div
+      style={{ display: done ? "none" : "flex" }}
+      className={styles.onboarding}
+    >
       <div className={styles.main}>
         <img
           src={
@@ -65,7 +63,14 @@ const Onboarding = () => {
                 Find more about activities and the rest of the platform in this
                 video
               </p>
-              <button onClick={() => setOnboarding(false)}>Start</button>
+              <button
+                onClick={() => {
+                  localStorage.setItem("lynqOnboarding", true);
+                  setDone(true);
+                }}
+              >
+                Start
+              </button>
             </div>
           )}
         </div>
