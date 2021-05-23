@@ -1,11 +1,12 @@
 // components
 import EmptyData from "../common/EmptyData";
 import ClientItem from "./ClientItem";
+import Pagination from "./Pagination";
 
 // icons
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
-const ClientsTable = ({ data, order, setOrder }) => {
+const ClientsTable = ({ data, setData, order, setOrder }) => {
   if (data.length === 0) {
     return <EmptyData title="No clients to show" />;
   } else {
@@ -92,6 +93,7 @@ const ClientsTable = ({ data, order, setOrder }) => {
         {data.map((item, i) => {
           return <ClientItem data={item} key={i} />;
         })}
+        <Pagination data={data} setData={setData} />
       </div>
     );
   }

@@ -1,9 +1,16 @@
 // libraries
 import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 // context
 import ProfileContext from "../../context/profile";
+
+// helpers
+import { paginateArray } from "../../utils/helpers";
+
+// fakedata
+import Fake from "../../utils/data";
 
 // components
 // import AddNewButton from "../../components/common/AddNewButton";
@@ -18,15 +25,48 @@ export default function Clients() {
   const { token } = useContext(ProfileContext);
 
   // state
+  const [response, setResponse] = useState(null);
+  const [paginatedData, setPaginatedData] = useState(null);
   const [data, setData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statsData, setStatsData] = useState(null);
   const [stats, setStats] = useState("TODAY");
-  const [order, setOrder] = useState("priceAsc");
+  const [order, setOrder] = useState("sessionAsc");
+  const [pageSize, setPageSize] = useState(1);
+  const [pageNumber, setPageNumber] = useState(10);
+
+  console.log(order);
 
   useEffect(() => {
-    if (token) getClients();
+    if (token) {
+      getClients();
+    }
   }, [token]);
+
+  useEffect(() => {
+    if (response) {
+    }
+  }, [response]);
+
+  useEffect(() => {
+    if (response) {
+      order == "sessionAsc"
+        ? setData(
+            response.sort(
+              (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
+            )
+          )
+        : order == "sessionDsc"
+        ? setData(
+            response.sort(
+              (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
+            )
+          )
+        : order == "priceAsc"
+        ? setData(response.sort((a, b) => a.display_price - b.display_price))
+        : setData(response.sort((a, b) => b.display_price - a.display_price));
+    }
+  }, [response, order]);
 
   useEffect(() => {
     if (token) {
@@ -69,8 +109,8 @@ export default function Clients() {
       config
     );
     const data = await response.json();
-
-    setData(data);
+    // setResponse(data);
+    setResponse(Fake.appointments);
   };
 
   return (
@@ -116,6 +156,7 @@ export default function Clients() {
                 <ClientsTable
                   order={order}
                   setOrder={setOrder}
+                  setData={setResponse}
                   data={
                     searchTerm === ""
                       ? data

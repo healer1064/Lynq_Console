@@ -27,14 +27,6 @@ const ClientItem = ({ data }) => {
       <div className="col revenue">
         <strong>${price || "0"}</strong>
       </div>
-      {/* <div className="col actions">
-                <div className="action">
-                    <img src="/img/clients-table-remove.svg" alt="" />
-                </div>
-                <div className="action">
-                    <img src="/img/clients-table-edit.svg" alt="" />
-                </div>
-            </div> */}
     </div>
   );
 };

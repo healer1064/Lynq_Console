@@ -9,7 +9,7 @@ const SearchInut = ({ setState }) => {
     <Input
       prefix={<SearchOutlined />}
       className="requests-search-input"
-      placeholder="Search"
+      placeholder="Search by name"
       allowClear
       onChange={(e) => setState(e.target.value)}
       size="large"
