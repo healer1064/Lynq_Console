@@ -22,6 +22,7 @@ export default function Clients() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statsData, setStatsData] = useState(null);
   const [stats, setStats] = useState("TODAY");
+  const [order, setOrder] = useState("priceAsc");
 
   useEffect(() => {
     if (token) getClients();
@@ -113,6 +114,8 @@ export default function Clients() {
                   </div>
                 </div>
                 <ClientsTable
+                  order={order}
+                  setOrder={setOrder}
                   data={
                     searchTerm === ""
                       ? data

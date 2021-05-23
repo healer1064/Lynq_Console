@@ -2,7 +2,10 @@
 import EmptyData from "../common/EmptyData";
 import ClientItem from "./ClientItem";
 
-const ClientsTable = ({ data }) => {
+// icons
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
+
+const ClientsTable = ({ data, order, setOrder }) => {
   if (data.length === 0) {
     return <EmptyData title="No clients to show" />;
   } else {
@@ -18,11 +21,71 @@ const ClientsTable = ({ data }) => {
           <div className="col email">
             <strong>Email Address</strong>
           </div>
-          <div className="col session">
-            <strong>Last Session</strong>
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() =>
+              setOrder(order == "sessionAsc" ? "sessionDsc" : "sessionAsc")
+            }
+            className="col session"
+          >
+            <strong
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              Last Session{" "}
+              {order == "sessionDsc" ? (
+                <CaretUpOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "sessionDsc" ? "1" : "0.6",
+                  }}
+                />
+              ) : (
+                <CaretDownOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "sessionAsc" ? "1" : "0.6",
+                  }}
+                />
+              )}
+            </strong>
           </div>
-          <div className="col revenue">
-            <strong>Total Revenue</strong>
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            className="col revenue"
+            onClick={() =>
+              setOrder(order == "priceAsc" ? "priceDsc" : "priceAsc")
+            }
+          >
+            <strong
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              Total Revenue{" "}
+              {order == "priceDsc" ? (
+                <CaretUpOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "priceDsc" ? "1" : "0.6",
+                  }}
+                />
+              ) : (
+                <CaretDownOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "priceAsc" ? "1" : "0.6",
+                  }}
+                />
+              )}
+            </strong>
           </div>
           {/* <div className="col actions"></div> */}
         </div>
