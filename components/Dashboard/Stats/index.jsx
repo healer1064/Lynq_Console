@@ -2,9 +2,9 @@
 import { useState } from "react";
 
 // components
-import Stats from "./Stats";
+import Item from "./Item";
 
-const HomeStats = ({ data, setStats }) => {
+const index = ({ data, setPeriod }) => {
   // states
   const [index, setIndex] = useState(1);
 
@@ -15,7 +15,7 @@ const HomeStats = ({ data, setStats }) => {
           className={`option  ${index === 1 && "active"}`}
           onClick={() => {
             setIndex(1);
-            setStats("TODAY");
+            setPeriod("TODAY");
           }}
         >
           Today
@@ -24,7 +24,7 @@ const HomeStats = ({ data, setStats }) => {
           className={`option  ${index === 2 && "active"}`}
           onClick={() => {
             setIndex(2);
-            setStats("WEEK");
+            setPeriod("WEEK");
           }}
         >
           Weekly
@@ -33,7 +33,7 @@ const HomeStats = ({ data, setStats }) => {
           className={`option  ${index === 3 && "active"}`}
           onClick={() => {
             setIndex(3);
-            setStats("MONTH");
+            setPeriod("MONTH");
           }}
         >
           Monthly
@@ -42,7 +42,7 @@ const HomeStats = ({ data, setStats }) => {
           className={`option  ${index === 4 && "active"}`}
           onClick={() => {
             setIndex(4);
-            setStats("YEAR");
+            setPeriod("YEAR");
           }}
         >
           Yearly
@@ -53,12 +53,12 @@ const HomeStats = ({ data, setStats }) => {
         onChange={(e) => {
           setIndex(e.target.value);
           e.target.value == 1
-            ? setStats("TODAY")
+            ? setPeriod("TODAY")
             : e.target.value == 2
-            ? setStats("WEEK")
+            ? setPeriod("WEEK")
             : e.target.value == 3
-            ? setStats("MONTH")
-            : setStats("YEAR");
+            ? setPeriod("MONTH")
+            : setPeriod("YEAR");
         }}
         className="home-stats__select"
       >
@@ -67,9 +67,9 @@ const HomeStats = ({ data, setStats }) => {
         <option value={3}>Monthly</option>
         <option value={4}>Yearly</option>
       </select>
-      <Stats stats={data} />
+      <Item stats={data} />
     </div>
   );
 };
 
-export default HomeStats;
+export default index;

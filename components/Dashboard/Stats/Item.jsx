@@ -1,8 +1,10 @@
 // libraries
 import AnimatedNumber from "animated-number-react";
-import PageLoading from "../common/PageLoading";
 
-const Stats = ({ stats }) => {
+// components
+import PageLoading from "../../common/PageLoading";
+
+const Item = ({ stats }) => {
   return (
     <div className="home-stats__row">
       <div className="card">
@@ -64,4 +66,4 @@ const Stats = ({ stats }) => {
   );
 };
 
-export default Stats;
+export default Item;

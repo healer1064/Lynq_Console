@@ -4,12 +4,12 @@ import { Input } from "antd";
 // styles
 import "antd/dist/antd.css";
 
-const SearchInut = ({ setState }) => {
+const SearchInut = ({ setState, placeholder }) => {
   return (
     <Input
       prefix={<SearchOutlined />}
       className="requests-search-input"
-      placeholder="Search by name"
+      placeholder={placeholder}
       allowClear
       onChange={(e) => setState(e.target.value)}
       size="large"

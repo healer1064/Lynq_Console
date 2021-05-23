@@ -1,12 +1,19 @@
 // components
-import EmptyData from "../common/EmptyData";
-import ClientItem from "./ClientItem";
+import EmptyData from "../../common/EmptyData";
+import Item from "./Item";
 import Pagination from "./Pagination";
 
 // icons
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
-const ClientsTable = ({ data, setData, order, setOrder }) => {
+const index = ({
+  data,
+  filteredData,
+  order,
+  setOrder,
+  setPageSize,
+  setPageNumber,
+}) => {
   if (data.length === 0) {
     return <EmptyData title="No clients to show" />;
   } else {
@@ -88,15 +95,18 @@ const ClientsTable = ({ data, setData, order, setOrder }) => {
               )}
             </strong>
           </div>
-          {/* <div className="col actions"></div> */}
         </div>
         {data.map((item, i) => {
-          return <ClientItem data={item} key={i} />;
+          return <Item data={item} key={i} />;
         })}
-        <Pagination data={data} setData={setData} />
+        <Pagination
+          filteredData={filteredData}
+          setPageSize={setPageSize}
+          setPageNumber={setPageNumber}
+        />
       </div>
     );
   }
 };
 
-export default ClientsTable;
+export default index;

@@ -3,178 +3,142 @@ import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+// styles
+import styles from "./styles.module.sass";
+
 // context
 import ProfileContext from "../../context/profile";
 
 // helpers
 import { paginateArray } from "../../utils/helpers";
 
-// fakedata
-import Fake from "../../utils/data";
+// requests
+import { clientsReq, statsReq } from "../../utils/requests/dashboard";
 
 // components
-// import AddNewButton from "../../components/common/AddNewButton";
-import ClientsTable from "../../components/Clients/ClientsTable";
 import PageLoading from "../../components/common/PageLoading";
-import EmptyData from "../../components/common/EmptyData";
+import Stats from "../../components/Dashboard/Stats";
 import SearchInput from "../../components/common/SearchInput";
-import HomeStats from "../../components/Home/HomeStats";
+import Table from "../../components/Dashboard/Table";
 
 export default function Clients() {
   // context
   const { token } = useContext(ProfileContext);
 
   // state
+  const [clients, setClients] = useState(null);
   const [response, setResponse] = useState(null);
-  const [paginatedData, setPaginatedData] = useState(null);
+  const [filteredData, setFilteredData] = useState(null);
   const [data, setData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statsData, setStatsData] = useState(null);
-  const [stats, setStats] = useState("TODAY");
+  const [stats, setStats] = useState(null);
+  const [period, setPeriod] = useState("TODAY");
   const [order, setOrder] = useState("sessionAsc");
-  const [pageSize, setPageSize] = useState(1);
-  const [pageNumber, setPageNumber] = useState(10);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
 
-  console.log(order);
+  console.log(clients);
 
+  // get clients
   useEffect(() => {
     if (token) {
-      getClients();
+      clientsReq(token)
+        .then((res) => setClients(res))
+        .catch(() => toast.error("Failed to fetch clients list."));
     }
   }, [token]);
 
+  // handle search
   useEffect(() => {
-    if (response) {
+    if (clients) {
+      setResponse(
+        searchTerm === ""
+          ? clients
+          : clients.filter(
+              (i) =>
+                (i.first_name &&
+                  i.first_name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())) ||
+                (i.last_name &&
+                  i.last_name.toLowerCase().includes(searchTerm.toLowerCase()))
+            )
+      );
     }
-  }, [response]);
+  }, [searchTerm, clients]);
 
   useEffect(() => {
     if (response) {
+      // setting ascending descending filter
       order == "sessionAsc"
-        ? setData(
+        ? setFilteredData(
             response.sort(
               (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
             )
           )
         : order == "sessionDsc"
-        ? setData(
+        ? setFilteredData(
             response.sort(
               (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
             )
           )
         : order == "priceAsc"
-        ? setData(response.sort((a, b) => a.display_price - b.display_price))
-        : setData(response.sort((a, b) => b.display_price - a.display_price));
-    }
-  }, [response, order]);
+        ? setFilteredData(
+            response.sort((a, b) => a.display_price - b.display_price)
+          )
+        : setFilteredData(
+            response.sort((a, b) => b.display_price - a.display_price)
+          );
 
+      // setting pagination
+      if (filteredData) {
+        setData(paginateArray(filteredData, pageSize, pageNumber));
+      }
+    }
+  }, [response, order, pageNumber, pageSize, filteredData]);
+
+  // get stats
   useEffect(() => {
     if (token) {
-      fetchStats();
+      statsReq(token, period)
+        .then((res) => setStats(res))
+        .catch(() => toast.error("Failed to fetch stats."));
     }
-  }, [token, stats]);
-
-  const fetchStats = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
-
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/account/stats?t=${token}&period=${stats}`,
-        config
-      );
-
-      const _data = await response.json();
-
-      setStatsData(_data);
-    } catch (err) {
-      toast.error("Error Occured, Stats Cannot Be Shown");
-    }
-  };
-
-  const getClients = async () => {
-    let config = {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        ContentType: "application/json",
-      },
-    };
-
-    const response = await fetch(
-      `https://api.lynq.app/account/clients?t=${token}`,
-      config
-    );
-    const data = await response.json();
-    // setResponse(data);
-    setResponse(Fake.appointments);
-  };
+  }, [token, period]);
 
   return (
     <>
       <Head>
-        <title>Dashboard</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <title>Dashboard | Lynq </title>
       </Head>
       <div className="content-wrp">
-        {!data ? (
+        {!data || !stats ? (
           <PageLoading />
         ) : (
           <>
-            <HomeStats data={statsData} setStats={setStats} />
+            <Stats data={stats} setPeriod={setPeriod} />
             <br />
-            <h3 style={{ margin: "0", fontWeight: "700", fontSize: "1.4rem" }}>
-              Detail by clients
-            </h3>
-            {data.length === 0 ? (
-              <EmptyData title="No clients to show" />
-            ) : (
-              <div className="clients-wrp">
-                <div className="clients-wrp__top">
-                  {/* <AddNewButton title="New Client" /> */}
-                  {/* <input
-                      type="text"
-                      placeholder="Search by name"
-                      className="clients-wrp__search"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    /> */}
-                  <div
-                    style={{ width: "100%" }}
-                    className="invitations-menu-search"
-                  >
-                    <SearchInput setState={setSearchTerm} />
-                  </div>
+            <h3 className={styles.stats_title}>Detail by clients</h3>
+            <div className="clients-wrp">
+              <div className="clients-wrp__top">
+                <div
+                  className={`invitations-menu-search ${styles.search_wrap}`}
+                >
+                  <SearchInput
+                    setState={setSearchTerm}
+                    placeholder="First and last name"
+                  />
                 </div>
-                <ClientsTable
-                  order={order}
-                  setOrder={setOrder}
-                  setData={setResponse}
-                  data={
-                    searchTerm === ""
-                      ? data
-                      : data.filter(
-                          (i) =>
-                            (i.first_name &&
-                              i.first_name
-                                .toLowerCase()
-                                .includes(searchTerm.toLowerCase())) ||
-                            (i.last_name &&
-                              i.last_name
-                                .toLowerCase()
-                                .includes(searchTerm.toLowerCase()))
-                        )
-                  }
-                />
               </div>
-            )}
+              <Table
+                setPageSize={setPageSize}
+                setPageNumber={setPageNumber}
+                order={order}
+                filteredData={filteredData}
+                setOrder={setOrder}
+                data={data}
+              />
+            </div>
           </>
         )}
         <br />

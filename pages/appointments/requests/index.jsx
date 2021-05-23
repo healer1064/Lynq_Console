@@ -148,11 +148,14 @@ export default function Appointments() {
                           {filter} <CaretDownOutlined />
                         </Button>
                       </Dropdown>
-                      <SearchInput setState={setRequestSearchTerm} />
+                      <SearchInput
+                        placeholder="Email and event name"
+                        setState={setRequestSearchTerm}
+                      />
                     </div>
                     <RequestList
                       requestList={
-                        requestSearchTerm == ""
+                        requestSearchTerm === ""
                           ? requests
                           : requests.filter(
                               (item) =>
@@ -165,7 +168,7 @@ export default function Appointments() {
                             )
                       }
                       asyncList={
-                        requestSearchTerm == ""
+                        requestSearchTerm === ""
                           ? asyncs
                           : asyncs.filter(
                               (item) =>

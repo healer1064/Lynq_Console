@@ -4,12 +4,14 @@ import { Pagination } from "antd";
 // styles
 import styles from "./styles.module.sass";
 
-const index = ({ data, setData }) => {
-  function onShowSizeChange(current, pageSize) {
-    console.log(current, pageSize);
+const index = ({ filteredData, setPageSize, setPageNumber }) => {
+  function onShowSizeChange(pageNumber, pageSize) {
+    setPageNumber(pageNumber);
+    setPageSize(pageSize);
   }
-  function onChange(page, pageSize) {
-    setData(paginate(data, pageSize, page));
+  function onChange(pageNumber, pageSize) {
+    setPageNumber(pageNumber);
+    setPageSize(pageSize);
   }
 
   return (
@@ -20,7 +22,7 @@ const index = ({ data, setData }) => {
         onChange={onChange}
         defaultCurrent={1}
         pageSizeOptions={[10, 25, 50, 100]}
-        total={data.length}
+        total={filteredData.length}
       />
     </div>
   );

@@ -1,6 +1,7 @@
+// libraries
 import ReactTooltip from "react-tooltip";
 
-const ClientItem = ({ data }) => {
+const Item = ({ data }) => {
   const {
     first_name,
     last_name,
@@ -31,4 +32,4 @@ const ClientItem = ({ data }) => {
   );
 };
 
-export default ClientItem;
+export default Item;
