@@ -1639,7 +1639,16 @@ body
       &.yellow
         border-color: rgb(255, 255, 0)
       &.gray
-        border-color: #E1E1E1
+        border-left-color: #E1E1E1
+        border-right: .5px solid #d9d9d9;
+        border-top: .5px solid #d9d9d9;
+        border-bottom: .5px solid #d9d9d9;
+        & > div 
+          opacity: .7
+      .past-event 
+        font-weight: 700
+        margin-top: .5rem
+
       .title
         font-weight: 600
         font-size: 24px

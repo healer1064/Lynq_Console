@@ -59,6 +59,7 @@ const AppointmentCard = ({ data }) => {
           <span>Booking from Google Calendar</span>
         </>
       )}
+      {!status && <span className="past-event">Past Event</span>}
       {status && (
         <>
           {data.activity_name && (

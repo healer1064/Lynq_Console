@@ -26,7 +26,8 @@ const AppointmentsListItem = ({ data }) => {
 
   const sortList = (list) => {
     return list.sort(
-      (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
+      (a, b) =>
+        moment(a.starting_date).valueOf() - moment(b.starting_date).valueOf()
     );
   };
 

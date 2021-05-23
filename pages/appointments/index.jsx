@@ -2,6 +2,7 @@
 import Head from "next/head";
 import { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
+import moment from "moment-timezone";
 import "react-toastify/dist/ReactToastify.css";
 import { format } from "date-fns";
 
@@ -40,7 +41,6 @@ export default function Appointments() {
       "Content-Type": "application/json",
     };
 
-    // comment out this code
     try {
       const response = await fetch(
         `https://api.lynq.app/account/appointments?t=${token}`,
@@ -55,7 +55,6 @@ export default function Appointments() {
       setData([]);
     }
 
-    // remove this lines
     // setData(filterByCurrWeek(groupAppointment(mockUpData.appointments)));
     // setTemp(groupAppointment(mockUpData.appointments));
   };
