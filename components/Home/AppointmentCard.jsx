@@ -1,6 +1,6 @@
 // libraries
 import { useContext, useState, useEffect } from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import Link from "next/link";
 
 // context
@@ -14,10 +14,10 @@ const AppointmentCard = ({ data }) => {
   const { slugData } = useContext(ProfileContext);
 
   useEffect(() => {
-    var currentDate = new Date();
-    var serverDate = new Date(data.starting_date);
-    setStatus(serverDate >= currentDate);
-  }, [data]);
+    setStatus(
+      moment().isBetween(moment(data.starting_date), moment(data.ending_date))
+    );
+  }, []);
 
   return (
     <div

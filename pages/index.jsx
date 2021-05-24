@@ -2,7 +2,7 @@
 import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
 import Fade from "react-reveal/Fade";
-import moment from "moment";
+import moment from "moment-timezone";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,6 +14,9 @@ import ProfileContext from "../context/profile";
 import PageLoading from "../components/common/PageLoading";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
 import Onboarding from "../components/Home/Onboarding";
+
+// mockup
+import mockUpData from "../utils/data";
 
 const home = () => {
   // context
@@ -36,22 +39,6 @@ const home = () => {
     }
   }, [token]);
 
-  // useEffect(() => {
-  //   if (slugData !== null) {
-  //     setCurrSession({
-  //       ...currSession,
-  //       link: `us.lynq.app/${slugData.slug}/teacher/${currSession.id}`,
-  //     });
-  //   }
-
-  //   if (slugData !== null) {
-  //     setNextSession({
-  //       ...nextSession,
-  //       link: `us.lynq.app/${slugData.slug}/teacher/${nextSession.id}`,
-  //     });
-  //   }
-  // }, [slugData]);
-
   const fetchAppointments = async () => {
     const config = {
       method: "GET",
@@ -71,7 +58,8 @@ const home = () => {
 
       if (_data.length > 0) {
         const groups = _data.reduce((groups, appointment) => {
-          const date = appointment.starting_date.split("T")[0];
+          // const date = appointment.starting_date.split("T")[0];
+          const date = moment(appointment.starting_date).format("YYYY-MM-DD");
           if (!groups[date]) {
             groups[date] = [];
           }

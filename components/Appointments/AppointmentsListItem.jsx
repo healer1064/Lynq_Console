@@ -1,6 +1,6 @@
 // libraries
 import { useState, useEffect } from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import Fade from "react-reveal/Fade";
 
 // components
@@ -14,15 +14,9 @@ const AppointmentsListItem = ({ data }) => {
   const { date, appointments } = data;
 
   useEffect(() => {
-    var currentDate = new Date();
-
-    const stat = appointments.map((apt) => apt.starting_date);
-    var bool = false;
-    stat.forEach((i) => {
-      bool = new Date(i) >= currentDate;
-    });
-    setStatus(bool);
-  }, [data]);
+    let startTime = moment(date);
+    setStatus(startTime.isSame(moment(), "day"));
+  }, []);
 
   const sortList = (list) => {
     return list.sort(
