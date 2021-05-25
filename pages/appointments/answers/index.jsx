@@ -59,7 +59,7 @@ export default function Answers() {
           <PageLoading />
         ) : (
           <Fade>
-            <AnswersList answersList={answers} />
+            <AnswersList answersList={answers.reverse()} />
             <br />
           </Fade>
         )}
