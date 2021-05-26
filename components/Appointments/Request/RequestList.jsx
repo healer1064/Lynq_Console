@@ -12,6 +12,9 @@ import {
 // style
 import styles from "./Request.module.css";
 
+// components
+import Countdown from "./Async/Countdown";
+
 const RequestList = ({ requestList, filter, asyncList }) => {
   // states
   const [list, setList] = useState(requestList.concat(asyncList));
@@ -98,8 +101,8 @@ const RequestList = ({ requestList, filter, asyncList }) => {
             >
               <p>
                 {item.requestDate
-                  ? moment(item.requestDate).format("ddd MM, YYYY")
-                  : moment(item.create_date).format("ddd MM, YYYY")}
+                  ? moment(item.requestDate).format("ddd DD/MM/YYYY")
+                  : moment(item.create_date).format("ddd DD/MM/YYYY")}
                 <span
                   style={{
                     borderLeft: "1px solid #aaa",
@@ -119,11 +122,17 @@ const RequestList = ({ requestList, filter, asyncList }) => {
               <p>{item.customerEmail ? item.customerEmail : item.email}</p>
               <p>
                 {/* {} */}
-                {item.requestDate
-                  ? "[No duration field for countdown timer]"
-                  : new Date(item.starting_date) < new Date()
-                  ? "Expired"
-                  : "To Validate"}
+                {item.requestDate ? (
+                  item.maxDeliveryTime ? (
+                    <Countdown date={item.maxDeliveryTime} />
+                  ) : (
+                    "N/A"
+                  )
+                ) : new Date(item.starting_date) < new Date() ? (
+                  "Expired"
+                ) : (
+                  "To Validate"
+                )}
               </p>
               <CaretRightOutlined
                 style={{
