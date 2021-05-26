@@ -14,8 +14,10 @@ const AppointmentsListItem = ({ data }) => {
   const { date, appointments } = data;
 
   useEffect(() => {
-    let startTime = moment(date);
-    setStatus(startTime.isSame(moment(), "day"));
+    let startTime = moment(date).toDate();
+    let curr = new Date();
+    let check = startTime.getTime() >= curr.getTime();
+    setStatus(check);
   }, []);
 
   const sortList = (list) => {

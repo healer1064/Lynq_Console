@@ -14,9 +14,14 @@ const AppointmentCard = ({ data }) => {
   const { slugData } = useContext(ProfileContext);
 
   useEffect(() => {
-    setStatus(
-      moment().isBetween(moment(data.starting_date), moment(data.ending_date))
-    );
+    let startTime = moment(data.starting_date).toDate();
+    let endTime = moment(data.ending_date).toDate();
+    let curr = new Date();
+    let check =
+      startTime.getTime() >= curr.getTime() &&
+      curr.getTime() <= endTime.getTime();
+
+    setStatus(check);
   }, []);
 
   return (
