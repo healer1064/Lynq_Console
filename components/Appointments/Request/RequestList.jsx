@@ -101,8 +101,8 @@ const RequestList = ({ requestList, filter, asyncList }) => {
             >
               <p>
                 {item.requestDate
-                  ? moment(item.requestDate).format("ddd DD/MM/YYYY")
-                  : moment(item.create_date).format("ddd DD/MM/YYYY")}
+                  ? moment(item.requestDate).format("ddd MM/DD/YYYY")
+                  : moment(item.create_date).format("ddd MM/DD/YYYY")}
                 <span
                   style={{
                     borderLeft: "1px solid #aaa",

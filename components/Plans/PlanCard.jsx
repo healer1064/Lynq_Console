@@ -47,7 +47,10 @@ const PlanCard = ({
         </li>
         <li>
           <img src="/img/checkmark-circle.svg" alt="" />
-          <span>10% commission added on top of the session price</span>
+          <span>
+            10% commission added on top of the session price with a maximum of
+            $10
+          </span>
         </li>
       </ul>
       <div onClick={checkPlan} className="plans-card__next">
