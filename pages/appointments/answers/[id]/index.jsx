@@ -70,6 +70,8 @@ const Answer = () => {
     return _str;
   };
 
+  console.log(data);
+
   return (
     <>
       {docModal && (
@@ -94,7 +96,6 @@ const Answer = () => {
           rel="stylesheet"
         />
       </Head>
-
       <div className="content-wrp">
         {!data ? (
           <PageLoading />
@@ -126,11 +127,6 @@ const Answer = () => {
                     <div className="info__col">
                       <strong>Event Name</strong>
                       <p>{data.activityName}</p>
-                    </div>
-                    <div className="info__col">
-                      <strong>Answer</strong>
-                      <p>{data.packageName}: [no duration field] days</p>
-                      <p>Time Limit: [No duration field]</p>
                     </div>
                     <div style={{ display: "flex" }}>
                       <div
