@@ -5,6 +5,7 @@ import Link from "next/link";
 
 // context
 import ProfileContext from "../../context/profile";
+import { dateIsBetween } from "../../utils/DateHelper";
 
 const AppointmentCard = ({ data }) => {
   // states
@@ -14,14 +15,9 @@ const AppointmentCard = ({ data }) => {
   const { slugData } = useContext(ProfileContext);
 
   useEffect(() => {
-    let startTime = moment(data.starting_date).toDate();
-    let endTime = moment(data.ending_date).toDate();
-    let curr = new Date();
-    let check =
-      startTime.getTime() >= curr.getTime() &&
-      curr.getTime() <= endTime.getTime();
+    let checkStatus = dateIsBetween(data.starting_date, data.ending_date);
 
-    setStatus(check);
+    setStatus(checkStatus);
   }, []);
 
   return (

@@ -35,25 +35,28 @@ export default function Appointments() {
   }, [token]);
 
   const fetchAppointments = async () => {
-    const config = {
-      method: "GET",
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    };
+    // const config = {
+    //   method: "GET",
+    //   Accept: "application/json",
+    //   "Content-Type": "application/json",
+    // };
 
-    try {
-      const response = await fetch(
-        `https://api.lynq.app/account/appointments?t=${token}`,
-        config
-      );
+    // try {
+    //   const response = await fetch(
+    //     `https://api.lynq.app/account/appointments?t=${token}`,
+    //     config
+    //   );
 
-      const _data = await response.json();
-      setData(filterByCurrWeek(groupAppointment(_data)));
-      setTemp(groupAppointment(_data));
-    } catch (err) {
-      toast.error("Error, Failed to Fetch Appointment List!");
-      setData([]);
-    }
+    //   const _data = await response.json();
+    //   setData(filterByCurrWeek(groupAppointment(_data)));
+    //   setTemp(groupAppointment(_data));
+    // } catch (err) {
+    //   toast.error("Error, Failed to Fetch Appointment List!");
+    //   setData([]);
+    // }
+
+    setData(filterByCurrWeek(groupAppointment(mockUpData.appointments)));
+    setTemp(groupAppointment(mockUpData.appointments));
   };
 
   const groupAppointment = (data) => {
@@ -93,8 +96,6 @@ export default function Appointments() {
   const onWeekChange = (_start, _end) => {
     _start = format(_start, "yyyy-MM-dd");
     _end = format(_end, "yyyy-MM-dd");
-
-    console.log(_start, _end);
 
     let filter = temp.filter(
       (item) =>

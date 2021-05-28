@@ -1,10 +1,18 @@
 // components
 import AppointmentCard from "./AppointmentCard";
+import moment from "moment-timezone";
 
 const HomeAppointmentsList = ({ appointmentList }) => {
+  const sortList = (list) => {
+    return list.sort(
+      (a, b) =>
+        moment(b.starting_date).valueOf() - moment(a.starting_date).valueOf()
+    );
+  };
+
   return appointmentList && appointmentList.length > 0 ? (
     appointmentList.map((appointment) =>
-      appointment.appointments.map((item, index) => (
+      sortList(appointment.appointments).map((item, index) => (
         <AppointmentCard key={index} data={item} />
       ))
     )

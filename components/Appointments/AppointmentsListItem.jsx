@@ -1,10 +1,11 @@
 // libraries
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import moment from "moment-timezone";
 import Fade from "react-reveal/Fade";
 
 // components
 import AppointmentCard from "../Home/AppointmentCard";
+import { isBefore } from "../../utils/DateHelper";
 
 const AppointmentsListItem = ({ data }) => {
   // state
@@ -13,11 +14,8 @@ const AppointmentsListItem = ({ data }) => {
 
   const { date, appointments } = data;
 
-  useEffect(() => {
-    let startTime = moment(date).toDate();
-    let curr = new Date();
-    let check = startTime.getTime() >= curr.getTime();
-    setStatus(check);
+  useLayoutEffect(() => {
+    setStatus(isBefore(date));
   }, []);
 
   const sortList = (list) => {
