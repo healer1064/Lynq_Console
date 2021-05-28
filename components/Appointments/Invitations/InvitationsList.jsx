@@ -59,7 +59,7 @@ const InvitationsList = ({ invitationsList, filter }) => {
             className={styles.request_single_item}
           >
             <p>
-              {moment(item.create_date).format("ddd MM, YYYY")}
+              {moment(item.create_date).format("ddd MM/DD/YYYY")}
               <span
                 style={{
                   borderLeft: "1px solid #aaa",

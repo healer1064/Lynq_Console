@@ -136,7 +136,7 @@ const AppointmentDetails = () => {
                     </a>
                     <h2>Appointment</h2>
                     <div className="info__col">
-                      <p>{"Received: " + getFromTime(data.create_date)}</p>
+                      <p>{"Sent: " + getFromTime(data.create_date)}</p>
                     </div>
                     <div className="info__col">
                       <strong>Event type</strong>

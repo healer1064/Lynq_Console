@@ -131,7 +131,7 @@ const RequestList = ({ answersList }) => {
               className={styles.answers_single_item}
             >
               <p>
-                {moment(item.requestDate).format("ddd DD/MM/YYYY")}
+                {moment(item.requestDate).format("ddd MM/DD/YYYY")}
                 <span
                   style={{
                     borderLeft: "1px solid #aaa",
