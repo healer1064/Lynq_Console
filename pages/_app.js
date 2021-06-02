@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TagManager from "react-gtm-module";
 
 // styles
 import "../styles/main.sass";
@@ -59,6 +60,10 @@ function MyApp({ Component, pageProps }) {
     return () => {
       setSidebar(true);
     };
+  }, []);
+
+  useEffect(() => {
+    TagManager.initialize({ gtmId: "GTM-K2DPJPZ" });
   }, []);
 
   return (

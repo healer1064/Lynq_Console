@@ -1,4 +1,5 @@
-import moment from "moment";
+// import moment from "moment";
+import moment from "moment-timezone";
 
 export const getCurrentWeek = () => {
   const weekStart = moment().startOf("week").toDate();
@@ -86,4 +87,35 @@ export const changeTo24 = (_time) => {
     hour: moment(_time, ["h:mm a"]).format("HH"),
     minute: moment(_time, ["h:mm a"]).format("mm"),
   };
+};
+
+export const dateIsBetween = (_start, _end) => {
+  if (isSame(_start)) {
+    let currentTime = moment(formatTime(moment()), "hh:mm:ss");
+    let start = moment(formatTime(_start), "hh:mm:ss");
+    let end = moment(formatTime(_end), "hh:mm:ss");
+
+    return currentTime.isBetween(start, end);
+  }
+
+  if (isBefore(_start)) {
+    return true;
+  }
+
+  return false;
+};
+
+export const isBefore = (_date) => {
+  let startTime = moment(_date);
+  let check = startTime.diff(moment(), "days");
+
+  return check >= 0 ? true : false;
+};
+
+export const formatTime = (_time, _format = "hh:mm:ss") => {
+  return moment(_time).format(_format);
+};
+
+const isSame = (_date) => {
+  return moment(_date).isSame(new Date(), "day");
 };

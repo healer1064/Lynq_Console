@@ -17,6 +17,7 @@ import Onboarding from "../components/Home/Onboarding";
 
 // mockup
 import mockUpData from "../utils/data";
+import { dateIsBetween, formatTime } from "../utils/DateHelper";
 
 const home = () => {
   // context
@@ -96,14 +97,13 @@ const home = () => {
   const getCurrentSession = (_data) => {
     let format = "hh:mm A";
 
-    let time = moment();
-
     _data.forEach((appt) => {
-      let start = moment(appt.starting_date);
-      let end = moment(appt.ending_date);
-      if (time.isBetween(start, end)) {
+      if (dateIsBetween(appt.starting_date, appt.ending_date)) {
         setCurrSession({
-          time: `${start.format(format)} - ${end.format(format)}`,
+          time: `${formatTime(appt.starting_date, format)} - ${formatTime(
+            appt.ending_date,
+            format
+          )}`,
           id: appt.id,
           name: appt.activity_name,
         });

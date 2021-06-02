@@ -54,6 +54,9 @@ export default function Appointments() {
       toast.error("Error, Failed to Fetch Appointment List!");
       setData([]);
     }
+
+    // setData(filterByCurrWeek(groupAppointment(mockUpData.appointments)));
+    // setTemp(groupAppointment(mockUpData.appointments));
   };
 
   const groupAppointment = (data) => {
@@ -93,8 +96,6 @@ export default function Appointments() {
   const onWeekChange = (_start, _end) => {
     _start = format(_start, "yyyy-MM-dd");
     _end = format(_end, "yyyy-MM-dd");
-
-    console.log(_start, _end);
 
     let filter = temp.filter(
       (item) =>
