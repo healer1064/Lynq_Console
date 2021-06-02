@@ -22,12 +22,12 @@ const Plans = () => {
   const toggle = () => setIsMonthly(!isMonthly);
 
   const checkPlan = () => {
-    if (plan) {
-      setError(false);
-      router.push("/signup");
-    } else {
-      setError(true);
-    }
+    // if (plan) {
+    //   setError(false);
+    router.push("/signup");
+    // } else {
+    //   setError(true);
+    // }
   };
 
   return (
@@ -44,7 +44,7 @@ const Plans = () => {
         error={error}
         setError={setError}
       />
-      {pricing && (
+      {/* {pricing && (
         <>
           <Fade bottom cascade duration={600}>
             <div className="plans-pricing">
@@ -102,7 +102,7 @@ const Plans = () => {
             </div>
           </Fade>
         </>
-      )}
+      )} */}
     </div>
   );
 };

@@ -60,8 +60,8 @@ const Onboarding = () => {
                 the world
               </p>
               <p>
-                Find more about activities and the rest of the platform in this
-                video
+                {/* Find more about activities and the rest of the platform in this
+                video */}
               </p>
               <button
                 onClick={() => {

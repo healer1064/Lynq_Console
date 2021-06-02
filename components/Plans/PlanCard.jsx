@@ -16,8 +16,13 @@ const PlanCard = ({
 
   return (
     <div className="plans-card">
-      <div className="plans-card__title">Early Bird Special Plan</div>
-      <div className="plans-card__free">
+      <div
+        className="plans-card__title"
+        style={{ textAlign: "center", width: "100%" }}
+      >
+        Early Bird Special Plan
+      </div>
+      {/* <div className="plans-card__free">
         <input
           checked={plan}
           onChange={(e) => handleChange(e)}
@@ -25,10 +30,10 @@ const PlanCard = ({
           className="circle"
         />
         {/* <HomeSelect /> */}
-        <span>$99/year</span>
-        <strong>FREE</strong>
-      </div>
-      <ul>
+      {/* <span>$99/year</span>
+        <strong>FREE</strong> */}
+      {/* </div>  */}
+      <ul style={{ margin: "30px auto" }}>
         <li>
           <img src="/img/checkmark-circle.svg" alt="" />
           <span>Unlimited event types</span>
@@ -57,7 +62,7 @@ const PlanCard = ({
         <span>NEXT</span>
         <img src="/img/arrow-next.svg" alt="" />
       </div>
-      {error && (
+      {/* {error && (
         <span
           style={{
             color: "red",
@@ -68,8 +73,8 @@ const PlanCard = ({
         >
           Please select a plan
         </span>
-      )}
-      <div
+      )} */}
+      {/* <div
         onClick={() => setPricing(!pricing)}
         className="plans-card__seeother"
       >
@@ -82,7 +87,7 @@ const PlanCard = ({
           src="/img/see-other-arrow.svg"
           alt=""
         />
-      </div>
+      </div> */}
     </div>
   );
 };
