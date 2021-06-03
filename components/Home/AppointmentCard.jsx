@@ -15,7 +15,9 @@ const AppointmentCard = ({ data }) => {
   const { slugData } = useContext(ProfileContext);
 
   useEffect(() => {
-    let checkStatus = dateIsBetween(data.starting_date, data.ending_date);
+    let checkStatus =
+      dateIsBetween(data.starting_date, data.ending_date) ||
+      new Date(data.ending_date) > new Date();
 
     setStatus(checkStatus);
   }, []);
