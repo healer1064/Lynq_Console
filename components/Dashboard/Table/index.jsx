@@ -1,10 +1,13 @@
+// styles
+import styles from "./styles.module.sass";
+
+// icons
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
+
 // components
 import EmptyData from "../../common/EmptyData";
 import Item from "./Item";
 import Pagination from "./Pagination";
-
-// icons
-import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
 const index = ({
   data,
@@ -18,15 +21,15 @@ const index = ({
     return <EmptyData title="No clients to show" />;
   } else {
     return (
-      <div className="clients-table">
-        <div className="row head">
-          <div className="col first__name">
+      <div className={styles.table}>
+        <div className={`${styles.row} ${styles.head}`}>
+          <div className={`${styles.col} ${styles.first_name}`}>
             <strong>First Name</strong>
           </div>
-          <div className="col last__name">
+          <div className={`${styles.col} ${styles.last_name}`}>
             <strong>Last Name</strong>
           </div>
-          <div className="col email">
+          <div className={`${styles.col} ${styles.email}`}>
             <strong>Email Address</strong>
           </div>
           <div
@@ -36,7 +39,7 @@ const index = ({
             onClick={() =>
               setOrder(order == "sessionAsc" ? "sessionDsc" : "sessionAsc")
             }
-            className="col session"
+            className={`${styles.col} ${styles.session}`}
           >
             <strong
               style={{
@@ -66,7 +69,7 @@ const index = ({
             style={{
               cursor: "pointer",
             }}
-            className="col revenue"
+            className={`${styles.col} ${styles.revenue}`}
             onClick={() =>
               setOrder(order == "priceAsc" ? "priceDsc" : "priceAsc")
             }

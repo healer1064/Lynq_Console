@@ -1,0 +1,97 @@
+.messages
+    flex-grow: 1
+    width: 100%
+    padding-top: 10px
+    display: flex
+    flex-direction: column
+    .item
+        width: 100%
+        display: flex
+        align-items: flex-start
+        margin-bottom: 15px
+        &:last-child
+            margin-bottom: 0px
+        .icon
+            width: 60px
+            span
+                width: 45px
+                height: 45px
+                border-radius: 50%
+                margin-right: 20px
+                display: flex
+                align-items: center
+                justify-content: center
+                color: white
+                font-weight: 600
+                cursor: context-menu
+        .content
+            flex-grow: 1
+            overflow: hidden
+            h6
+                margin: 0
+                font-size: 0.85rem
+                font-weight: 600
+                margin-bottom: 0px
+                cursor: context-menu
+            p
+                width: 500px
+                margin: 0
+                font-size: 0.8rem
+                cursor: context-menu
+        .time
+            margin-left: 20px
+            h6
+                margin: 0
+                font-size: 0.7rem
+                font-weight: 600
+                cursor: context-menu
+            p
+                margin: 0
+                font-size: 0.65rem
+                color: #ED5E68
+                cursor: context-menu
+
+@media screen and ( max-width: 519px )
+    .messages
+        .item
+            position: relative
+            .icon
+                width: 50px
+                span
+                    width: 35px
+                    height: 35px
+                    margin-right: 10px
+                    font-size: 0.9rem
+            .content
+                flex-grow: 1
+                overflow: hidden
+                h6
+                    margin: 0
+                    font-size: 0.85rem
+                    font-weight: 600
+                    margin-bottom: 0px
+                    cursor: context-menu
+                p
+                    width: 100%
+                    margin: 0
+                    font-size: 0.8rem
+                    cursor: context-menu
+            .time
+                position: absolute
+                margin-left: 0
+                top: 5px
+                right: 5px
+                display: flex
+                h6
+                    margin: 0
+                    font-size: 0.65rem
+                    font-weight: 600
+                    cursor: context-menu
+                    color: #777
+                p
+                    margin: 0
+                    font-size: 0.65rem
+                    color: #ED5E68
+                    cursor: context-menu
+                    margin-left: 10px
+    

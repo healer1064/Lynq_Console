@@ -2,7 +2,7 @@ const PageLoading = () => {
   return (
     <div
       style={{
-        height: "100%",
+        height: "90%",
         width: "100%",
         display: "flex",
         alignItems: "center",

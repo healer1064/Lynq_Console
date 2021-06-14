@@ -2,19 +2,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import TagManager from "react-gtm-module";
 
 // styles
 import "../styles/main.sass";
+import "react-toastify/dist/ReactToastify.css";
+import "antd/dist/antd.css";
 
 // context provider
 import { ProfileProvider } from "../context/profile";
 
 // components
-import PageLoading from "../components/common/PageLoading";
-import Navbar from "../components/Navbar";
-import Leftbar from "../components/Leftbar";
+import PageLoading from "@/components/common/PageLoading";
+import Navbar from "@/components/common/Navbar";
+import Sidebar from "@/components/common/Sidebar";
 
 function MyApp({ Component, pageProps }) {
   // states
@@ -86,14 +87,14 @@ function MyApp({ Component, pageProps }) {
           <PageLoading />
         </div>
       ) : sidebar ? (
-        <>
+        <div className="main-wrp">
           <ToastContainer />
-          <Navbar active="" />
-          <div style={{ height: "auto" }} className="page-wrp">
-            <Leftbar active="" />
+          <Navbar />
+          <div className="page-wrp">
+            <Sidebar />
             <Component {...pageProps} />
           </div>
-        </>
+        </div>
       ) : (
         <>
           <ToastContainer />

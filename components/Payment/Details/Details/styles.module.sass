@@ -1,0 +1,123 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.table
+    width: 100%
+    background: #FFF
+    box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
+    border-radius: 5px
+    padding-bottom: 8px
+    @include flex
+    flex-direction: column
+    overflow: hidden
+    font-size: 16px
+    line-height: 20px
+    color: $black-2
+    .row
+        width: 100%
+        height: 48px
+        background: #f9f9f9
+        margin: 10px 0
+        @include flex
+        &:hover
+            background: #efefef
+        .col
+            height: 100%
+            @include flex
+            align-items: center
+            justify-content: center
+            padding: 0 10px
+        .first_name
+            cursor: context-menu
+            width: 20%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .last_name
+            cursor: context-menu
+            width: 20%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .email
+            cursor: context-menu
+            width: 20%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .session
+            cursor: context-menu
+            width: 20%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+        .status
+            cursor: context-menu
+            width: 20%
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+    .head
+        background: rgba(126, 136, 244, 0.8)
+        color: #FFF
+        &:hover
+            background: rgba(126, 136, 244, 0.8)
+
+@media (max-width: $breakpointLaptop)
+    .table
+        font-size: 14px
+        line-height: 19px
+        .row
+            height: 43px
+            .first_name
+                width: 20%
+            .last_name
+                width: 20%
+            .email
+                width: 20%
+            .session
+                width: 20%
+            .status
+                width: 20%
+
+@media (max-width: $breakpointPhone)
+    .table
+        overflow-x: scroll
+        .row
+            display: grid
+            grid-template-columns: 152px 230px 130px 181px 181px
+            height: 41px
+            width: fit-content
+            .col
+                width: 100%
+                border-width: 1px
+            .first_name
+                width: 100%
+            .last_name
+                width: 100%
+            .email
+                width: 100%
+            .session
+                width: 100%
+            .status
+                width: 100%
+        .head
+            height: 48px
+            width: fit-content

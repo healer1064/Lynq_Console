@@ -1,0 +1,57 @@
+.content
+    display: flex
+    justify-content: flex-start
+    flex-direction: column
+    margin-top: 40px
+    label
+        margin: 10px 0
+        font-size: 1rem
+        font-weight: 700
+        width: 300px
+        overflow: hidden
+        display: flex
+        align-items: center
+        justify-content: space-between
+
+        span
+            font-weight: 600
+            width: 150px
+            font-style: italic
+            border: 1px solid #ccc
+            border-radius: 5px
+            display: flex
+            align-items: center
+            padding: 5px 10px
+            font-size: 0.9rem
+            color: #777
+
+            img
+                height: 12px
+                width: 12px
+
+            input
+                padding: 0 5px
+                width: 100%
+                flex-grow: 1
+                border: none
+                background: transparent
+                &:focus
+                    outline: none
+
+    button
+        margin-top: 40px
+        height: 40px
+        width: 120px
+        background: #7E88F4
+        color: white
+        border: 1px solid #7E88F4
+        border-radius: 5px
+        cursor: pointer
+        text-transform: uppercase
+        font-weight: 700
+        transition: all 200ms
+        &:focus
+            outline: none
+        &:hover
+            background: white
+            color: #7E88F4

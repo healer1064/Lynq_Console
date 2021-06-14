@@ -1,0 +1,57 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.signup
+    @include flex
+    min-height: 100vh
+    .form_wrap
+        width: calc(100% - 51.11%)
+        @include flex
+        flex-direction: column
+        justify-content: center
+        align-items: flex-start
+        padding: 48px 64px 79px 80px
+        min-height: 100vh
+        .logo
+            height: 60px
+            margin-bottom: 32px
+            img
+                height: 100%
+                width: auto
+
+@media screen and ( max-width: $breakpointLaptop )
+    .signup
+        .form_wrap
+            width: calc(100% - 48.83%)
+            padding: 48px 87px 48px 32px
+            justify-content: flex-start
+            .logo
+                height: 44px
+                margin-bottom: 24px
+    
+@media screen and ( max-width: $breakpointPhone )
+    .signup
+        .form_wrap
+            width: 100%
+            padding: 40px 16px 119px
+            justify-content: flex-start
+            .logo
+                height: 42px
+                margin-bottom: 34px

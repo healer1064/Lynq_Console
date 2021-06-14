@@ -1,22 +1,19 @@
 // libraries
-import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
+import Head from "next/head";
 import Fade from "react-reveal/Fade";
 import moment from "moment-timezone";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // context
-import ProfileContext from "../context/profile";
+import ProfileContext from "@/context/profile";
 
 // components
-// import EmailConfirmation from "../components/Home/EmailConfirmation";
-import PageLoading from "../components/common/PageLoading";
+import PageLoading from "@/components/common/PageLoading";
 import HomeAppointmentsList from "../components/Home/HomeAppointmentsList";
 import Onboarding from "../components/Home/Onboarding";
 
 // mockup
-import mockUpData from "../utils/data";
 import { dateIsBetween, formatTime } from "../utils/DateHelper";
 
 const home = () => {
@@ -59,7 +56,6 @@ const home = () => {
 
       if (_data.length > 0) {
         const groups = _data.reduce((groups, appointment) => {
-          // const date = appointment.starting_date.split("T")[0];
           const date = moment(appointment.starting_date).format("YYYY-MM-DD");
           if (!groups[date]) {
             groups[date] = [];
@@ -113,11 +109,8 @@ const home = () => {
 
   const getNextSession = (_data) => {
     let format = "hh:mm A";
-
     let time = moment();
-
     _data.sort(compare);
-
     for (let i = 0; i < _data.length; i++) {
       let start = moment(_data[i].starting_date);
       let end = moment(_data[i].ending_date);
@@ -152,37 +145,23 @@ const home = () => {
     return 0;
   };
 
-  const fullDate = () => {
-    const date = moment().toDate();
-    return `${moment(date).format("dddd")}, ${moment(date).format("MMMM")}
-     ${moment(date).format("DD")}, ${moment(date).format("YYYY")}`;
-  };
-
   return (
     <>
       <Head>
-        <title>Home - Lynq</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <title>Home | Lynq</title>
       </Head>
       <div className="home-wrp">
-        {appointmentList === null ? (
+        {!appointmentList ? (
           <PageLoading />
         ) : (
           <>
             <div className="notifications__col">
-              {/* <EmailConfirmation /> */}
               {currSession.time !== null && slugData !== null && (
                 <div className="session">
                   <span>
                     Current live session
                     {currSession.name == null &&
-                      // ? "Current live session"
-                      " | From google calender"}
-                    | {currSession.time}
+                      " | From google calender"}| {currSession.time}
                   </span>
                   {currSession.name !== null && (
                     <a
@@ -200,9 +179,7 @@ const home = () => {
                   <span>
                     Next Session
                     {nextSession.name == null &&
-                      // ? "Click here to start your next session"
-                      " | From google calender"}
-                    | {nextSession.time}
+                      " | From google calender"}| {nextSession.time}
                   </span>
                   {nextSession.name !== null && (
                     <a
@@ -220,7 +197,7 @@ const home = () => {
               <div className="home-cnt">
                 <div className="home-cnt__date">
                   <div className="date-slug-inner">
-                    {fullDate()}
+                    {moment().format("dddd, MMMM DD YYYY")}
                     <h2>Today’s Session</h2>
                   </div>
                   <span>

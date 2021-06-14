@@ -1,6 +1,9 @@
 // libraries
 import ReactTooltip from "react-tooltip";
 
+// styles
+import styles from "./styles.module.sass";
+
 const Item = ({ data }) => {
   const {
     first_name,
@@ -11,21 +14,21 @@ const Item = ({ data }) => {
   } = data;
 
   return (
-    <div className="row">
+    <div className={styles.row}>
       <ReactTooltip />
-      <div className="col first__name">
+      <div className={`${styles.col} ${styles.first_name}`}>
         <span>{first_name}</span>
       </div>
-      <div className="col last__name">
+      <div className={`${styles.col} ${styles.last_name}`}>
         <span>{last_name}</span>
       </div>
-      <div className="col email">
+      <div className={`${styles.col} ${styles.email}`}>
         <span data-tip={email}>{email}</span>
       </div>
-      <div className="col session">
+      <div className={`${styles.col} ${styles.session}`}>
         <span>{starting_date.split("T")[0]}</span>
       </div>
-      <div className="col revenue">
+      <div className={`${styles.col} ${styles.revenue}`}>
         <strong>${price || "0"}</strong>
       </div>
     </div>

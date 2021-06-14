@@ -1,0 +1,46 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$lavender: #7E88F4
+
+// Breakpoints
+$breakpointPhone: 519px
+    
+.btn
+  width: 225px
+  margin: 10px 0
+  padding: 12px 24px 11px
+  border: 2px solid $lavender
+  border-radius: 5px
+  display: flex !important
+  align-items: center
+  justify-content: flex-start 
+  cursor: pointer
+  display: inline-block
+  transition: all 200ms
+  svg
+    color: $lavender
+    font-size: 20px
+  span
+    margin-left: 4px
+    font-weight: bold
+    font-size: 16px
+    color: $lavender
+  &:hover
+    background: $lavender
+    svg
+      color: white
+    span
+      color: white
+
+@media screen and ( max-width: $breakpointPhone )
+  .btn
+    width: 100%
+    justify-content: center
+  

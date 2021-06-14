@@ -1,0 +1,59 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.graphic
+    width: 51.11%
+    background: #F8F8FF
+    min-height: 100vh
+    padding: 48px 98px 82px
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    justify-content: center
+    h1
+        width: 94%
+        margin-left: 10px
+        margin: 0 0 97px 10px
+        color: #2B2B32
+        font-size: 32px
+        line-height: 39px
+    div
+        width: 100%
+        img
+            width: 100%
+
+@media screen and ( max-width: $breakpointLaptop )
+    .graphic
+        width: 48.83%
+        justify-content: flex-start
+        align-items: center
+        padding: 86px 82px 0 87px
+        h1
+            font-size: 28px
+            line-height: 34px
+            margin-bottom: 57px
+            margin-left: 0
+            width: 100%
+        div
+            max-width: 420px
+
+@media screen and ( max-width: $breakpointPhone )
+    .graphic
+        display: none

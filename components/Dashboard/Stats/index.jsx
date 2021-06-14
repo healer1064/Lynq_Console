@@ -1,6 +1,9 @@
 // libraries
 import { useState } from "react";
 
+// styles
+import styles from "./styles.module.sass";
+
 // components
 import Item from "./Item";
 
@@ -9,10 +12,10 @@ const index = ({ data, setPeriod }) => {
   const [index, setIndex] = useState(1);
 
   return (
-    <div className="home-stats" style={{ paddingBottom: "50px" }}>
-      <div className="home-stats__switch">
+    <div className={styles.stats}>
+      <div className={styles.switch}>
         <div
-          className={`option  ${index === 1 && "active"}`}
+          className={`${styles.option}  ${index === 1 ? styles.active : ""}`}
           onClick={() => {
             setIndex(1);
             setPeriod("TODAY");
@@ -21,7 +24,7 @@ const index = ({ data, setPeriod }) => {
           Today
         </div>
         <div
-          className={`option  ${index === 2 && "active"}`}
+          className={`${styles.option}  ${index === 2 ? styles.active : ""}`}
           onClick={() => {
             setIndex(2);
             setPeriod("WEEK");
@@ -30,7 +33,7 @@ const index = ({ data, setPeriod }) => {
           Weekly
         </div>
         <div
-          className={`option  ${index === 3 && "active"}`}
+          className={`${styles.option}  ${index === 3 ? styles.active : ""}`}
           onClick={() => {
             setIndex(3);
             setPeriod("MONTH");
@@ -39,7 +42,7 @@ const index = ({ data, setPeriod }) => {
           Monthly
         </div>
         <div
-          className={`option  ${index === 4 && "active"}`}
+          className={`${styles.option}  ${index === 4 ? styles.active : ""}`}
           onClick={() => {
             setIndex(4);
             setPeriod("YEAR");
@@ -60,7 +63,7 @@ const index = ({ data, setPeriod }) => {
             ? setPeriod("MONTH")
             : setPeriod("YEAR");
         }}
-        className="home-stats__select"
+        className={styles.select}
       >
         <option value={1}>Today</option>
         <option value={2}>Weekly</option>

@@ -1,0 +1,73 @@
+.chat
+    flex-grow: 1
+    display: flex
+    flex-direction: column
+
+    .main
+        flex-grow: 1
+        padding: 10px
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: flex-end
+        overflow: hidden
+
+        .back_btn
+            display: none
+
+    .send_bar
+        width: 100%
+        height: 70px
+        background: #eaeaea
+        display: flex
+        align-items: center
+        padding: 0 10px
+
+        svg
+            color: #888
+            font-size: 20px
+            margin-right: 10px
+            cursor: pointer
+            transition: all 200ms
+            &:hover
+                opacity: 0.6
+        input
+            flex-grow: 1
+            background: #fefefe
+            border: 1px solid #888
+            border-radius: 3px
+            padding: 4px 10px
+            font-size: 0.9rem
+            color: #888
+            &:focus
+                outline: none
+        button
+            margin-left: 10px
+            padding: 5px 25px
+            border-radius: 50px
+            cursor: pointer
+            border: 1px solid #888
+            color: #888
+            font-size: 0.8rem
+            font-weight: 600
+            transition: all 200ms
+            &:hover
+                opacity: 0.6
+
+.hide
+    display: flex
+.show
+    display: flex
+
+@media (max-width: 519px)
+    .chat
+        width: 100%
+        .main
+            .back_btn
+                display: flex
+                padding-bottom: 10px
+                align-self: flex-start
+    .hide
+        display: none
+    .show
+        display: flex

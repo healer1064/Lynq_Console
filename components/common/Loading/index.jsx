@@ -1,22 +1,12 @@
 // styles
-import styles from "../../../styles/Loading.module.css";
+import styles from "./styles.module.css";
 
 const Loading = ({ color }) => {
   return (
     <div
+      className={styles.loading}
       style={{
-        position: "absolute",
-        left: "0",
-        right: "0",
-        top: "0",
-        bottom: "0",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         background: color || "#7E88F4",
-        zIndex: "100",
-        borderRadius: "8px",
-        margin: "0px",
       }}
     >
       <div className={styles.dot_pulse} data-title=".dot-pulse">

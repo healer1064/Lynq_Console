@@ -2,22 +2,17 @@
 import Head from "next/head";
 
 // components
-import PlansNavbar from "../../components/Plans/PlansNavbar";
-import Plans from "../../components/Plans/Plans";
+import PlansNavbar from "@/components/Plans/Navbar";
+import Content from "@/components/Plans/Content";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Plans</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <title>Plans | Lynq</title>
       </Head>
       <PlansNavbar />
-      <Plans />
+      <Content />
     </>
   );
 }

@@ -1,0 +1,116 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+    
+// Colors
+$black: #303030
+$lavender: #7E88F4
+$grey: #838383
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+    
+.card
+    width: 100%
+    max-width: 640px
+    background: #F8F8FF
+    border: 1px solid #D9E0E9
+    border-radius: 5px
+    padding: 40px 56px 56px
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    .title
+        text-align: center
+        width: 100%
+        font-weight: bold
+        font-size: 40px
+        line-height: 49px
+        color: $black
+        margin-bottom: 24px
+    ul
+        @include flex
+        flex-direction: column
+        align-items: flex-start
+        padding: 0
+        max-width: 64%
+        margin: 30px auto
+        li
+            padding: 0
+            margin: 0
+            list-style-type: none
+            @include flex
+            align-items: flex-start
+            margin-bottom: 16px
+            font-size: 16px
+            line-height: 24px
+            color: $black
+            span
+                margin-left: 16px
+    .next
+        width: 100%
+        padding: 16px 0
+        @include flex
+        justify-content: center
+        align-items: center
+        background: #39BDCD
+        border-radius: 5px
+        text-decoration: none
+        margin-bottom: 16px
+        cursor: pointer
+        &:hover
+            img
+                transform: translateX(25%)
+        span
+            font-weight: 600
+            font-size: 16px
+            line-height: 20px
+            color: #FFF
+            margin-right: 8px
+        img
+            transition: all 0.2s ease-in-out
+
+  
+@media screen and ( max-width: $breakpointLaptop )
+    .card
+        max-width: 498px
+        padding: 32px 40px 40px
+        .title
+            font-size: 24px
+            line-height: 29px
+            margin-bottom: 24px
+        ul
+            max-width: 75%
+            margin-bottom: 20px
+            li
+                font-size: 14px
+                margin-bottom: 12px
+                img
+                    width: 21px
+                span
+                    margin-left: 12px
+        .next
+            span
+                font-size: 14px
+                line-height: 17px
+            img
+                height: 17px
+    
+@media screen and ( max-width: $breakpointPhone )
+    .card
+        padding: 24px 16px
+        .title
+            font-size: 24px
+            line-height: 29px
+            margin-bottom: 22px
+        ul
+            max-width: calc(100% - 17px)
+            margin-bottom: 16px
+        .next
+            span
+                margin-right: 4px

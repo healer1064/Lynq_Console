@@ -3,7 +3,6 @@ import Head from "next/head";
 import { useState, useContext, useEffect } from "react";
 import Fade from "react-reveal/Fade";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 // context
 import ProfileContext from "../../../context/profile";
@@ -50,12 +49,7 @@ const SettingsCallSync = () => {
   return (
     <>
       <Head>
-        <title>Settings</title>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <title>Settings Calendar | Lynq</title>
       </Head>
       <div className="content-wrp">
         <>

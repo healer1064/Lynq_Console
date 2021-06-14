@@ -1,0 +1,17 @@
+// Colors
+$lavender: #7E88F4
+
+// Breakpoints
+$breakpointPhone: 519px
+
+.search_input
+  width: 250px !important
+  display: flex !important
+  align-items: center !important
+  justify-content: space-between !important
+  &:hover
+    border-color: $lavender !important
+
+@media (max-width: $breakpointPhone)
+    .search_input
+        width: 100% !important

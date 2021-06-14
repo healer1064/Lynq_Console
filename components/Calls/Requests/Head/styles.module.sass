@@ -1,0 +1,23 @@
+// Breakpoints
+$breakpointPhone: 519px
+  
+.requests_menu_search
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.requests_dropdown_btn
+  width: 280px
+  display: flex !important
+  align-items: center !important
+  justify-content: space-between !important
+
+@media (max-width: $breakpointPhone)
+  .requests_menu_search
+    flex-direction: column
+
+  .requests_dropdown_btn
+    width: 100%
+    margin-top: 20px
+    margin-bottom: 20px
+  

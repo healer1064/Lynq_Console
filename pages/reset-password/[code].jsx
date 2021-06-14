@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 // components
 import ResetPasswordForm from "../../components/ResetPassword/ResetPasswordForm";
-import SignupLeftbar from "../../components/Signup/SignupLeftbar";
+import SignupLeftbar from "../../components/Signup/Graphic";
 
 const index = () => {
   const [loading, setLoading] = useState(false);

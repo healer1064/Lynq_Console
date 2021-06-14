@@ -1,16 +1,14 @@
-const EmptyData = ({ title }) => {
+// styles
+import styles from "./styles.module.sass";
+
+const EmptyData = ({ title, flag }) => {
   return (
     <div
-      style={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: "10%",
-      }}
+      className={`${styles.empty_data} ${
+        flag == "payment" ? styles.less_height : ""
+      }`}
     >
-      <span style={{ color: "#888" }}>{title}</span>
+      <span>{title}</span>
     </div>
   );
 };

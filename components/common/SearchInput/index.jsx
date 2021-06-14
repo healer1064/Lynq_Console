@@ -1,18 +1,19 @@
+// libraries
 import { SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 
 // styles
-import "antd/dist/antd.css";
+import styles from "./styles.module.sass";
 
-const SearchInut = ({ setState, placeholder }) => {
+const SearchInut = ({ setState, placeholder, size }) => {
   return (
     <Input
       prefix={<SearchOutlined />}
-      className="requests-search-input"
+      className={styles.search_input}
       placeholder={placeholder}
       allowClear
       onChange={(e) => setState(e.target.value)}
-      size="large"
+      size={size ? size : "large"}
     />
   );
 };
