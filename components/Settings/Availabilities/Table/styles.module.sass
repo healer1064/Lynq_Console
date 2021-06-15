@@ -1,0 +1,197 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.table
+    @include flex
+    flex-direction: column
+    width: calc(72.06% - 32px)
+    margin-right: 32px
+    background: #FFF
+    border: 1px solid #D9E0E9
+    box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.04)
+    border-radius: 5px
+.loading
+    height: 40vh
+.title
+    padding: 24px
+    font-weight: 500
+    font-size: 16px
+    line-height: 20px
+    color: $black
+.row
+    min-height: 72px
+    @include flex
+    align-items: center
+    padding: 0 24px
+    border-top: 1px solid #D9E0E9
+.day
+    width: 15.91%
+    @include flex
+    align-items: center
+    span
+        text-transform: uppercase
+        margin-left: 4px
+        font-weight: 500
+        font-size: 18px
+        line-height: 22px
+        color: $black
+.col
+    flex: 1
+    padding: 16px 0
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+.unavailable
+    margin-top: 9px
+    font-size: 18px
+    line-height: 22px
+    color: $grey
+.time_row
+    @include flex
+    align-items: center
+    margin-bottom: 12px
+    &:last-child
+        margin-bottom: 0
+    input
+        border: 1px solid #838383
+        border-radius: 5px
+        padding: 12px 0 11px
+        width: 98px
+        font-family: 'Open Sans'
+        text-align: center
+        font-size: 14px
+        line-height: 17px
+        color: $black
+        &:focus
+            outline: none
+        &::-webkit-calendar-picker-indicator
+            background: none
+            display: none
+.line
+    width: 8px
+    height: 1px
+    background: $grey
+    margin: 0 12px
+.icon_wrapper
+    display: flex
+    align-items: center
+    margin-left: 1rem
+    gap: .4rem
+    cursor: pointer
+    svg, img
+        transition: all .25s ease-in-out
+        &:hover
+            transform: translateY(-3px)
+.trash
+    cursor: pointer
+    margin-left: 16px
+.add
+    height: 24px
+    width: 24px
+    cursor: pointer
+    img
+        height: 100%
+        width: 100%
+
+@media (max-width: $breakpointLaptop)
+    .table
+        width: calc(72.22% - 32px)
+    .title
+        padding: 16px 24px
+    .day
+        margin-top: 0px
+        width: 14.66%
+        img
+            height: 16px
+        span
+            font-size: 14px
+            line-height: 16px
+            margin-left: 8px
+    .col
+        padding: 12px 0
+    .unavailable
+        margin-top: 0
+        font-size: 14px
+        line-height: 17px
+    .time_row
+        margin-bottom: 8px
+        input[type="time"]
+            padding: 8px 0
+            width: 81px
+            font-size: 12px
+            line-height: 15px
+    .line
+        margin: 0 8px
+    .trash
+        height: 16px
+    .add
+        margin-top: 0px
+        height: auto
+        width: 16px
+    .row
+        min-height: 41px
+        .day
+            margin-top: 0px
+
+@media (max-width: $breakpointPhone)
+    .table
+        width: 100%
+        margin: 0 0 32px
+    .title
+        padding: 16px
+    .row
+        min-height: 54px
+        padding: 0 16px
+    .day
+        width: 29%
+        margin-top: 17px
+        img
+            height: 21px
+            width: 21px
+        span
+            font-size: 16px
+            line-height: 20px
+    .col
+        .unavailable
+            font-size: 16px
+            margin-left: 11px
+            margin-top: 7px
+    .time_row
+        width: 100%
+        padding-right: 13px
+        input[type="time"]
+            width: auto
+            flex: 1
+            padding: 8px 0
+            font-size: 11px
+            line-height: 13px
+    .line
+        margin: 0 4px
+    .trash
+        @include flex
+        height: 12px
+        margin-left: 4px
+        img
+        width: 12px
+        height: 12px
+    .add
+        margin-top: 16px
+        height: 21px
+        width: 21px

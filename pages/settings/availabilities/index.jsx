@@ -2,7 +2,7 @@
 import Head from "next/head";
 
 // components
-import SettingsSetup from "../../../components/Settings/SettingsSetup";
+import Content from "@/components/Settings/Availabilities/Content";
 
 export default function Settings() {
   return (
@@ -11,8 +11,7 @@ export default function Settings() {
         <title>Settings Availabilities | Lynq</title>
       </Head>
       <div className="content-wrp">
-        <br />
-        <SettingsSetup />
+        <Content />
       </div>
     </>
   );

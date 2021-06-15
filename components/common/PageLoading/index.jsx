@@ -1,16 +1,10 @@
+// styles
+import styles from "./styles.module.sass";
+
 const PageLoading = () => {
   return (
-    <div
-      style={{
-        height: "90%",
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        marginBottom: "10%",
-      }}
-    >
-      <img style={{ width: "60px" }} src="/img/loading.gif" alt="loading" />
+    <div className={styles.page_loading}>
+      <img src="/img/loading.gif" alt="loading" />
     </div>
   );
 };

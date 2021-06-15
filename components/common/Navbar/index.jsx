@@ -1,5 +1,5 @@
 // libraries
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 // styles
@@ -16,6 +16,9 @@ const Navbar = ({ flag }) => {
   const [payment, setPayment] = useState(false);
   const [settings, setSettings] = useState(false);
 
+  // router
+  const router = useRouter();
+
   // handle logout
   const logout = () => {
     localStorage.removeItem("linqToken");
@@ -25,11 +28,14 @@ const Navbar = ({ flag }) => {
   return (
     <>
       <header className={styles.header}>
-        <Link href="/">
-          <a className={styles.header_logo}>
-            <img src="/img/lynq-logo.png" alt="" />
-          </a>
-        </Link>
+        <a
+          className={styles.header_logo}
+          onClick={() =>
+            flag == "404" ? (location.href = "/") : router.push("/")
+          }
+        >
+          <img src="/img/lynq-logo.png" alt="" />
+        </a>
         {flag == "404" ? null : (
           <div onClick={logout} className={styles.logout}>
             <img src="/img/logout.svg" alt="logout" />

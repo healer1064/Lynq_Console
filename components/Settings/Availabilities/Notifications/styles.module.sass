@@ -1,0 +1,92 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.notifications
+    @include flex
+    flex-direction: column
+    width: calc(100% - 72.06%)
+    .card
+        width: 100%
+        background: #FFF
+        border: 1px solid #D9E0E9
+        border-radius: 5px
+        padding: 16px 24px
+        @include flex
+        flex-direction: column
+        align-items: flex-start
+        margin-bottom: 16px
+        &:last-child
+            margin-bottom: 0
+        .title
+            margin-bottom: 11px
+            @include flex
+            align-items: center
+            strong
+                margin-left: 8px
+                font-weight: 600
+                font-size: 16px
+                line-height: 20px
+                color: $black
+        span
+            margin-bottom: 8px
+            font-size: 18px
+            line-height: 22px
+            color: $black
+            &:last-child
+                margin-bottom: 0
+
+.do_not_allow_clients
+    input
+        width: 50px
+        text-align: center
+        font-size: 0.9rem
+        padding: 5px 0
+        border-radius: 3px
+        border: 1px solid #ccc
+        color: #777
+        &:focus
+            outline: none
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button 
+        -webkit-appearance: none
+        margin: 0
+
+    input[type=number]
+        -moz-appearance: textfield
+
+@media (max-width: $breakpointLaptop)
+    .notifications
+        width: calc(100% - 72.22%)
+        .card
+            padding: 16px
+            span
+                font-size: 14px
+                line-height: 17px
+
+@media (max-width: $breakpointPhone)       
+    .notifications
+        width: 100%
+        .card
+            margin-bottom: 12px
+            padding: 16px
+            span
+                font-size: 16px
+                line-height: 20px

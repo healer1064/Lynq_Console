@@ -1,0 +1,32 @@
+.account
+    width: 100%
+    padding: 24px 0
+    .content
+        display: flex
+        .account_info
+            flex-grow: 1
+            button
+                border-radius: 5px
+                background: #7e88f4
+                color: white
+                border: none
+                outline: none
+                color: white
+                font-size: 12px
+                font-weight: 600
+                padding: 12px 24px
+                cursor: pointer
+                &:focus
+                    border: none
+                    outline: none
+
+@media screen and ( max-width: 519px )
+    .account
+        padding: 32px 0
+        .content
+            flex-direction: column
+            .account_info
+                button
+                    padding: 12px 32px
+                
+        

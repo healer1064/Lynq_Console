@@ -1,7 +1,8 @@
+// libraries
 import Select from "react-select";
 
 // data
-import timezones from "../../../utils/data/timezones";
+import timezones from "@/utils/data/timezones";
 
 const TimezoneDropdown = ({ state, setState }) => {
   return (

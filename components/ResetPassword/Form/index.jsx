@@ -1,9 +1,12 @@
 // libraries
-import { useState } from "react";
+import React from "react";
 import Fade from "react-reveal/Fade";
 
+// styles
+import styles from "./styles.module.sass";
+
 // components
-import Loading from "../common/Loading";
+import Loading from "@/components/common/Loading";
 
 const ResetPasswordForm = ({
   setShowPassword,
@@ -17,10 +20,10 @@ const ResetPasswordForm = ({
 }) => {
   return (
     <Fade bottom duration={600}>
-      <form onSubmit={onSubmit}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <h2>Reset Password</h2>
         <p>To change the password, type in your email and password</p>
-        <div className="signup-form__inp">
+        <div className={styles.form_input}>
           <strong>Password</strong>
           <input
             value={password}
@@ -33,11 +36,11 @@ const ResetPasswordForm = ({
           <img
             src={showPassword ? "/img/show-password.svg" : "/img/pass-show.svg"}
             alt=""
-            className="show-password"
+            className={styles.show_password}
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
-        <div className="signup-form__inp">
+        <div className={styles.form_input}>
           <strong>Password</strong>
           <input
             value={confirmPassword}
@@ -51,12 +54,12 @@ const ResetPasswordForm = ({
           <img
             src={showPassword ? "/img/show-password.svg" : "/img/pass-show.svg"}
             alt=""
-            className="show-password"
+            className={styles.show_password}
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
         <button
-          className="signup-form__btn"
+          className={styles.btn}
           style={{
             position: "relative",
           }}

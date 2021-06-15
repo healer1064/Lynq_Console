@@ -34,7 +34,6 @@ const index = ({ profile }) => {
   const [newSlug, setNewSlug] = useState("");
   const [image, setImage] = useState(null);
   const [slugRule, setSlugRule] = useState(false);
-  const [delayed, setDelayed] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -44,7 +43,6 @@ const index = ({ profile }) => {
       setFirstName(profile.name?.split(" ")[0] ?? "");
       setLastName(profile.name?.split(" ")[1] ?? "");
       setImage(profile.public_image || null);
-      setDelayed(profile.delay_booking_hours);
     }
   }, [profile]);
 
@@ -74,16 +72,19 @@ const index = ({ profile }) => {
       slug,
       name: `${firstName} ${lastName}`,
       public_image: image,
-      delay_booking_hours: delayed,
+      delay_booking_hours: profile.delay_booking_hours
+        ? profile.delay_booking_hours
+        : 0,
+      timezone: profile.timezone ? profile.timezone : "",
     };
     postProfileReq(token, reqData)
       .then(() => {
         setLoading(false);
-        toast.success("Profile updated successfully!");
+        toast.success("Profile updated successfully.");
       })
       .catch(() => {
         setLoading(false);
-        toast.error("Failed to update profile!");
+        toast.error("Failed to update profile.");
       });
   };
 
@@ -101,7 +102,7 @@ const index = ({ profile }) => {
       })
       .catch(() => {
         setLoading(false);
-        toast.error("Failed to check slug availability!");
+        toast.error("Failed to check slug availability.");
       });
   };
 

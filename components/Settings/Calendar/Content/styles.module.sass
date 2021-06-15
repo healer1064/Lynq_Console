@@ -1,0 +1,103 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.call_sync
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    margin-top: 35px
+    .loading
+        height: calc(100vh - 120px)
+        align-self: center
+    .title
+        font-size: 16px
+        line-height: 20px
+        color: $black
+        margin-bottom: 47px
+    .btm_txt
+        font-size: 16px
+        line-height: 20px
+        color: $black
+        margin-top: 150px
+        margin-bottom: 50px
+        width: 72%
+        b
+            font-weight: 600
+    .calendar
+        @include flex
+        a
+            margin-left: 64px
+            padding: 12px 24px
+            border-radius: 5px
+            background: $lavender
+            cursor: pointer
+            border: none
+            font-weight: 600
+            font-size: 16px
+            line-height: 24px
+            text-decoration: none
+            color: #FFF
+            text-transform: capitalize !important
+            position: relative
+            &:hover
+                color: white
+
+@media (max-width: $breakpointLaptop)
+    .call_sync
+        margin-top: 35px
+        .title
+            font-size: 14px
+            line-height: 19px
+            margin-bottom: 24px
+        .btm_txt
+            width: 60%
+            margin-top: 251px
+            margin-bottom: 64px
+            font-size: 14px
+            line-height: 19px
+        .calendar
+        a
+            margin-left: 48px
+            padding: 12px 28px
+            font-size: 14px
+            line-height: 19px
+
+@media (max-width: $breakpointPhone)
+    .call_sync
+        margin-top: 35px
+        .title
+            line-height: 17px
+            margin-bottom: 38px
+        .btm_txt
+            width: 100%
+            margin-top: 150px
+            margin-bottom: 104px
+            line-height: 17px
+        .calendar
+            width: 100%
+            justify-content: space-between
+            img
+                height: 28px
+            a
+                margin-left: 0
+                padding: 8px 24px
+                font-size: 12px
+                line-height: 15px

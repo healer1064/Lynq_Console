@@ -1,14 +1,23 @@
 // libraries
-// import moment from "moment";
 import { useState, useEffect, useContext } from "react";
-import Fade from "react-reveal/Fade";
-import ProfileContext from "../../context/profile";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import moment from "moment-timezone";
+import { toast } from "react-toastify";
+import Fade from "react-reveal/Fade";
+
+// styles
+import styles from "./styles.module.sass";
+
+// context
+import ProfileContext from "@/context/profile";
+
+// requests
+import {
+  postToggleSlotReq,
+  postAddSlotReq,
+} from "@/utils/requests/settings/availabilities";
 
 // components
-import TableRowItem from "./TableRowItem";
+import Item from "./Item";
 
 const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
   // context
@@ -22,80 +31,41 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
   const [availLoading, setAvailLoading] = useState(false);
   const [addLoading, setAddLoading] = useState(false);
 
+  // handle day availability toggle
   const toggleAvailability = (day) => {
     setAvailLoading(true);
-    async function toggle() {
-      const response = await fetch(
-        `https://api.lynq.app/account/working-slots/toggle-enable?t=${token}&day=${day}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+    postToggleSlotReq(token, day)
+      .then((res) => {
+        setAvailLoading(false);
+        if (res.status == 200) {
+          setIsAvailable(!isAvailable);
+          toggleSuccess();
+        } else {
+          toast.error("Failed to toggle availability.");
         }
-      );
-
-      return await response;
-    }
-
-    toggle().then((res) => {
-      setAvailLoading(false);
-      if (res.status == 200) {
-        toggleSuccess();
-        setIsAvailable(!isAvailable);
-      } else {
-        toast.error("An error has occurred");
-      }
-    });
+      })
+      .catch(() => {
+        setAvailLoading(false);
+        toast.error("Failed to toggle availability.");
+      });
   };
 
+  // handle add slot
   const addTime = (day, start, end) => {
     setAddLoading(true);
-    console.log(day, start, end);
-    // const _reqData = {
-    //   day,
-    //   start_period_time:
-    //     new Date(`2013-11-18 ${start}`).toISOString().split("T")[1],
-    //   end_period_time: new Date(`2013-11-18 ${end}`)
-    //     .toISOString()
-    //     .split("T")[1],
-    // };
     let timezone = moment.tz.guess();
-    const _reqData = {
-      start,
-      end,
-      timezone,
-      day,
-    };
-
-    async function update() {
-      const response = await fetch(
-        `https://api.lynq.app/account/working-slots?t=${token}`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(_reqData),
+    postAddSlotReq(token, { start, end, timezone, day })
+      .then((res) => {
+        setAddLoading(false);
+        if (res.status == 200) {
+          toggleSuccess();
+        } else {
+          toast.error("Failed to add the slot.");
         }
-      );
-
-      return await response;
-    }
-
-    console.log(_reqData);
-    update().then((res) => {
-      setAddLoading(false);
-      if (res.status == 200) {
-        console.log("public profile updates", res);
-        toggleSuccess();
-      } else {
-        console.log("public profile update error", res);
-        toast.error("An error has occurred");
-      }
-    });
+      })
+      .catch(() => {
+        toast.error("Failed to add the slot.");
+      });
   };
 
   useEffect(() => {
@@ -118,11 +88,10 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
 
   return (
     <>
-      <ToastContainer />
       {!isAvailable ? (
         <Fade duration={1000}>
-          <div className="setup-table__row">
-            <div className="setup-table__day">
+          <div className={styles.row}>
+            <div className={styles.day}>
               {!availLoading ? (
                 <img
                   src="/img/setup-check-unavailable.svg"
@@ -141,17 +110,15 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
               )}
               <span>{day.substring(0, 3)}</span>
             </div>
-            <div className="setup-table__col">
-              <span className="unavailable">Unavailable</span>
+            <div className={styles.col}>
+              <span className={styles.unavailable}>Unavailable</span>
             </div>
-            <div className="setup-table__add">
-              {/* <img src="/img/setup-add.svg" alt="" /> */}
-            </div>
+            <div className={styles.add}></div>
           </div>
         </Fade>
       ) : (
-        <div className="setup-table__row available">
-          <div className="setup-table__day">
+        <div className={`${styles.row} ${styles.available}`}>
+          <div className={styles.day}>
             {!availLoading ? (
               <img
                 src="/img/setup-check-available.svg"
@@ -170,12 +137,12 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
             )}
             <span>{day.substring(0, 3)}</span>
           </div>
-          <div className="setup-table__col">
+          <div className={styles.col}>
             {!timeSlots ? (
               <h6>Loading</h6>
             ) : (
               timeSlots.map((item, i) => (
-                <TableRowItem
+                <Item
                   key={i}
                   item={item}
                   deleteTime={deleteTime}
@@ -186,7 +153,7 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
             )}
           </div>
           <div
-            className="setup-table__add"
+            className={styles.add}
             onClick={() => addTime(day, "09:00", "17:00")}
           >
             {!addLoading ? (

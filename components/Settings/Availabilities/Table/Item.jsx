@@ -1,7 +1,14 @@
 // libraries
-import moment from "moment-timezone";
 import { useState, useEffect } from "react";
+import moment from "moment-timezone";
+import { toast } from "react-toastify";
 import Fade from "react-reveal/Fade";
+
+// styles
+import styles from "./styles.module.sass";
+
+// requests
+import { putUpdateSlotReq } from "@/utils/requests/settings/availabilities";
 
 const TableRowItem = ({ item, deleteTime, day, token }) => {
   // states
@@ -18,68 +25,32 @@ const TableRowItem = ({ item, deleteTime, day, token }) => {
   }, [startTime, endTime]);
 
   const updateTime = (day, start, end) => {
-    // setAddLoading(true);
-
-    // const _reqData = {
-    //   day,
-    //   start_period_time:
-    //     new Date(`2013-11-18 ${start}`).toISOString().split("T")[1],
-    //   end_period_time: new Date(`2013-11-18 ${end}`)
-    //     .toISOString()
-    //     .split("T")[1],
-    // };
     let timezone = moment.tz.guess();
-    const _reqData = {
-      start,
-      end,
-      timezone,
-      day,
-    };
-
-    async function update() {
-      const response = await fetch(
-        `https://api.lynq.app/account/working-slots/${item.id}?t=${token}`,
-        {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(_reqData),
+    putUpdateSlotReq(token, item.id, { start, end, timezone, day })
+      .then((res) => {
+        if (res.status != 200) {
+          toast.error("Failed to update slot time.");
         }
-      );
-
-      return await response;
-    }
-
-    update().then((res) => {
-      // setAddLoading(false);
-      if (res.status == 200) {
-        console.log("public profile updates", res);
-        // toggleSuccess();
-      } else {
-        console.log("public profile update error", res);
-        // toast.error("An error has occurred");
-      }
-    });
+      })
+      .catch(() => toast.error("Failed to update slot time."));
   };
 
   return (
     <div style={{ margin: ".25rem 0" }}>
       <Fade collapse bottom duration={1000}>
-        <div className="time__row">
+        <div className={styles.time_row}>
           <input
             type="time"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
           />
-          <div className="line"></div>
+          <div className={styles.line}></div>
           <input
             type="time"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
           />
-          <div className="icon-wrapper">
+          <div className={styles.icon_wrapper}>
             {!delLoading ? (
               <img
                 src="/img/setup-trash.svg"
