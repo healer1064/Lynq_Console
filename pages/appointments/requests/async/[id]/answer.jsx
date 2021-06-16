@@ -15,7 +15,7 @@ import {
   fetchAsyncReq,
   uploadFileReq,
   uploadMessageReq,
-} from "../../../../../utils/requests/async";
+} from "../../../../../utils/requests/messages";
 
 // components
 import Dropzone from "../../../../../components/Appointments/Answers/Dropzone";

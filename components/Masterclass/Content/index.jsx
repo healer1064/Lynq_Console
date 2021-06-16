@@ -16,7 +16,7 @@ import List from "@/components/Masterclass/List";
 
 const index = () => {
   // states
-  const [filter, setFilter] = useState("All Active");
+  const [filter, setFilter] = useState("All");
 
   return (
     <div>
@@ -29,7 +29,7 @@ const index = () => {
           <DropdownMenu
             state={filter}
             setState={setFilter}
-            data={["All Active", "Live Sessions", "Asynchronous", "Expired"]}
+            data={["All", "Scheduled", "Completed"]}
           />
         }
         placement="bottomCenter"

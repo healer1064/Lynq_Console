@@ -28,4 +28,28 @@ const timeDifferenceInMilliSeconds = (_date) => {
   return d;
 };
 
-export { handleFileInput, paginateArray, timeDifferenceInMilliSeconds };
+const getLatestMessage = (arr) => {
+  return arr
+    .map((item) => {
+      const obj =
+        item.content.length > 0
+          ? {
+              ...item,
+              sentDate: item.content.sort((a, b) => {
+                return new Date(b.sentDate) - new Date(a.sentDate);
+              })[0].sentDate,
+            }
+          : { ...item, sentDate: item.requestDate };
+      return obj;
+    })
+    .sort((a, b) => {
+      return new Date(b.sentDate) - new Date(a.sentDate);
+    });
+};
+
+export {
+  handleFileInput,
+  paginateArray,
+  timeDifferenceInMilliSeconds,
+  getLatestMessage,
+};

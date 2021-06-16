@@ -20,7 +20,7 @@ const Item = ({ data, setRecipient }) => {
 
   // handle click
   const onClick = (item, color) => {
-    setRecipient({ recipient: item, color });
+    setRecipient({ ...item, color });
   };
 
   return (
@@ -30,10 +30,20 @@ const Item = ({ data, setRecipient }) => {
           background: color,
         }}
       >
-        {data.match(/\b(\w)/g).join("")}
+        {`${data.customerFirstName} ${data.customerLastName}`
+          .match(/\b(\w)/g)
+          .join("")}
       </span>
-      <p>{data}</p>
-      <h6>{moment().format("MM/DD/yyyy")}</h6>
+      <p>{`${data.customerFirstName} ${data.customerLastName}`}</p>
+      <h6>
+        {moment(
+          data.content.length > 0
+            ? data.content.sort((a, b) => {
+                return new Date(b.sentDate) - new Date(a.sentDate);
+              })[0].sentDate
+            : data.requestDate
+        ).format("MM/DD/yyyy")}
+      </h6>
     </div>
   );
 };

@@ -5,6 +5,22 @@
     flex-direction: column
     align-items: center
     padding: 10px 0
+    height: calc(100vh - 90px)
+    overflow-y: scroll
+
+    &::-webkit-scrollbar-track
+	    border-radius: 10px
+	    background-color: #F5F5F5
+        -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
+ 
+    &::-webkit-scrollbar
+        width: 10px
+        background-color: #F5F5F5
+ 
+    &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: #aaa
+        -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
 
     .list_self
         padding: 10px 0px
@@ -53,6 +69,7 @@
                 
 @media (max-width: 1399px)
     .list
+        height: calc(100vh - 66px)
         width: 300px
         .list_self
             padding: 10px 0px

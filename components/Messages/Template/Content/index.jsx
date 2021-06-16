@@ -15,10 +15,7 @@ const index = () => {
   return (
     <div className={styles.content}>
       <h3>Delivery Time</h3>
-      <p>
-        This indicates to the client the maximum time he will have to wait
-        before getting an answer
-      </p>
+      <p>This indicates the maximum time you have to respond to the request</p>
       {view == 0 ? (
         <ToSave setState={setView} />
       ) : (

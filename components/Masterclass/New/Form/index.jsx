@@ -1,16 +1,43 @@
 // libraries
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 
 // styles
 import styles from "./styles.module.sass";
 
-// components
-import Dropzone from "../Dropzone";
+// context
+import ProfileContext from "@/context/profile";
+
+// requests
+import { listingPriceReq } from "@/utils/requests/calls/template";
 
 const index = () => {
+  // context
+  const { token } = useContext(ProfileContext);
+
   // states
+  const [price, setPrice] = useState("");
+  const [listingPrice, setListingPrice] = useState("");
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // handle price change
+  useEffect(() => {
+    if (price !== "") {
+      setLoading(true);
+      listingPriceReq(token, price)
+        .then((res) => {
+          setLoading(false);
+          setListingPrice(res.simulated_price);
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error("Failed to fetch listing price!");
+        });
+    } else {
+      setListingPrice(0);
+    }
+  }, [price]);
 
   return (
     <form className={styles.form}>
@@ -47,40 +74,43 @@ const index = () => {
           <input
             type="number"
             min="0"
-            //   value={price}
-            //   onChange={(e) => {
-            //     setPrice(e.target.value);
-            //     findListingPrice(e.target.value);
-            //   }}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             style={{ paddingLeft: "25px" }}
           />
         </div>
-        <div className={styles.listing_price}>
-          <h3>Listing Price</h3>
-          <h3>$30</h3>
-          {/* {listingLoading ? (
+      </label>
+      <label>
+        <strong>Listing Price</strong>
+        <div className={styles.price}>
+          <img
+            className={styles.price_img}
+            src="/img/dollar.svg"
+            alt="dollar"
+          />
+          <input
+            type="number"
+            min="0"
+            disabled
+            value={loading ? "" : listingPrice}
+            style={{ paddingLeft: "25px" }}
+          />
+          {loading && (
             <img
-              style={{ width: "18px", height: "18px", marginTop: "5px" }}
+              className={styles.listing_loading}
               src="/img/Rolling-dark.svg"
               alt="rolling"
             />
-          ) : (
-            <h3>
-              {listingPrice
-                ? `$${listingPrice.simulated_price}`
-                : "Please enter price above to get listing price"}
-            </h3>
-          )} */}
+          )}
         </div>
       </label>
-      <Dropzone state={file} setState={setFile} />
       <label className={styles.description}>
         <strong>Description</strong>
         <textarea
-          maxLength="300"
+          maxLength="600"
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
-        <span className={styles.desc_count}>{description.length}/300</span>
+        <span className={styles.desc_count}>{description.length}/600</span>
       </label>
       <div className={styles.btns}>
         <button className={styles.save}>Save</button>
