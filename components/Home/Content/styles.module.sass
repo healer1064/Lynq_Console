@@ -1,0 +1,68 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+.main
+    position: sticky
+    top: 90px
+    width: 100%
+    @include flex
+    flex-direction: column
+    z-index: 1
+  
+.content
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    padding: 0 64px 0 32px
+    margin-top: 35px
+    margin-bottom: 128px
+    .date
+        width: 100%
+        display: flex
+        justify-content: space-between
+        font-weight: 800
+        font-size: 32px
+        line-height: 39px
+        color: #000
+        margin-bottom: 32px
+        h2
+            margin: 0 0 8px
+            font-weight: 600
+            font-size: 24px
+            line-height: 29px
+            color: #000
+
+@media screen and ( max-width: 1399px )
+    .main
+        top: 66px
+    .content
+        padding: 0 32px
+        margin-top: 24px
+        .date
+            font-size: 22px
+            line-height: 30px
+            margin-bottom: 8px
+            h2
+                margin-bottom: 12px
+                font-size: 18px
+                line-height: 25px
+    
+@media screen and ( max-width: 519px )
+    .content
+        padding: 0 16px
+        margin-top: 32px
+        margin-bottom: 40px
+        .date
+            line-height: 27px
+            margin-bottom: 12px
+            justify-content: flex-start
+            flex-direction: column
+            h2
+                line-height: 22px
+    

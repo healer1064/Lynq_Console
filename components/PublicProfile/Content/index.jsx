@@ -28,9 +28,7 @@ const index = ({ profile }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [slug, setSlug] = useState("");
-  const [keywords, setKeywords] = useState(
-    "mother of dragon, queen of seven kingdoms"
-  );
+  const [keywords, setKeywords] = useState([{ value: "" }]);
   const [newSlug, setNewSlug] = useState("");
   const [image, setImage] = useState(null);
   const [slugRule, setSlugRule] = useState(false);
@@ -108,7 +106,6 @@ const index = ({ profile }) => {
 
   return (
     <div className={styles.edit_profile}>
-      <h3>Public Profile</h3>
       <ImageSelect image={image} setImage={setImage} />
       <SlugComp
         slug={slug}

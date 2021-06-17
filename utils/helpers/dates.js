@@ -119,3 +119,17 @@ export const formatTime = (_time, _format = "hh:mm:ss") => {
 const isSame = (_date) => {
   return moment(_date).isSame(new Date(), "day");
 };
+
+export const compareDates = (a, b) => {
+  if (
+    a.ending_date < b.ending_date ||
+    (a.ending_date == b.ending_date && a.starting_date > b.starting_date)
+  )
+    return -1;
+  if (
+    a.ending_date > b.ending_date ||
+    (a.ending_date == b.ending_date && a.starting_date < b.starting_date)
+  )
+    return 1;
+  return 0;
+};

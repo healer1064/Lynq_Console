@@ -1,5 +1,77 @@
 import moment from "moment";
 
+import { dateIsBetween, formatTime, compareDates } from "./dates";
+
+const groupListInSectionsByDate = (_data) => {
+  var groupArrays = [];
+
+  if (_data.length > 0) {
+    const groups = _data.reduce((groups, appointment) => {
+      const date = moment(appointment.starting_date).format("YYYY-MM-DD");
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(appointment);
+      return groups;
+    }, {});
+
+    groupArrays = Object.keys(groups).map((date) => {
+      return {
+        date,
+        appointments: groups[date],
+      };
+    });
+  }
+
+  const filteredArray = groupArrays.filter((i) => {
+    var currentDate = moment().format("YYYY-MM-DD");
+    var date = moment(i.date).format("YYYY-MM-DD");
+    return date == currentDate;
+  });
+
+  return filteredArray;
+};
+
+const getHomeCurrentSession = (_data) => {
+  let format = "hh:mm A";
+  _data.forEach((appt) => {
+    if (dateIsBetween(appt.starting_date, appt.ending_date)) {
+      return {
+        time: `${formatTime(appt.starting_date, format)} - ${formatTime(
+          appt.ending_date,
+          format
+        )}`,
+        id: appt.id,
+        name: appt.activity_name,
+      };
+    }
+  });
+};
+
+const getHomeNextSession = (_data, _setData) => {
+  let format = "hh:mm A";
+  let time = moment();
+  _data.sort(compareDates);
+  for (let i = 0; i < _data.length; i++) {
+    let start = moment(_data[i].starting_date);
+    let end = moment(_data[i].ending_date);
+
+    if (time.isBefore(start, end)) {
+      _setData({
+        time: time.isSame(start, "day")
+          ? `${start.format(format)} - ${end.format(format)}`
+          : `${start.format(format)} - ${end.format(format)} ${start.format(
+              "MMM DD YYYY"
+            )}`,
+        id: _data[i].id,
+        name: _data[i].activity_name,
+      });
+
+      break;
+    }
+  }
+};
+
 const handleFileInput = (_file) => {
   if (_file) {
     // if (_file.size > 1536 * 1000000) {
@@ -48,6 +120,9 @@ const getLatestMessage = (arr) => {
 };
 
 export {
+  groupListInSectionsByDate,
+  getHomeCurrentSession,
+  getHomeNextSession,
   handleFileInput,
   paginateArray,
   timeDifferenceInMilliSeconds,

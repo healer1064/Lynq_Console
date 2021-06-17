@@ -125,54 +125,8 @@ const Leftbar = () => {
             <span>Public Profile</span>
           </a>
         </Link>
-        <Link href="/support">
-          <a className={router.pathname === "/support" ? styles.active : ""}>
-            <img src="/img/nav-contact.svg" alt="" />
-            <span>Support</span>
-          </a>
-        </Link>
-
-        <a onClick={() => setPayments(!payments)}>
-          <img src="/img/nav-payments.svg" alt="" />
-          <span>Payment</span>
-          {payments ? (
-            <BsFillCaretUpFill className={styles.open_close_icon} />
-          ) : (
-            <BsCaretDownFill className={styles.open_close_icon} />
-          )}
-        </a>
-        {payments && (
-          <div className={styles.nav_sub_links}>
-            <Link href="/payment/balance">
-              <p
-                className={
-                  router.pathname === "/payment/balance" ? styles.active : ""
-                }
-              >
-                Balance
-              </p>
-            </Link>
-            <Link href="/payment/details">
-              <p
-                className={
-                  router.pathname === "/payment/details" ? styles.active : ""
-                }
-              >
-                Details
-              </p>
-            </Link>
-          </div>
-        )}
-        <Link href="/dashboard">
-          <a className={router.pathname === "/dashboard" ? styles.active : ""}>
-            <FaChartLine
-              color="white"
-              style={{ marginRight: "8px" }}
-              size={17}
-            />
-            <span>Dashboard</span>
-          </a>
-        </Link>
+      </nav>
+      <nav>
         <a onClick={() => setSettings(!settings)}>
           <img src="/img/nav-settings.svg" alt="" />
           <span>Settings</span>
@@ -206,6 +160,55 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
+        <Link href="/dashboard">
+          <a className={router.pathname === "/dashboard" ? styles.active : ""}>
+            <FaChartLine
+              color="white"
+              style={{ marginRight: "8px" }}
+              size={17}
+            />
+            <span>Dashboard</span>
+          </a>
+        </Link>
+        <a onClick={() => setPayments(!payments)}>
+          <img src="/img/nav-payments.svg" alt="" />
+          <span>Payment</span>
+          {payments ? (
+            <BsFillCaretUpFill className={styles.open_close_icon} />
+          ) : (
+            <BsCaretDownFill className={styles.open_close_icon} />
+          )}
+        </a>
+        {payments && (
+          <div className={styles.nav_sub_links}>
+            <Link href="/payment/balance">
+              <p
+                className={
+                  router.pathname === "/payment/balance" ? styles.active : ""
+                }
+              >
+                Balance
+              </p>
+            </Link>
+            <Link href="/payment/details">
+              <p
+                className={
+                  router.pathname === "/payment/details" ? styles.active : ""
+                }
+              >
+                Details
+              </p>
+            </Link>
+          </div>
+        )}
+      </nav>
+      <nav>
+        <Link href="/support">
+          <a className={router.pathname === "/support" ? styles.active : ""}>
+            <img src="/img/nav-contact.svg" alt="" />
+            <span>Support</span>
+          </a>
+        </Link>
       </nav>
       <Link href="/account">
         <div className={styles.profile}>

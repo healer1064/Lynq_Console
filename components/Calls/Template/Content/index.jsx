@@ -20,10 +20,6 @@ const index = () => {
       <p>Select the options to show on your public profile</p>
       <h3>Length</h3>
       <List options={options} setOptions={setOptions} />
-      <h3>
-        Add a description for the clients <span>(optional)</span>
-      </h3>
-      <textarea placeholder="You can use this block to give examples of the topics to be addressed and any other information you might find useful"></textarea>
       <button>Save</button>
     </div>
   );

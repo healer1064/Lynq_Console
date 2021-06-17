@@ -8,34 +8,30 @@ import styles from "./styles.module.sass";
 // components
 import Loading from "@/components/common/Loading";
 
-const Modal = ({ setModal, onDelete, loading, data, title, buttonText }) => {
+const Modal = ({ setModal, onDelete, loading, title, buttonText }) => {
   return (
     <Fade duration={600}>
-      <div className={styles.public_screen_modal}>
-        <div>
+      <div
+        className={styles.public_screen_modal}
+        onClick={() => setModal(false)}
+      >
+        <div onClick={(e) => e.stopPropagation()}>
           <img
             onClick={() => setModal(false)}
             src="/img/public-screen-close.svg"
             alt="close"
           />
-          <h6>{title || "Cancel The Appointment"}</h6>
+          <h6>{title || "Delete masterclass"}</h6>
           <p style={{ margin: "0 0 5px 0" }}>
-            Are you sure you want to cancel the appointment?
+            Are you sure you want to delete the masterclass?
           </p>
-          {data && (
-            <p style={{ margin: "0 0 20px 0" }}>
-              {`${
-                data && moment(data.starting_date).format("dddd, MMMM DD, YYYY")
-              }
+          <p style={{ margin: "0 0 20px 0" }}>
+            {`${moment().format("dddd, MMMM DD, YYYY")}
             `}
-            </p>
-          )}
-          <button
-            style={{ position: "relative" }}
-            onClick={() => onDelete && onDelete(false)}
-          >
+          </p>
+          <button style={{ position: "relative" }} onClick={onDelete}>
             {loading && <Loading color="#EF7888" />}
-            {buttonText || "Yes, I confirm the cancellation"}
+            {buttonText || "Delete"}
           </button>
         </div>
       </div>

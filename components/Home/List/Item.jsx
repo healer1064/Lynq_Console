@@ -1,24 +1,25 @@
 // libraries
 import { useContext, useState, useEffect } from "react";
-import moment from "moment-timezone";
 import Link from "next/link";
+import moment from "moment-timezone";
 
 // context
-import ProfileContext from "../../context/profile";
-import { dateIsBetween } from "../../utils/DateHelper";
+import ProfileContext from "@/context/profile";
+
+// helpers
+import { dateIsBetween } from "@/utils/helpers/dates";
 
 const AppointmentCard = ({ data }) => {
-  // states
-  const [status, setStatus] = useState(true);
-
   // context
   const { slugData } = useContext(ProfileContext);
+
+  // states
+  const [status, setStatus] = useState(true);
 
   useEffect(() => {
     let checkStatus =
       dateIsBetween(data.starting_date, data.ending_date) ||
       new Date(data.ending_date) > new Date();
-
     setStatus(checkStatus);
   }, []);
 

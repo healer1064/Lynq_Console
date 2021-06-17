@@ -13,6 +13,7 @@ import { BsChevronLeft } from "react-icons/bs";
 // components
 import AppointmentsDrawer from "@/components/Calls/SingleRequest/Drawer";
 import ParticipantsDrawer from "@/components/Masterclass/Details/Drawer";
+import Modal from "@/components/common/Modal";
 
 const index = () => {
   // router
@@ -21,6 +22,8 @@ const index = () => {
   // states
   const [apptSwitch, setApptSwitch] = useState(false);
   const [participantsSwitch, setParticipantsSwitch] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   // appointment drawer toggle
   const toggleApptsDrawer = () => {
@@ -39,8 +42,8 @@ const index = () => {
           <a className={styles.back} onClick={() => router.back()}>
             <BsChevronLeft /> Back
           </a>
-          <h2>Appointment Request</h2>
-          <span className={styles.received_time}>Received: 22 hours ago</span>
+          <h2>Masterclass</h2>
+          <span className={styles.received_time}>Created: 22 hours ago</span>
           <div className={styles.info_col}>
             <strong>Title</strong>
             <p>Test Activity</p>
@@ -52,7 +55,7 @@ const index = () => {
               className={styles.see_day}
               onClick={() => setApptSwitch(true)}
             >
-              See you how your day look like
+              See you how your day looks like
             </span>
           </div>
           <div className={styles.info_col}>
@@ -91,12 +94,16 @@ const index = () => {
           </div>
 
           <div className={styles.btns}>
-            <button className={styles.edit}>
-              {/* {loading && <Loading color="#fff" />} */}
+            <button
+              onClick={() => router.push("/masterclass/edit/1")}
+              className={styles.edit}
+            >
               EDIT
             </button>
-            <button className={styles.delete}>
-              {/* {loading && <Loading />} */}
+            <button
+              onClick={() => setDeleteModal(true)}
+              className={styles.delete}
+            >
               DELETE
             </button>
           </div>
@@ -116,6 +123,13 @@ const index = () => {
           isOpen={participantsSwitch}
           toggle={toggleParticipantsDrawer}
           data={[1, 2, 3, 4, 5, 6, 7]}
+        />
+      )}
+      {deleteModal && (
+        <Modal
+          setModal={setDeleteModal}
+          onDelete={() => setDeleteModal(false)}
+          loading={deleteLoading}
         />
       )}
     </>

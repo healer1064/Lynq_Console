@@ -15,7 +15,7 @@ import PageLoading from "../../components/common/PageLoading";
 import ProfileContext from "../../context/profile";
 
 // helpers
-import { getCurrentWeek } from "../../utils/DateHelper";
+import { getCurrentWeek } from "../../utils/helpers/dates";
 
 // mockup
 import mockUpData from "../../utils/data";

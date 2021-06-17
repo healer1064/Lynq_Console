@@ -4,8 +4,8 @@ import moment from "moment-timezone";
 import Fade from "react-reveal/Fade";
 
 // components
-import AppointmentCard from "../Home/AppointmentCard";
-import { isBefore } from "../../utils/DateHelper";
+// import AppointmentCard from "../Home/AppointmentCard";
+import { isBefore } from "../../utils/helpers/dates";
 
 const AppointmentsListItem = ({ data }) => {
   // state
@@ -63,7 +63,7 @@ const AppointmentsListItem = ({ data }) => {
           </svg>
         </div>
       </div>
-      {open && appointments && (
+      {/* {open && appointments && (
         <>
           <div style={{ width: "100%" }}>
             {sortList(appointments).map((data, index) => (
@@ -73,7 +73,7 @@ const AppointmentsListItem = ({ data }) => {
             ))}
           </div>
         </>
-      )}
+      )} */}
     </div>
   );
 };

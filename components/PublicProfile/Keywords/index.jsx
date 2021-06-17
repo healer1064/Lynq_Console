@@ -7,6 +7,10 @@ import styles from "./styles.module.sass";
 
 // icons
 import { BsExclamationCircleFill } from "react-icons/bs";
+import { AiFillPlusCircle } from "react-icons/ai";
+
+// components
+import Item from "./Item";
 
 const index = ({ keywords, setKeywords }) => {
   return (
@@ -20,11 +24,25 @@ const index = ({ keywords, setKeywords }) => {
           <BsExclamationCircleFill />
         </Tooltip>
       </label>
-      <input
-        type="text"
-        value={keywords}
-        onChange={(e) => setKeywords(e.target.value)}
-      />
+      {keywords.map((item, index) => {
+        return (
+          <Item
+            data={item}
+            key={index}
+            index={index}
+            setKeywords={setKeywords}
+            keywords={keywords}
+          />
+        );
+      })}
+      {keywords.length == 6 ? (
+        <p>You can type upto 6 keywords</p>
+      ) : (
+        <AiFillPlusCircle
+          className={styles.add}
+          onClick={() => setKeywords([...keywords, { value: "" }])}
+        />
+      )}
     </div>
   );
 };

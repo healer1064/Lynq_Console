@@ -5,7 +5,7 @@ import Countdown from "react-countdown";
 import styles from "./styles.module.sass";
 
 // helpers
-import { timeDifferenceInMilliSeconds } from "../../../../../utils/helpers";
+import { timeDifferenceInMilliSeconds } from "@/utils/helpers";
 
 const index = ({ date }) => {
   const renderer = ({ hours, minutes, seconds, completed }) => {

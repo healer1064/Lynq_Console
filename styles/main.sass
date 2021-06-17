@@ -838,93 +838,8 @@ body
     background: #FFF
     @include flex
     flex-direction: column
-    
-    .notifications__col
-      position: sticky
-      top: 90px
-      width: 100%
-      @include flex
-      flex-direction: column
-      z-index: 1
-      .confirm__email
-        width: 100%
-        padding: 18px 59px 18px 32px
-        background: $blue
-        @include flex
-        align-items: center
-        justify-content: space-between
-        flex-wrap: wrap
-        font-size: 14px
-        line-height: 17px
-        color: #FFF
-        a
-          font-weight: 600
-          color: #FFF
-      .session
-        width: 100%
-        padding: 8px 41px 8px 32px
-        background: #39BDCD
-        @include flex
-        align-items: center
-        justify-content: space-between
-        span
-          font-size: 14px
-          line-height: 17px
-          color: #FFF
-        a
-          width: 142px
-          border: 1px solid #EF7888
-          cursor: pointer
-          font-weight: bold
-          font-size: 12px
-          line-height: 37px
-          border-radius: 5px
-          text-decoration: none
-          text-align: center
-          &.access__live
-            background: #FFF
-            color: #EF7888
-          &.start__live
-            background: #EF7888
-            color: #FFF
-
-  &-cnt
-    width: 100%
-    @include flex
-    flex-direction: column
-    align-items: flex-start
-    padding: 0 64px 0 32px
-    margin-top: 35px
-    margin-bottom: 128px
-    &__date
-      width: 100%
-      display: flex
-      justify-content: space-between
-      font-weight: 800
-      font-size: 32px
-      line-height: 39px
-      color: $black
-      margin-bottom: 32px
-      h2
-        margin: 0 0 8px
-        font-weight: 600
-        font-size: 24px
-        line-height: 29px
-        color: $black
-      span
-        background: #f0f0f0
-        padding: 10px 50px
-        text-align: center
-        border-radius: 8px
-        h4
-          margin: 0
-          font-weight: 700
-          font-size: 20px
-          line-height: 29px
-        h5
-          margin: 0
-          font-weight: 500
-          font-size: 17px
+      
+      
 
 .abs-img
   height: 13px
@@ -1132,29 +1047,8 @@ body
     &-wrp
       width: calc(100% - 240px)
       min-height: calc(100vh - 66px)
-      .notifications__col
-        top: 66px
-        .confirm__email
-          padding: 12px 53px 12px 32px
-          font-size: 12px
-          line-height: 16px
-        .session
-          span
-            font-size: 12px
-            line-height: 16px
-          a
-            line-height: 32px
-    &-cnt
-      padding: 0 32px
-      margin-top: 24px
-      &__date
-        font-size: 22px
-        line-height: 30px
-        margin-bottom: 8px
-        h2
-          margin-bottom: 12px
-          font-size: 18px
-          line-height: 25px
+        
+    
   .page-wrp
     margin-top: 66px
   .side
@@ -1563,35 +1457,6 @@ body
   .home
     &-wrp
       width: 100%
-      .notifications__col
-        .confirm__email
-          padding: 16px
-          line-height: 15px
-        .session
-          padding: 6px 12px
-          a
-            font-size: 10px
-            min-width: 105px
-            width: auto
-            margin-left: 4px
-    &-cnt
-      padding: 0 16px
-      margin-top: 32px
-      margin-bottom: 40px
-      &__date
-        line-height: 27px
-        margin-bottom: 12px
-        justify-content: flex-start
-        flex-direction: column
-        span
-          order: -1
-          width: 100%
-          padding: 20px 0px
-          margin-bottom: 20px
-      h2
-        line-height: 22px
-  .settings-event-type-select
-    padding: 0 10px
 
   .video-modal
     iframe

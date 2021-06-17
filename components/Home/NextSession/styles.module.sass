@@ -1,0 +1,49 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+.session
+    width: 100%
+    padding: 8px 41px 8px 32px
+    background: #39BDCD
+    @include flex
+    align-items: center
+    justify-content: space-between
+    span
+        font-size: 14px
+        line-height: 17px
+        color: #FFF
+    a
+        width: 142px
+        border: 1px solid #EF7888
+        cursor: pointer
+        font-weight: bold
+        font-size: 12px
+        line-height: 37px
+        border-radius: 5px
+        text-decoration: none
+        text-align: center
+    .start_live
+        background: #EF7888
+        color: #FFF
+
+@media screen and ( max-width: 1399px )
+    .session
+        span
+            font-size: 12px
+            line-height: 16px
+        a
+            line-height: 32px
+
+@media screen and ( max-width: 519px )
+    .session
+        padding: 6px 12px
+        a
+            font-size: 10px
+            min-width: 105px
+            width: auto
+            margin-left: 4px

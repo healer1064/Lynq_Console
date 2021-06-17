@@ -5,7 +5,7 @@ const EmptyData = ({ title, flag }) => {
   return (
     <div
       className={`${styles.empty_data} ${
-        flag == "payment" ? styles.less_height : ""
+        flag == "payment" || flag == "home" ? styles.less_height : ""
       }`}
     >
       <span>{title}</span>

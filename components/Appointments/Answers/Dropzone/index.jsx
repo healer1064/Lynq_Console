@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { RiUploadCloudFill, RiDeleteBin6Fill } from "react-icons/ri";
 
 // helpers
-import { handleFileInput } from "../../../../utils/helpers";
+import { handleFileInput } from "@/utils/helpers";
 
 const index = ({ selectedFile, setSelectedFile }) => {
   const onDrop = useCallback((acceptedFiles) => {

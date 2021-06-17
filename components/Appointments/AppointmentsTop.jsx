@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // utils
-import { getCurrentWeek } from "../../utils/DateHelper";
+import { getCurrentWeek } from "../../utils/helpers/dates";
 
 // components
 import Calendar from "./Calendar";

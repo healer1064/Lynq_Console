@@ -22,6 +22,7 @@ const Item = ({ data, options, setOptions }) => {
   // state
   const [price, setPrice] = useState(0);
   const [listingPrice, setListingPrice] = useState(0);
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
   // handle click
@@ -60,17 +61,18 @@ const Item = ({ data, options, setOptions }) => {
   }, [listingPrice]);
 
   return (
-    <div
-      className={`${styles.item} ${data.status ? styles.active : ""}`}
-      onClick={() => onClick(data)}
-    >
-      {data.status ? <BsCircleFill /> : <BsCircle />}
+    <div className={styles.item}>
       <div>
-        <h6>{data.length} min</h6>
+        <h6
+          onClick={() => onClick(data)}
+          className={data.status ? styles.active : ""}
+        >
+          {data.status ? <BsCircleFill /> : <BsCircle />} {data.length} min
+        </h6>
         {data.status && (
           <div className={styles.price}>
             <label onClick={(e) => e.stopPropagation()} htmlFor="price">
-              Price
+              <p>Price</p>
               <span>
                 <BiDollar />
                 <input
@@ -81,14 +83,25 @@ const Item = ({ data, options, setOptions }) => {
                 />
               </span>
             </label>
-            <span>
-              Listing price:{" "}
-              {loading ? (
-                <img src="/img/Rolling-dark.svg" alt="rolling" />
-              ) : (
-                `$${listingPrice}`
-              )}
-            </span>
+            <label onClick={(e) => e.stopPropagation()} htmlFor="listing-price">
+              <p>Listing Price</p>
+              <span>
+                <BiDollar />
+                <input id="listing-price" value={listingPrice} disabled />
+                {loading && <img src="/img/Rolling-dark.svg" alt="rolling" />}
+              </span>
+            </label>
+            <div className={styles.desc_box}>
+              <h3>Description</h3>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                maxLength="300"
+                onClick={(e) => e.stopPropagation()}
+                placeholder="Give a short description of the topics you can treat during this time"
+              ></textarea>
+              <span>{description.length}/300</span>
+            </div>
           </div>
         )}
       </div>
