@@ -1,9 +1,13 @@
 // libraries
 import { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
+import { Tooltip } from "antd";
 
 // styles
 import styles from "./styles.module.sass";
+
+// icons
+import { BsExclamationCircleFill } from "react-icons/bs";
 
 // context
 import ProfileContext from "@/context/profile";
@@ -16,9 +20,9 @@ const index = ({ setState }) => {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [days, setDays] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [listingPrice, setListingPrice] = useState(0);
+  const [days, setDays] = useState("");
+  const [price, setPrice] = useState("");
+  const [listingPrice, setListingPrice] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +40,7 @@ const index = ({ setState }) => {
           toast.error("Failed to fetch listing price!");
         });
     } else {
-      setListingPrice(0);
+      setListingPrice("");
     }
   }, [price]);
 
@@ -64,19 +68,30 @@ const index = ({ setState }) => {
           />
         </span>
       </label>
-      <label>
-        Listing Price
-        <span className={styles.listing}>
-          <img src="/img/dollar.svg" alt="dollar" />
-          <input disabled value={listingPrice} />
-          {loading && (
-            <img
-              className={styles.loading}
-              src="/img/Rolling-dark.svg"
-              alt="rolling"
-            />
-          )}
-        </span>
+      <label className={styles.listing}>
+        <h6>
+          Listing Price{" "}
+          <Tooltip
+            className={styles.tooltip}
+            title="The price a customer pays to purchase the service and that
+            includes Lynq's fees."
+          >
+            <BsExclamationCircleFill />
+          </Tooltip>
+        </h6>
+        {price && (
+          <span>
+            <img src="/img/dollar.svg" alt="dollar" />
+            <input disabled value={listingPrice} />
+            {loading && (
+              <img
+                className={styles.loading}
+                src="/img/Rolling-dark.svg"
+                alt="rolling"
+              />
+            )}
+          </span>
+        )}
       </label>
       <div className={styles.desc_box}>
         <label htmlFor="desc">Description</label>

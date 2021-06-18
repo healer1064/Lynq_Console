@@ -11,7 +11,7 @@ import { getCallsList } from "@/utils/requests/calendar";
 
 // helpers
 import {
-  groupListInSectionsByDate,
+  getCurrentDaySessions,
   getHomeCurrentSession,
   getHomeNextSession,
 } from "@/utils/helpers";
@@ -39,10 +39,10 @@ const home = () => {
     if (token) {
       getCallsList(token)
         .then((res) => {
-          const arr = groupListInSectionsByDate(res);
+          const arr = getCurrentDaySessions(res);
           setList(arr);
           if (arr.length > 0) {
-            setCurrSession(getHomeCurrentSession(arr[0].appointments));
+            getHomeCurrentSession(arr[0].appointments, setCurrSession);
           }
           getHomeNextSession(res, setNextSession);
         })

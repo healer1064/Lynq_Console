@@ -1,0 +1,158 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+.item
+    width: 100%
+    filter: drop-shadow(2px 4px 16px rgba(0, 0, 0, 0.08))
+    background: #FFF
+    border-radius: 5px
+    min-height: 155px
+    padding: 24px 26px
+    margin-top: 40px 
+    border-left: 8px solid
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    .past_event 
+        font-weight: 700
+        margin-top: .5rem
+    .title
+        font-weight: 600
+        font-size: 24px
+        line-height: 29px
+        color: $black
+        margin-bottom: 12px
+    .det
+        font-weight: 500
+        font-size: 14px
+        line-height: 17px
+        color: $black-2
+        @include flex
+        align-items: center
+        b
+            font-weight: 500
+            color: $lavender
+    .line
+        margin: 0 8px
+        height: 16px
+        width: 1px
+        background: $black-2
+    .client
+        @include flex
+        align-items: center
+        margin-top: 16px
+        font-weight: 500
+        font-size: 14px
+        line-height: 17px
+        color: $black-2
+        button
+            margin-left: 15px
+            color: white
+            border: none
+            transition: all 200ms
+            font-size: 0.8rem
+            background: #D2698D
+            border-radius: 3px
+            cursor: pointer
+            &:focus
+                outline: none
+            &:hover 
+                opacity: 0.6 
+    .btn_cancel
+        background: #81c4ab
+        outline: none
+        border: none
+        padding: .25rem .5rem
+        border-radius: 5px
+        cursor: pointer
+        color: white
+        text-decoration: none
+        font-size: 13px
+        transition: all 200ms
+        &:hover 
+            opacity: 0.6 
+    .btn_goto
+        background: #7E88F4
+        outline: none
+        border: none
+        margin-left: .5rem
+        border-radius: 5px
+        cursor: pointer
+        transition: all .25s ease-out
+        padding: .25rem .5rem
+        color: white
+        text-decoration: none
+        font-size: 13px
+        transition: all 200ms
+        &:hover 
+            opacity: 0.6 
+    .payment_not_paid
+        color: red
+        font-weight: 600
+        font-size: 12px
+        margin-left: 20px
+.red
+    border-color: #FA1317
+.blue
+    border-color: $lavender
+.yellow
+    border-color: rgb(255, 255, 0)
+.gray
+    border-left-color: #E1E1E1
+    border-right: .5px solid #d9d9d9
+    border-top: .5px solid #d9d9d9
+    border-bottom: .5px solid #d9d9d9
+    div 
+        opacity: 0.7
+
+@media screen and ( max-width: 1399px )
+    .item
+        margin-top: 12px
+        min-height: 121px
+        padding: 16px
+        .title
+            font-size: 18px
+            line-height: 25px
+        .det
+            font-size: 13px
+            line-height: 18px
+        .client
+            margin-top: 8px
+            font-size: 13px
+            line-height: 18px
+    
+@media screen and ( max-width: 519px )
+    .item
+        padding: 24px 11px
+        border-width: 5px
+        min-height: 129px
+        .title
+            line-height: 22px
+            margin-bottom: 8px
+        .det
+            font-size: 12px
+            line-height: 16px
+        .line
+            margin: 0 4px
+        .client
+            margin-top: 12px
+            font-size: 12px
+            line-height: 16px
+        .payment_not_paid
+            display: block
+            font-size: 12px
+            margin-left: 0px
+            margin-top: 10px

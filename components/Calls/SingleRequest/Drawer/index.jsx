@@ -1,58 +1,57 @@
 // libraries
-import { useEffect, useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import moment from "moment";
 import { Drawer } from "antd";
+import { toast } from "react-toastify";
+
+// context
+import ProfileContext from "@/context/profile";
+
+// requests
+import { getCallsList } from "@/utils/requests/calendar";
+
+// helpers
+import { getCurrentDaySessions } from "@/utils/helpers";
 
 // components
 import PageLoading from "@/components/common/PageLoading";
 import EmptyData from "@/components/common/EmptyData";
 import Item from "./Item";
 
-const RequestDrawer = ({ isOpen, toggle, day, thatDate }) => {
+const RequestDrawer = ({ isOpen, toggle, day }) => {
+  // context
+  const { token } = useContext(ProfileContext);
+
   // states
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState(null);
 
-  // useEffect(() => {
-  //   var groupArrays = [];
-
-  //   if (apt.length > 0) {
-  //     const groups = apt.reduce((groups, appointment) => {
-  //       const date = appointment.starting_date.split("T")[0];
-  //       if (!groups[date]) {
-  //         groups[date] = [];
-  //       }
-  //       groups[date].push(appointment);
-  //       return groups;
-  //     }, {});
-
-  //     groupArrays = Object.keys(groups).map((date) => {
-  //       return {
-  //         date,
-  //         appointments: groups[date],
-  //       };
-  //     });
-  //   }
-
-  //   const filteredArray = groupArrays.filter((i) => {
-  //     var currentDate = moment(thatDate).format("YYYY-MM-DD");
-  //     var date = moment(i.date).format("YYYY-MM-DD");
-  //     return date == currentDate;
-  //   });
-
-  //   if (filteredArray.length > 0) {
-  //     const sortedList = filteredArray[0].appointments.sort(
-  //       (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
-  //     );
-
-  //     setAppointments(sortedList);
-  //   } else {
-  //     setAppointments([]);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (token) {
+      getCallsList(token)
+        .then((res) => {
+          const arr = getCurrentDaySessions(res, day);
+          if (arr.length > 0) {
+            const sortedList = arr[0].appointments.sort(
+              (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
+            );
+            setAppointments(sortedList);
+          } else {
+            setAppointments([]);
+          }
+        })
+        .catch(() => {
+          toast.error("Failed to get the list!");
+        });
+    }
+    return () => {
+      setAppointments(null);
+    };
+  }, [token]);
 
   return (
     <Drawer
       width={440}
-      title={day}
+      title={moment().format("ddd, MMM DD, YYYY")}
       placement="right"
       closable={true}
       onClose={toggle}

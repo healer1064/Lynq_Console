@@ -1,5 +1,9 @@
 // libraries
 import React from "react";
+import { Tooltip } from "antd";
+
+// icons
+import { BsExclamationCircleFill } from "react-icons/bs";
 
 // styles
 import styles from "./styles.module.sass";
@@ -13,8 +17,18 @@ const index = ({ setState }) => {
       <label>
         Price <span>$20</span>
       </label>
-      <label>
-        Listing Price <span>$22</span>
+      <label className={styles.listing}>
+        <h6>
+          Listing Price{" "}
+          <Tooltip
+            className={styles.tooltip}
+            title="The price a customer pays to purchase the service and that
+            includes Lynq's fees."
+          >
+            <BsExclamationCircleFill />
+          </Tooltip>
+        </h6>{" "}
+        <span>$22</span>
       </label>
       <div className={styles.desc_box}>
         <label htmlFor="desc">Description</label>

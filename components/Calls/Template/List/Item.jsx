@@ -1,6 +1,7 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
+import { Tooltip } from "antd";
 
 // styles
 import styles from "./styles.module.sass";
@@ -9,7 +10,11 @@ import styles from "./styles.module.sass";
 import ProfileContext from "@/context/profile";
 
 // icons
-import { BsCircleFill, BsCircle } from "react-icons/bs";
+import {
+  BsCircleFill,
+  BsCircle,
+  BsExclamationCircleFill,
+} from "react-icons/bs";
 import { BiDollar } from "react-icons/bi";
 
 // requests
@@ -20,8 +25,8 @@ const Item = ({ data, options, setOptions }) => {
   const { token } = useContext(ProfileContext);
 
   // state
-  const [price, setPrice] = useState(0);
-  const [listingPrice, setListingPrice] = useState(0);
+  const [price, setPrice] = useState("");
+  const [listingPrice, setListingPrice] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +53,7 @@ const Item = ({ data, options, setOptions }) => {
           toast.error("Failed to fetch listing price!");
         });
     } else {
-      setListingPrice(0);
+      setListingPrice("");
     }
   }, [price]);
 
@@ -83,13 +88,28 @@ const Item = ({ data, options, setOptions }) => {
                 />
               </span>
             </label>
-            <label onClick={(e) => e.stopPropagation()} htmlFor="listing-price">
-              <p>Listing Price</p>
-              <span>
-                <BiDollar />
-                <input id="listing-price" value={listingPrice} disabled />
-                {loading && <img src="/img/Rolling-dark.svg" alt="rolling" />}
-              </span>
+            <label
+              className={styles.listing}
+              onClick={(e) => e.stopPropagation()}
+              htmlFor="listing-price"
+            >
+              <p>
+                Listing Price{" "}
+                <Tooltip
+                  className={styles.tooltip}
+                  title="The price a customer pays to purchase the service and that
+                  includes Lynq's fees."
+                >
+                  <BsExclamationCircleFill />
+                </Tooltip>
+              </p>
+              {price != "" && (
+                <span>
+                  <BiDollar />
+                  <input id="listing-price" value={listingPrice} disabled />
+                  {loading && <img src="/img/Rolling-dark.svg" alt="rolling" />}
+                </span>
+              )}
             </label>
             <div className={styles.desc_box}>
               <h3>Description</h3>

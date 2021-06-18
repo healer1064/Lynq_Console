@@ -33,6 +33,19 @@ body
   background: #FFF
   margin: 0
   font-family: 'Open Sans', sans-serif !important
+  &::-webkit-scrollbar-track
+	  border-radius: 10px
+	  background-color: #F5F5F5
+      -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
+
+  &::-webkit-scrollbar
+      width: 14px
+      background-color: #F5F5F5
+
+  &::-webkit-scrollbar-thumb
+      border-radius: 10px
+      background-color: #aaa
+      -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
 
 .ant-drawer-content-wrapper
   width: 440px !important
@@ -197,12 +210,6 @@ body
   font-size: 14px
   line-height: 24px
   color: $super-grey
-
-.payment-not-paid
-  color: red
-  font-weight: 600
-  font-size: 12px
-  margin-left: 20px
 
 .dropdown-menu
   display: flex
@@ -520,88 +527,6 @@ body
               transform: rotate(180deg)
               path
                 fill: #FFF
-    &__event
-      width: 100%
-      filter: drop-shadow(2px 4px 16px rgba(0, 0, 0, 0.08))
-      background: #FFF
-      border-radius: 5px
-      min-height: 155px
-      padding: 24px 26px
-      margin-top: 40px 
-      border-left: 8px solid
-      @include flex
-      flex-direction: column
-      align-items: flex-start
-      &.red
-        border-color: #FA1317
-      &.blue
-        border-color: $lavender
-      &.yellow
-        border-color: rgb(255, 255, 0)
-      &.gray
-        border-left-color: #E1E1E1
-        border-right: .5px solid #d9d9d9;
-        border-top: .5px solid #d9d9d9;
-        border-bottom: .5px solid #d9d9d9;
-        & > div 
-          opacity: .7
-      .past-event 
-        font-weight: 700
-        margin-top: .5rem
-
-      .title
-        font-weight: 600
-        font-size: 24px
-        line-height: 29px
-        color: $black
-        margin-bottom: 12px
-      .det
-        font-weight: 500
-        font-size: 14px
-        line-height: 17px
-        color: $black-2
-        @include flex
-        align-items: center
-        b
-          font-weight: 500
-          color: $lavender
-      .line
-        margin: 0 8px
-        height: 16px
-        width: 1px
-        background: $black-2
-      .client
-        @include flex
-        align-items: center
-        margin-top: 16px
-        font-weight: 500
-        font-size: 14px
-        line-height: 17px
-        color: $black-2
-      .btnCancel
-        background: #81c4ab
-        outline: none
-        border: none
-        padding: .25rem .5rem
-        border-radius: 5px
-        cursor: pointer
-        color: white
-        text-decoration: none
-        font-size: 13px
-      .btnGoto
-        background: #7E88F4
-        outline: none
-        border: none
-        margin-left: .5rem
-        border-radius: 5px
-        cursor: pointer
-        transition: all .25s ease-out
-        padding: .25rem .5rem
-        color: white
-        text-decoration: none
-        font-size: 13px
-        &:hover 
-          background: #7E88F4 
 
   &-search
     &__col
@@ -912,58 +837,22 @@ body
 .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab
   margin-left: 10px !important
 
-.card-container p 
-  margin: 0
-
-.card-container > .ant-tabs-card .ant-tabs-content
-  margin-top: -16px
-
-.card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane 
-  padding: 16px
-  background: #fff
-  
-.card-container > .ant-tabs-card > .ant-tabs-nav::before 
-  display: none
-
-.card-container > .ant-tabs-card .ant-tabs-tab,
-[data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-tab 
-  background: transparent
-  border-color: transparent
-
-.card-container > .ant-tabs-card .ant-tabs-tab-active,
-[data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-tab-active 
-  background: #fff
-  border-color: #fff
-
 #components-tabs-demo-card-top .code-box-demo 
   padding: 24px
   overflow: hidden
   background: #f5f5f5
 
-[data-theme='compact'] .card-container > .ant-tabs-card .ant-tabs-content 
-  height: 120px
-  margin-top: -8px
-
-[data-theme='dark'] .card-container > .ant-tabs-card .ant-tabs-tab 
-  background: transparent
-  border-color: transparent
-
-[data-theme='dark'] #components-tabs-demo-card-top .code-box-demo 
-  background: #000
-
-[data-theme='dark'] .card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane 
-  background: #141414
-
-[data-theme='dark'] .card-container > .ant-tabs-card .ant-tabs-tab-active 
-  background: #141414
-  border-color: #141414
-
-.card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane
-    padding: 0 !important
 
 .ant-btn:hover
   color: $lavender !important
   border-color: $lavender !important
+
+.ant-btn-primary
+    background: $lavender !important
+    border-color: $lavender !important
+    &:hover
+      color: white !important
+      opacity: 0.6
 
 .ant-tabs-nav-wrap
   display: inline-block
@@ -1130,20 +1019,6 @@ body
           height: 10px
         &__wrp
           margin-bottom: 12px
-      &__event
-        margin-top: 12px
-        min-height: 121px
-        padding: 16px
-        .title
-          font-size: 18px
-          line-height: 25px
-        .det
-          font-size: 13px
-          line-height: 18px
-        .client
-          margin-top: 8px
-          font-size: 13px
-          line-height: 18px
     &-search
       &__date
         margin-top: 24px
@@ -1246,11 +1121,6 @@ body
     gap: 0px
   .half-div
     width: 100%
-  .payment-not-paid
-    display: block
-    font-size: 12px
-    margin-left: 0px
-    margin-top: 10px
   .payment-filter
     display: block
     margin: 16px 0
@@ -1323,22 +1193,6 @@ body
         .arrow
           height: 8px
           width: 8px
-      &__event
-        padding: 24px 11px
-        border-width: 5px
-        min-height: 129px
-        .title
-          line-height: 22px
-          margin-bottom: 8px
-        .det
-          font-size: 12px
-          line-height: 16px
-        .line
-          margin: 0 4px
-        .client
-          margin-top: 12px
-          font-size: 12px
-          line-height: 16px
     &-search
       &__date
         margin-top: 40px
@@ -1472,10 +1326,6 @@ body
 
   .video-upload-textarea > textarea
       height: 250px
-
-  .card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane 
-    padding: 0
-
   .ant-tabs-nav-wrap
     width: 100%
     display: block

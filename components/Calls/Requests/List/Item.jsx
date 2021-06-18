@@ -17,59 +17,26 @@ const Item = ({ data }) => {
   return (
     <Fade duration={800} delay={50}>
       <div
-        onClick={() =>
-          //   item.requestDate
-          // ? router.push(`/appointments/requests/async/${item.id}`)
-          // :
-          //   router.push(`/calls/requests/${data.id}`)
-          router.push(`/calls/requests/1`)
-        }
+        onClick={() => router.push(`/calls/requests/${data.id}`)}
         className={styles.item}
       >
         <p>
-          {
-            //   item.requestDate
-            // ? moment(item.requestDate).format("ddd MM/DD/YYYY")
-            // :
-            // moment(item.create_date).format("ddd MM/DD/YYYY")}
-            moment().format("ddd MM/DD/YYYY")
-          }
+          {moment(data.create_date).format("ddd MM/DD/YYYY")}
           <span
             style={{
               borderLeft: "1px solid #aaa",
               margin: "0 5px",
             }}
           ></span>
-          {/* {item.requestDate
-            ? getFromTime(item.requestDate)
-            : getFromTime(item.create_date)} */}
-          1 hour ago
+          {moment(data.create_date).fromNow()}
         </p>
+        <p>{data.activity_name}</p>
+        <p style={{ color: "#7e88f4" }}>1:1</p>
+        <p>{data.email}</p>
         <p>
-          {/* {item.activityName ? item.activityName : item.activity_name} */}
-          Testing
-        </p>
-        <p style={{ color: "#7e88f4" }}>
-          {/* {item.activityName ? "Asynchronous" : "Live"} */}
-          1:1
-        </p>
-        <p>
-          {/* {item.customerEmail ? item.customerEmail : item.email} */}
-          test@test.com
-        </p>
-        <p>
-          {/* {item.requestDate ? (
-            item.maxDeliveryTime ? (
-              <Countdown date={item.maxDeliveryTime} />
-            ) : (
-              "N/A"
-            )
-          ) : new Date(item.starting_date) < new Date() ? (
-            "Expired"
-          ) : (
-            "To Validate"
-          )} */}
-          To Validate
+          {new Date(data.starting_date) < new Date()
+            ? "Expired"
+            : "To Validate"}
         </p>
         <CaretRightOutlined
           style={{

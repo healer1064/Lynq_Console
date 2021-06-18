@@ -14,8 +14,12 @@ import { postProfileReq } from "@/utils/requests/public-profile";
 // components
 import TimezoneDropdown from "./TimezoneDropdown";
 
-const SetupNotifications = ({ delayedBookingHours, data, token }) => {
-  console.log(token);
+const SetupNotifications = ({
+  delayedBookingHours,
+  data,
+  token,
+  toggleSuccess,
+}) => {
   // states
   const [delayBooking, setDelayBooking] = useState(
     delayedBookingHours == null || delayedBookingHours == ""
@@ -39,9 +43,11 @@ const SetupNotifications = ({ delayedBookingHours, data, token }) => {
       delay_booking_hours: delayBooking,
       timezone,
     };
-    postProfileReq(token, reqData).catch(() => {
-      toast.error("Failed to update timezone.");
-    });
+    postProfileReq(token, reqData)
+      .then(() => toggleSuccess())
+      .catch(() => {
+        toast.error("Failed to update timezone.");
+      });
   };
 
   return (

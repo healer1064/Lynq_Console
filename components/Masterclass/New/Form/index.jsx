@@ -1,5 +1,7 @@
 // libraries
 import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import Select from "react-select";
 import { toast } from "react-toastify";
 
 // styles
@@ -21,6 +23,9 @@ const index = () => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // router
+  const router = useRouter();
+
   // handle price change
   useEffect(() => {
     if (price !== "") {
@@ -39,6 +44,35 @@ const index = () => {
     }
   }, [price]);
 
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      background: "#fff",
+      borderColor: state.isFocused ? "#9FA8B5" : "#9FA8B5",
+      minHeight: "40px",
+      height: "40px",
+      boxShadow: state.isFocused ? null : null,
+    }),
+
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: "40px",
+      padding: "0 6px",
+    }),
+
+    input: (provided, state) => ({
+      ...provided,
+      margin: "0px",
+    }),
+    indicatorSeparator: (state) => ({
+      display: "none",
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: "40px",
+    }),
+  };
+
   return (
     <form className={styles.form}>
       <label>
@@ -47,12 +81,22 @@ const index = () => {
       </label>
       <label>
         <strong>Length</strong>
-        <select>
+        <Select
+          styles={customStyles}
+          className={styles.length_select}
+          options={[
+            { value: "30", label: "30 min" },
+            { value: "60", label: "60 min" },
+            { value: "90", label: "90 min" },
+            { value: "120", label: "120 min" },
+          ]}
+        />
+        {/* <select>
           <option value="30">30 min</option>
           <option value="60">60 min</option>
           <option value="90">90 min</option>
           <option value="120">120 min</option>
-        </select>
+        </select> */}
       </label>
       <label>
         <strong>Date</strong>
@@ -113,8 +157,23 @@ const index = () => {
         <span className={styles.desc_count}>{description.length}/600</span>
       </label>
       <div className={styles.btns}>
-        <button className={styles.save}>Save</button>
-        <button className={styles.cancel}>Cancel</button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+          className={styles.save}
+        >
+          Save
+        </button>
+        <button
+          className={styles.cancel}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );

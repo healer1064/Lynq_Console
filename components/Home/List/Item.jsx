@@ -2,6 +2,10 @@
 import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import moment from "moment-timezone";
+import { Modal } from "antd";
+
+// styles
+import styles from "./styles.module.sass";
 
 // context
 import ProfileContext from "@/context/profile";
@@ -9,12 +13,13 @@ import ProfileContext from "@/context/profile";
 // helpers
 import { dateIsBetween } from "@/utils/helpers/dates";
 
-const AppointmentCard = ({ data }) => {
+const Item = ({ data }) => {
   // context
   const { slugData } = useContext(ProfileContext);
 
   // states
   const [status, setStatus] = useState(true);
+  const [descModal, setDescModal] = useState(false);
 
   useEffect(() => {
     let checkStatus =
@@ -25,21 +30,21 @@ const AppointmentCard = ({ data }) => {
 
   return (
     <div
-      className={`appointments-col__event ${
-        !status ? "gray" : data.activity_name ? "blue" : "yellow"
+      className={`${styles.item} ${
+        !status ? styles.gray : data.activity_name ? styles.blue : styles.yellow
       }`}
     >
-      <div className="title">
+      <div className={styles.title}>
         {data.activity_name ? data.activity_name : data.summary}
       </div>
-      <div className="det">
+      <div className={styles.det}>
         {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
-        <div className="line"></div>
+        <div className={styles.line}></div>
         <b>
           {moment(data.starting_date).format("hh:mm a")} -{" "}
           {moment(data.ending_date).format("hh:mm a")}
         </b>
-        <div className="line"></div>
+        <div className={styles.line}></div>
         <b>
           {data.activity_name
             ? data.session_duration
@@ -51,10 +56,13 @@ const AppointmentCard = ({ data }) => {
         </b>
       </div>
       {data.activity_name && (
-        <div className="client">
+        <div className={styles.client}>
           Client: {data.first_name + " " + data.last_name}
-          <div className="line"></div>
+          <div className={styles.line}></div>
           {data.email}
+          <button onClick={() => setDescModal(true)}>
+            See client's question
+          </button>
         </div>
       )}
       {!data.activity_name && (
@@ -63,23 +71,23 @@ const AppointmentCard = ({ data }) => {
           <span>Booking from Google Calendar</span>
         </>
       )}
-      {!status && <span className="past-event">Past Event</span>}
+      {!status && <span className={styles.past_event}>Past Event</span>}
       {status && (
         <>
           {data.activity_name && (
             <div style={{ marginTop: "1rem" }}>
               <Link href={`/appointments/${data.id}`}>
-                <a className="btnCancel">Manage Session</a>
+                <a className={styles.btn_cancel}>Manage Session</a>
               </Link>
               <Link
                 href={`https://us.lynq.app/${slugData?.slug}/teacher/${data.id}`}
               >
-                <a target="_blank" className="btnGoto">
+                <a target="_blank" className={styles.btn_goto}>
                   Start the video
                 </a>
               </Link>
               {data?.status?.toLowerCase().includes("awaiting-payment") && (
-                <span className="payment-not-paid">
+                <span className={styles.payment_not_paid}>
                   This session has not been paid by your client.{" "}
                   <Link href={`/appointments/${data.id}`}>
                     See details here
@@ -90,8 +98,23 @@ const AppointmentCard = ({ data }) => {
           )}
         </>
       )}
+      <Modal
+        title={`${data.first_name} ${data.last_name}'s question`}
+        visible={descModal}
+        onOk={() => setDescModal(false)}
+        onCancel={() => setDescModal(false)}
+      >
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo
+          distinctio totam voluptas officiis iusto, blanditiis aliquid enim
+          eveniet autem minima vel natus a laboriosam cumque, optio cupiditate
+          magni. Ut nisi et velit consectetur hic necessitatibus repellendus
+          rerum vel tenetur quos aut sint voluptatibus quaerat temporibus odit
+          illum laboriosam, saepe dignissimos.
+        </p>
+      </Modal>
     </div>
   );
 };
 
-export default AppointmentCard;
+export default Item;

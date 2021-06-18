@@ -20,7 +20,7 @@ const index = ({ filter, setFilter, setSearchTerm }) => {
           <DropdownMenu
             state={filter}
             setState={setFilter}
-            data={["All Active", "Live Sessions", "Asynchronous", "Expired"]}
+            data={["All", "To Validate", "Expired"]}
           />
         }
         placement="bottomCenter"

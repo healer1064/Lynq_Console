@@ -23,27 +23,31 @@ const groupListInSectionsByDate = (_data) => {
     });
   }
 
-  const filteredArray = groupArrays.filter((i) => {
-    var currentDate = moment().format("YYYY-MM-DD");
+  return groupArrays;
+};
+
+const getCurrentDaySessions = (_data, _day) => {
+  const filteredArray = groupListInSectionsByDate(_data).filter((i) => {
+    var currentDate = moment(_day).format("YYYY-MM-DD");
     var date = moment(i.date).format("YYYY-MM-DD");
     return date == currentDate;
   });
-
   return filteredArray;
 };
 
-const getHomeCurrentSession = (_data) => {
+const getHomeCurrentSession = (_data, _setData) => {
   let format = "hh:mm A";
   _data.forEach((appt) => {
     if (dateIsBetween(appt.starting_date, appt.ending_date)) {
-      return {
+      console.log("object");
+      _setData({
         time: `${formatTime(appt.starting_date, format)} - ${formatTime(
           appt.ending_date,
           format
         )}`,
         id: appt.id,
         name: appt.activity_name,
-      };
+      });
     }
   });
 };
@@ -121,6 +125,7 @@ const getLatestMessage = (arr) => {
 
 export {
   groupListInSectionsByDate,
+  getCurrentDaySessions,
   getHomeCurrentSession,
   getHomeNextSession,
   handleFileInput,
