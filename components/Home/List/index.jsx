@@ -1,5 +1,5 @@
 // libraries
-import moment from "moment-timezone";
+import React from "react";
 
 // components
 import Item from "./Item";
@@ -9,8 +9,7 @@ const HomeAppointmentsList = ({ list }) => {
   // sort list
   const sortList = (_list) => {
     return _list.sort(
-      (a, b) =>
-        moment(b.starting_date).valueOf() - moment(a.starting_date).valueOf()
+      (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
     );
   };
 

@@ -1,28 +1,31 @@
 // libraries
 import { useState } from "react";
 
-// utils
-import { getCurrentWeek } from "../../utils/helpers/dates";
+// styles
+import styles from "./styles.module.sass";
+
+// helpers
+import { getCurrentWeek } from "@/utils/helpers/dates";
 
 // components
-import Calendar from "./Calendar";
-import NewAppointmentButton from "./NewAppointmentButton";
+import Calendar from "../Calendar";
+import List from "../List";
 
-const AppointmentsTop = ({ onWeekChange }) => {
+const index = ({ data, onWeekChange }) => {
   // states
   const [currWeek, setCurrWeek] = useState(getCurrentWeek());
 
+  // handle change
   const handleChange = (_start, _end) => {
     setCurrWeek({ weekStart: _start, weekEnd: _end });
     onWeekChange(_start, _end);
   };
-
   return (
-    <div className="appointments-top">
-      <NewAppointmentButton isLeft={true} />
+    <div className={styles.content}>
+      <List list={data} />
       <Calendar currDate={currWeek} handleChange={handleChange} />
     </div>
   );
 };
 
-export default AppointmentsTop;
+export default index;

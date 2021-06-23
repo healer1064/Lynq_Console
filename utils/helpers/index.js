@@ -76,6 +76,26 @@ const getHomeNextSession = (_data, _setData) => {
   }
 };
 
+const sortCalendarList = (_list) => {
+  const sortList = (list, order) => {
+    if (order === 1)
+      return list.sort((a, b) => new Date(a.date) - new Date(b.date));
+    else return list.sort((a, b) => new Date(b.date) - new Date(a.date));
+  };
+
+  let currentDate = new Date();
+  let nextAppointments = _list.filter(
+    (item) => new Date(item.date) >= currentDate
+  );
+  let prevAppointments = _list.filter(
+    (item) => new Date(item.date) < currentDate
+  );
+  nextAppointments = sortList(nextAppointments, 1);
+  prevAppointments = sortList(prevAppointments, 2);
+  let sortedList = nextAppointments.concat(prevAppointments);
+  return sortedList;
+};
+
 const handleFileInput = (_file) => {
   if (_file) {
     // if (_file.size > 1536 * 1000000) {
@@ -128,6 +148,7 @@ export {
   getCurrentDaySessions,
   getHomeCurrentSession,
   getHomeNextSession,
+  sortCalendarList,
   handleFileInput,
   paginateArray,
   timeDifferenceInMilliSeconds,

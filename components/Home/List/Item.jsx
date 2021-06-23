@@ -60,10 +60,15 @@ const Item = ({ data }) => {
           Client: {data.first_name + " " + data.last_name}
           <div className={styles.line}></div>
           {data.email}
-          <button onClick={() => setDescModal(true)}>
-            See client's question
-          </button>
         </div>
+      )}
+      {status && (
+        <button
+          className={styles.clients_question}
+          onClick={() => setDescModal(true)}
+        >
+          See client's question
+        </button>
       )}
       {!data.activity_name && (
         <>

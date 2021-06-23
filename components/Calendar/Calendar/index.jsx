@@ -3,14 +3,14 @@ import { useState } from "react";
 import { DateRange } from "react-date-range";
 
 // styles
-import styles from "../../styles/Calendar.module.sass";
+import styles from "./styles.module.sass";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 const Calendar = ({ currDate, handleChange }) => {
+  // states
   const [startDate, setStartDate] = useState(currDate.weekStart);
   const [endDate, setEndDate] = useState(currDate.weekEnd);
-
   const [state, setState] = useState([
     {
       startDate: startDate,
@@ -19,6 +19,7 @@ const Calendar = ({ currDate, handleChange }) => {
     },
   ]);
 
+  // handle change
   const onChange = (dates) => {
     const start = dates.selection.startDate;
     const end = dates.selection.endDate;

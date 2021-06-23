@@ -3,11 +3,16 @@ import { useState, useLayoutEffect } from "react";
 import moment from "moment-timezone";
 import Fade from "react-reveal/Fade";
 
-// components
-// import AppointmentCard from "../Home/AppointmentCard";
-import { isBefore } from "../../utils/helpers/dates";
+// styles
+import styles from "./styles.module.sass";
 
-const AppointmentsListItem = ({ data }) => {
+// helpers
+import { isBefore } from "@/utils/helpers/dates";
+
+// components
+import InnerItem from "@/components/Home/List/Item";
+
+const Item = ({ data }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
@@ -27,31 +32,30 @@ const AppointmentsListItem = ({ data }) => {
 
   return (
     <div
-      className={`appointments-col__card__wrp ${status ? "" : "inactive"} ${
-        open ? "active" : ""
-      }
+      className={`${styles.item_wrap} ${status ? "" : styles.inactive} ${
+        open ? styles.active : ""
+      } ${!status && open ? styles.inactive_active : ""}
       `}
     >
       <div
         onClick={() => {
           appointments && setOpen(!open);
         }}
-        className="appointments-col__card"
-        // style={{ backgroundColor: `${!status && "#E1E1E1"}` }}
+        className={styles.item}
       >
         <div
-          className="det"
+          className={styles.det}
           style={{
             fontWeight: status ? "600" : "400",
           }}
         >
           {moment(date).format("dddd")}
-          <div className="line"></div>
+          <div className={styles.line}></div>
           {moment(date).format("MMMM DD, YYYY")}
-          <div className="line"></div>
+          <div className={styles.line}></div>
           <b>{appointments.length} appointments</b>
         </div>
-        <div className="arrow">
+        <div className={styles.arrow}>
           <svg
             width="14"
             height="12"
@@ -63,19 +67,15 @@ const AppointmentsListItem = ({ data }) => {
           </svg>
         </div>
       </div>
-      {/* {open && appointments && (
-        <>
-          <div style={{ width: "100%" }}>
-            {sortList(appointments).map((data, index) => (
-              <Fade key={index} collapse duration={1000}>
-                <AppointmentCard key={index} data={data} />
-              </Fade>
-            ))}
-          </div>
-        </>
-      )} */}
+      {open && appointments && (
+        <div style={{ width: "100%" }}>
+          {sortList(appointments).map((data, index) => (
+            <InnerItem key={index} data={data} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
-export default AppointmentsListItem;
+export default Item;

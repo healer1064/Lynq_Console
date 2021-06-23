@@ -133,3 +133,15 @@ export const compareDates = (a, b) => {
     return 1;
   return 0;
 };
+
+export const filterByCurrWeek = (_list) => {
+  let { weekStart, weekEnd } = getCurrentWeek();
+
+  let filter = _list.filter(
+    (item) =>
+      new Date(item.date).getTime() >= weekStart.getTime() &&
+      new Date(item.date).getTime() <= weekEnd.getTime()
+  );
+
+  return filter;
+};

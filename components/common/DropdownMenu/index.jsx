@@ -1,4 +1,7 @@
+// libraries
 import { Menu } from "antd";
+
+// icons
 import { CheckOutlined } from "@ant-design/icons";
 
 const DropdownMenu = ({ state, setState, data }) => {
