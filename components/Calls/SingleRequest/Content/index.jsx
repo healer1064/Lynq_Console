@@ -165,9 +165,19 @@ const index = ({ request }) => {
       {deleteModal && (
         <Modal
           setModal={setDeleteModal}
-          title="Delete the request"
-          subtitle="Are you sure you want to delete the request?"
-          buttonText="Delete"
+          title={
+            new Date(request.ending_date) > new Date()
+              ? "Reject the request"
+              : "Delete the request"
+          }
+          subtitle={
+            new Date(request.ending_date) > new Date()
+              ? "Are you sure you want to reject the request?"
+              : "Are you sure you want to delete the request?"
+          }
+          buttonText={
+            new Date(request.ending_date) > new Date() ? "Reject" : "Delete"
+          }
           date={request.starting_date}
           loading={rejectLoading}
           onDelete={() => handleReject(request)}

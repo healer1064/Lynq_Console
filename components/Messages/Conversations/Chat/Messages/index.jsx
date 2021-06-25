@@ -1,3 +1,6 @@
+// libraries
+import { useEffect, useRef } from "react";
+
 // styles
 import styles from "./styles.module.sass";
 
@@ -5,6 +8,18 @@ import styles from "./styles.module.sass";
 import Item from "./Item";
 
 const Messages = ({ selected, searchTerm }) => {
+  // ref
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [selected.content]);
+
+  // scroll to bottom of messages
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className={styles.messages}>
       {selected.content.length > 0 && searchTerm != ""
@@ -16,15 +31,16 @@ const Messages = ({ selected, searchTerm }) => {
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase());
             })
-            .sort((a, b) => new Date(b.sentDate) - new Date(a.sentDate))
+            .sort((a, b) => new Date(a.sentDate) - new Date(b.sentDate))
             .map((item, index) => {
               return <Item key={index} data={item} selected={selected} />;
             })
         : selected.content
-            .sort((a, b) => new Date(b.sentDate) - new Date(a.sentDate))
+            .sort((a, b) => new Date(a.sentDate) - new Date(b.sentDate))
             .map((item, index) => {
               return <Item key={index} data={item} selected={selected} />;
             })}
+      <div ref={messagesEndRef} />
     </div>
   );
 };

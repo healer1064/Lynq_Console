@@ -32,6 +32,7 @@ const Modal = ({
           <h6>{title}</h6>
           <p>{subtitle}</p>
           <p>
+            Scheduled at:{" "}
             {`${moment(date).format("dddd, MMMM DD, YYYY")}
             `}
           </p>
