@@ -238,6 +238,9 @@ import ProfileContext from "@/context/profile";
 // requests
 import { listingPriceReq } from "@/utils/requests/calls/template";
 
+// components
+import Slots from "../Slots";
+
 const index = () => {
   // context
   const { token } = useContext(ProfileContext);
@@ -248,6 +251,10 @@ const index = () => {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const [pickerDay, setPicker] = useState();
+  const [time, setTime] = useState();
+  const [times, setTimes] = useState([]);
+  const [prevDisable, setPrevDisable] = useState(false);
 
   // router
   const router = useRouter();
@@ -269,6 +276,33 @@ const index = () => {
       setListingPrice(0);
     }
   }, [price]);
+
+  useEffect(() => {
+    setTimes(sortDates(fake));
+  }, []);
+
+  useEffect(() => {
+    if (moment(date).format("MM-DD-YYYY") === moment().format("MM-DD-YYYY")) {
+      setPrevDisable(true);
+    } else {
+      setPrevDisable(false);
+    }
+  }, [date]);
+
+  const handleNextArrow = () => {
+    setDate(moment(date).add(2, "days").toString());
+  };
+  const handlePrevArrow = () => {
+    if (moment(date) < moment().toDate()) {
+      setDate(moment().toDate());
+    } else {
+      if (moment(date).subtract(2, "days") < moment().toDate()) {
+        setDate(moment().toDate());
+      } else {
+        setDate(moment(date).subtract(2, "days").toString());
+      }
+    }
+  };
 
   const customStyles = {
     control: (provided, state) => ({
@@ -300,6 +334,26 @@ const index = () => {
     }),
   };
 
+  const sortDates = (_data) => {
+    let newArr = [];
+
+    // conver to arary
+    Object.entries(_data).map((item) => {
+      newArr.push({ date: item[0], slots: item[1] });
+    });
+
+    // sort
+    newArr.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    return newArr;
+  };
+
+  useEffect(() => {
+    if (time) {
+      setPicker(new Date(time));
+    }
+  }, [time]);
+
   return (
     <form className={styles.form}>
       <label>
@@ -323,12 +377,24 @@ const index = () => {
         <strong>Date</strong>
         <DatePicker
           minDate={moment().toDate()}
-          selected={date}
+          selected={pickerDay}
+          dateFormat={time ? "MM/dd/yyyy h:mm aa" : "MM/dd/yyyy"}
           onChange={(date) => {
-            setDate(date);
+            setPicker(date);
+            setDate(moment(date));
+            setTime(null);
           }}
         />
       </label>
+      {date && !time && (
+        <Slots
+          times={times}
+          setTime={setTime}
+          handleNextArrow={handleNextArrow}
+          handlePrevArrow={handlePrevArrow}
+          prevDisable={prevDisable}
+        />
+      )}
       <label>
         <strong>Price</strong>
         <div className={styles.price}>
