@@ -14,7 +14,131 @@ $grey: #838383
 $super-grey: #C9C9C9
 $blue: #2889F0
 
-.item
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.list
+    flex-grow: 1
+    position: relative
+    
+    @media(max-width: 768px)
+        width: 100%
+        margin-top: 30px
+        & > div
+            margin-top: 0
+
+.list_wrap
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    padding-bottom: 48px
+    .item
+        width: 100%
+        @include flex
+        align-items: center
+        justify-content: space-between
+        padding: 24px 32px
+        background: #F4F5FA
+        border-radius: 5px
+        cursor: pointer
+        .det
+            @include flex
+            align-items: center
+            font-size: 16px
+            line-height: 20px
+            color: $black
+            b
+                font-weight: 600
+                color: $lavender
+            .line
+                height: 16px
+                width: 1px
+                background: #CBD0D7
+                margin: 0 8px
+        .arrow
+            width: 16px
+            height: 16px
+            @include flex
+            align-items: center
+            justify-content: center
+.item_wrap
+    width: 100%
+    @include flex
+    flex-direction: column
+    align-items: flex-start
+    margin-bottom: 24px
+    &:last-child
+        margin-bottom: 0
+.inactive
+    .item
+        background: #E1E1E1
+        pointer-events: all
+        .det
+            color: $grey
+            b
+                color: $grey
+        .arrow
+            path
+                fill: $grey
+.active
+    .item
+        background: $lavender
+        .det
+            font-weight: 600
+            color: #FFF
+            b
+                color: #FFF
+        .line
+            background: #FFF
+        .arrow
+            transform: rotate(180deg)
+            path
+                fill: #FFF
+.inactive_active
+    .item
+        background: #E1E1E1
+        pointer-events: all
+        .det
+            color: $grey
+            b
+                color: $grey
+        .arrow
+            transform: rotate(180deg)
+            path
+                fill: $grey
+
+@media screen and ( max-width: $breakpointLaptop )
+    .list_wrap
+        .item
+            padding: 12px 16px
+            .det
+                font-size: 13px
+                line-height: 18px
+                .line
+                    margin: 0 12px
+            .arrow
+                width: 10px
+                height: 10px
+    .item_wrap
+        margin-bottom: 12px
+    
+@media screen and ( max-width: $breakpointPhone )
+    .list_wrap
+        margin-top: 32px
+        .item
+            padding: 16px
+            .det
+                font-size: 12px
+                line-height: 16px
+                .line
+                    margin: 0 4px
+            .arrow
+                height: 8px
+                width: 8px
+    
+.inner_item
     width: 100%
     filter: drop-shadow(2px 4px 16px rgba(0, 0, 0, 0.08))
     background: #FFF
@@ -120,7 +244,7 @@ $blue: #2889F0
         opacity: 0.7
 
 @media screen and ( max-width: 1399px )
-    .item
+    .inner_item
         margin-top: 12px
         min-height: 121px
         padding: 16px
@@ -136,7 +260,7 @@ $blue: #2889F0
             line-height: 18px
     
 @media screen and ( max-width: 519px )
-    .item
+    .inner_item
         padding: 24px 11px
         border-width: 5px
         min-height: 129px

@@ -31,16 +31,10 @@ const Leftbar = () => {
   return (
     <div className={styles.side_nav}>
       <nav>
-        <Link href="/">
+        <Link href='/'>
           <a className={router.pathname === "/" ? styles.active : ""}>
-            <img src="/img/nav-home.svg" alt="" />
+            <img src='/img/nav-home.svg' alt='' />
             <span>Home</span>
-          </a>
-        </Link>
-        <Link href="/calendar">
-          <a className={router.pathname === "/calendar" ? styles.active : ""}>
-            <img src="/img/nav-appointments.svg" alt="" />
-            <span>Calendar</span>
           </a>
         </Link>
         <a onClick={() => setCalls(!calls)}>
@@ -54,7 +48,7 @@ const Leftbar = () => {
         </a>
         {calls && (
           <div className={styles.nav_sub_links}>
-            <Link href="/calls/template">
+            <Link href='/calls/template'>
               <p
                 className={
                   router.pathname === "/calls/template" ? styles.active : ""
@@ -63,7 +57,7 @@ const Leftbar = () => {
                 Template
               </p>
             </Link>
-            <Link href="/calls/requests">
+            <Link href='/calls/requests'>
               <p
                 className={
                   router.pathname === "/calls/requests" ? styles.active : ""
@@ -74,11 +68,11 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
-        <Link href="/masterclass">
+        <Link href='/masterclass'>
           <a
             className={router.pathname === "/masterclass" ? styles.active : ""}
           >
-            <img src="/img/sidenav-masterclass.svg" alt="" />
+            <img src='/img/sidenav-masterclass.svg' alt='' />
             <span>Masterclass</span>
           </a>
         </Link>
@@ -93,7 +87,7 @@ const Leftbar = () => {
         </a>
         {messages && (
           <div className={styles.nav_sub_links}>
-            <Link href="/messages/template">
+            <Link href='/messages/template'>
               <p
                 className={
                   router.pathname === "/messages/template" ? styles.active : ""
@@ -102,7 +96,7 @@ const Leftbar = () => {
                 Template
               </p>
             </Link>
-            <Link href="/messages/conversations">
+            <Link href='/messages/conversations'>
               <p
                 className={
                   router.pathname === "/messages/conversations"
@@ -115,20 +109,20 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
-        <Link href="/public-profile">
+        <Link href='/public-profile'>
           <a
             className={
               router.pathname === "/public-profile" ? styles.active : ""
             }
           >
-            <img src="/img/nav-profile.svg" alt="" />
+            <img src='/img/nav-profile.svg' alt='' />
             <span>Public Profile</span>
           </a>
         </Link>
       </nav>
       <nav>
         <a onClick={() => setSettings(!settings)}>
-          <img src="/img/nav-settings.svg" alt="" />
+          <img src='/img/nav-settings.svg' alt='' />
           <span>Settings</span>
           {settings ? (
             <BsFillCaretUpFill className={styles.open_close_icon} />
@@ -138,7 +132,7 @@ const Leftbar = () => {
         </a>
         {settings && (
           <div className={styles.nav_sub_links}>
-            <Link href="/settings/availabilities">
+            <Link href='/settings/availabilities'>
               <p
                 className={
                   router.pathname === "/settings/availabilities"
@@ -149,7 +143,7 @@ const Leftbar = () => {
                 Availabilities
               </p>
             </Link>
-            <Link href="/settings/calendar">
+            <Link href='/settings/calendar'>
               <p
                 className={
                   router.pathname === "/settings/calendar" ? styles.active : ""
@@ -160,10 +154,10 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
-        <Link href="/dashboard">
+        <Link href='/dashboard'>
           <a className={router.pathname === "/dashboard" ? styles.active : ""}>
             <FaChartLine
-              color="white"
+              color='white'
               style={{ marginRight: "8px" }}
               size={17}
             />
@@ -171,7 +165,7 @@ const Leftbar = () => {
           </a>
         </Link>
         <a onClick={() => setPayments(!payments)}>
-          <img src="/img/nav-payments.svg" alt="" />
+          <img src='/img/nav-payments.svg' alt='' />
           <span>Payment</span>
           {payments ? (
             <BsFillCaretUpFill className={styles.open_close_icon} />
@@ -181,7 +175,7 @@ const Leftbar = () => {
         </a>
         {payments && (
           <div className={styles.nav_sub_links}>
-            <Link href="/payment/balance">
+            <Link href='/payment/balance'>
               <p
                 className={
                   router.pathname === "/payment/balance" ? styles.active : ""
@@ -190,7 +184,7 @@ const Leftbar = () => {
                 Balance
               </p>
             </Link>
-            <Link href="/payment/details">
+            <Link href='/payment/details'>
               <p
                 className={
                   router.pathname === "/payment/details" ? styles.active : ""
@@ -203,19 +197,19 @@ const Leftbar = () => {
         )}
       </nav>
       <nav>
-        <Link href="/support">
+        <Link href='/support'>
           <a className={router.pathname === "/support" ? styles.active : ""}>
-            <img src="/img/nav-contact.svg" alt="" />
+            <img src='/img/nav-contact.svg' alt='' />
             <span>Support</span>
           </a>
         </Link>
       </nav>
-      <Link href="/account">
+      <Link href='/account'>
         <div className={styles.profile}>
           <div className={styles.profile_pic}>
             <img
               src={slugData?.public_image ?? "/img/profile-pic.png"}
-              alt=""
+              alt=''
             />
           </div>
           <span>Account</span>

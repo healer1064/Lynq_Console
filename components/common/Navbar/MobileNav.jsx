@@ -31,27 +31,19 @@ const MobileNav = ({
         <Rotate>
           <img
             onClick={() => setOpen(false)}
-            src="/img/public-screen-close.svg"
-            alt="nav-close"
+            src='/img/public-screen-close.svg'
+            alt='nav-close'
           />
         </Rotate>
       </div>
       <Fade duration={1000}>
         <div className={styles.mobile_nav_main_link}>
-          <Link href="/">
+          <Link href='/'>
             <a
               onClick={() => setOpen(false)}
               className={router.pathname === "/" ? styles.active : ""}
             >
               <span>Home</span>
-            </a>
-          </Link>
-          <Link href="/calendar">
-            <a
-              onClick={() => setOpen(false)}
-              className={router.pathname === "/calendar" ? styles.active : ""}
-            >
-              <span>Calendar</span>
             </a>
           </Link>
           <a onClick={() => setCalls(!calls)}>
@@ -60,7 +52,7 @@ const MobileNav = ({
           </a>
           {calls && (
             <div className={styles.sub_links}>
-              <Link href="/calls/template">
+              <Link href='/calls/template'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -70,7 +62,7 @@ const MobileNav = ({
                   Template
                 </span>
               </Link>
-              <Link href="/calls/requests">
+              <Link href='/calls/requests'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -82,7 +74,7 @@ const MobileNav = ({
               </Link>
             </div>
           )}
-          <Link href="/masterclass">
+          <Link href='/masterclass'>
             <a
               onClick={() => setOpen(false)}
               className={
@@ -98,7 +90,7 @@ const MobileNav = ({
           </a>
           {messages && (
             <div className={styles.sub_links}>
-              <Link href="/messages/template">
+              <Link href='/messages/template'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -110,7 +102,7 @@ const MobileNav = ({
                   Template
                 </span>
               </Link>
-              <Link href="/messages/conversations">
+              <Link href='/messages/conversations'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -124,7 +116,7 @@ const MobileNav = ({
               </Link>
             </div>
           )}
-          <Link href="/public-profile">
+          <Link href='/public-profile'>
             <a
               onClick={() => setOpen(false)}
               className={
@@ -134,7 +126,7 @@ const MobileNav = ({
               <span>Public Profile</span>
             </a>
           </Link>
-          <Link href="/support">
+          <Link href='/support'>
             <a
               onClick={() => setOpen(false)}
               className={router.pathname === "/support" ? styles.active : ""}
@@ -148,7 +140,7 @@ const MobileNav = ({
           </a>
           {payment && (
             <div className={styles.sub_links}>
-              <Link href="/payment/balance">
+              <Link href='/payment/balance'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -158,7 +150,7 @@ const MobileNav = ({
                   Balance
                 </span>
               </Link>
-              <Link href="/payment/details">
+              <Link href='/payment/details'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -170,7 +162,7 @@ const MobileNav = ({
               </Link>
             </div>
           )}
-          <Link href="/dashboard">
+          <Link href='/dashboard'>
             <a
               onClick={() => setOpen(false)}
               className={router.pathname === "/dashboard" ? styles.active : ""}
@@ -184,7 +176,7 @@ const MobileNav = ({
           </a>
           {settings && (
             <div className={styles.sub_links}>
-              <Link href="/settings/availabilities">
+              <Link href='/settings/availabilities'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -196,7 +188,7 @@ const MobileNav = ({
                   Availabilities
                 </span>
               </Link>
-              <Link href="/settings/calendar">
+              <Link href='/settings/calendar'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -212,7 +204,7 @@ const MobileNav = ({
           )}
         </div>
         <div className={styles.mobile_nav_other_link}>
-          <Link href="/account">
+          <Link href='/account'>
             <a
               onClick={() => setOpen(false)}
               className={router.pathname === "/account" ? styles.active : ""}

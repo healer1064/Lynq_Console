@@ -1,27 +1,28 @@
 // libraries
 import React from "react";
 
+// styles
+import styles from "./styles.module.sass";
+
+// helpers
+import { sortCalendarList } from "@/utils/helpers";
+
 // components
-import Item from "./Item";
 import EmptyData from "@/components/common/EmptyData";
+import Item from "./Item";
 
-const HomeAppointmentsList = ({ list }) => {
-  // sort list
-  const sortList = (_list) => {
-    return _list.sort(
-      (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
-    );
-  };
-
-  return list && list.length > 0 ? (
-    list.map((appointment) =>
-      sortList(appointment.appointments).map((item, index) => (
-        <Item key={index} data={item} />
-      ))
-    )
+const index = ({ list }) => {
+  return list.length === 0 ? (
+    <EmptyData title='No data to show' />
   ) : (
-    <EmptyData title="No appointments for today" flag="home" />
+    <div className={styles.list}>
+      <div className={styles.list_wrap}>
+        {sortCalendarList(list).map((item, index) => {
+          return <Item data={item} key={index} />;
+        })}
+      </div>
+    </div>
   );
 };
 
-export default HomeAppointmentsList;
+export default index;

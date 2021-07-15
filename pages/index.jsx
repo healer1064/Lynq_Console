@@ -1,6 +1,7 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
 import Head from "next/head";
+import { format } from "date-fns";
 import { toast } from "react-toastify";
 
 // context
@@ -14,7 +15,9 @@ import {
   getCurrentDaySessions,
   getHomeCurrentSession,
   getHomeNextSession,
+  groupListInSectionsByDate,
 } from "@/utils/helpers";
+import { filterByCurrWeek } from "@/utils/helpers/dates";
 
 // components
 import PageLoading from "@/components/common/PageLoading";
@@ -25,7 +28,8 @@ const home = () => {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [list, setList] = useState(null);
+  const [data, setData] = useState(null);
+  const [temp, setTemp] = useState([]);
   const [currSession, setCurrSession] = useState({
     time: null,
     id: null,
@@ -39,8 +43,9 @@ const home = () => {
     if (token) {
       getCallsList(token)
         .then((res) => {
+          setData(filterByCurrWeek(groupListInSectionsByDate(res)));
+          setTemp(groupListInSectionsByDate(res));
           const arr = getCurrentDaySessions(res);
-          setList(arr);
           if (arr.length > 0) {
             getHomeCurrentSession(arr[0].appointments, setCurrSession);
           }
@@ -52,18 +57,31 @@ const home = () => {
     }
   }, [token]);
 
+  const onWeekChange = (_start, _end) => {
+    _start = format(_start, "yyyy-MM-dd");
+    _end = format(_end, "yyyy-MM-dd");
+
+    let filter = temp.filter(
+      (item) =>
+        new Date(item.date).getTime() >= new Date(_start).getTime() &&
+        new Date(item.date).getTime() <= new Date(_end).getTime(),
+    );
+    setData(filter);
+  };
+
   return (
-    <div className="home-wrp">
+    <div className='home-wrp'>
       <Head>
         <title>Home | Lynq</title>
       </Head>
-      {!list ? (
+      {!data ? (
         <PageLoading />
       ) : (
         <Content
-          list={list}
           currSession={currSession}
           nextSession={nextSession}
+          data={data}
+          onWeekChange={onWeekChange}
         />
       )}
     </div>

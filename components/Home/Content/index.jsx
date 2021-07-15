@@ -1,5 +1,5 @@
 // libraries
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
 
@@ -9,16 +9,29 @@ import styles from "./styles.module.sass";
 // context
 import ProfileContext from "@/context/profile";
 
+// helpers
+import { getCurrentWeek } from "@/utils/helpers/dates";
+
 // components
 import CurrentSession from "../CurrentSession";
 import NextSession from "../NextSession";
 import SlugDetails from "../SlugDetails";
 import List from "../List";
+import Calendar from "../Calendar";
 import Onboarding from "../Onboarding";
 
-const index = ({ list, currSession, nextSession }) => {
+const index = ({ currSession, nextSession, data, onWeekChange }) => {
   // context
   const { slugData } = useContext(ProfileContext);
+
+  // states
+  const [currWeek, setCurrWeek] = useState(getCurrentWeek());
+
+  // handle change
+  const handleChange = (_start, _end) => {
+    setCurrWeek({ weekStart: _start, weekEnd: _end });
+    onWeekChange(_start, _end);
+  };
 
   return (
     <>
@@ -35,7 +48,10 @@ const index = ({ list, currSession, nextSession }) => {
             </div>
             <SlugDetails slugData={slugData} />
           </div>
-          <List list={list} />
+          <div className={styles.list}>
+            <List list={data} />
+            <Calendar currDate={currWeek} handleChange={handleChange} />
+          </div>
         </div>
       </Fade>
       {!localStorage.getItem("lynqOnboarding") && <Onboarding />}
