@@ -19,7 +19,7 @@ const index = ({ keywords, setKeywords }) => {
         Keywords{" "}
         <Tooltip
           className={styles.tooltip}
-          title="Keywords help your followers to understand the type of  advice/expertise you can offer in the video call"
+          title='Keywords help your followers to understand the type of  advice/expertise you can offer in the video call'
         >
           <BsExclamationCircleFill />
         </Tooltip>
@@ -27,7 +27,6 @@ const index = ({ keywords, setKeywords }) => {
       {keywords.map((item, index) => {
         return (
           <Item
-            data={item}
             key={index}
             index={index}
             setKeywords={setKeywords}
@@ -40,7 +39,7 @@ const index = ({ keywords, setKeywords }) => {
       ) : (
         <AiFillPlusCircle
           className={styles.add}
-          onClick={() => setKeywords([...keywords, { value: "" }])}
+          onClick={() => setKeywords([...keywords, ""])}
         />
       )}
     </div>

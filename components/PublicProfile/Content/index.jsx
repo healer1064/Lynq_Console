@@ -28,7 +28,8 @@ const index = ({ profile }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [slug, setSlug] = useState("");
-  const [keywords, setKeywords] = useState([{ value: "" }]);
+  const [desc, setDesc] = useState("");
+  const [keywords, setKeywords] = useState([]);
   const [newSlug, setNewSlug] = useState("");
   const [image, setImage] = useState(null);
   const [slugRule, setSlugRule] = useState(false);
@@ -41,6 +42,8 @@ const index = ({ profile }) => {
       setFirstName(profile.name?.split(" ")[0] ?? "");
       setLastName(profile.name?.split(" ")[1] ?? "");
       setImage(profile.public_image || null);
+      setDesc(profile.bio ? profile.bio : "");
+      setKeywords(profile.tags);
     }
   }, [profile]);
 
@@ -52,7 +55,9 @@ const index = ({ profile }) => {
       !slug ||
       slugRule ||
       firstName === "" ||
-      lastName === ""
+      lastName === "" ||
+      desc === "" ||
+      (keywords.length === 1 && keywords[0] === "")
     ) {
       toast.info("Please fill all required fields!");
     } else {
@@ -74,11 +79,17 @@ const index = ({ profile }) => {
         ? profile.delay_booking_hours
         : 0,
       timezone: profile.timezone ? profile.timezone : "",
+      bio: desc,
+      tags: keywords,
     };
     postProfileReq(token, reqData)
-      .then(() => {
+      .then((res) => {
         setLoading(false);
-        toast.success("Profile updated successfully.");
+        if (res.status) {
+          toast.error("Failed to update profile.");
+        } else {
+          toast.success("Profile updated successfully.");
+        }
       })
       .catch(() => {
         setLoading(false);
@@ -116,7 +127,7 @@ const index = ({ profile }) => {
       <div>
         <label>First Name*</label>
         <input
-          type="text"
+          type='text'
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
         />
@@ -124,10 +135,20 @@ const index = ({ profile }) => {
       <div>
         <label>Last Name*</label>
         <input
-          type="text"
+          type='text'
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
         />
+      </div>
+      <div className={styles.desc_wrap}>
+        <label>Description*</label>
+        <textarea
+          type='text'
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+          maxLength='300'
+        ></textarea>
+        <span className={styles.desc_count}>{desc.length}/300</span>
       </div>
       <Keywords keywords={keywords} setKeywords={setKeywords} />
       <div className={styles.text_uppercase}>

@@ -6,7 +6,7 @@ import { IoTrashBin } from "react-icons/io5";
 
 const Item = ({ index, keywords, setKeywords }) => {
   // states
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState(keywords[index]);
 
   useEffect(() => {
     handleKeywordInput(keyword, index);
@@ -14,7 +14,7 @@ const Item = ({ index, keywords, setKeywords }) => {
 
   // handle keyword input
   const handleKeywordInput = (_text, _index) => {
-    keywords[_index] = { value: _text };
+    keywords[_index] = _text;
     setKeywords(keywords);
   };
 
@@ -23,14 +23,14 @@ const Item = ({ index, keywords, setKeywords }) => {
     setKeywords(
       keywords.filter((item, i) => {
         return i != index;
-      })
+      }),
     );
   };
 
   return (
     <div>
       <input
-        type="text"
+        type='text'
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
