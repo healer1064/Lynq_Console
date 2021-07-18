@@ -19,16 +19,26 @@ import {
   putMessageTemplate,
 } from "@/utils/requests/messages";
 
-const index = ({ setState }) => {
+// components
+import Loading from "@/components/common/Loading";
+
+const index = ({ data, setState, responseRefresh, setActive }) => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [days, setDays] = useState("");
-  const [price, setPrice] = useState("");
+  const [days, setDays] = useState(
+    data[0] ? (data[0].maxResponseDelay ? data[0].maxResponseDelay : "") : "",
+  );
+  const [price, setPrice] = useState(
+    data[0] ? (data[0].price ? data[0].price : "") : "",
+  );
   const [listingPrice, setListingPrice] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(
+    data[0] ? (data[0].description ? data[0].description : "") : "",
+  );
   const [loading, setLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   // get listing prce
   useEffect(() => {
@@ -50,35 +60,50 @@ const index = ({ setState }) => {
 
   // handle click
   const handleSave = () => {
-    const reqData = {
-      name: "string",
-      description,
-      enabled: true,
-      maxResponseDelay: days,
-      price,
-    };
-    if (data.length > 0) {
-      putMessageTemplate(token, data[0].id, reqData)
-        .then((res) => {
-          if (res.status) {
-            toast.error("Failed to change status");
-          } else {
-            responseRefresh();
-            setState(1);
-          }
-        })
-        .catch(() => toast.error("Failed to change status"));
+    if (days == "" || price == "" || description == "") {
+      toast.info("Please fill all the fields.");
     } else {
-      postMessageTemplate(token, reqData)
-        .then((res) => {
-          if (res.status) {
-            toast.error("Failed to change status");
-          } else {
-            responseRefresh();
-            setState(1);
-          }
-        })
-        .catch(() => toast.error("Failed to change status"));
+      setButtonLoading(true);
+      const reqData = {
+        name: "string",
+        description,
+        enabled: true,
+        maxResponseDelay: days,
+        price,
+      };
+      if (data.length > 0) {
+        putMessageTemplate(token, data[0].id, reqData)
+          .then((res) => {
+            setButtonLoading(false);
+            if (res.status) {
+              toast.error("Failed to save the message template.");
+            } else {
+              responseRefresh();
+              setActive(true);
+              setState(1);
+            }
+          })
+          .catch(() => {
+            toast.error("Failed to save the message template.");
+            setButtonLoading(false);
+          });
+      } else {
+        postMessageTemplate(token, reqData)
+          .then((res) => {
+            setButtonLoading(false);
+            if (res.status) {
+              toast.error("Failed to save the message template.");
+            } else {
+              responseRefresh();
+              setActive(true);
+              setState(1);
+            }
+          })
+          .catch(() => {
+            toast.error("Failed to save the message template.");
+            setButtonLoading(false);
+          });
+      }
     }
   };
 
@@ -141,7 +166,9 @@ const index = ({ setState }) => {
         ></textarea>
         <span>{description.length}/300</span>
       </div>
-      <button onClick={handleSave}>Save</button>
+      <button onClick={handleSave}>
+        {buttonLoading ? <Loading /> : "Save"}
+      </button>
     </div>
   );
 };

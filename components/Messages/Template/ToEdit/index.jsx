@@ -1,5 +1,5 @@
 // libraries
-import { useState, useEffect } from "react";
+import React from "react";
 import { Tooltip } from "antd";
 
 // icons
@@ -8,35 +8,7 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 // styles
 import styles from "./styles.module.sass";
 
-// requests
-import { listingPriceReq } from "@/utils/requests/calls/template";
-
 const index = ({ setState, data }) => {
-  // states
-  const [price, setPrice] = useState(
-    data[0] ? (data[0].price ? data[0].price : 0) : 0,
-  );
-  const [listingPrice, setListingPrice] = useState(0);
-  const [loading, setLoading] = useState(false);
-
-  // get listing prce
-  useEffect(() => {
-    if (price !== "") {
-      setLoading(true);
-      listingPriceReq(token, price)
-        .then((res) => {
-          setLoading(false);
-          setListingPrice(res.simulated_price);
-        })
-        .catch(() => {
-          setLoading(false);
-          toast.error("Failed to fetch listing price!");
-        });
-    } else {
-      setListingPrice("");
-    }
-  }, [price]);
-
   return (
     <div className={styles.content}>
       <label>
@@ -65,15 +37,7 @@ const index = ({ setState, data }) => {
           </Tooltip>
         </h6>{" "}
         <span>
-          {loading ? (
-            <img
-              className={styles.loading}
-              src='/img/Rolling-dark.svg'
-              alt='rolling'
-            />
-          ) : (
-            `$${listingPrice}`
-          )}
+          ${data[0] ? (data[0].displayPrice ? data[0].displayPrice : 0) : 0}
         </span>
       </label>
       <div className={styles.desc_box}>

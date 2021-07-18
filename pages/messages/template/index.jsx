@@ -41,8 +41,6 @@ const index = () => {
     setResponse(!response);
   };
 
-  console.log(data);
-
   return (
     <div className='content-wrp'>
       <Head>

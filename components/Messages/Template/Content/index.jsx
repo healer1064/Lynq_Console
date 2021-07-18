@@ -9,10 +9,7 @@ import ProfileContext from "@/context/profile";
 import styles from "./styles.module.sass";
 
 // requests
-import {
-  postMessageTemplate,
-  putMessageTemplate,
-} from "@/utils/requests/messages";
+import { putMessageTemplate } from "@/utils/requests/messages";
 
 // components
 import ToSave from "../ToSave";
@@ -24,7 +21,9 @@ const index = ({ data, responseRefresh }) => {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(
+    data.length > 0 ? data[0].enabled : false,
+  );
   const [view, setView] = useState(data.length > 0 ? 1 : 0);
 
   // on switch change
@@ -37,12 +36,7 @@ const index = ({ data, responseRefresh }) => {
         })
         .catch(() => toast.error("Failed to change status"));
     } else {
-      postMessageTemplate(token, { enabled: checked })
-        .then(() => {
-          responseRefresh();
-          setActive(checked);
-        })
-        .catch(() => toast.error("Failed to change status"));
+      toast.info("Please save the template first.");
     }
   }
 
@@ -59,7 +53,12 @@ const index = ({ data, responseRefresh }) => {
       <h3>Delivery Time</h3>
       <p>This indicates the maximum time you have to respond to the request</p>
       {view == 0 ? (
-        <ToSave setState={setView} data={data} />
+        <ToSave
+          setState={setView}
+          data={data}
+          responseRefresh={responseRefresh}
+          setActive={setActive}
+        />
       ) : (
         <ToEdit setState={setView} data={data} />
       )}
