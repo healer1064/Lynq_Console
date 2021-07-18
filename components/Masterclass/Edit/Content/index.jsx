@@ -71,7 +71,7 @@ const index = () => {
       <a className={styles.back} onClick={() => router.back()}>
         <BsChevronLeft /> Back
       </a>
-      <h2>New Masterclass</h2>
+      <h2>Edit Masterclass</h2>
       <Form data={data} handleSubmit={handleSubmit} buttonLoading={loading} />
     </div>
   ) : (
