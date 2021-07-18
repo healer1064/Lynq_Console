@@ -14,19 +14,22 @@ const Item = ({ data }) => {
   // router
   const router = useRouter();
 
+  // data
+  const { name, date, duration, price, id } = data;
+
   return (
     <Fade duration={800} delay={50}>
       <div
-        onClick={() => router.push(`/masterclass/1`)}
+        onClick={() => router.push(`/masterclass/${id}`)}
         className={styles.item}
       >
-        <p>Test Master</p>
+        <p>{name}</p>
         <p>Completed</p>
-        <p>{moment().format("MM/DD/yyyy")}</p>
-        <p>2 hours</p>
-        <p>$60</p>
-        <p>15</p>
-        <p>$900</p>
+        <p>{moment(date).format("MM/DD/yyyy")}</p>
+        <p>{duration} mins</p>
+        <p>${price}</p>
+        <p>No data</p>
+        <p>No data</p>
         <CaretRightOutlined
           style={{
             display: "flex",

@@ -1,25 +1,43 @@
 // libraries
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
+import { toast } from "react-toastify";
 
 // styles
 import styles from "./styles.module.sass";
 
+// context
+import ProfileContext from "@/context/profile";
+
 // icons
 import { BsChevronLeft } from "react-icons/bs";
+
+// requests
+import {
+  getMasterclass,
+  deleteMasterclass,
+} from "@/utils/requests/masterclass";
 
 // components
 import AppointmentsDrawer from "@/components/Calls/SingleRequest/Drawer";
 import ParticipantsDrawer from "@/components/Masterclass/Details/Drawer";
 import Modal from "@/components/common/Modal";
+import PageLoading from "@/components/common/PageLoading";
 
 const index = () => {
+  // context
+  const { token } = useContext(ProfileContext);
+
   // router
   const router = useRouter();
 
+  // params
+  const { id } = router.query;
+
   // states
+  const [data, setData] = useState(null);
   const [apptSwitch, setApptSwitch] = useState(false);
   const [participantsSwitch, setParticipantsSwitch] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -35,7 +53,39 @@ const index = () => {
     setParticipantsSwitch(!participantsSwitch);
   };
 
-  return (
+  useEffect(() => {
+    if (token && id) {
+      getMasterclass(token)
+        .then((res) => {
+          if (res.error) {
+            toast.error("Failed to get masterclass.");
+          } else {
+            setData(res.find((item) => id == item.id));
+          }
+        })
+        .catch(() => toast.error("Failed to get masterclass."));
+    }
+  }, [token, id]);
+
+  // handle delete
+  const handleDelete = (_id) => {
+    setDeleteLoading(true);
+    deleteMasterclass(token, _id)
+      .then((res) => {
+        setDeleteLoading(false);
+        if (res.status != 200) {
+          toast.error("Failed to delete masterclass.");
+        } else {
+          router.push("/masterclass");
+        }
+      })
+      .catch(() => {
+        setDeleteLoading(false);
+        toast.error("Failed to delete masterclass.");
+      });
+  };
+
+  return data ? (
     <>
       <Fade>
         <div className={styles.request}>
@@ -43,14 +93,14 @@ const index = () => {
             <BsChevronLeft /> Back
           </a>
           <h2>Masterclass</h2>
-          <span className={styles.received_time}>Created: 22 hours ago</span>
+          <span className={styles.received_time}>Created: No data</span>
           <div className={styles.info_col}>
             <strong>Title</strong>
-            <p>Test Activity</p>
+            <p>{data.name}</p>
           </div>
           <div className={styles.info_col}>
             <strong>Day</strong>
-            <p>{moment().format("dddd, MMMM DD, YYYY")}</p>
+            <p>{moment(data.date).format("dddd, MMMM DD, YYYY")}</p>
             <span
               className={styles.see_day}
               onClick={() => setApptSwitch(true)}
@@ -60,24 +110,19 @@ const index = () => {
           </div>
           <div className={styles.info_col}>
             <strong>Time</strong>
-            <p>{moment().format("hh:mm a")}</p>
+            <p>{moment(data.date).format("hh:mm a")}</p>
           </div>
           <div className={styles.info_col}>
             <strong>Length</strong>
-            <p>60 mins</p>
+            <p>{data.duration} mins</p>
           </div>
           <div className={styles.info_col}>
             <strong>Price</strong>
-            <p>$50</p>
+            <p>${data.price}</p>
           </div>
           <div className={styles.info_col}>
             <strong>Description</strong>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
-              qui. Accusamus quibusdam architecto soluta eius recusandae, saepe
-              alias quasi velit corrupti fuga ex distinctio ut porro. Autem nisi
-              exercitationem nulla.
-            </p>
+            <p>{data.description}</p>
           </div>
           <div className={styles.info_col}>
             <strong>Participants</strong>
@@ -85,17 +130,17 @@ const index = () => {
               onClick={toggleParticipantsDrawer}
               className={styles.participants}
             >
-              16
+              No data
             </p>
           </div>
           <div className={styles.info_col}>
             <strong>Revenue</strong>
-            <p>$50</p>
+            <p>No data</p>
           </div>
 
           <div className={styles.btns}>
             <button
-              onClick={() => router.push("/masterclass/edit/1")}
+              onClick={() => router.push(`/masterclass/edit/${data.id}`)}
               className={styles.edit}
             >
               EDIT
@@ -128,11 +173,15 @@ const index = () => {
       {deleteModal && (
         <Modal
           setModal={setDeleteModal}
-          onDelete={() => setDeleteModal(false)}
+          onDelete={() => handleDelete(data.id)}
           loading={deleteLoading}
+          buttonText='Delete'
+          title='Are you sure you want to delete this masterclass?'
         />
       )}
     </>
+  ) : (
+    <PageLoading />
   );
 };
 

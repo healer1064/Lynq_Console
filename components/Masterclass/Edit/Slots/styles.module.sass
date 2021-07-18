@@ -1,0 +1,108 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.slots
+    width: 100%
+    @include flex
+    flex-direction: column
+    margin-bottom: 32px
+    margin-top: 12px
+    .top
+        width: 100%
+        background: #FAFAFA
+        border-radius: 5px 5px 0 0
+        padding: 12px 8px
+        @include flex
+        align-items: center
+        .arr
+            cursor: pointer
+            height: 24px
+            width: 24px
+            img
+                height: 100%
+                width: 100%
+            &.prev
+                margin-right: 8px
+            &.next
+                margin-left: 8px
+        .days
+            flex: 1
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr 1fr
+            text-align: center
+            .day
+                width: 98%
+                @include flex
+                flex-direction: column
+                align-items: center
+                b
+                    font-weight: 600
+                    font-size: 12px
+                    line-height: 20px
+                    color: $black
+                    margin-bottom: 4px
+                span
+                    font-size: 11px
+                    line-height: 17px
+                    color: $black
+    .btm
+        width: 100%
+        padding: 0 0 24px 0
+        background: #FFF
+        box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.08)
+        @include flex
+        flex-direction: column
+        align-items: flex-start
+        .row
+            width: 100%
+            display: grid
+            grid-template-columns: 1fr 1fr 1fr 1fr
+            padding: 12px !important
+            overflow-y: scroll
+            height: calc(232px - 16px)
+            &::-webkit-scrollbar-track
+                background: #FFF
+                cursor: pointer
+            &::-webkit-scrollbar
+                cursor: pointer
+                width: 6px
+                background: #FFF
+            &::-webkit-scrollbar-thumb
+                background: $lavender
+                cursor: pointer
+        .col
+            margin: 0 5px
+            @include flex
+            flex-direction: column
+        button
+            width: 100%
+            border: 1px solid $lavender
+            border-radius: 5px
+            cursor: pointer
+            height: 39px
+            margin-bottom: 8px
+            font-weight: 600
+            font-size: 11px
+            color: $lavender
+            background: #FFF
+            &:last-child
+                margin-bottom: 0
+            &:focus
+                outline: none

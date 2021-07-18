@@ -2,11 +2,11 @@
 import Head from "next/head";
 
 // components
-import Content from "@/components/Masterclass/New/Content";
+import Content from "@/components/Masterclass/Edit/Content";
 
 const index = () => {
   return (
-    <div className="content-wrp">
+    <div className='content-wrp'>
       <Head>
         <title>New Masterclass | Lynq</title>
       </Head>

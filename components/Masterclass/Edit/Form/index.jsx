@@ -242,17 +242,17 @@ import { listingPriceReq } from "@/utils/requests/calls/template";
 import Slots from "../Slots";
 import Loading from "@/components/common/Loading";
 
-const index = ({ handleSubmit, buttonLoading }) => {
+const index = ({ handleSubmit, buttonLoading, data }) => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [title, setTitle] = useState("");
-  const [duration, setDuration] = useState("");
-  const [price, setPrice] = useState("");
+  const [title, setTitle] = useState(data.name || "");
+  const [duration, setDuration] = useState(data.duration || "");
+  const [price, setPrice] = useState(data.price || "");
   const [listingPrice, setListingPrice] = useState("");
   const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(data.description);
   const [loading, setLoading] = useState(false);
   const [pickerDay, setPicker] = useState();
   const [time, setTime] = useState();

@@ -1,5 +1,5 @@
 // libraries
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 
@@ -13,47 +13,69 @@ import ProfileContext from "@/context/profile";
 import { BsChevronLeft } from "react-icons/bs";
 
 // requests
-import { postMasterclass } from "@/utils/requests/masterclass";
+import { getMasterclass, putMasterclass } from "@/utils/requests/masterclass";
 
 // components
 import Form from "../Form";
+import PageLoading from "@/components/common/PageLoading";
 
 const index = () => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   // router
   const router = useRouter();
 
+  // params
+  const { id } = router.query;
+
+  useEffect(() => {
+    if (token && id) {
+      getMasterclass(token)
+        .then((res) => {
+          if (res.error) {
+            toast.error("Failed to get masterclasses.");
+          } else {
+            setData(res.find((item) => id == item.id));
+          }
+        })
+        .catch(() => toast.error("Failed to get masterclass."));
+    }
+  }, [token, id]);
+
   // handle submit
   const handleSubmit = (_reqData) => {
     setLoading(true);
-    postMasterclass(token, _reqData)
+    putMasterclass(token, id, _reqData)
       .then((res) => {
         setLoading(false);
-        if (res.error) {
-          toast.error("Failed to create a masterclass");
+        console.log(res);
+        if (res.status !== 200) {
+          toast.error("Failed to edit the masterclass");
         } else {
           router.push("/masterclass");
         }
       })
       .catch(() => {
         setLoading(false);
-        toast.error("Failed to create a masterclass.");
+        toast.error("Failed to edit the masterclass.");
       });
   };
 
-  return (
+  return data ? (
     <div className={styles.content}>
       <a className={styles.back} onClick={() => router.back()}>
         <BsChevronLeft /> Back
       </a>
       <h2>New Masterclass</h2>
-      <Form handleSubmit={handleSubmit} buttonLoading={loading} />
+      <Form data={data} handleSubmit={handleSubmit} buttonLoading={loading} />
     </div>
+  ) : (
+    <PageLoading />
   );
 };
 
