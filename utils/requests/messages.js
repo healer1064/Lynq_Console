@@ -1,3 +1,47 @@
+const getMessageTemplate = async (_token) => {
+  const config = {
+    method: "GET",
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
+  const response = await fetch(
+    `https://api.lynq.app/feat/message?t=${_token}`,
+    config,
+  );
+  return await response.json();
+};
+
+const postMessageTemplate = async (_token, _reqData) => {
+  const response = await fetch(
+    `https://api.lynq.app/feat/message?t=${_token}`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(_reqData),
+    },
+  );
+  return await response.json();
+};
+
+const putMessageTemplate = async (_token, _id, _reqData) => {
+  const response = await fetch(
+    `https://api.lynq.app/feat/message/${_id}?t=${_token}
+`,
+    {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(_reqData),
+    },
+  );
+  return await response.json();
+};
+
 const getAsyncReq = async (_token) => {
   const config = {
     method: "GET",
@@ -6,7 +50,7 @@ const getAsyncReq = async (_token) => {
   };
   const response = await fetch(
     `https://api.lynq.app/async/requests?t=${_token}`,
-    config
+    config,
   );
   return await response.json();
 };
@@ -20,7 +64,7 @@ const postDocReq = async (_id, _token, _videoFile) => {
     {
       method: "POST",
       body: formData,
-    }
+    },
   );
 
   return await response.json();
@@ -40,9 +84,16 @@ const postMsgReq = async (_token, _id, _message) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(_reqData),
-    }
+    },
   );
   return await response.json();
 };
 
-export { getAsyncReq, postDocReq, postMsgReq };
+export {
+  getAsyncReq,
+  postDocReq,
+  postMsgReq,
+  getMessageTemplate,
+  postMessageTemplate,
+  putMessageTemplate,
+};

@@ -14,6 +14,10 @@ import ProfileContext from "@/context/profile";
 
 // requests
 import { listingPriceReq } from "@/utils/requests/calls/template";
+import {
+  postMessageTemplate,
+  putMessageTemplate,
+} from "@/utils/requests/messages";
 
 const index = ({ setState }) => {
   // context
@@ -44,6 +48,40 @@ const index = ({ setState }) => {
     }
   }, [price]);
 
+  // handle click
+  const handleSave = () => {
+    const reqData = {
+      name: "string",
+      description,
+      enabled: true,
+      maxResponseDelay: days,
+      price,
+    };
+    if (data.length > 0) {
+      putMessageTemplate(token, data[0].id, reqData)
+        .then((res) => {
+          if (res.status) {
+            toast.error("Failed to change status");
+          } else {
+            responseRefresh();
+            setState(1);
+          }
+        })
+        .catch(() => toast.error("Failed to change status"));
+    } else {
+      postMessageTemplate(token, reqData)
+        .then((res) => {
+          if (res.status) {
+            toast.error("Failed to change status");
+          } else {
+            responseRefresh();
+            setState(1);
+          }
+        })
+        .catch(() => toast.error("Failed to change status"));
+    }
+  };
+
   return (
     <div className={styles.content}>
       <label>
@@ -52,7 +90,7 @@ const index = ({ setState }) => {
           <input
             value={days}
             onChange={(e) => setDays(e.target.value)}
-            type="number"
+            type='number'
           />
           <span className={styles.days_label}>days</span>
         </span>
@@ -60,11 +98,11 @@ const index = ({ setState }) => {
       <label>
         Price
         <span>
-          <img src="/img/dollar.svg" alt="dollar" />
+          <img src='/img/dollar.svg' alt='dollar' />
           <input
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            type="number"
+            type='number'
           />
         </span>
       </label>
@@ -81,29 +119,29 @@ const index = ({ setState }) => {
         </h6>
         {price && (
           <span>
-            <img src="/img/dollar.svg" alt="dollar" />
+            <img src='/img/dollar.svg' alt='dollar' />
             <input disabled value={listingPrice} />
             {loading && (
               <img
                 className={styles.loading}
-                src="/img/Rolling-dark.svg"
-                alt="rolling"
+                src='/img/Rolling-dark.svg'
+                alt='rolling'
               />
             )}
           </span>
         )}
       </label>
       <div className={styles.desc_box}>
-        <label htmlFor="desc">Description</label>
+        <label htmlFor='desc'>Description</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          id="desc"
-          maxLength="300"
+          id='desc'
+          maxLength='300'
         ></textarea>
         <span>{description.length}/300</span>
       </div>
-      <button onClick={() => setState(1)}>Save</button>
+      <button onClick={handleSave}>Save</button>
     </div>
   );
 };
