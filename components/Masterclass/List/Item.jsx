@@ -15,7 +15,7 @@ const Item = ({ data }) => {
   const router = useRouter();
 
   // data
-  const { name, date, duration, price, id } = data;
+  const { name, date, duration, price, id, revenue } = data;
 
   return (
     <Fade duration={800} delay={50}>
@@ -29,7 +29,7 @@ const Item = ({ data }) => {
         <p>{duration} mins</p>
         <p>${price}</p>
         <p>No data</p>
-        <p>No data</p>
+        <p>{revenue}</p>
         <CaretRightOutlined
           style={{
             display: "flex",

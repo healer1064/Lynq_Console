@@ -53,7 +53,6 @@ const index = () => {
     putMasterclass(token, id, _reqData)
       .then((res) => {
         setLoading(false);
-        console.log(res);
         if (res.status !== 200) {
           toast.error("Failed to edit the masterclass");
         } else {

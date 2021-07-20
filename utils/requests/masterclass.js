@@ -55,3 +55,22 @@ export const deleteMasterclass = async (_token, _id) => {
   );
   return await response;
 };
+
+export const getMasterclassSlots = async (_token, _date, _id) => {
+  let config = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      ContentType: "application/json",
+    },
+  };
+  const response = await fetch(
+    `https://api.lynq.app/account/public-profile/availability?t=${_token}&start=${moment(
+      _date,
+    ).format("yyyy-MM-DD")}&end=${moment(_date)
+      .add(5, "days")
+      .format("yyyy-MM-DD")}&activity_id=${_id}`,
+    config,
+  );
+  return await response.json();
+};

@@ -58,12 +58,12 @@ const Item = ({ data, options, setOptions }) => {
   }, [price]);
 
   useEffect(() => {
-    const obj = { ...data, price };
+    const obj = { ...data, price, description };
     const arr = options.map((item) => {
       return item.id == data.id ? obj : item;
     });
     setOptions(arr);
-  }, [listingPrice]);
+  }, [listingPrice, description]);
 
   return (
     <div className={styles.item}>
@@ -76,22 +76,22 @@ const Item = ({ data, options, setOptions }) => {
         </h6>
         {data.status && (
           <div className={styles.price}>
-            <label onClick={(e) => e.stopPropagation()} htmlFor="price">
+            <label onClick={(e) => e.stopPropagation()} htmlFor='price'>
               <p>Price</p>
               <span>
                 <BiDollar />
                 <input
-                  id="price"
+                  id='price'
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  type="number"
+                  type='number'
                 />
               </span>
             </label>
             <label
               className={styles.listing}
               onClick={(e) => e.stopPropagation()}
-              htmlFor="listing-price"
+              htmlFor='listing-price'
             >
               <p>
                 Listing Price{" "}
@@ -106,8 +106,8 @@ const Item = ({ data, options, setOptions }) => {
               {price != "" && (
                 <span>
                   <BiDollar />
-                  <input id="listing-price" value={listingPrice} disabled />
-                  {loading && <img src="/img/Rolling-dark.svg" alt="rolling" />}
+                  <input id='listing-price' value={listingPrice} disabled />
+                  {loading && <img src='/img/Rolling-dark.svg' alt='rolling' />}
                 </span>
               )}
             </label>
@@ -116,9 +116,9 @@ const Item = ({ data, options, setOptions }) => {
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                maxLength="300"
+                maxLength='300'
                 onClick={(e) => e.stopPropagation()}
-                placeholder="Give a short description of the topics you can treat during this time"
+                placeholder='Give a short description of the topics you can treat during this time'
               ></textarea>
               <span>{description.length}/300</span>
             </div>

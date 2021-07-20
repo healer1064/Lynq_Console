@@ -25,7 +25,7 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
 
   // states
   const [isAvailable, setIsAvailable] = useState(
-    data.length > 0 ? data[0].active : false
+    data.length > 0 ? data[0].active : false,
   );
   const [timeSlots, setTimeSlots] = useState(null);
   const [availLoading, setAvailLoading] = useState(false);
@@ -94,8 +94,8 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
             <div className={styles.day}>
               {!availLoading ? (
                 <img
-                  src="/img/setup-check-unavailable.svg"
-                  alt=""
+                  src='/img/setup-check-unavailable.svg'
+                  alt=''
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     toggleAvailability(day);
@@ -104,8 +104,8 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
               ) : (
                 <img
                   style={{ width: "18px", height: "18px" }}
-                  src="/img/Rolling-dark.svg"
-                  alt="rolling"
+                  src='/img/Rolling-dark.svg'
+                  alt='rolling'
                 />
               )}
               <span>{day.substring(0, 3)}</span>
@@ -121,8 +121,8 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
           <div className={styles.day}>
             {!availLoading ? (
               <img
-                src="/img/setup-check-available.svg"
-                alt=""
+                src='/img/setup-check-available.svg'
+                alt=''
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   toggleAvailability(day);
@@ -131,8 +131,8 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
             ) : (
               <img
                 style={{ width: "18px", height: "18px" }}
-                src="/img/Rolling-dark.svg"
-                alt="rolling"
+                src='/img/Rolling-dark.svg'
+                alt='rolling'
               />
             )}
             <span>{day.substring(0, 3)}</span>
@@ -148,6 +148,7 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
                   deleteTime={deleteTime}
                   day={day}
                   token={token}
+                  toggleSuccess={toggleSuccess}
                 />
               ))
             )}
@@ -157,12 +158,12 @@ const TableRow = ({ day, data, deleteTime, toggleSuccess }) => {
             onClick={() => addTime(day, "09:00", "17:00")}
           >
             {!addLoading ? (
-              <img src="/img/setup-add.svg" alt="" />
+              <img src='/img/setup-add.svg' alt='' />
             ) : (
               <img
                 style={{ width: "18px", height: "18px" }}
-                src="/img/Rolling-dark.svg"
-                alt="rolling"
+                src='/img/Rolling-dark.svg'
+                alt='rolling'
               />
             )}
           </div>

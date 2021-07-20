@@ -29,10 +29,19 @@ const SettingsSetup = () => {
   useEffect(() => {
     if (token) {
       getProfileReq(token)
-        .then((res) => setProfile(res))
+        .then((res) => {
+          setProfile(res);
+        })
         .catch(() => toast.error("Failed to get profile data."));
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
       getSlotsReq(token)
-        .then((res) => setData(res))
+        .then((res) => {
+          setData(res);
+        })
         .catch(() => toast.error("Failed to get availabilities slots."));
     }
   }, [token, success]);

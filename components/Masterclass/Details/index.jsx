@@ -93,7 +93,9 @@ const index = () => {
             <BsChevronLeft /> Back
           </a>
           <h2>Masterclass</h2>
-          <span className={styles.received_time}>Created: No data</span>
+          <span className={styles.received_time}>
+            Created: {moment(data.createdAt).format("dddd, DD mmm, yyyy")}
+          </span>
           <div className={styles.info_col}>
             <strong>Title</strong>
             <p>{data.name}</p>
@@ -135,7 +137,7 @@ const index = () => {
           </div>
           <div className={styles.info_col}>
             <strong>Revenue</strong>
-            <p>No data</p>
+            <p>{data.revenue}</p>
           </div>
 
           <div className={styles.btns}>

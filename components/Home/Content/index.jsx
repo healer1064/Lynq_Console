@@ -18,7 +18,7 @@ import NextSession from "../NextSession";
 import SlugDetails from "../SlugDetails";
 import List from "../List";
 import Calendar from "../Calendar";
-import Onboarding from "../Onboarding";
+// import Onboarding from "../Onboarding";
 
 const index = ({ currSession, nextSession, data, onWeekChange }) => {
   // context
@@ -54,7 +54,7 @@ const index = ({ currSession, nextSession, data, onWeekChange }) => {
           </div>
         </div>
       </Fade>
-      {!localStorage.getItem("lynqOnboarding") && <Onboarding />}
+      {/* {!localStorage.getItem("lynqOnboarding") && <Onboarding />} */}
     </>
   );
 };

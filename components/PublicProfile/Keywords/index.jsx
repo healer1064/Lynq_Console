@@ -19,7 +19,7 @@ const index = ({ keywords, setKeywords }) => {
         Keywords{" "}
         <Tooltip
           className={styles.tooltip}
-          title='Keywords help your followers to understand the type of  advice/expertise you can offer in the video call'
+          title='You can add up to 6 keywords that will be displayed on your public profile'
         >
           <BsExclamationCircleFill />
         </Tooltip>

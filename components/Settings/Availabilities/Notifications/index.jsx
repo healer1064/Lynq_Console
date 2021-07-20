@@ -24,7 +24,7 @@ const SetupNotifications = ({
   const [delayBooking, setDelayBooking] = useState(
     delayedBookingHours == null || delayedBookingHours == ""
       ? "0"
-      : delayedBookingHours
+      : delayedBookingHours,
   );
   const [timezone, setTimeZone] = useState(data.timezone);
 
@@ -35,13 +35,15 @@ const SetupNotifications = ({
   }, [delayBooking, timezone]);
 
   const updateProfile = () => {
-    const { name, public_image, slug } = data;
+    const { name, public_image, slug, tags, bio } = data;
     const reqData = {
       name,
       public_image,
       slug,
       delay_booking_hours: delayBooking,
       timezone,
+      bio,
+      tags,
     };
     postProfileReq(token, reqData)
       .then(() => toggleSuccess())
@@ -54,14 +56,14 @@ const SetupNotifications = ({
     <div className={styles.notifications}>
       <div className={styles.card}>
         <div className={styles.title}>
-          <img src="/img/notifications-buffers.svg" alt="" />
+          <img src='/img/notifications-buffers.svg' alt='' />
           <strong>Buffers</strong>
         </div>
         <span>5 min before event</span>
       </div>
       <div className={styles.card}>
         <div className={styles.title}>
-          <img src="/img/notifications-reminders.svg" alt="" />
+          <img src='/img/notifications-reminders.svg' alt='' />
           <strong>Reminders</strong>
         </div>
         <span>24 hours before event</span>
@@ -70,8 +72,8 @@ const SetupNotifications = ({
       <div className={styles.card}>
         <div className={styles.title}>
           <img
-            src="/img/not-allow.svg"
-            alt=""
+            src='/img/not-allow.svg'
+            alt=''
             style={{ height: "17px", width: "17px" }}
           />
           <strong>Do Not Allow Clients To</strong>
@@ -79,7 +81,7 @@ const SetupNotifications = ({
         <span className={styles.do_not_allow_clients}>
           Schedule fewer than{" "}
           <input
-            type="number"
+            type='number'
             value={delayBooking}
             onChange={(e) => setDelayBooking(e.target.value)}
           />{" "}
@@ -89,7 +91,7 @@ const SetupNotifications = ({
       <div className={styles.card}>
         <div className={styles.title}>
           <FaGlobeAmericas
-            color="#7E88F4"
+            color='#7E88F4'
             style={{ height: "17px", width: "17px" }}
           />
           <strong>Select Timezone</strong>
