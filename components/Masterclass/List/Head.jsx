@@ -26,7 +26,7 @@ const Head = ({ order }) => {
       <p>Date</p>
       <p>Time before masterclass</p>
       <p>Price</p>
-      <p>Participants</p>
+      <p>Attendees</p>
       <p>Total revenue</p>
     </div>
   );

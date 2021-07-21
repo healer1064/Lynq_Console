@@ -47,7 +47,7 @@ const MobileNav = ({
             </a>
           </Link>
           <a onClick={() => setCalls(!calls)}>
-            <span style={{ paddingRight: "15px" }}>1:1 Calls</span>
+            <span style={{ paddingRight: "15px" }}>1:1 Video Calls</span>
             {calls ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
           </a>
           {calls && (
@@ -81,11 +81,11 @@ const MobileNav = ({
                 router.pathname === "/masterclass" ? styles.active : ""
               }
             >
-              <span>Masterclass</span>
+              <span>Live Masterclasses</span>
             </a>
           </Link>
           <a onClick={() => setMessages(!messages)}>
-            <span style={{ paddingRight: "15px" }}>Messages</span>
+            <span style={{ paddingRight: "15px" }}>Video Messages</span>
             {messages ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
           </a>
           {messages && (

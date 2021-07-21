@@ -94,7 +94,8 @@ const index = () => {
           </a>
           <h2>Masterclass</h2>
           <span className={styles.received_time}>
-            Created: {moment(data.createdAt).format("dddd, DD mmm, yyyy")}
+            Created:{" "}
+            {moment(data.createdAt).format("dddd, DD MMM, yyyy hh:mm a")}
           </span>
           <div className={styles.info_col}>
             <strong>Title</strong>
@@ -127,17 +128,17 @@ const index = () => {
             <p>{data.description}</p>
           </div>
           <div className={styles.info_col}>
-            <strong>Participants</strong>
+            <strong>Attendees</strong>
             <p
               onClick={toggleParticipantsDrawer}
               className={styles.participants}
             >
-              No data
+              {data.attendees.length}
             </p>
           </div>
           <div className={styles.info_col}>
             <strong>Revenue</strong>
-            <p>{data.revenue}</p>
+            <p>${data.revenue}</p>
           </div>
 
           <div className={styles.btns}>
@@ -169,7 +170,7 @@ const index = () => {
         <ParticipantsDrawer
           isOpen={participantsSwitch}
           toggle={toggleParticipantsDrawer}
-          data={[1, 2, 3, 4, 5, 6, 7]}
+          data={data.attendees}
         />
       )}
       {deleteModal && (

@@ -10,10 +10,11 @@ import EmptyData from "@/components/common/EmptyData";
 import Item from "./Item";
 
 const RequestDrawer = ({ isOpen, toggle, data }) => {
+  console.log(data);
   return (
     <Drawer
-      title="Participants"
-      placement="right"
+      title='Participants'
+      placement='right'
       closable={true}
       onClose={toggle}
       visible={isOpen}
@@ -22,7 +23,7 @@ const RequestDrawer = ({ isOpen, toggle, data }) => {
         <PageLoading />
       ) : data.length == 0 ? (
         <div>
-          <EmptyData title="No participants" />
+          <EmptyData title='No participants' />
         </div>
       ) : (
         <>

@@ -10,7 +10,7 @@ const index = ({ slugData }) => {
       <h4>Your Lynq url</h4>
       <h5>
         {slugData && slugData.slug
-          ? `us.lynq.app/${slugData.slug}`
+          ? `lynq.app/${slugData.slug}`
           : "You need to customize it in Public Profile"}
       </h5>
     </span>

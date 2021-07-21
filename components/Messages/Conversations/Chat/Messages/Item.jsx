@@ -13,7 +13,7 @@ import { FaFile } from "react-icons/fa";
 
 const Item = ({ data, selected }) => {
   // context
-  const { profile } = useContext(ProfileContext);
+  const { slugData } = useContext(ProfileContext);
 
   // handle download
   const handleDownload = (url) => {
@@ -40,7 +40,7 @@ const Item = ({ data, selected }) => {
           style={{ background: data.isTeacher ? "#7E88F4" : selected.color }}
         >
           {data.isTeacher
-            ? profile.fullname.match(/\b(\w)/g).join("")
+            ? slugData.name.match(/\b(\w)/g).join("")
             : `${selected.customerFirstName} ${selected.customerLastName}`
                 .match(/\b(\w)/g)
                 .join("")}
@@ -49,7 +49,7 @@ const Item = ({ data, selected }) => {
       <div className={styles.content}>
         <h6>
           {data.isTeacher
-            ? profile.fullname
+            ? slugData.name
             : `${selected.customerFirstName} ${selected.customerLastName}`}
         </h6>
         <p>
@@ -71,7 +71,7 @@ const Item = ({ data, selected }) => {
                     ? "/img/thumb_pdf.jpeg"
                     : "/img/thumb_file.jpeg"
                 }
-                alt="doc"
+                alt='doc'
               />
               <h5 onClick={() => handleDownload(data.fileUrl)}>
                 <FaFile /> {data.fileName}{" "}

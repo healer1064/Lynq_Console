@@ -15,7 +15,7 @@ const Item = ({ data }) => {
   const router = useRouter();
 
   // data
-  const { name, date, duration, price, id, revenue } = data;
+  const { name, date, duration, price, id, revenue, status, attendees } = data;
 
   return (
     <Fade duration={800} delay={50}>
@@ -24,12 +24,12 @@ const Item = ({ data }) => {
         className={styles.item}
       >
         <p>{name}</p>
-        <p>Completed</p>
+        <p>{status}</p>
         <p>{moment(date).format("MM/DD/yyyy")}</p>
         <p>{duration} mins</p>
         <p>${price}</p>
-        <p>No data</p>
-        <p>{revenue}</p>
+        <p>{attendees.length}</p>
+        <p>${revenue}</p>
         <CaretRightOutlined
           style={{
             display: "flex",

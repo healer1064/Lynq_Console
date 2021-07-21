@@ -10,6 +10,7 @@ import Head from "./Head";
 import Item from "./Item";
 
 const index = ({ list }) => {
+  console.log(list);
   return list.length === 0 ? (
     <div className={styles.no_appointments}>
       <EmptyData title='No masterclasses to show' />

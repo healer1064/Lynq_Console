@@ -39,10 +39,10 @@ const index = ({ slug, setSlug, slugRule, setSlugRule }) => {
       <div>
         <label>Personalize your Public Lynq url *</label>
         <input
-          type="text"
+          type='text'
           value={slug}
           onChange={(e) => setSlug(e.target.value)}
-          placeholder="e.g chuck-norris"
+          placeholder='e.g chuck-norris'
         />
       </div>
       {slugRule && (
@@ -67,12 +67,12 @@ const index = ({ slug, setSlug, slugRule, setSlugRule }) => {
           </span>
         )}
         <div className={styles.slug_container}>
-          <p>{`us.lynq.app/${slug === "" && !slug ? "your-slug" : slug}`}</p>
+          <p>{`lynq.app/${slug === "" && !slug ? "your-slug" : slug}`}</p>
           <AiOutlineCopy
-            color="#7E88F4"
+            color='#7E88F4'
             size={23}
             onClick={() => {
-              navigator.clipboard.writeText(`us.lynq.app/${slug}`);
+              navigator.clipboard.writeText(`lynq.app/${slug}`);
               copyStatus();
             }}
           />

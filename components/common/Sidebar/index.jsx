@@ -39,7 +39,7 @@ const Leftbar = () => {
         </Link>
         <a onClick={() => setCalls(!calls)}>
           <MdPhoneIphone />
-          <span>1:1 Calls</span>
+          <span>1:1 Video Calls</span>
           {calls ? (
             <BsFillCaretUpFill className={styles.open_close_icon} />
           ) : (
@@ -73,12 +73,12 @@ const Leftbar = () => {
             className={router.pathname === "/masterclass" ? styles.active : ""}
           >
             <img src='/img/sidenav-masterclass.svg' alt='' />
-            <span>Masterclass</span>
+            <span>Live Masterclasses</span>
           </a>
         </Link>
         <a onClick={() => setMessages(!messages)}>
           <IoIosChatbubbles />
-          <span>Messages</span>
+          <span>Video Messages</span>
           {messages ? (
             <BsFillCaretUpFill className={styles.open_close_icon} />
           ) : (
