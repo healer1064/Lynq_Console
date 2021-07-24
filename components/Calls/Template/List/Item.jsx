@@ -29,7 +29,7 @@ const Item = ({ data, options, setOptions }) => {
 	// state
 	const [price, setPrice] = useState("");
 	const [listingPrice, setListingPrice] = useState("");
-	const [descriptions, setDescriptions] = useState([""]);
+	const [descriptions, setDescriptions] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	// handle click
@@ -117,7 +117,7 @@ const Item = ({ data, options, setOptions }) => {
 						<Descriptions
 							onChange={(list) => {
 								console.log(list);
-								setDescriptions(list)
+								setDescriptions(list.join('\n'))
 							}}
 						/>
 						{/* <div className={styles.desc_box}>
