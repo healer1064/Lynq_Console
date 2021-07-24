@@ -3,13 +3,13 @@ import React, { useState } from "react";
 // styles
 import styles from "./styles.module.sass";
 
-const Description = ({ value, onChange }) => {
+const Description = ({ value, placeholder, onChange }) => {
 	return (
 		<div className={styles.description}>
 			<input
 				value={value}
 				maxLength="35"
-				placeholder="Give a short description of the topics you can treat during this time"
+				placeholder={placeholder}
 				onChange={onChange}
 			/>
 			<span>{value.length}/35</span>
@@ -28,6 +28,7 @@ const Descriptions = ({ onChange }) => {
 					<Description
 						key={i}
 						value={v}
+						placeholder={`Bullet point ${i+1}`}
 						onChange={(e) => {
 							const value = e.currentTarget.value;
 							setDescriptions((old) => {
