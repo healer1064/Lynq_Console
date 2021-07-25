@@ -145,12 +145,17 @@ const index = ({ profile }) => {
 			</div>
 			<div className={styles.desc_wrap}>
 				<label>Description*</label>
+				<div style={{ border: "1px solid #C0C0C9", borderRadius: "5px", width: "100%" }}>
 				<textarea
+					cols="30"
 					type="text"
 					value={desc}
-					onChange={(e) => setDesc(e.target.value)}
+					onChange={(e) => {
+						setDesc(e.target.value);
+					}}
 					maxLength="300"
 				></textarea>
+				</div>
 				<span className={styles.desc_count}>{desc.length}/300</span>
 			</div>
 			<Keywords keywords={keywords} setKeywords={setKeywords} />
