@@ -1,5 +1,5 @@
 // libraries
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { Switch } from "antd";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
@@ -24,10 +24,14 @@ import { postProfileReq } from "@/utils/requests/public-profile";
 
 const index = ({ data }) => {
 	// context
-	const { token } = useContext(ProfileContext);
+	const { token, slugData } = useContext(ProfileContext);
+	const { active_message, active_private_session, active_masterclass } =
+		useMemo(() => slugData, [slugData]);
 
 	// states
-	const [active, setActive] = useState(false);
+	const [active, setActive] = useState(
+		active_message && active_private_session && active_masterclass
+	);
 	const [options, setOptions] = useState([
 		{ id: 1, length: 15, status: false },
 		{ id: 2, length: 30, status: false },
@@ -36,7 +40,7 @@ const index = ({ data }) => {
 	const [loading, setLoading] = useState(false);
 
 	console.log(options);
-	console.log(data);
+	console.log(slugData);
 
 	useEffect(() => {
 		if (data.length > 0) {
@@ -60,17 +64,16 @@ const index = ({ data }) => {
 		}
 	}, [data]);
 
-	useEffect(() => {
-		options.filter((item) => item.status == true).length > 0
-			? setActive(true)
-			: setActive(false);
-	}, [options]);
+	// useEffect(() => {
+	// 	options.filter((item) => item.status == true).length > 0
+	// 		? setActive(true)
+	// 		: setActive(false);
+	// }, [options]);
 
 	// on switch change
 	function onChange(checked) {
-		console.log("switch");
 		if (options.filter((item) => item.status == true).length > 0) {
-      setActive(checked);
+			setActive(checked);
 
 			const message = fetch(
 				`https://api.lynq.app/account/public-profile/toggle-feature/message?t=${token}`,
