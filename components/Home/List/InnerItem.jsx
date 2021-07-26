@@ -35,7 +35,9 @@ const InnerItem = ({ data }) => {
       }`}
     >
       <div className={styles.title}>
-        {data.activity_name ? data.activity_name : data.summary}
+        {data.activity_name
+          ? `${data.session_duration} mins session`
+          : data.summary}
       </div>
       <div className={styles.det}>
         {moment(data.starting_date).format("dddd, MMMM DD, YYYY")}
@@ -62,7 +64,7 @@ const InnerItem = ({ data }) => {
           {data.email}
         </div>
       )}
-      {status && (
+      {status && data.note_to_teacher && (
         <button
           className={styles.clients_question}
           onClick={() => setDescModal(true)}
@@ -109,14 +111,7 @@ const InnerItem = ({ data }) => {
         onOk={() => setDescModal(false)}
         onCancel={() => setDescModal(false)}
       >
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo
-          distinctio totam voluptas officiis iusto, blanditiis aliquid enim
-          eveniet autem minima vel natus a laboriosam cumque, optio cupiditate
-          magni. Ut nisi et velit consectetur hic necessitatibus repellendus
-          rerum vel tenetur quos aut sint voluptatibus quaerat temporibus odit
-          illum laboriosam, saepe dignissimos.
-        </p>
+        <p>{data.note_to_teacher}</p>
       </Modal>
     </div>
   );

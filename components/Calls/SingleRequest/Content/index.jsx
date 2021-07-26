@@ -99,10 +99,6 @@ const index = ({ request }) => {
             <p className={styles.expired}>Expired</p>
           )}
           <div className={styles.info_col}>
-            <strong>Name</strong>
-            <p>{request.activity_name}</p>
-          </div>
-          <div className={styles.info_col}>
             <strong>Duration</strong>
             <p>{request.session_duration}mins</p>
           </div>
@@ -125,15 +121,12 @@ const index = ({ request }) => {
             <strong>Request made by</strong>
             <p>{`${request.first_name} ${request.last_name}`}</p>
           </div>
-          <div className={styles.info_col}>
-            <strong>Description</strong>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
-              qui. Accusamus quibusdam architecto soluta eius recusandae, saepe
-              alias quasi velit corrupti fuga ex distinctio ut porro. Autem nisi
-              exercitationem nulla.
-            </p>
-          </div>
+          {request.note_to_teacher && (
+            <div className={styles.info_col}>
+              <strong>Description</strong>
+              <p>{request.note_to_teacher}</p>
+            </div>
+          )}
           <div className={styles.btns}>
             <button
               className={`${styles.reject} ${

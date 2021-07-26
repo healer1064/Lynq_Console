@@ -30,7 +30,7 @@ const Item = ({ data }) => {
           ></span>
           {moment(data.create_date).fromNow()}
         </p>
-        <p>{data.activity_name}</p>
+        <p>{data.session_duration}mins</p>
         <p style={{ color: "#7e88f4" }}>1:1</p>
         <p>{data.email}</p>
         <p>

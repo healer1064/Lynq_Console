@@ -10,7 +10,7 @@ const Head = ({ order, setOrder }) => {
       <p onClick={() => setOrder(!order)}>
         Received {order ? <CaretUpOutlined /> : <CaretDownOutlined />}
       </p>
-      <p>Event Name</p>
+      <p>Event Length</p>
       <p>Type</p>
       <p>Email</p>
       <p>Status</p>

@@ -16,7 +16,9 @@ const Item = ({ data }) => {
       }`}
     >
       <div className={styles.title}>
-        {data.activity_name ? data.activity_name : data.summary}
+        {data.activity_name
+          ? `${data.session_duration} mins session`
+          : data.summary}
       </div>
       <div className={styles.det}>
         {moment(data.starting_date).format("ddd, MMM DD, YYYY")}
@@ -31,7 +33,7 @@ const Item = ({ data }) => {
             ? data.session_duration
             : moment(data.ending_date).diff(
                 moment(data.starting_date),
-                "minutes"
+                "minutes",
               )}{" "}
           mins
         </b>
