@@ -21,28 +21,54 @@ import List from "../List";
 import Loading from "@/components/common/Loading";
 
 import { postProfileReq } from "@/utils/requests/public-profile";
+import { IoTrainOutline } from "react-icons/io5";
 
 const index = ({ data }) => {
 	// context
 	const { token, slugData } = useContext(ProfileContext);
-	const { active_message, active_private_session, active_masterclass } =
-		useMemo(() => slugData, [slugData]);
+	const {
+		active_message = false,
+		active_private_session = false,
+		active_masterclass = false,
+	} = useMemo(() => slugData ?? {}, [slugData]);
 
 	// states
 	const [active, setActive] = useState(
 		active_message && active_private_session && active_masterclass
 	);
 	const [options, setOptions] = useState([
-		{ id: 1, length: 15, status: false },
-		{ id: 2, length: 30, status: false },
-		{ id: 3, length: 60, status: false },
+		{ length: 15, status: false, tags: [] },
+		{ length: 30, status: false, tags: [] },
+		{ length: 60, status: false, tags: [] },
 	]);
-	const [loading, setLoading] = useState(false);
-
-	console.log(options);
-	console.log(slugData);
+	useEffect(async () => {
+		if (token) {
+			const res = await fetch(
+				`https://api.lynq.app/account/event-type?t=${token}`
+			);
+			const bulletpoints = await res.json();
+			console.log(bulletpoints);
+			setOptions(
+				Object.values({
+					15: { duration: 15, status: false, tags: [] },
+					30: { duration: 30, status: false, tags: [] },
+					60: { duration: 60, status: false, tags: [] },
+					...bulletpoints.reduce((acc, c) => {
+						acc[c.duration] = c;
+						c["status"] = true
+						return acc;
+					}, {}),
+				})
+			);
+		}
+	}, []);
 
 	useEffect(() => {
+		console.log(options);
+	}, [options]);
+	const [loading, setLoading] = useState(false);
+
+	/* useEffect(() => {
 		if (data.length > 0) {
 			data.forEach((item) => {
 				if (item.duration == 15) {
@@ -62,7 +88,7 @@ const index = ({ data }) => {
 				}
 			});
 		}
-	}, [data]);
+	}, [data]); */
 
 	// useEffect(() => {
 	// 	options.filter((item) => item.status == true).length > 0
@@ -113,77 +139,77 @@ const index = ({ data }) => {
 		if (options.filter((item) => item.status == true).length === 0) {
 			toast.info("Please select an option first.");
 		} else {
-			var check = false;
-			options
-				.filter((item) => item.status == true)
-				.forEach((element) => {
-					if (
-						element.price &&
-						element.price != "" &&
-						element.description != ""
-					) {
-						check = true;
-					} else {
-						check = false;
-					}
-				});
-			if (check) {
-				options.forEach((item) => {
-					setLoading(true);
-					// if (data.filter((d) => d.id == item.id).length > 0) {
-					//   putOneToOneOptionReq(token, item.id, {
-					//     id: item.id,
-					//     name: item.name,
-					//     teacherId: item.teacherId,
-					//     description: item.description,
-					//     duration: item.duration,
-					//     price: item.price,
-					//     isActive: item.status,
-					//     cancellation_policy: item.cancellation_policy,
-					//     material_needed: item.material_needed,
-					//   })
-					//     .then((res) => {
-					//       setLoading(false);
-					//       if (res.status == 200) {
-					//         toast.success("All put good");
-					//       } else {
-					//         toast.error("Failed to save template options.");
-					//       }
-					//     })
-					//     .catch(() => {
-					//       setLoading(false);
-					//       toast.error("Failed to save template options.");
-					//     });
-					// } else {
-					if (item.status) {
-						postOneToOneOptionReq(token, {
-							id: uuidv4(),
-							name: "string",
-							teacherId: "string",
-							description: item.description,
-							duration: item.length,
-							price: item.price,
-							cancellation_policy: "string",
-							material_needed: "string",
+			debugger
+			const toBeExecuted = options.filter(
+				(d) => d.price && d.price != ""
+			);
+			toBeExecuted.forEach((item) => {
+				setLoading(true);
+				console.log(item);
+
+				const data = {
+					id: uuidv4(),
+					name: "string",
+					teacherId: "string",
+					description: item.description,
+					tags: item.tags,
+					duration: item.duration,
+					price: item.price,
+					cancellation_policy: "string",
+					material_needed: "string",
+				};
+				if (item.id) {
+					fetch(
+						`https://api.lynq.app/account/event-type/${item.id}?t=${token}`,
+						{
+							method: "DELETE",
+							headers: {
+								Accept: "application/json",
+								"Content-Type": "application/json",
+							},
+						}
+					)
+						.then((res) => {
+							if(item.status){
+
+								postOneToOneOptionReq(token, data)
+									.then((res) => {
+										setLoading(false);
+										if (res.status == 200) {
+											toast.success("All good");
+										} else {
+											toast.error("Failed to save template options.");
+										}
+									})
+									.catch(() => {
+										setLoading(false);
+										toast.error("Failed to save template options.");
+									});
+							}
 						})
-							.then((res) => {
-								setLoading(false);
-								if (res.status == 200) {
-									toast.success("All good");
-								} else {
-									toast.error("Failed to save template options.");
-								}
-							})
-							.catch(() => {
-								setLoading(false);
+						.catch((err) => {
+							console.error(err);
+						});
+				} else if (item.status) {
+					postOneToOneOptionReq(token, data)
+						.then((res) => {
+							setLoading(false);
+							if (res.status == 200) {
+								toast.success("All good");
+							} else {
 								toast.error("Failed to save template options.");
-							});
-					}
-					// }
-				});
-			} else {
-				toast.info("Please fill all fields.");
-			}
+							}
+						})
+						.catch(() => {
+							setLoading(false);
+							toast.error("Failed to save template options.");
+						});
+				}
+
+				// }
+			});
+
+			!toBeExecuted.length && toast.info("Please fill all fields.");
 		}
 	};
 

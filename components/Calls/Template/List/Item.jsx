@@ -21,25 +21,39 @@ import { BiDollar } from "react-icons/bi";
 import { listingPriceReq } from "@/utils/requests/calls/template";
 
 import Descriptions from "./Descriptions";
+import { useCallback } from "react";
+import { FaOldRepublic } from "react-icons/fa";
 
 const Item = ({ data, options, setOptions }) => {
 	// context
 	const { token } = useContext(ProfileContext);
 
 	// state
-	const [price, setPrice] = useState("");
+	const [price, setPrice] = useState(data.price);
 	const [listingPrice, setListingPrice] = useState("");
-	const [descriptions, setDescriptions] = useState("");
+	const [descriptions, setDescriptions] = useState(data.tags);
 	const [loading, setLoading] = useState(false);
 
+
+	useEffect(()=>{
+		setPrice(data.price)
+	}, [data])
 	// handle click
-	const onClick = (_data) => {
-		const obj = { ..._data, status: !_data.status, price };
+	const onClick = useCallback(() => {
+		/* const obj = { ..._data, status: !_data.status, price };
 		const arr = options.map((_item) => {
 			return _item.id == _data.id ? obj : _item;
+		}); */
+		setOptions((old) => {
+			for (const d of old) {
+				if (d.duration === data.duration) {
+					d.status = !d.status;
+					break;
+				}
+			}
+			return [...old];
 		});
-		setOptions(arr);
-	};
+	}, [data]);
 
 	// handle price change
 	useEffect(() => {
@@ -60,21 +74,26 @@ const Item = ({ data, options, setOptions }) => {
 	}, [price]);
 
 	useEffect(() => {
-		const obj = { ...data, price, description: descriptions };
-		const arr = options.map((item) => {
-			return item.id == data.id ? obj : item;
-		});
-		setOptions(arr);
-	}, [listingPrice, descriptions]);
+		// const obj = { ...data, price, description: descriptions };
+		// const arr = options.map((item) => {
+		// 	return item.id == data.id ? obj : item;
+		// });
+		// setOptions(arr);
+
+		data.tags = descriptions;
+		data.price = price;
+
+		console.log(data);
+	}, [price, descriptions]);
 
 	return (
 		<div className={styles.item}>
 			<div>
 				<h6
-					onClick={() => onClick(data)}
+					onClick={() => onClick()}
 					className={data.status ? styles.active : ""}
 				>
-					{data.status ? <BsCircleFill /> : <BsCircle />} {data.length} min
+					{data.status ? <BsCircleFill /> : <BsCircle />} {data.duration} min
 				</h6>
 				{data.status && (
 					<div className={styles.price}>
@@ -109,15 +128,19 @@ const Item = ({ data, options, setOptions }) => {
 								<span>
 									<BiDollar />
 									<input id="listing-price" value={listingPrice} disabled />
-									{loading && <img src="/img/Rolling-dark.svg" alt="rolling" />}
-									{" "}
+									{loading && (
+										<img src="/img/Rolling-dark.svg" alt="rolling" />
+									)}{" "}
 								</span>
 							)}
 						</label>
 						<Descriptions
+							value={data.tags}
 							onChange={(list) => {
 								console.log(list);
-								setDescriptions(list.join('\n'))
+								setDescriptions(list);
+
+								setOptions((old) => [...old]);
 							}}
 						/>
 						{/* <div className={styles.desc_box}>

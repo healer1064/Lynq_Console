@@ -17,8 +17,8 @@ const Description = ({ value, placeholder, onChange }) => {
 	);
 };
 
-const Descriptions = ({ onChange }) => {
-	const [descriptions, setDescriptions] = useState([""]);
+const Descriptions = ({ onChange, value = [""] }) => {
+	const [descriptions, setDescriptions] = useState(value.length ? value : [""]);
 
 	return (
 		<div>
