@@ -112,20 +112,6 @@ const index = ({ data }) => {
 		);
 		slugData.active_message = (await message.json()).active_message;
 
-		const privateSession = await fetch(
-			`https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
-			fetchOptions
-		);
-		slugData.active_private_session = (
-			await privateSession.json()
-		).active_private_session;
-
-		const masterclass = await fetch(
-			`https://api.lynq.app/account/public-profile/toggle-feature/masterclass?t=${token}`,
-			fetchOptions
-		);
-		slugData.active_masterclass = (await masterclass.json()).active_masterclass;
-
 		setActive(checked);
 		setOptions((old) => [...old.map((d) => ((d.status = checked), d))]);
 		toast.success(checked ? "Activated" : "Disactivated");
