@@ -22,6 +22,7 @@ import Loading from "@/components/common/Loading";
 
 import { postProfileReq } from "@/utils/requests/public-profile";
 import { IoTrainOutline } from "react-icons/io5";
+import { useCallback } from "react";
 
 const index = ({ data }) => {
 	// context
@@ -55,7 +56,7 @@ const index = ({ data }) => {
 					60: { duration: 60, status: false, tags: [] },
 					...bulletpoints.reduce((acc, c) => {
 						acc[c.duration] = c;
-						c["status"] = true
+						c["status"] = true;
 						return acc;
 					}, {}),
 				})
@@ -135,83 +136,81 @@ const index = ({ data }) => {
 	}
 
 	// handle click
-	const handleClick = () => {
+	const handleClick = useCallback(() => {
+		console.log(options)
 		if (options.filter((item) => item.status == true).length === 0) {
 			toast.info("Please select an option first.");
 		} else {
-			debugger
-			const toBeExecuted = options.filter(
-				(d) => d.price && d.price != ""
-			);
-			toBeExecuted.forEach((item) => {
-				setLoading(true);
-				console.log(item);
+			debugger;
+			setLoading(true);
+			const toBeExecuted = options.filter((d) => d.price && d.price != "");
 
+			const toBeDeleted = toBeExecuted.filter(
+				(d) => d.id && d.status === false
+			);
+			const toBeUpdated = toBeExecuted.filter((d) => d.id && d.status === true);
+			const toBeRecreated = toBeExecuted.filter(
+				(d) => !d.id && d.status === true
+			);
+
+			toBeDeleted.forEach(async (d) => {
+				await fetch(
+					`https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
+					{
+						method: "DELETE",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json",
+						},
+					}
+				);
+			});
+
+			toBeUpdated.forEach(async (d) => {
+				await fetch(
+					`https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
+					{
+						method: "PUT",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json",
+						},
+						body: d,
+					}
+				);
+			});
+
+			toBeRecreated.forEach((d) => {
 				const data = {
 					id: uuidv4(),
 					name: "string",
 					teacherId: "string",
-					description: item.description,
-					tags: item.tags,
-					duration: item.duration,
-					price: item.price,
+					description: d.description,
+					tags: d.tags,
+					duration: d.duration,
+					price: d.price,
 					cancellation_policy: "string",
 					material_needed: "string",
 				};
-				if (item.id) {
-					fetch(
-						`https://api.lynq.app/account/event-type/${item.id}?t=${token}`,
-						{
-							method: "DELETE",
-							headers: {
-								Accept: "application/json",
-								"Content-Type": "application/json",
-							},
-						}
-					)
-						.then((res) => {
-							if(item.status){
 
-								postOneToOneOptionReq(token, data)
-									.then((res) => {
-										setLoading(false);
-										if (res.status == 200) {
-											toast.success("All good");
-										} else {
-											toast.error("Failed to save template options.");
-										}
-									})
-									.catch(() => {
-										setLoading(false);
-										toast.error("Failed to save template options.");
-									});
-							}
-						})
-						.catch((err) => {
-							console.error(err);
-						});
-				} else if (item.status) {
-					postOneToOneOptionReq(token, data)
-						.then((res) => {
-							setLoading(false);
-							if (res.status == 200) {
-								toast.success("All good");
-							} else {
-								toast.error("Failed to save template options.");
-							}
-						})
-						.catch(() => {
-							setLoading(false);
+				postOneToOneOptionReq(token, data)
+					.then((res) => {
+						setLoading(false);
+						if (res.status == 200) {
+							toast.success("All good");
+						} else {
 							toast.error("Failed to save template options.");
-						});
-				}
-
-				// }
+						}
+					})
+					.catch(() => {
+						setLoading(false);
+						toast.error("Failed to save template options.");
+					});
 			});
 
 			!toBeExecuted.length && toast.info("Please fill all fields.");
 		}
-	};
+	}, [token, options]);
 
 	return (
 		<div className={styles.content}>
