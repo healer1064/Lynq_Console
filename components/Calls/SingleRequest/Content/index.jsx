@@ -70,7 +70,7 @@ const index = ({ request }) => {
           toast.error(
             `Failed to ${
               new Date(request.ending_date) > new Date() ? "reject" : "delete"
-            } the request!`
+            } the request!`,
           );
         }
       })
@@ -79,7 +79,7 @@ const index = ({ request }) => {
         toast.error(
           `Failed to ${
             new Date(request.ending_date) > new Date() ? "reject" : "delete"
-          } the request!`
+          } the request!`,
         );
       });
   };

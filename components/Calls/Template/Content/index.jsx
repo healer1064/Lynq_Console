@@ -12,8 +12,8 @@ import ProfileContext from "@/context/profile";
 
 // requests
 import {
-	postOneToOneOptionReq,
-	putOneToOneOptionReq,
+  postOneToOneOptionReq,
+  putOneToOneOptionReq,
 } from "@/utils/requests/calls/template";
 
 // components

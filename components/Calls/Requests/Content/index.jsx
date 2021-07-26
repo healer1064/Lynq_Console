@@ -35,7 +35,7 @@ const index = ({ list }) => {
                           .includes(searchTerm.toLowerCase()) ||
                         item.email
                           .toLowerCase()
-                          .includes(searchTerm.toLowerCase())
+                          .includes(searchTerm.toLowerCase()),
                     )
               }
               filter={filter}

@@ -44,7 +44,7 @@ const index = () => {
       <Head>
         <title>Request | Lynq</title>
       </Head>
-      <div className="content-wrp">
+      <div className='content-wrp'>
         {!request ? <PageLoading /> : <Content request={request} />}
       </div>
     </>
