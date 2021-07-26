@@ -12,8 +12,8 @@ import ProfileContext from "@/context/profile";
 
 // requests
 import {
-  postOneToOneOptionReq,
-  putOneToOneOptionReq,
+	postOneToOneOptionReq,
+	putOneToOneOptionReq,
 } from "@/utils/requests/calls/template";
 
 // components
@@ -27,16 +27,10 @@ import { useCallback } from "react";
 const index = ({ data }) => {
 	// context
 	const { token, slugData } = useContext(ProfileContext);
-	const {
-		active_message = false,
-		active_private_session = false,
-		active_masterclass = false,
-	} = useMemo(() => slugData ?? {}, [slugData]);
+	const { active_message = false } = useMemo(() => slugData ?? {}, [slugData]);
 
 	// states
-	const [active, setActive] = useState(
-		active_message && active_private_session && active_masterclass
-	);
+	const [active, setActive] = useState(active_message);
 	const [options, setOptions] = useState([
 		{ length: 15, status: false, tags: [] },
 		{ length: 30, status: false, tags: [] },
