@@ -30,7 +30,7 @@ const Descriptions = ({ onChange }) => {
   const handleDelete = (index) => {
     setDescriptions(descriptions.filter((item, i) => i !== index));
   };
-
+  
   return (
     <div>
       <div className={styles.desc_box}>
