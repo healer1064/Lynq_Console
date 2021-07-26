@@ -137,11 +137,9 @@ const index = ({ data }) => {
 
 	// handle click
 	const handleClick = useCallback(() => {
-		console.log(options)
 		if (options.filter((item) => item.status == true).length === 0) {
 			toast.info("Please select an option first.");
 		} else {
-			debugger;
 			setLoading(true);
 			const toBeExecuted = options.filter((d) => d.price && d.price != "");
 
@@ -175,9 +173,11 @@ const index = ({ data }) => {
 							Accept: "application/json",
 							"Content-Type": "application/json",
 						},
-						body: d,
+						body: JSON.stringify(d),
 					}
 				);
+				toast.success("Updated succesfully");
+				toBeRecreated.length === 0 && setLoading(false);
 			});
 
 			toBeRecreated.forEach((d) => {
@@ -195,6 +195,7 @@ const index = ({ data }) => {
 
 				postOneToOneOptionReq(token, data)
 					.then((res) => {
+						d.id = data.id;
 						setLoading(false);
 						if (res.status == 200) {
 							toast.success("All good");
