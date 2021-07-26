@@ -25,6 +25,7 @@ import { useCallback } from "react";
 import { FaOldRepublic } from "react-icons/fa";
 
 const Item = ({ data, options, setOptions }) => {
+	console.log(data);
 	// context
 	const { token } = useContext(ProfileContext);
 
@@ -34,10 +35,9 @@ const Item = ({ data, options, setOptions }) => {
 	const [descriptions, setDescriptions] = useState(data.tags);
 	const [loading, setLoading] = useState(false);
 
-
-	useEffect(()=>{
-		setPrice(data.price)
-	}, [data])
+	useEffect(() => {
+		setPrice(data.price);
+	}, [data]);
 	// handle click
 	const onClick = useCallback(() => {
 		/* const obj = { ..._data, status: !_data.status, price };
@@ -57,7 +57,7 @@ const Item = ({ data, options, setOptions }) => {
 
 	// handle price change
 	useEffect(() => {
-		if (price !== "") {
+		if (price) {
 			setLoading(true);
 			listingPriceReq(token, price)
 				.then((res) => {
@@ -72,19 +72,6 @@ const Item = ({ data, options, setOptions }) => {
 			setListingPrice("");
 		}
 	}, [price]);
-
-	useEffect(() => {
-		// const obj = { ...data, price, description: descriptions };
-		// const arr = options.map((item) => {
-		// 	return item.id == data.id ? obj : item;
-		// });
-		// setOptions(arr);
-
-		data.tags = descriptions;
-		data.price = price;
-
-		console.log(data);
-	}, [price, descriptions]);
 
 	return (
 		<div className={styles.item}>
@@ -136,24 +123,31 @@ const Item = ({ data, options, setOptions }) => {
 						</label>
 						<Descriptions
 							value={data.tags}
-							onChange={(list) => {
-								console.log(list);
-								setDescriptions(list);
-
-								setOptions((old) => [...old]);
+							onChange={(tags) => {
+								setOptions((old) => {
+									for (const d of old) {
+										if (d.id === data.id) {
+											d.tags = tags
+											break;
+										}
+									}
+									console.log(old)
+									return [...old];
+								});
+							}}
+							onDelete={(tags)=>{
+								setOptions((old) => {
+									for (const d of old) {
+										if (d.id === data.id) {
+											d.tags = tags
+											break;
+										}
+									}
+									console.log(old)
+									return [...old];
+								});
 							}}
 						/>
-						{/* <div className={styles.desc_box}>
-							<h3>Description</h3>
-							<input
-								value={description}
-								onChange={(e) => setDescription(e.target.value)}
-								maxLength="35"
-								onClick={(e) => e.stopPropagation()}
-								placeholder="Give a short description of the topics you can treat during this time"
-							/>
-							<span>{description.length}/35</span>
-						</div> */}
 					</div>
 				)}
 			</div>
