@@ -71,47 +71,41 @@ const index = ({ data }) => {
 	// }, [options]);
 
 	// on switch change
-	function onChange(checked) {
-		if (options.filter((item) => item.status == true).length > 0) {
-			setActive(checked);
+	async function onChange(checked) {
+		const fetchOptions = {
+			method: "POST",
+			headers: {
+				Accept: "application/json",
+				"Content-type": "application/json",
+			},
+		};
+		const message = await fetch(
+			`https://api.lynq.app/account/public-profile/toggle-feature/message?t=${token}`,
+			fetchOptions
+		);
+		slugData.active_message = (await message.json()).active_message;
 
-			const message = fetch(
-				`https://api.lynq.app/account/public-profile/toggle-feature/message?t=${token}`,
-				{
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-type": "application/json",
-					},
-				}
-			);
-			const privateSession = fetch(
-				`https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
-				{
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-type": "application/json",
-					},
-				}
-			);
-			const masterclass = fetch(
-				`https://api.lynq.app/account/public-profile/toggle-feature/masterclass?t=${token}`,
-				{
-					method: "POST",
-					headers: {
-						Accept: "application/json",
-						"Content-type": "application/json",
-					},
-				}
-			);
+		const privateSession = await fetch(
+			`https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
+			fetchOptions
+		);
+		slugData.active_private_session = (
+			await privateSession.json()
+		).active_private_session;
 
-			Promise.allSettled([message, privateSession, masterclass]).then(() => {
-				toast.success(checked ? "Activated" : "Disactivated");
-			});
+		const masterclass = await fetch(
+			`https://api.lynq.app/account/public-profile/toggle-feature/masterclass?t=${token}`,
+			fetchOptions
+		);
+		slugData.active_masterclass = (await masterclass.json()).active_masterclass;
+
+		setActive(checked);
+		setOptions((old) => [...old.map((d) => ((d.status = checked), d))]);
+		toast.success(checked ? "Activated" : "Disactivated");
+		/* if (options.filter((item) => item.status == true).length > 0) {
 		} else {
 			toast.info("Please set an option first.");
-		}
+		} */
 	}
 
 	// handle click
