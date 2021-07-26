@@ -1,7 +1,7 @@
 // libraries
 import { useState, useEffect } from "react";
 
-// libraries
+// icons
 import { IoTrashBin } from "react-icons/io5";
 
 const Item = ({ index, keywords, setKeywords }) => {

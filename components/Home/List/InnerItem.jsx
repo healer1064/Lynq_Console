@@ -81,11 +81,11 @@ const InnerItem = ({ data }) => {
         <>
           {data.activity_name && (
             <div style={{ marginTop: "1rem" }}>
-              <Link href={`/appointments/${data.id}`}>
+              <Link href={`/calls/requests/${data.id}`}>
                 <a className={styles.btn_cancel}>Manage Session</a>
               </Link>
               <Link
-                href={`https://us.lynq.app/${slugData?.slug}/teacher/${data.id}`}
+                href={`https://lynq.app/${slugData?.slug}/one-to-one/${data.id}`}
               >
                 <a target='_blank' className={styles.btn_goto}>
                   Start the video
