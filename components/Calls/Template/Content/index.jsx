@@ -24,13 +24,12 @@ import { postProfileReq } from "@/utils/requests/public-profile";
 import { IoTrainOutline } from "react-icons/io5";
 import { useCallback } from "react";
 
-const index = ({ data }) => {
+const index = ({ data, activeMessage }) => {
 	// context
 	const { token, slugData } = useContext(ProfileContext);
-	const { active_message = false } = useMemo(() => slugData ?? {}, [slugData]);
 
 	// states
-	const [active, setActive] = useState(active_message);
+	const [active, setActive] = useState(activeMessage);
 	const [options, setOptions] = useState([
 		{ length: 15, status: false, tags: [] },
 		{ length: 30, status: false, tags: [] },
@@ -52,14 +51,13 @@ const index = ({ data }) => {
 					return acc;
 				}, {}),
 			});
-			console.log(sets);
 			setOptions(sets);
 		}
 	}, []);
 
-	useEffect(() => {
-		console.log(options);
-	}, [options]);
+	// useEffect(() => {
+	// 	console.log(options);
+	// }, [options]);
 	const [loading, setLoading] = useState(false);
 
 	/* useEffect(() => {
@@ -117,6 +115,7 @@ const index = ({ data }) => {
 			setLoading(true);
 			const toBeExecuted = options.filter((d) => d.price && d.price != "");
 
+			debugger
 			const toBeDeleted = toBeExecuted.filter(
 				(d) => d.id && d.status === false
 			);

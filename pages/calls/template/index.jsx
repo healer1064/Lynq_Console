@@ -14,39 +14,46 @@ import Content from "@/components/Calls/Template/Content";
 import PageLoading from "@/components/common/PageLoading";
 
 const index = () => {
-  // context
-  const { token } = useContext(ProfileContext);
+	// context
+	const { token, slugData } = useContext(ProfileContext);
 
-  // states
-  const [data, setData] = useState(null);
+	// states
+	const [data, setData] = useState(null);
+	const [activeMessage, setActiveMessage] = useState(false);
 
-  useEffect(() => {
-    if (token) {
-      getOneToOneOptionReq(token)
-        .then((res) => {
-          if (res.status == 200) {
-            res
-              .json()
-              .then((data) => setData(data))
-              .catch(() => {
-                toast.error("Failed to get the options.");
-              });
-          } else {
-            toast.error("Failed to get the options.");
-          }
-        })
-        .catch(() => toast.error("Failed to get the options."));
-    }
-  }, [token]);
+	useEffect(() => {
+		if (token) {
+			getOneToOneOptionReq(token)
+				.then((res) => {
+					if (res.status == 200) {
+						res
+							.json()
+							.then((data) => setData(data))
+							.catch(() => {
+								toast.error("Failed to get the options.");
+							});
+					} else {
+						toast.error("Failed to get the options.");
+					}
+				})
+				.catch(() => toast.error("Failed to get the options."));
+		}
+	}, [token]);
 
-  return (
-    <div className='content-wrp'>
-      <Head>
-        <title>Calls Template | Lynq</title>
-      </Head>
-      {data ? <Content data={data} /> : <PageLoading />}
-    </div>
-  );
+	useEffect(() => {
+		if (slugData) {
+			setActiveMessage(slugData.active_message);
+		}
+	}, [slugData]);
+
+	return (
+		<div className="content-wrp">
+			<Head>
+				<title>Calls Template | Lynq</title>
+			</Head>
+			{data ? <Content data={data} activeMessage={activeMessage} /> : <PageLoading />}
+		</div>
+	);
 };
 
 export default index;
