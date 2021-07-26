@@ -42,19 +42,18 @@ const index = ({ data }) => {
 				`https://api.lynq.app/account/event-type?t=${token}`
 			);
 			const bulletpoints = await res.json();
-			console.log(bulletpoints);
-			setOptions(
-				Object.values({
-					15: { duration: 15, status: false, tags: [] },
-					30: { duration: 30, status: false, tags: [] },
-					60: { duration: 60, status: false, tags: [] },
-					...bulletpoints.reduce((acc, c) => {
-						acc[c.duration] = c;
-						c["status"] = true;
-						return acc;
-					}, {}),
-				})
-			);
+			const sets = Object.values({
+				15: { duration: 15, status: false, tags: [] },
+				30: { duration: 30, status: false, tags: [] },
+				60: { duration: 60, status: false, tags: [] },
+				...bulletpoints.reduce((acc, c) => {
+					acc[c.duration] = c;
+					c["status"] = true;
+					return acc;
+				}, {}),
+			});
+			console.log(sets);
+			setOptions(sets);
 		}
 	}, []);
 
@@ -107,12 +106,7 @@ const index = ({ data }) => {
 		slugData.active_message = (await message.json()).active_message;
 
 		setActive(checked);
-		setOptions((old) => [...old.map((d) => ((d.status = checked), d))]);
 		toast.success(checked ? "Activated" : "Disactivated");
-		/* if (options.filter((item) => item.status == true).length > 0) {
-		} else {
-			toast.info("Please set an option first.");
-		} */
 	}
 
 	// handle click
