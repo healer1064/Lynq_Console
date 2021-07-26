@@ -25,7 +25,6 @@ import { useCallback } from "react";
 import { FaOldRepublic } from "react-icons/fa";
 
 const Item = ({ data, options, setOptions }) => {
-	console.log(data);
 	// context
 	const { token } = useContext(ProfileContext);
 
@@ -38,6 +37,13 @@ const Item = ({ data, options, setOptions }) => {
 	useEffect(() => {
 		setPrice(data.price);
 	}, [data]);
+	
+	useEffect(() => {
+		setOptions((old) => {
+			data.price = price;
+			return [...old];
+		});
+	}, [price]);
 	// handle click
 	const onClick = useCallback(() => {
 		/* const obj = { ..._data, status: !_data.status, price };
@@ -127,23 +133,23 @@ const Item = ({ data, options, setOptions }) => {
 								setOptions((old) => {
 									for (const d of old) {
 										if (d.id === data.id) {
-											d.tags = tags
+											d.tags = tags;
 											break;
 										}
 									}
-									console.log(old)
+									console.log(old);
 									return [...old];
 								});
 							}}
-							onDelete={(tags)=>{
+							onDelete={(tags) => {
 								setOptions((old) => {
 									for (const d of old) {
 										if (d.id === data.id) {
-											d.tags = tags
+											d.tags = tags;
 											break;
 										}
 									}
-									console.log(old)
+									console.log(old);
 									return [...old];
 								});
 							}}
