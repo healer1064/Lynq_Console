@@ -24,12 +24,12 @@ import { postProfileReq } from "@/utils/requests/public-profile";
 import { IoTrainOutline } from "react-icons/io5";
 import { useCallback } from "react";
 
-const index = ({ data, activeMessage }) => {
+const index = ({ data, activePrivateSession }) => {
 	// context
 	const { token, slugData } = useContext(ProfileContext);
 
 	// states
-	const [active, setActive] = useState(activeMessage);
+	const [active, setActive] = useState(activePrivateSession);
 	const [options, setOptions] = useState([
 		{ length: 15, status: false, tags: [] },
 		{ length: 30, status: false, tags: [] },
@@ -98,10 +98,10 @@ const index = ({ data, activeMessage }) => {
 			},
 		};
 		const message = await fetch(
-			`https://api.lynq.app/account/public-profile/toggle-feature/message?t=${token}`,
+			`https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
 			fetchOptions
 		);
-		slugData.active_message = (await message.json()).active_message;
+		slugData.active_private_session = (await message.json()).active_private_session;
 
 		setActive(checked);
 		toast.success(checked ? "Activated" : "Disactivated");

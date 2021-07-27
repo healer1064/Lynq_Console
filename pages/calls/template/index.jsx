@@ -19,7 +19,7 @@ const index = () => {
 
 	// states
 	const [data, setData] = useState(null);
-	const [activeMessage, setActiveMessage] = useState(false);
+	const [activePrivateSession, setActivePrivateSession] = useState(false);
 
 	useEffect(() => {
 		if (token) {
@@ -42,7 +42,7 @@ const index = () => {
 
 	useEffect(() => {
 		if (slugData) {
-			setActiveMessage(slugData.active_message);
+			setActivePrivateSession(slugData.active_private_session);
 		}
 	}, [slugData]);
 
@@ -51,7 +51,7 @@ const index = () => {
 			<Head>
 				<title>Calls Template | Lynq</title>
 			</Head>
-			{data ? <Content data={data} activeMessage={activeMessage} /> : <PageLoading />}
+			{data ? <Content data={data} activePrivateSession={activePrivateSession} /> : <PageLoading />}
 		</div>
 	);
 };
