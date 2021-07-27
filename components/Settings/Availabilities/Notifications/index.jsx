@@ -35,15 +35,10 @@ const SetupNotifications = ({
   }, [delayBooking, timezone]);
 
   const updateProfile = () => {
-    const { name, public_image, slug, tags, bio } = data;
     const reqData = {
-      name,
-      public_image,
-      slug,
+      ...data,
       delay_booking_hours: delayBooking,
       timezone,
-      bio,
-      tags,
     };
     postProfileReq(token, reqData)
       .then(() => toggleSuccess())
