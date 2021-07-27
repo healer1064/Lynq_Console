@@ -55,6 +55,8 @@ const index = ({ data, activePrivateSession }) => {
 		}
 	}, []);
 
+	const [requestSent, setRequestSent] = useState(false);
+
 	// useEffect(() => {
 	// 	console.log(options);
 	// }, [options]);
@@ -90,6 +92,7 @@ const index = ({ data, activePrivateSession }) => {
 
 	// on switch change
 	async function onChange(checked) {
+		setRequestSent(true);
 		const fetchOptions = {
 			method: "POST",
 			headers: {
@@ -101,9 +104,12 @@ const index = ({ data, activePrivateSession }) => {
 			`https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
 			fetchOptions
 		);
-		slugData.active_private_session = (await message.json()).active_private_session;
+		slugData.active_private_session = (
+			await message.json()
+		).active_private_session;
 
-		setActive(checked);
+		setRequestSent(false);
+		setActive(checked && slugData.active_private_session);
 		toast.success(checked ? "Activated" : "Disactivated");
 	}
 
@@ -115,7 +121,7 @@ const index = ({ data, activePrivateSession }) => {
 			setLoading(true);
 			const toBeExecuted = options.filter((d) => d.price && d.price != "");
 
-			debugger
+			debugger;
 			const toBeDeleted = toBeExecuted.filter(
 				(d) => d.id && d.status === false
 			);
@@ -192,6 +198,7 @@ const index = ({ data, activePrivateSession }) => {
 				<Switch
 					checked={active}
 					onChange={onChange}
+					loading={requestSent}
 					className={active ? styles.switch_on : styles.switch_off}
 				/>
 				<span>{active ? "Activate" : "Deactivate"}</span>
