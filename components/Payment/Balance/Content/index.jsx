@@ -10,8 +10,6 @@ import Request from "../Request";
 import History from "../History";
 
 const index = ({ payments, toggleResponse }) => {
-  console.log(payments);
-
   return (
     <Fade>
       <div className={styles.payment}>

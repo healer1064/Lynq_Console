@@ -47,7 +47,7 @@ const SettingsSetup = () => {
   }, [token, success]);
 
   const toggleSuccess = () => {
-    setSuccess(!success);
+    setSuccess((prevState) => !prevState);
   };
 
   return (

@@ -16,6 +16,8 @@ const index = ({ list, refreshResponse }) => {
   // states
   const [selected, setSelected] = useState(null);
 
+  console.log(list);
+
   return (
     <div className={styles.content}>
       <List

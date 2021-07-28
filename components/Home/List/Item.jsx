@@ -66,7 +66,7 @@ const Item = ({ data, refetchResponse }) => {
               }${masterclasses.length > 0 ? "," : ""}`}{" "}
             {masterclasses.length > 0 &&
               `${masterclasses.length} ${
-                masterclasses.length == 1 ? "Masterclasses" : "Masterclasses"
+                masterclasses.length == 1 ? "Masterclass" : "Masterclasses"
               }`}
           </b>
         </div>
