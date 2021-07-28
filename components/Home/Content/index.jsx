@@ -18,9 +18,14 @@ import NextSession from "../NextSession";
 import SlugDetails from "../SlugDetails";
 import List from "../List";
 import Calendar from "../Calendar";
-// import Onboarding from "../Onboarding";
 
-const index = ({ currSession, nextSession, data, onWeekChange }) => {
+const index = ({
+  currSession,
+  nextSession,
+  data,
+  onWeekChange,
+  refetchResponse,
+}) => {
   // context
   const { slugData } = useContext(ProfileContext);
 
@@ -49,12 +54,11 @@ const index = ({ currSession, nextSession, data, onWeekChange }) => {
             <SlugDetails slugData={slugData} />
           </div>
           <div className={styles.list}>
-            <List list={data} />
+            <List list={data} refetchResponse={refetchResponse} />
             <Calendar currDate={currWeek} handleChange={handleChange} />
           </div>
         </div>
       </Fade>
-      {/* {!localStorage.getItem("lynqOnboarding") && <Onboarding />} */}
     </>
   );
 };

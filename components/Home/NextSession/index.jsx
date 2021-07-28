@@ -10,17 +10,21 @@ const index = ({ nextSession, slugData }) => {
     slugData !== null && (
       <div className={styles.session}>
         <span>
-          Next Session
+          Next {nextSession.type}
           {nextSession.name == null && " | From google calender"}|{" "}
           {nextSession.time}
         </span>
         {nextSession.name !== null && (
           <a
-            href={`https://us.lynq.app/${slugData?.slug}/teacher/${nextSession.id}`}
+            href={
+              nextSession.type == "Masterclass"
+                ? `https://lynq.app/${slugData?.slug}/ex/masterclass/${nextSession.id}`
+                : `https://lynq.app/${slugData?.slug}/ex/one-to-one/${nextSession.id}`
+            }
             className={styles.start_live}
-            target="blank"
+            target='blank'
           >
-            START THE LIVE
+            START THE {nextSession.type.toUpperCase()}
           </a>
         )}
       </div>

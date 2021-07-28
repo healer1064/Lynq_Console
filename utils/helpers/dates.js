@@ -57,7 +57,7 @@ export const dateFormat = (_sdate, _edate) => {
       return `${start[1]}-${end[1]} ${start[0]} ${start[2]}`;
     } else {
       return `${start[1]} ${moment(_sdate).format("MMM")} - ${end[1]} ${moment(
-        _edate
+        _edate,
       ).format("MMM")}  ${start[2]}`;
     }
   }
@@ -94,14 +94,12 @@ export const dateIsBetween = (_start, _end) => {
     let currentTime = moment(formatTime(moment()), "hh:mm:ss");
     let start = moment(formatTime(_start), "hh:mm:ss");
     let end = moment(formatTime(_end), "hh:mm:ss");
-
     return currentTime.isBetween(start, end);
   }
 
   if (isBefore(_start)) {
     return true;
   }
-
   return false;
 };
 
@@ -122,13 +120,37 @@ const isSame = (_date) => {
 
 export const compareDates = (a, b) => {
   if (
-    a.ending_date < b.ending_date ||
-    (a.ending_date == b.ending_date && a.starting_date > b.starting_date)
+    a.ending_date
+      ? a.ending_date
+      : moment(a.date).add(a.duration, "minutes") < b.ending_date
+      ? b.ending_date
+      : moment(b.date).add(b.duration, "minutes") ||
+        (a.ending_date
+          ? a.ending_date
+          : moment(a.date).add(a.duration, "minutes") == b.ending_date
+          ? b.ending_date
+          : moment(b.date).add(b.duration, "minutes") && a.starting_date
+          ? a.starting_date
+          : a.date > b.starting_date
+          ? b.starting_date
+          : b.date)
   )
     return -1;
   if (
-    a.ending_date > b.ending_date ||
-    (a.ending_date == b.ending_date && a.starting_date < b.starting_date)
+    a.ending_date
+      ? a.ending_date
+      : moment(a.date).add(a.duration, "minutes") > b.ending_date
+      ? b.ending_date
+      : moment(b.date).add(b.duration, "minutes") ||
+        (a.ending_date
+          ? a.ending_date
+          : moment(a.date).add(a.duration, "minutes") == b.ending_date
+          ? b.ending_date
+          : moment(b.date).add(b.duration, "minutes") && a.starting_date
+          ? a.starting_date
+          : a.date < b.starting_date
+          ? b.starting_date
+          : b.date)
   )
     return 1;
   return 0;
@@ -140,7 +162,7 @@ export const filterByCurrWeek = (_list) => {
   let filter = _list.filter(
     (item) =>
       new Date(item.date).getTime() >= weekStart.getTime() &&
-      new Date(item.date).getTime() <= weekEnd.getTime()
+      new Date(item.date).getTime() <= weekEnd.getTime(),
   );
 
   return filter;

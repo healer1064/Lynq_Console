@@ -9,6 +9,7 @@ import ProfileContext from "@/context/profile";
 
 // requests
 import { getCallsList } from "@/utils/requests/calendar";
+import { getMasterclass } from "@/utils/requests/masterclass";
 
 // helpers
 import {
@@ -28,6 +29,7 @@ const home = () => {
   const { token } = useContext(ProfileContext);
 
   // states
+  const [refetch, setRefetch] = useState(false);
   const [data, setData] = useState(null);
   const [temp, setTemp] = useState([]);
   const [currSession, setCurrSession] = useState({
@@ -42,20 +44,29 @@ const home = () => {
   useEffect(() => {
     if (token) {
       getCallsList(token)
-        .then((res) => {
-          setData(filterByCurrWeek(groupListInSectionsByDate(res)));
-          setTemp(groupListInSectionsByDate(res));
-          const arr = getCurrentDaySessions(res);
-          if (arr.length > 0) {
-            getHomeCurrentSession(arr[0].appointments, setCurrSession);
-          }
-          getHomeNextSession(res, setNextSession);
+        .then((calls) => {
+          getMasterclass(token)
+            .then((masterclasses) => {
+              if (masterclasses.error) {
+                toast.error("Failed to get the list.");
+              } else {
+                const res = calls.concat(masterclasses);
+                setData(filterByCurrWeek(groupListInSectionsByDate(res)));
+                setTemp(groupListInSectionsByDate(res));
+                const arr = getCurrentDaySessions(res);
+                if (arr.length > 0) {
+                  getHomeCurrentSession(arr[0].appointments, setCurrSession);
+                }
+                getHomeNextSession(res, setNextSession);
+              }
+            })
+            .catch(() => toast.error("Failed to get the list."));
         })
         .catch(() => {
           toast.error("Failed to get the list!");
         });
     }
-  }, [token]);
+  }, [token, refetch]);
 
   const onWeekChange = (_start, _end) => {
     _start = format(_start, "yyyy-MM-dd");
@@ -67,6 +78,11 @@ const home = () => {
         new Date(item.date).getTime() <= new Date(_end).getTime(),
     );
     setData(filter);
+  };
+
+  // refetch response
+  const refetchResponse = () => {
+    setRefetch((prevState) => !prevState);
   };
 
   return (
@@ -82,6 +98,7 @@ const home = () => {
           nextSession={nextSession}
           data={data}
           onWeekChange={onWeekChange}
+          refetchResponse={refetchResponse}
         />
       )}
     </div>

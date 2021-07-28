@@ -33,7 +33,7 @@ const index = () => {
   }, [token]);
 
   return (
-    <div className="content-wrp">
+    <div className='content-wrp'>
       <Head>
         <title>Calls Requests | Lynq</title>
       </Head>

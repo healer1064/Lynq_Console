@@ -6,7 +6,7 @@ const getRequestReq = async (_token) => {
   };
   const response = await fetch(
     `https://api.lynq.app/account/appointments/requests?t=${_token}`,
-    config
+    config,
   );
   return await response.json();
 };
@@ -20,7 +20,7 @@ const postAcceptReq = async (_token, _id) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    }
+    },
   );
   return await response;
 };
@@ -34,7 +34,7 @@ const postRejectReq = async (_token, _id) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    }
+    },
   );
   return await response;
 };

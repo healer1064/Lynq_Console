@@ -12,7 +12,7 @@ import { isBefore } from "@/utils/helpers/dates";
 // components
 import InnerItem from "@/components/Home/List/InnerItem";
 
-const Item = ({ data }) => {
+const Item = ({ data, refetchResponse }) => {
   // state
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(true);
@@ -26,9 +26,15 @@ const Item = ({ data }) => {
   const sortList = (list) => {
     return list.sort(
       (a, b) =>
-        moment(a.starting_date).valueOf() - moment(b.starting_date).valueOf(),
+        moment(a.starting_date ? a.starting_date : a.date) -
+        moment(b.starting_date ? b.starting_date : b.date),
     );
   };
+
+  const liveSessions = appointments.filter((item) => "activity_name" in item);
+  const masterclasses = appointments.filter(
+    (item) => !item.hasOwnProperty("activity_name"),
+  );
 
   return (
     <div
@@ -53,7 +59,16 @@ const Item = ({ data }) => {
           <div className={styles.line}></div>
           {moment(date).format("MMMM DD, YYYY")}
           <div className={styles.line}></div>
-          <b>{appointments?.length} appointments</b>
+          <b>
+            {liveSessions.length > 0 &&
+              `${liveSessions.length} ${
+                liveSessions.length == 1 ? "Live session" : "Live sessions"
+              }${masterclasses.length > 0 ? "," : ""}`}{" "}
+            {masterclasses.length > 0 &&
+              `${masterclasses.length} ${
+                masterclasses.length == 1 ? "Masterclasses" : "Masterclasses"
+              }`}
+          </b>
         </div>
         <div className={styles.arrow}>
           <svg
@@ -70,7 +85,11 @@ const Item = ({ data }) => {
       {open && appointments && (
         <div style={{ width: "100%" }}>
           {sortList(appointments).map((data, index) => (
-            <InnerItem key={index} data={data} />
+            <InnerItem
+              key={index}
+              data={data}
+              refetchResponse={refetchResponse}
+            />
           ))}
         </div>
       )}
