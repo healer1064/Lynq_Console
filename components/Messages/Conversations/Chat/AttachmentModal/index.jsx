@@ -1,7 +1,6 @@
 // libraries
 import { useState, useCallback, useContext } from "react";
 import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
 
 // styles
 import styles from "./styles.module.sass";
@@ -15,11 +14,7 @@ import { RiUploadCloudFill, RiDeleteBin6Fill } from "react-icons/ri";
 // helpers
 import { handleFileInput } from "@/utils/helpers";
 
-// requests
-import { postDocReq } from "@/utils/requests/messages";
-
 // components
-import Loading from "@/components/common/Loading";
 import UploadButton from "./UploadButton";
 
 const index = ({
@@ -33,7 +28,6 @@ const index = ({
 
   // states
   const [selectedFile, setSelectedFile] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   // handle drop
   const onDrop = useCallback((acceptedFiles) => {
@@ -44,26 +38,6 @@ const index = ({
     onDrop,
     multiple: false,
   });
-
-  // handle send
-  const handleSend = (_id, _token, _file) => {
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append("file", _file);
-
-    postDocReq(_id, _token, _file)
-      .then((res) => {
-        refreshResponse();
-        setLoading(false);
-        setSelected(res);
-        setAttachmentModal(false);
-      })
-      .catch(() => {
-        setLoading(false);
-        toast.error("Failed to send the document!");
-      });
-  };
 
   return (
     <div className={styles.modal} onClick={() => setAttachmentModal(false)}>
@@ -141,29 +115,12 @@ const index = ({
         {selectedFile && (
           <p className={styles.file_name}>{selectedFile.fileObject.name}</p>
         )}
-        {/* <button
-					onClick={() => {
-						if (selectedFile) {
-							handleSend(
-								selected.id,
-								token,
-								selectedFile && selectedFile.fileObject
-							);
-						} else {
-							toast.info("Please select a document file first.");
-						}
-					}}
-				>
-					Send{loading && <Loading />}
-				</button> */}
-
         <UploadButton
           file={selectedFile?.fileObject}
           id={selected.id}
           token={token}
           onUpload={(res) => {
             refreshResponse();
-            setLoading(false);
             setSelected(res);
             setAttachmentModal(false);
           }}

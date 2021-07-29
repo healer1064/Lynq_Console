@@ -1,12 +1,14 @@
 // libraries
 import React, { useCallback, useState } from "react";
 import axios from "axios";
-import Loading from "@/components/common/Loading";
 import { toast } from "react-toastify";
-import { Progress } from "antd";
 
 // styles
 import styles from "./styles.module.sass";
+
+// components
+import { Progress } from "antd";
+import Loading from "@/components/common/Loading";
 
 const UploadButton = ({ file, id, token, onUpload }) => {
   const [progress, setProgress] = useState();
