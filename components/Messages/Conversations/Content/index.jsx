@@ -16,14 +16,13 @@ const index = ({ list, refreshResponse }) => {
   // states
   const [selected, setSelected] = useState(null);
 
-  console.log(list);
-
   return (
     <div className={styles.content}>
       <List
         recipients={getLatestMessage(list)}
         recipient={selected}
         setRecipient={setSelected}
+        refreshResponse={refreshResponse}
       />
       {selected ? (
         <Chat

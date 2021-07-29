@@ -169,7 +169,7 @@ const InnerItem = ({ data, refetchResponse }) => {
                 href={
                   data.activity_name
                     ? `https://lynq.app/${slugData?.slug}/ex/one-to-one/${data.id}`
-                    : `https://lynq.app/${slugData?.slug}/ex/masterclass/${data.id}`
+                    : `https://lynq.app/${slugData?.slug}/ex/masterclass/${data.id}?role=expert`
                 }
               >
                 <a target='_blank' className={styles.btn_goto}>

@@ -8,13 +8,13 @@ import styles from "./styles.module.sass";
 import SearchInput from "@/components/common/SearchInput";
 import Item from "./Item";
 
-const index = ({ recipients, recipient, setRecipient }) => {
+const index = ({ recipients, recipient, setRecipient, refreshResponse }) => {
   // states
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className={`${styles.list} ${recipient ? styles.hide : styles.show}`}>
-      <SearchInput placeholder="Search" setState={setSearchTerm} />
+      <SearchInput placeholder='Search' setState={setSearchTerm} />
       <div className={styles.list_self}>
         {searchTerm != ""
           ? recipients
@@ -25,12 +25,22 @@ const index = ({ recipients, recipient, setRecipient }) => {
               })
               .map((item, index) => {
                 return (
-                  <Item key={index} data={item} setRecipient={setRecipient} />
+                  <Item
+                    key={index}
+                    data={item}
+                    setRecipient={setRecipient}
+                    refreshResponse={refreshResponse}
+                  />
                 );
               })
           : recipients.map((item, index) => {
               return (
-                <Item key={index} data={item} setRecipient={setRecipient} />
+                <Item
+                  key={index}
+                  data={item}
+                  setRecipient={setRecipient}
+                  refreshResponse={refreshResponse}
+                />
               );
             })}
       </div>

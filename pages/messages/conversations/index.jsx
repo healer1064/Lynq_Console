@@ -31,11 +31,11 @@ const index = () => {
 
   // refresh response
   const refreshResponse = () => {
-    setResponse(!response);
+    setResponse((prevState) => !prevState);
   };
 
   return (
-    <div className="full-wrp">
+    <div className='full-wrp'>
       <Head>
         <title>Messages Conversations | Lynq</title>
       </Head>

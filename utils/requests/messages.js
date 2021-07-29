@@ -89,6 +89,20 @@ const postMsgReq = async (_token, _id, _message) => {
   return await response.json();
 };
 
+const postAckReq = async (_token, _id) => {
+  const response = await fetch(
+    `https://api.lynq.app/async/${_id}/ack?t=${_token}`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
+  return await response;
+};
+
 export {
   getAsyncReq,
   postDocReq,
@@ -96,4 +110,5 @@ export {
   getMessageTemplate,
   postMessageTemplate,
   putMessageTemplate,
+  postAckReq,
 };

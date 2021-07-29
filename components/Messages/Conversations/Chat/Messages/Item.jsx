@@ -11,6 +11,9 @@ import ProfileContext from "@/context/profile";
 // icons
 import { FaFile } from "react-icons/fa";
 
+// helpers
+import { hashCode, intToRGB } from "@/utils/helpers";
+
 const Item = ({ data, selected }) => {
   // context
   const { slugData } = useContext(ProfileContext);
@@ -37,7 +40,15 @@ const Item = ({ data, selected }) => {
     <div className={styles.item}>
       <div className={styles.icon}>
         <span
-          style={{ background: data.isTeacher ? "#7E88F4" : selected.color }}
+          style={{
+            background: data.isTeacher
+              ? "#7E88F4"
+              : `#${intToRGB(
+                  hashCode(
+                    `${selected.customerFirstName} ${selected.customerLastName}`,
+                  ),
+                )}`,
+          }}
         >
           {data.isTeacher
             ? slugData.name.match(/\b(\w)/g).join("")
