@@ -1,33 +1,15 @@
+// libraries
 import React, { useCallback, useState } from "react";
 import axios from "axios";
 import Loading from "@/components/common/Loading";
 import { toast } from "react-toastify";
+import { Progress } from "antd";
 
-const Bar = ({ children, progress, onClick }) => {
-  return (
-    <div
-      style={{
-        // position: "absolute",
-        top: 0,
-        left: 0,
-        width: `${progress}%`,
-        minWidth: "64px",
-        maxWidth: "100%",
-        height: "100%",
-        backgroundColor: "#7e88f4",
-        boxShadow: "0px 3px 6px 0px #a5adff",
-        transition: " width .3s",
-        borderRadius: "2px",
-      }}
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-};
+// styles
+import styles from "./styles.module.sass";
 
 const UploadButton = ({ file, id, token, onUpload }) => {
-  const [progress, setProgtress] = useState(0);
+  const [progress, setProgress] = useState();
   const [loading, setLoading] = useState(false);
 
   const upload = useCallback(async () => {
@@ -40,7 +22,7 @@ const UploadButton = ({ file, id, token, onUpload }) => {
       .post(`https://api.lynq.app/async/${id}/upload?t=${token}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (progressEvent) => {
-          setProgtress(
+          setProgress(
             parseInt(
               Math.round((progressEvent.loaded * 100) / progressEvent.total),
             ),
@@ -64,8 +46,6 @@ const UploadButton = ({ file, id, token, onUpload }) => {
       });
   }, [id, token, file]);
 
-  const height = 36;
-
   return (
     <>
       <button
@@ -77,17 +57,13 @@ const UploadButton = ({ file, id, token, onUpload }) => {
           }
         }}
       >
-        {loading ? <Loading /> : "Send"}
+        {loading && <Loading />} Send
       </button>
-      <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: height + "px",
-        }}
-      >
-        <Bar progress={progress}></Bar>
-      </div>
+      {progress && (
+        <div className={styles.progress_bar}>
+          <Progress percent={progress} strokeColor='#7E88F4' />
+        </div>
+      )}
     </>
   );
 };
