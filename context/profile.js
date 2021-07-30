@@ -20,7 +20,6 @@ export const ProfileProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router.query.token);
     if (token == null) {
       if (router.query.token) {
         setToken(router.query.token);
@@ -43,8 +42,6 @@ export const ProfileProvider = ({ children }) => {
       setToken(localStorage.getItem("linqToken"));
     }
   }, [token, router.query.token]);
-
-  console.log(token);
 
   return (
     <ProfileContext.Provider
