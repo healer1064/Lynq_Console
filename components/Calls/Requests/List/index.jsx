@@ -51,26 +51,10 @@ const index = ({ list, filter }) => {
         return array.sort(
           (a, b) => new Date(b.starting_date) - new Date(a.starting_date),
         );
-      case "status_asc":
-        return array.sort(
-          (a, b) =>
-            new Date(a.starting_date) <
-            new Date() - new Date(b.starting_date) <
-            new Date(),
-        );
-      case "status_desc":
-        return array.sort(
-          (a, b) =>
-            new Date(b.starting_date) <
-            new Date() - new Date(a.starting_date) <
-            new Date(),
-        );
       default:
         break;
     }
   };
-
-  console.log(data);
 
   return data && data.length === 0 ? (
     <div className={styles.no_appointments}>

@@ -47,19 +47,7 @@ const Head = ({ order, setOrder }) => {
         {order == "date_desc" ? <CaretUpOutlined /> : <CaretDownOutlined />}
       </p>
       <p>Email</p>
-      <p
-        className={`${styles.cursor} ${
-          order == "status_desc" || order == "status_asc" ? "" : styles.dull
-        }`}
-        onClick={() =>
-          setOrder((prevState) =>
-            prevState == "status_asc" ? "status_desc" : "status_asc",
-          )
-        }
-      >
-        Status
-        {order == "status_desc" ? <CaretUpOutlined /> : <CaretDownOutlined />}
-      </p>
+      <p>Status</p>
     </div>
   );
 };

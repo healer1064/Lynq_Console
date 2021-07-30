@@ -10,7 +10,6 @@ import EmptyData from "@/components/common/EmptyData";
 import Item from "./Item";
 
 const RequestDrawer = ({ isOpen, toggle, data }) => {
-  console.log(data);
   return (
     <Drawer
       title='Participants'

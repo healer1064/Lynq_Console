@@ -22,7 +22,7 @@ import {
 
 // components
 import AppointmentsDrawer from "@/components/Calls/SingleRequest/Drawer";
-import ParticipantsDrawer from "@/components/Masterclass/Details/Drawer";
+import ParticipantsDrawer from "./Drawer";
 import Modal from "@/components/common/Modal";
 import PageLoading from "@/components/common/PageLoading";
 
@@ -162,8 +162,8 @@ const index = () => {
           isOpen={apptSwitch}
           toggle={toggleApptsDrawer}
           //   apt={apt}
-          day={moment().format("ddd, MMM DD, YYYY")}
-          //   thatDate={data.starting_date}
+          day={moment(data.starting_date).format("ddd, MMM DD, YYYY")}
+          // thatDate={data.starting_date}
         />
       )}
       {participantsSwitch && (
