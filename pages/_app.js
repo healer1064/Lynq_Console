@@ -26,42 +26,47 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (
-      router.pathname != "/plans" &&
-      router.pathname != "/signup" &&
-      router.pathname != "/login" &&
-      router.pathname != "/forgot-password" &&
-      router.pathname != "/terms-and-conditions" &&
-      !router.pathname.includes("/reset-password/") &&
-      router.pathname != "/404"
-    ) {
-      setSidebar(true);
-    } else {
-      setSidebar(false);
+    if (router.query.token) {
+      localStorage.setItem("linqToken", router.query.token);
     }
-    if (!localStorage.getItem("linqToken")) {
+    setTimeout(() => {
       if (
         router.pathname != "/plans" &&
         router.pathname != "/signup" &&
         router.pathname != "/login" &&
         router.pathname != "/forgot-password" &&
         router.pathname != "/terms-and-conditions" &&
-        !router.pathname.includes("/reset-password/")
+        !router.pathname.includes("/reset-password/") &&
+        router.pathname != "/404"
       ) {
-        window.location.href = "/plans";
         setSidebar(true);
       } else {
         setSidebar(false);
       }
-      setPreLoading(false);
-    } else {
-      setPreLoading(false);
-    }
+      if (!localStorage.getItem("linqToken")) {
+        if (
+          router.pathname != "/plans" &&
+          router.pathname != "/signup" &&
+          router.pathname != "/login" &&
+          router.pathname != "/forgot-password" &&
+          router.pathname != "/terms-and-conditions" &&
+          !router.pathname.includes("/reset-password/")
+        ) {
+          window.location.href = "/plans";
+          setSidebar(true);
+        } else {
+          setSidebar(false);
+        }
+        setPreLoading(false);
+      } else {
+        setPreLoading(false);
+      }
+    }, 500);
 
     return () => {
       setSidebar(true);
     };
-  }, []);
+  }, [router.query?.token]);
 
   useEffect(() => {
     TagManager.initialize({ gtmId: "GTM-K2DPJPZ" });
@@ -87,10 +92,10 @@ function MyApp({ Component, pageProps }) {
           <PageLoading />
         </div>
       ) : sidebar ? (
-        <div className="main-wrp">
+        <div className='main-wrp'>
           <ToastContainer />
           <Navbar />
-          <div className="page-wrp">
+          <div className='page-wrp'>
             <Sidebar />
             <Component {...pageProps} />
           </div>
