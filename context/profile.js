@@ -1,6 +1,7 @@
 //Import Libraires
 import React, { createContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 //Create Context
 const ProfileContext = createContext();
@@ -15,7 +16,13 @@ export const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [slugData, setslugData] = useState(null);
 
+  // router
+  const router = useRouter();
+
   useEffect(() => {
+    if (router.query.token) {
+      setToken(router.query.token);
+    }
     if (token !== null) {
       localStorage.setItem("linqToken", token);
       getProfileReq(token)
@@ -32,7 +39,7 @@ export const ProfileProvider = ({ children }) => {
     } else if (localStorage.getItem("linqToken") !== null) {
       setToken(localStorage.getItem("linqToken"));
     }
-  }, [token]);
+  }, [token, router.query.token]);
 
   return (
     <ProfileContext.Provider
