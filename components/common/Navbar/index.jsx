@@ -22,7 +22,7 @@ const Navbar = ({ flag }) => {
   // handle logout
   const logout = () => {
     localStorage.removeItem("linqToken");
-    window.location.href = "/login";
+    window.location.href = "https://lynq.app";
   };
 
   return (
@@ -34,17 +34,17 @@ const Navbar = ({ flag }) => {
             flag == "404" ? (location.href = "/") : router.push("/")
           }
         >
-          <img src="/img/lynq-logo.png" alt="" />
+          <img src='/img/lynq-logo.png' alt='' />
         </a>
         {flag == "404" ? null : (
           <div onClick={logout} className={styles.logout}>
-            <img src="/img/logout.svg" alt="logout" />
+            <img src='/img/logout.svg' alt='logout' />
             <p>Logout</p>
           </div>
         )}
         {flag == "404" ? null : (
           <div className={styles.burger_menu} onClick={() => setOpen(true)}>
-            <img src="/img/burger-menu.svg" alt="" />
+            <img src='/img/burger-menu.svg' alt='' />
           </div>
         )}
       </header>
