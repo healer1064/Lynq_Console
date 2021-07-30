@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
 
 // styles
@@ -10,7 +10,7 @@ import EmptyData from "@/components/common/EmptyData";
 import Head from "./Head";
 import Item from "./Item";
 
-const index = ({ list }) => {
+const index = ({ list, filter }) => {
   // states
   const [data, setData] = useState(list);
   const [order, setOrder] = useState("");

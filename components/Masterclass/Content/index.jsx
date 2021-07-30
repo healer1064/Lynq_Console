@@ -40,7 +40,7 @@ const index = ({ list }) => {
         </Button>
       </Dropdown>
 
-      <List list={list} />
+      <List list={list} filter={filter} />
     </div>
   );
 };
