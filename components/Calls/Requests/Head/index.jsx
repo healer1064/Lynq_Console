@@ -23,16 +23,13 @@ const index = ({ filter, setFilter, setSearchTerm }) => {
             data={["All", "To Validate", "Expired"]}
           />
         }
-        placement="bottomCenter"
+        placement='bottomCenter'
       >
-        <Button className={styles.requests_dropdown_btn} size="large">
+        <Button className={styles.requests_dropdown_btn} size='large'>
           {filter} <CaretDownOutlined />
         </Button>
       </Dropdown>
-      <SearchInput
-        placeholder="Email and event name"
-        setState={setSearchTerm}
-      />
+      <SearchInput placeholder='Search by email' setState={setSearchTerm} />
     </div>
   );
 };

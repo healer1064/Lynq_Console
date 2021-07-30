@@ -8,7 +8,7 @@
         width: 100%
         background: rgba(126, 136, 244, 0.8)
         display: grid
-        grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr 0.2fr
+        grid-template-columns: 1fr 0.8fr 1fr 1fr 0.5fr 0.2fr
         padding: 15px 20px
         border-top-left-radius: 8px
         border-top-right-radius: 8px
@@ -20,16 +20,24 @@
             white-space: nowrap
             overflow: hidden
             text-overflow: ellipsis
-            &:first-child
-                display: flex
-                align-items: center
-                cursor: pointer
+            -webkit-touch-callout: none
+            -webkit-user-select: none
+            -khtml-user-select: none
+            -moz-user-select: none
+            -ms-user-select: none
+            user-select: none
             svg
-                margin-left: 30px
+                margin-left: 20px
+                transition: all 0.5s
+        .cursor
+            cursor: pointer 
+        .dull
+            svg
+                opacity: 0.5
 
     .item 
         display: grid
-        grid-template-columns: 1fr 1fr 0.5fr 1fr 0.5fr 0.2fr
+        grid-template-columns: 1fr 0.8fr 1fr 1fr 0.5fr 0.2fr
         align-items: center
         width: 100%
         padding: 15px 20px
@@ -44,6 +52,10 @@
             color: #000
             font-size: 14px
             font-weight: 400
+        .session_date
+            color: #7e88f4
+            display: flex
+            align-items: center
 
 @media (max-width: 519px)
     .list

@@ -28,14 +28,10 @@ const index = ({ list }) => {
               list={
                 searchTerm === ""
                   ? list
-                  : list.filter(
-                      (item) =>
-                        item.activity_name
-                          .toLowerCase()
-                          .includes(searchTerm.toLowerCase()) ||
-                        item.email
-                          .toLowerCase()
-                          .includes(searchTerm.toLowerCase()),
+                  : list.filter((item) =>
+                      item.email
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
                     )
               }
               filter={filter}

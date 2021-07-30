@@ -31,7 +31,9 @@ const Item = ({ data }) => {
           {moment(data.create_date).fromNow()}
         </p>
         <p>{data.session_duration}mins</p>
-        <p style={{ color: "#7e88f4" }}>1:1</p>
+        <p className={styles.session_date}>
+          {moment(data.starting_date).format("ddd MM/DD/YYYY")}
+        </p>
         <p>{data.email}</p>
         <p>
           {new Date(data.starting_date) < new Date()
