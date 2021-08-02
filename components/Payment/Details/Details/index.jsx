@@ -9,6 +9,7 @@ import Item from "./Item";
 import EmptyData from "@/components/common/EmptyData";
 
 const PaymentsDetails = ({ data }) => {
+  console.log(data);
   return (
     <div className={styles.table}>
       <div className={`${styles.row} ${styles.head}`}>
@@ -29,7 +30,7 @@ const PaymentsDetails = ({ data }) => {
         </div>
       </div>
       {data.length === 0 ? (
-        <EmptyData title="No items to show." flag="payment" />
+        <EmptyData title='No items to show.' flag='payment' />
       ) : (
         data.map((item, i) => {
           return <Item data={item} key={i} />;

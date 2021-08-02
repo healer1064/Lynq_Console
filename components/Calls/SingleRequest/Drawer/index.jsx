@@ -9,6 +9,7 @@ import ProfileContext from "@/context/profile";
 
 // requests
 import { getCallsList } from "@/utils/requests/calendar";
+import { getMasterclass } from "@/utils/requests/masterclass";
 
 // helpers
 import { getCurrentDaySessions } from "@/utils/helpers";
@@ -28,16 +29,25 @@ const RequestDrawer = ({ isOpen, toggle, day }) => {
   useEffect(() => {
     if (token) {
       getCallsList(token)
-        .then((res) => {
-          const arr = getCurrentDaySessions(res, day);
-          if (arr.length > 0) {
-            const sortedList = arr[0].appointments.sort(
-              (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
-            );
-            setAppointments(sortedList);
-          } else {
-            setAppointments([]);
-          }
+        .then((calls) => {
+          getMasterclass(token)
+            .then((masterclasses) => {
+              const res = calls.concat(masterclasses);
+              const arr = getCurrentDaySessions(res, day);
+
+              if (arr.length > 0) {
+                const sortedList = arr[0].appointments.sort(
+                  (a, b) =>
+                    new Date(b.starting_date || b.date) -
+                    new Date(a.starting_date || a.date),
+                );
+
+                setAppointments(sortedList);
+              } else {
+                setAppointments([]);
+              }
+            })
+            .catch(() => toast.error("Failed to get the list."));
         })
         .catch(() => {
           toast.error("Failed to get the list!");
@@ -51,8 +61,8 @@ const RequestDrawer = ({ isOpen, toggle, day }) => {
   return (
     <Drawer
       width={440}
-      title={moment().format("ddd, MMM DD, YYYY")}
-      placement="right"
+      title={moment(day).format("ddd, MMM DD, YYYY")}
+      placement='right'
       closable={true}
       onClose={toggle}
       visible={isOpen}
@@ -61,7 +71,7 @@ const RequestDrawer = ({ isOpen, toggle, day }) => {
         <PageLoading />
       ) : appointments.length == 0 ? (
         <div>
-          <EmptyData title="No appointments" />
+          <EmptyData title='No appointments' />
         </div>
       ) : (
         appointments.map((item, index) => <Item key={index} data={item} />)

@@ -161,9 +161,7 @@ const index = () => {
         <AppointmentsDrawer
           isOpen={apptSwitch}
           toggle={toggleApptsDrawer}
-          //   apt={apt}
-          day={moment(data.starting_date).format("ddd, MMM DD, YYYY")}
-          // thatDate={data.starting_date}
+          day={moment(data.date).format("ddd, MMM DD, YYYY")}
         />
       )}
       {participantsSwitch && (

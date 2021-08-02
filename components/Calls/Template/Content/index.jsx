@@ -162,7 +162,7 @@ const index = ({ activePrivateSession }) => {
           loading={requestSent}
           className={active ? styles.switch_on : styles.switch_off}
         />
-        <span>{active ? "Activate" : "Deactivate"}</span>
+        <span>{active ? "Activated" : "Deactivated"}</span>
       </div>
       <p>Select the options to show on your public profile</p>
       <h3>Length</h3>

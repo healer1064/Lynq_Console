@@ -27,9 +27,9 @@ const groupListInSectionsByDate = (_data) => {
   return groupArrays;
 };
 
-const getCurrentDaySessions = (_data) => {
+const getCurrentDaySessions = (_data, day) => {
   const filteredArray = groupListInSectionsByDate(_data).filter((i) => {
-    var currentDate = moment().format("YYYY-MM-DD");
+    var currentDate = moment(day).format("YYYY-MM-DD");
     var date = moment(i.date).format("YYYY-MM-DD");
     return date == currentDate;
   });

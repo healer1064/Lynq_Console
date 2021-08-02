@@ -98,7 +98,9 @@ const InnerItem = ({ data, refetchResponse }) => {
       className={`${styles.inner_item} ${
         !status
           ? styles.gray
-          : data.activity_name || data.name
+          : data.activity_name ||
+            data.name ||
+            data.summary == "not_google_calendar"
           ? styles.blue
           : styles.yellow
       }`}
@@ -108,6 +110,8 @@ const InnerItem = ({ data, refetchResponse }) => {
           ? `${data.session_duration} mins session`
           : data.name
           ? data.name
+          : data.summary == "not_google_calendar"
+          ? `${data.session_duration} mins session`
           : data.summary}
       </div>
       <div className={styles.det}>
@@ -132,7 +136,7 @@ const InnerItem = ({ data, refetchResponse }) => {
           mins
         </b>
       </div>
-      {data.activity_name && (
+      {data.summary == "not_google_calendar" && (
         <div className={styles.client}>
           Client: {data.first_name + " " + data.last_name}
           <div className={styles.line}></div>
@@ -151,23 +155,24 @@ const InnerItem = ({ data, refetchResponse }) => {
           {data.note_to_teacher ? "See client's question" : "See details"}
         </button>
       )}
-      {!data.activity_name && !data.name && (
-        <>
-          <br />
-          <span>Booking from Google Calendar</span>
-        </>
-      )}
+      {data.summary == "not_google_calendar" ||
+        (!data.name && (
+          <>
+            <br />
+            <span>Booking from Google Calendar</span>
+          </>
+        ))}
       {!status && <span className={styles.past_event}>Past Event</span>}
       {status && (
         <>
-          {(data.activity_name || data.name) && (
+          {(data.summary == "not_google_calendar" || data.name) && (
             <div style={{ marginTop: "1rem" }}>
               <a onClick={showDeleteModal} className={styles.btn_cancel}>
                 Delete the session
               </a>
               <Link
                 href={
-                  data.activity_name
+                  data.starting_date
                     ? `https://lynq.app/${slugData?.slug}/ex/one-to-one/${data.id}`
                     : `https://lynq.app/${slugData?.slug}/ex/masterclass/${data.id}?role=expert`
                 }
