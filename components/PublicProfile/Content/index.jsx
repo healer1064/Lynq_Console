@@ -83,7 +83,7 @@ const index = ({ profile }) => {
       tags: keywords,
       active_message: profile?.active_message,
       active_private_session: profile?.active_private_session,
-      active_masterclass: profile?.active_masterclass,
+      active_masterclass: true,
     };
     postProfileReq(token, reqData)
       .then((res) => {
