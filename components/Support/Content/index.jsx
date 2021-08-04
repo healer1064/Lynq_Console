@@ -35,6 +35,7 @@ const index = () => {
           setLoading(false);
           if (res.status == 200) {
             setModal(true);
+            setMessage("");
           } else {
             toast.error("Failed to send message to Lynq support!");
           }
