@@ -89,7 +89,7 @@ const index = ({ profile }) => {
       .then((res) => {
         setLoading(false);
         if (res.status) {
-          toast.error("Failed to update profile.");
+          toast.error("Failed to update the profile.");
         } else {
           toast.success("Profile updated successfully.");
         }
