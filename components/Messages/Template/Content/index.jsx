@@ -45,19 +45,6 @@ const index = ({ data, responseRefresh }) => {
       toast.info("Please save the template first.");
     }
   }
-  // function onChange(checked) {
-  //   if (data.length > 0) {
-  //     putMessageTemplate(token, data[0].id, { ...data[0], enabled: checked })
-  //       .then((res) => {
-  //         console.log(res);
-  //         responseRefresh();
-  //         setActive(checked);
-  //       })
-  //       .catch(() => toast.error("Failed to change status"));
-  //   } else {
-  //     toast.info("Please save the template first.");
-  //   }
-  // }
 
   return (
     <div className={styles.content}>

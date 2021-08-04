@@ -56,7 +56,7 @@ const index = () => {
           experience.
         </p>
         <div>
-          <h3>Type your request</h3>
+          <h3>Describe your request</h3>
           <textarea
             value={message}
             onChange={(e) => {
