@@ -164,7 +164,7 @@ const Leftbar = () => {
             <span>Dashboard</span>
           </a>
         </Link>
-        <a onClick={() => setPayments(!payments)}>
+        {/* <a onClick={() => setPayments(!payments)}>
           <img src='/img/nav-payments.svg' alt='' />
           <span>Payment</span>
           {payments ? (
@@ -174,17 +174,25 @@ const Leftbar = () => {
           )}
         </a>
         {payments && (
-          <div className={styles.nav_sub_links}>
-            <Link href='/payment/balance'>
-              <p
-                className={
-                  router.pathname === "/payment/balance" ? styles.active : ""
-                }
-              >
-                Balance
-              </p>
-            </Link>
-            <Link href='/payment/details'>
+          <div className={styles.nav_sub_links}> */}
+        <Link href='/payment/balance'>
+          <a
+            className={
+              router.pathname === "/payment/balance" ? styles.active : ""
+            }
+          >
+            <img src='/img/nav-payments.svg' alt='' />
+            <span>Payment</span>
+          </a>
+          {/* <p
+            className={
+              router.pathname === "/payment/balance" ? styles.active : ""
+            }
+          >
+            Balance
+          </p> */}
+        </Link>
+        {/* <Link href='/payment/details'>
               <p
                 className={
                   router.pathname === "/payment/details" ? styles.active : ""
@@ -194,7 +202,7 @@ const Leftbar = () => {
               </p>
             </Link>
           </div>
-        )}
+        )} */}
       </nav>
       <nav>
         <Link href='/support'>

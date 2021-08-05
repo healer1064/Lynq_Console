@@ -134,23 +134,31 @@ const MobileNav = ({
               <span>Support</span>
             </a>
           </Link>
-          <a onClick={() => setPayment(!payment)}>
+          {/* <a onClick={() => setPayment(!payment)}>
             <span style={{ paddingRight: "15px" }}>Payment</span>
             {payment ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
-          </a>
-          {payment && (
-            <div className={styles.sub_links}>
-              <Link href='/payment/balance'>
-                <span
+          </a> */}
+          {/* {payment && (
+            <div className={styles.sub_links}> */}
+          <Link href='/payment/balance'>
+            <a
+              onClick={() => setOpen(false)}
+              className={
+                router.pathname === "/payment/balance" ? styles.active : ""
+              }
+            >
+              <span>Payment</span>
+            </a>
+            {/* <span
                   onClick={() => setOpen(false)}
                   className={
                     router.pathname === "/payment/balance" ? styles.active : ""
                   }
                 >
                   Balance
-                </span>
-              </Link>
-              <Link href='/payment/details'>
+                </span> */}
+          </Link>
+          {/* <Link href='/payment/details'>
                 <span
                   onClick={() => setOpen(false)}
                   className={
@@ -161,7 +169,7 @@ const MobileNav = ({
                 </span>
               </Link>
             </div>
-          )}
+          )} */}
           <Link href='/dashboard'>
             <a
               onClick={() => setOpen(false)}
