@@ -27,7 +27,7 @@ const RequestDrawer = ({ isOpen, toggle, data }) => {
           ) : (
             <>
               <div className={styles.head}>
-                <p>S.No</p>
+                <p>Order Id</p>
                 <p>First Name</p>
                 <p>Last Name</p>
                 <p>Email</p>
@@ -40,7 +40,7 @@ const RequestDrawer = ({ isOpen, toggle, data }) => {
             </>
           )}
         </TabPane>
-        <TabPane tab='Cancelled' key='2'>
+        <TabPane tab='Canceled' key='2'>
           {!data ? (
             <PageLoading />
           ) : data.filter((item) => item.status == "CANCELLED").length == 0 ? (
@@ -50,7 +50,7 @@ const RequestDrawer = ({ isOpen, toggle, data }) => {
           ) : (
             <>
               <div className={styles.head}>
-                <p>S.No</p>
+                <p>Order Id</p>
                 <p>First Name</p>
                 <p>Last Name</p>
                 <p>Email</p>

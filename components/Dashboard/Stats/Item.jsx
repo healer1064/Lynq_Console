@@ -1,70 +1,20 @@
-// libraries
-import AnimatedNumber from "animated-number-react";
-
 // styles
-import styles from "./styles.module.sass";
+import styles from "./styles.module.scss";
 
-// components
-import PageLoading from "../../common/PageLoading";
-
-const Item = ({ stats }) => {
+const Item = ({ name, number, image, percent, trend }) => {
   return (
-    <div className={styles.row}>
-      <div className={styles.card}>
-        <div className={styles.icon}>
-          <img src="/img/home-stats-revenue.svg" alt="" />
-        </div>
-        <div className={styles.title}>Revenue</div>
-        <div className={styles.num}>
-          {!stats ? (
-            <PageLoading />
-          ) : (
-            <>
-              $
-              <AnimatedNumber
-                value={stats.revenue}
-                formatValue={(value) => value.toFixed(2)}
-              />
-            </>
-          )}
-        </div>
+    <div className={styles.item}>
+      <div>
+        <h5>{number}</h5>
+        <h6>{name}</h6>
+        <p>
+          <span className={trend == "up" ? styles.green : styles.red}>
+            {percent}
+          </span>{" "}
+          Since yesterday
+        </p>
       </div>
-      <div className={styles.card}>
-        <div className={styles.icon}>
-          <img src="/img/home-stats-session.svg" alt="" />
-        </div>
-        <div className={styles.title}>Session</div>
-        <div className={styles.num}>
-          {!stats ? (
-            <PageLoading />
-          ) : (
-            <>
-              <AnimatedNumber
-                value={stats.session}
-                formatValue={(value) => value.toFixed(0)}
-              />
-            </>
-          )}
-        </div>
-      </div>
-      <div className={styles.card}>
-        <div className={styles.icon}>
-          <img src="/img/home-stats-request.svg" alt="" />
-        </div>
-        <div className={styles.title}>Request</div>
-        <div className={styles.num}>
-          {!stats ? (
-            <PageLoading />
-          ) : (
-            <>
-              <AnimatedNumber
-                value={stats.request}
-                formatValue={(value) => value.toFixed(0)}
-              />
-            </>
-          )}
-        </div>
-      </div>
+      <img src={image} alt={name} />
     </div>
   );
 };

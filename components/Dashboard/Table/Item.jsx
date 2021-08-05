@@ -14,7 +14,7 @@ const Item = ({ data }) => {
   } = data;
 
   return (
-    <div className={styles.row}>
+    <div className={`${styles.row} ${styles.background}`}>
       <ReactTooltip />
       <div className={`${styles.col} ${styles.first_name}`}>
         <span>{first_name}</span>

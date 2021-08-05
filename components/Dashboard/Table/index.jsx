@@ -18,16 +18,76 @@ const index = ({
   setPageNumber,
 }) => {
   if (data.length === 0) {
-    return <EmptyData title="No clients to show" />;
+    return <EmptyData title='No clients to show' />;
   } else {
     return (
       <div className={styles.table}>
         <div className={`${styles.row} ${styles.head}`}>
-          <div className={`${styles.col} ${styles.first_name}`}>
-            <strong>First Name</strong>
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() =>
+              setOrder(order == "fnameAsc" ? "fnameDsc" : "fnameAsc")
+            }
+            className={`${styles.col} ${styles.first_name}`}
+          >
+            <strong
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              First Name{" "}
+              {order == "fnameDsc" ? (
+                <CaretUpOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "fnameDsc" ? "1" : "0.6",
+                  }}
+                />
+              ) : (
+                <CaretDownOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "fnameAsc" ? "1" : "0.6",
+                  }}
+                />
+              )}
+            </strong>
           </div>
-          <div className={`${styles.col} ${styles.last_name}`}>
-            <strong>Last Name</strong>
+          <div
+            style={{
+              cursor: "pointer",
+            }}
+            onClick={() =>
+              setOrder(order == "lnameAsc" ? "lnameDsc" : "lnameAsc")
+            }
+            className={`${styles.col} ${styles.last_name}`}
+          >
+            <strong
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              Last Name{" "}
+              {order == "lnameDsc" ? (
+                <CaretUpOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "lnameDsc" ? "1" : "0.6",
+                  }}
+                />
+              ) : (
+                <CaretDownOutlined
+                  style={{
+                    marginLeft: "30px",
+                    opacity: order == "lnameAsc" ? "1" : "0.6",
+                  }}
+                />
+              )}
+            </strong>
           </div>
           <div className={`${styles.col} ${styles.email}`}>
             <strong>Email Address</strong>

@@ -2,7 +2,7 @@
 import styles from "./styles.module.sass";
 
 // components
-import { Tooltip } from "antd";
+import ReactTooltip from "react-tooltip";
 
 const Item = ({ data, index }) => {
   // data
@@ -10,16 +10,11 @@ const Item = ({ data, index }) => {
 
   return (
     <div className={styles.body}>
+      <ReactTooltip />
       <p>{index + 1}</p>
-      <Tooltip placement='top' title={firstname}>
-        <p>{firstname}</p>
-      </Tooltip>
-      <Tooltip placement='top' title={lastname}>
-        <p>{lastname}</p>
-      </Tooltip>
-      <Tooltip placement='top' title={email}>
-        <p>{email}</p>
-      </Tooltip>
+      <p data-tip={firstname}>{firstname}</p>
+      <p data-tip={lastname}>{lastname}</p>
+      <p data-tip={email}>{email}</p>
     </div>
   );
 };

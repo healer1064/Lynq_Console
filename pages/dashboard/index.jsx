@@ -20,7 +20,7 @@ const index = () => {
   // state
   const [clients, setClients] = useState(null);
   const [stats, setStats] = useState(null);
-  const [period, setPeriod] = useState("TODAY");
+  const [period, setPeriod] = useState("Last 30 days");
 
   useEffect(() => {
     if (token) {
@@ -30,24 +30,29 @@ const index = () => {
     }
   }, [token]);
 
-  useEffect(() => {
-    if (token) {
-      getStatsReq(token, period)
-        .then((res) => setStats(res))
-        .catch(() => toast.error("Failed to fetch stats."));
-    }
-  }, [token, period]);
+  // useEffect(() => {
+  //   if (token) {
+  //     getStatsReq(token, period)
+  //       .then((res) => setStats(res))
+  //       .catch(() => toast.error("Failed to fetch stats."));
+  //   }
+  // }, [token, period]);
 
   return (
     <>
       <Head>
         <title>Dashboard | Lynq </title>
       </Head>
-      <div className="content-wrp">
-        {!clients || !stats ? (
+      <div className='content-wrp'>
+        {!clients ? (
           <PageLoading />
         ) : (
-          <Content clients={clients} stats={stats} setPeriod={setPeriod} />
+          <Content
+            clients={clients}
+            stats={stats}
+            period={period}
+            setPeriod={setPeriod}
+          />
         )}
       </div>
     </>

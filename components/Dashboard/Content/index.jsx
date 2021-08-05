@@ -12,7 +12,7 @@ import Stats from "../Stats";
 import SearchInput from "@/components/common/SearchInput";
 import Table from "../Table";
 
-const index = ({ clients, stats, setPeriod }) => {
+const index = ({ clients, stats, period, setPeriod }) => {
   // states
   const [response, setResponse] = useState(null);
   const [filteredData, setFilteredData] = useState(null);
@@ -35,8 +35,8 @@ const index = ({ clients, stats, setPeriod }) => {
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase())) ||
                 (i.last_name &&
-                  i.last_name.toLowerCase().includes(searchTerm.toLowerCase()))
-            )
+                  i.last_name.toLowerCase().includes(searchTerm.toLowerCase())),
+            ),
       );
     }
   }, [searchTerm, clients]);
@@ -47,21 +47,37 @@ const index = ({ clients, stats, setPeriod }) => {
       order == "sessionAsc"
         ? setFilteredData(
             response.sort(
-              (a, b) => new Date(a.starting_date) - new Date(b.starting_date)
-            )
+              (a, b) => new Date(a.starting_date) - new Date(b.starting_date),
+            ),
           )
         : order == "sessionDsc"
         ? setFilteredData(
             response.sort(
-              (a, b) => new Date(b.starting_date) - new Date(a.starting_date)
-            )
+              (a, b) => new Date(b.starting_date) - new Date(a.starting_date),
+            ),
           )
         : order == "priceAsc"
         ? setFilteredData(
-            response.sort((a, b) => a.display_price - b.display_price)
+            response.sort((a, b) => a.display_price - b.display_price),
+          )
+        : order == "priceDsc"
+        ? setFilteredData(
+            response.sort((a, b) => b.display_price - a.display_price),
+          )
+        : order == "lnameAsc"
+        ? setFilteredData(
+            response.sort((a, b) => a.last_name.localeCompare(b.last_name)),
+          )
+        : order == "lnameDsc"
+        ? setFilteredData(
+            response.sort((a, b) => b.last_name.localeCompare(a.last_name)),
+          )
+        : order == "fnameAsc"
+        ? setFilteredData(
+            response.sort((a, b) => a.first_name.localeCompare(b.first_name)),
           )
         : setFilteredData(
-            response.sort((a, b) => b.display_price - a.display_price)
+            response.sort((a, b) => b.first_name.localeCompare(a.first_name)),
           );
 
       // setting pagination
@@ -73,14 +89,14 @@ const index = ({ clients, stats, setPeriod }) => {
 
   return (
     <>
-      <Stats data={stats} setPeriod={setPeriod} />
+      <Stats data={stats} period={period} setPeriod={setPeriod} />
       <h3 className={styles.stats_title}>Detail by clients</h3>
       <div className={styles.clients}>
         <div className={styles.top}>
           <div className={`invitations-menu-search ${styles.search_wrap}`}>
             <SearchInput
               setState={setSearchTerm}
-              placeholder="First and last name"
+              placeholder='First and last name'
             />
           </div>
         </div>

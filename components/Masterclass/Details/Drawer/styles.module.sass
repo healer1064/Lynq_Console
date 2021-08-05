@@ -1,23 +1,32 @@
 .head
     display: grid
-    grid-template-columns: 0.3fr 1fr 1fr 1fr
+    grid-template-columns: 0.8fr 1fr 1fr 1fr
     p
         cursor: context-menu
         font-weight: 700
-        text-align: center
+        text-align: left
         word-break: break-word
         overflow-wrap: break-word
+        padding: 0px 5px 0px 8px
+        border-right: 1px solid white
 .body
     display: grid
-    grid-template-columns: 0.3fr 1fr 1fr 1fr
+    grid-template-columns: 0.8fr 1fr 1fr 1fr
+    background: white
     p
         font-size: 12px
         margin-bottom: 6px
         cursor: context-menu
-        text-align: center
+        text-align: left
         word-break: break-word
         overflow-wrap: break-word
         margin: 0
         text-overflow: ellipsis
         white-space: nowrap
         overflow: hidden
+        border-right: 1px solid white
+        height: 100%
+        padding: 8px 5px 8px 8px
+    &:nth-child(even)
+        background: #f0f0f0
+            

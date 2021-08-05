@@ -2,75 +2,96 @@
 import { useState } from "react";
 
 // styles
-import styles from "./styles.module.sass";
+import styles from "./styles.module.scss";
+
+// icons
+import { CaretDownOutlined } from "@ant-design/icons";
+import { AiOutlineCalendar } from "react-icons/ai";
 
 // components
+import { Dropdown, Button } from "antd";
+import DropdownMenu from "./DropdownMenu";
 import Item from "./Item";
 
-const index = ({ data, setPeriod }) => {
+const index = ({ data, period, setPeriod }) => {
   // states
   const [index, setIndex] = useState(1);
 
   return (
     <div className={styles.stats}>
-      <div className={styles.switch}>
-        <div
-          className={`${styles.option}  ${index === 1 ? styles.active : ""}`}
-          onClick={() => {
-            setIndex(1);
-            setPeriod("TODAY");
-          }}
+      <div className={styles.head}>
+        <Dropdown
+          arrow
+          overlay={<DropdownMenu state={period} setState={setPeriod} />}
+          placement='bottomCenter'
         >
-          Today
-        </div>
-        <div
-          className={`${styles.option}  ${index === 2 ? styles.active : ""}`}
-          onClick={() => {
-            setIndex(2);
-            setPeriod("WEEK");
-          }}
-        >
-          Weekly
-        </div>
-        <div
-          className={`${styles.option}  ${index === 3 ? styles.active : ""}`}
-          onClick={() => {
-            setIndex(3);
-            setPeriod("MONTH");
-          }}
-        >
-          Monthly
-        </div>
-        <div
-          className={`${styles.option}  ${index === 4 ? styles.active : ""}`}
-          onClick={() => {
-            setIndex(4);
-            setPeriod("YEAR");
-          }}
-        >
-          Yearly
-        </div>
+          <Button className={styles.dropdown_btn} size='large'>
+            <AiOutlineCalendar /> {period} <CaretDownOutlined />
+          </Button>
+        </Dropdown>
       </div>
-      <select
-        value={index}
-        onChange={(e) => {
-          setIndex(e.target.value);
-          e.target.value == 1
-            ? setPeriod("TODAY")
-            : e.target.value == 2
-            ? setPeriod("WEEK")
-            : e.target.value == 3
-            ? setPeriod("MONTH")
-            : setPeriod("YEAR");
-        }}
-        className={styles.select}
-      >
-        <option value={1}>Today</option>
-        <option value={2}>Weekly</option>
-        <option value={3}>Monthly</option>
-        <option value={4}>Yearly</option>
-      </select>
-      <Item stats={data} />
+      <div className={styles.list}>
+        <Item
+          name='Total revenue'
+          number='$18.700'
+          percent='+8.85'
+          image='/img/dashboard-dollar.svg'
+          trend='up'
+        />
+        <Item
+          name='Profile visits'
+          number='22'
+          percent='-7.78'
+          image='/img/dashboard-trend.svg'
+          trend='down'
+        />
+      </div>
+      <div className={styles.list}>
+        <Item
+          name='Clicks on 1:1 video calls'
+          number='4'
+          percent='+11.3'
+          image='/img/dashboard-click.svg'
+          trend='up'
+        />
+        <Item
+          name='Clicks on masterclasses'
+          number='4'
+          percent='+11.3'
+          image='/img/dashboard-click.svg'
+          trend='up'
+        />
+        <Item
+          name='Clicks on video messages'
+          number='4'
+          percent='+11.3'
+          image='/img/dashboard-click.svg'
+          trend='up'
+        />
+      </div>
+      <div className={styles.list}>
+        <Item
+          name='Total 1:1 video calls purchased'
+          number='28'
+          percent='+11.3'
+          image='/img/dashboard-cart.svg'
+          trend='up'
+        />
+        <Item
+          name='Total masterclasses purchased'
+          number='28'
+          percent='+11.3'
+          image='/img/dashboard-cart.svg'
+          trend='up'
+        />
+        <Item
+          name='Total video messages purchased'
+          number='28'
+          percent='+11.3'
+          image='/img/dashboard-cart.svg'
+          trend='up'
+        />
+      </div>
     </div>
   );
 };
