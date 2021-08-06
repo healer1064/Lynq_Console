@@ -9,7 +9,7 @@ const Item = ({ name, number, image, percent, trend }) => {
         <h6>{name}</h6>
         <p>
           <span className={trend == "up" ? styles.green : styles.red}>
-            {percent}
+            {percent}%
           </span>{" "}
           Since yesterday
         </p>

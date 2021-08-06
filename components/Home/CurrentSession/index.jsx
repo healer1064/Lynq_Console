@@ -18,7 +18,7 @@ const index = ({ currSession, slugData }) => {
           <a
             href={
               currSession.type == "Masterclass"
-                ? `https://lynq.app/${slugData.slug}/ex/masterclass/${currSession.id}`
+                ? `https://lynq.app/${slugData.slug}/ex/masterclass/${currSession.id}?role=expert`
                 : `https://lynq.app/${slugData.slug}/ex/one-to-one/${currSession.id}`
             }
             className={styles.access_live}

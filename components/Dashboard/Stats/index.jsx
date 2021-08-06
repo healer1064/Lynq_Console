@@ -33,14 +33,14 @@ const index = ({ data, period, setPeriod }) => {
       <div className={styles.list}>
         <Item
           name='Total revenue'
-          number='$18.700'
+          number='$6,422'
           percent='+8.85'
           image='/img/dashboard-dollar.svg'
           trend='up'
         />
         <Item
           name='Profile visits'
-          number='22'
+          number='1324'
           percent='-7.78'
           image='/img/dashboard-trend.svg'
           trend='down'
@@ -49,44 +49,42 @@ const index = ({ data, period, setPeriod }) => {
       <div className={styles.list}>
         <Item
           name='Clicks on 1:1 video calls'
-          number='4'
+          number='31'
           percent='+11.3'
           image='/img/dashboard-click.svg'
           trend='up'
         />
         <Item
           name='Clicks on masterclasses'
-          number='4'
+          number='192'
           percent='+11.3'
           image='/img/dashboard-click.svg'
           trend='up'
         />
         <Item
           name='Clicks on video messages'
-          number='4'
+          number='161'
           percent='+11.3'
           image='/img/dashboard-click.svg'
           trend='up'
         />
-      </div>
-      <div className={styles.list}>
         <Item
           name='Total 1:1 video calls purchased'
-          number='28'
+          number='17'
           percent='+11.3'
           image='/img/dashboard-cart.svg'
           trend='up'
         />
         <Item
           name='Total masterclasses purchased'
-          number='28'
+          number='98'
           percent='+11.3'
           image='/img/dashboard-cart.svg'
           trend='up'
         />
         <Item
           name='Total video messages purchased'
-          number='28'
+          number='71'
           percent='+11.3'
           image='/img/dashboard-cart.svg'
           trend='up'
