@@ -22,7 +22,7 @@ const Navbar = ({ flag }) => {
   // handle logout
   const logout = () => {
     localStorage.removeItem("linqToken");
-    window.location.href = "https://lynq.app";
+    window.location.href = "https://lynq.app?logout=true";
   };
 
   return (

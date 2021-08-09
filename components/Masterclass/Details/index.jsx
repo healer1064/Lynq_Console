@@ -72,6 +72,7 @@ const index = () => {
     setDeleteLoading(true);
     deleteMasterclass(token, _id)
       .then((res) => {
+        console.log(res);
         setDeleteLoading(false);
         if (res.status != 200) {
           toast.error("Failed to delete masterclass.");
