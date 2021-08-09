@@ -18,11 +18,14 @@ import {
   getHomeNextSession,
   groupListInSectionsByDate,
 } from "@/utils/helpers";
-import { filterByCurrWeek } from "@/utils/helpers/dates";
+import { compareDates, filterByCurrWeek } from "@/utils/helpers/dates";
 
 // components
 import PageLoading from "@/components/common/PageLoading";
 import Content from "@/components/Home/Content";
+
+// mockup
+import mockup from "@/utils/data";
 
 const home = () => {
   // context
@@ -51,6 +54,7 @@ const home = () => {
                 toast.error("Failed to get the list.");
               } else {
                 const res = calls.concat(masterclasses);
+                res.sort(compareDates);
                 setData(filterByCurrWeek(groupListInSectionsByDate(res)));
                 setTemp(groupListInSectionsByDate(res));
                 const arr = getCurrentDaySessions(res);
@@ -68,6 +72,18 @@ const home = () => {
     }
   }, [token, refetch]);
 
+  // mockup test
+  // useEffect(() => {
+  //   let res = mockup.masterclasses;
+  //   setData(filterByCurrWeek(groupListInSectionsByDate(res)));
+  //   setTemp(groupListInSectionsByDate(res));
+  //   const arr = getCurrentDaySessions(res);
+  //   if (arr.length > 0) {
+  //     getHomeCurrentSession(arr[0].appointments, setCurrSession);
+  //   }
+  //   getHomeNextSession(res, setNextSession);
+  // }, []);
+
   const onWeekChange = (_start, _end) => {
     _start = format(_start, "yyyy-MM-dd");
     _end = format(_end, "yyyy-MM-dd");
@@ -75,7 +91,7 @@ const home = () => {
     let filter = temp.filter(
       (item) =>
         new Date(item.date).getTime() >= new Date(_start).getTime() &&
-        new Date(item.date).getTime() <= new Date(_end).getTime(),
+        new Date(item.date).getTime() <= new Date(_end).getTime()
     );
     setData(filter);
   };
@@ -86,7 +102,7 @@ const home = () => {
   };
 
   return (
-    <div className='home-wrp'>
+    <div className="home-wrp">
       <Head>
         <title>Home | Lynq</title>
       </Head>

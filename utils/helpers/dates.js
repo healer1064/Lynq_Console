@@ -57,7 +57,7 @@ export const dateFormat = (_sdate, _edate) => {
       return `${start[1]}-${end[1]} ${start[0]} ${start[2]}`;
     } else {
       return `${start[1]} ${moment(_sdate).format("MMM")} - ${end[1]} ${moment(
-        _edate,
+        _edate
       ).format("MMM")}  ${start[2]}`;
     }
   }
@@ -162,7 +162,7 @@ export const filterByCurrWeek = (_list) => {
   let filter = _list.filter(
     (item) =>
       new Date(item.date).getTime() >= weekStart.getTime() &&
-      new Date(item.date).getTime() <= weekEnd.getTime(),
+      new Date(item.date).getTime() <= weekEnd.getTime()
   );
 
   return filter;
