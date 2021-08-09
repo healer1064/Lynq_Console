@@ -1,5 +1,5 @@
 // libraries
-import { useState } from "react";
+import React from "react";
 
 // styles
 import styles from "./styles.module.scss";
@@ -14,9 +14,6 @@ import DropdownMenu from "./DropdownMenu";
 import Item from "./Item";
 
 const index = ({ data, period, setPeriod }) => {
-  // states
-  const [index, setIndex] = useState(1);
-
   return (
     <div className={styles.stats}>
       <div className={styles.head}>
@@ -33,14 +30,14 @@ const index = ({ data, period, setPeriod }) => {
       <div className={styles.list}>
         <Item
           name='Total revenue'
-          number='$6,422'
+          number={`$${data.global.revenue}`}
           percent='+8.85'
           image='/img/dashboard-dollar.svg'
           trend='up'
         />
         <Item
           name='Profile visits'
-          number='1324'
+          number={data.global.clicks}
           percent='-7.78'
           image='/img/dashboard-trend.svg'
           trend='down'
@@ -49,45 +46,63 @@ const index = ({ data, period, setPeriod }) => {
       <div className={styles.list}>
         <Item
           name='Clicks on 1:1 video calls'
-          number='31'
+          number={data.private_session.clicks}
           percent='+11.3'
           image='/img/dashboard-click.svg'
           trend='up'
+          type='1-1'
+          order={1}
+          row='upper'
         />
         <Item
           name='Clicks on masterclasses'
-          number='192'
+          number={data.masterclass.clicks}
           percent='+11.3'
           image='/img/dashboard-click.svg'
           trend='up'
+          type='masterclass'
+          order={2}
+          row='upper'
         />
         <Item
           name='Clicks on video messages'
-          number='161'
+          number={data.message.clicks}
           percent='+11.3'
           image='/img/dashboard-click.svg'
           trend='up'
+          type='message'
+          order={3}
+          row='upper'
         />
         <Item
           name='Total 1:1 video calls purchased'
-          number='17'
+          number={data.private_session.revenue}
           percent='+11.3'
           image='/img/dashboard-cart.svg'
           trend='up'
+          type='1-1'
+          order={11}
+          row='lower'
         />
         <Item
           name='Total masterclasses purchased'
-          number='98'
+          number={data.masterclass.revenue}
           percent='+11.3'
           image='/img/dashboard-cart.svg'
           trend='up'
+          type='masterclass'
+          order={12}
+          row='lower'
         />
         <Item
           name='Total video messages purchased'
-          number='71'
+          number={data.message.revenue}
           percent='+11.3'
           image='/img/dashboard-cart.svg'
           trend='up'
+          type='message'
+          order={13}
+          row='lower'
         />
       </div>
     </div>

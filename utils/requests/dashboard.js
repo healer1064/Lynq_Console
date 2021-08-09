@@ -9,12 +9,12 @@ const getClientsReq = async (_token) => {
 
   const response = await fetch(
     `https://api.lynq.app/account/clients?t=${_token}`,
-    config
+    config,
   );
   return await response.json();
 };
 
-const getStatsReq = async (_token, _period) => {
+const getStatsReq = async (_token) => {
   const config = {
     method: "GET",
     Accept: "application/json",
@@ -22,8 +22,8 @@ const getStatsReq = async (_token, _period) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/stats?t=${_token}&period=${_period}`,
-    config
+    `https://api.lynq.app/stats?t=${_token}`,
+    config,
   );
 
   return await response.json();
