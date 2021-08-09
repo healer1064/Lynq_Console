@@ -30,13 +30,13 @@ const index = () => {
     }
   }, [token]);
 
-  // useEffect(() => {
-  //   if (token) {
-  //     getStatsReq(token, period)
-  //       .then((res) => setStats(res))
-  //       .catch(() => toast.error("Failed to fetch stats."));
-  //   }
-  // }, [token, period]);
+  useEffect(() => {
+    if (token) {
+      getStatsReq(token)
+        .then((res) => setStats(res))
+        .catch(() => toast.error("Failed to fetch stats."));
+    }
+  }, [token]);
 
   return (
     <>
@@ -44,7 +44,7 @@ const index = () => {
         <title>Dashboard | Lynq </title>
       </Head>
       <div className='content-wrp'>
-        {!clients ? (
+        {!clients || !stats ? (
           <PageLoading />
         ) : (
           <Content
