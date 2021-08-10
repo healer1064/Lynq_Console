@@ -194,6 +194,7 @@ const InnerItem = ({ data, refetchResponse }) => {
         </>
       )}
       <Modal
+        centered
         title={`${data.first_name} ${data.last_name}'s question`}
         visible={descModal}
         onOk={() => setDescModal(false)}
@@ -202,6 +203,7 @@ const InnerItem = ({ data, refetchResponse }) => {
         <p>{data.note_to_teacher}</p>
       </Modal>
       <Modal
+        centered
         title='Are you sure?'
         visible={deleteModal}
         onOk={handleDelete}
