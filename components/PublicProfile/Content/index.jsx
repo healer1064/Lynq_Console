@@ -159,10 +159,10 @@ const index = ({ profile }) => {
             onChange={(e) => {
               setDesc(e.target.value);
             }}
-            maxLength='300'
+            maxLength='700'
           ></textarea>
         </div>
-        <span className={styles.desc_count}>{desc.length}/300</span>
+        <span className={styles.desc_count}>{desc.length}/700</span>
       </div>
       <Keywords keywords={keywords} setKeywords={setKeywords} />
       <div className={styles.text_uppercase}>
