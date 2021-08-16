@@ -162,9 +162,9 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           id='desc'
-          maxLength='300'
+          maxLength='700'
         ></textarea>
-        <span>{description.length}/300</span>
+        <span>{description.length}/700</span>
       </div>
       <button onClick={handleSave}>
         {buttonLoading ? <Loading /> : "Save"}

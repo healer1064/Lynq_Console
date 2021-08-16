@@ -45,7 +45,7 @@ const index = ({ setState, data }) => {
         <textarea
           disabled
           id='desc'
-          maxLength='300'
+          maxLength='700'
           value={
             data[0] ? (data[0].description ? data[0].description : "") : ""
           }
