@@ -18,6 +18,7 @@ import {
 import ImageSelect from "../ImageSelect";
 import SlugComp from "../Slug";
 import Keywords from "../Keywords";
+import Charity from "../Charity";
 import Loading from "@/components/common/Loading";
 
 const index = ({ profile }) => {
@@ -165,6 +166,7 @@ const index = ({ profile }) => {
         <span className={styles.desc_count}>{desc.length}/700</span>
       </div>
       <Keywords keywords={keywords} setKeywords={setKeywords} />
+      <Charity />
       <div className={styles.text_uppercase}>
         <button onClick={(e) => onSubmit(e)} style={{ position: "relative" }}>
           {loading && <Loading />}Save Profile
