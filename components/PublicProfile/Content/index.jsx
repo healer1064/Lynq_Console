@@ -33,6 +33,8 @@ const index = ({ profile }) => {
   const [keywords, setKeywords] = useState([]);
   const [newSlug, setNewSlug] = useState("");
   const [image, setImage] = useState(null);
+  const [charity, setCharity] = useState(false);
+  const [charityName, setCharityName] = useState("");
   const [slugRule, setSlugRule] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -45,6 +47,8 @@ const index = ({ profile }) => {
       setImage(profile.public_image || null);
       setDesc(profile.bio ? profile.bio : "");
       setKeywords(profile.tags);
+      setCharity(profile.charity ? profile.charity : "");
+      setCharityName(profile.charity_name ? profile.charity_name : "");
     }
   }, [profile]);
 
@@ -85,6 +89,8 @@ const index = ({ profile }) => {
       active_message: profile?.active_message,
       active_private_session: profile?.active_private_session,
       active_masterclass: true,
+      charity,
+      charity_name: charityName,
     };
     postProfileReq(token, reqData)
       .then((res) => {
@@ -166,7 +172,12 @@ const index = ({ profile }) => {
         <span className={styles.desc_count}>{desc.length}/700</span>
       </div>
       <Keywords keywords={keywords} setKeywords={setKeywords} />
-      <Charity />
+      <Charity
+        charity={charity}
+        setCharity={setCharity}
+        charityName={charityName}
+        setCharityName={setCharityName}
+      />
       <div className={styles.text_uppercase}>
         <button onClick={(e) => onSubmit(e)} style={{ position: "relative" }}>
           {loading && <Loading />}Save Profile

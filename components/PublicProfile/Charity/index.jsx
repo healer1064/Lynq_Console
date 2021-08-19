@@ -12,18 +12,12 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 // components
 import { Tooltip } from "antd";
 
-const index = () => {
-  // states
-  const [loading, setLoading] = useState(false);
-  const [isOn, setIsOn] = useState(false);
-  const [name, setName] = useState("");
-  const [website, setWebsite] = useState("");
-
+const index = ({ charity, setCharity, charityName, setCharityName }) => {
   const onChange = (checked) => {
-    if (name.length > 0 && website.length > 0) {
-      setIsOn(true);
+    if (charityName.length > 0) {
+      setCharity(checked);
     } else {
-      toast.info("Please type name and website first.");
+      toast.info("Please type charity name first");
     }
   };
 
@@ -43,9 +37,8 @@ const index = () => {
           </Tooltip>
         </h6>
         <Switch
-          checked={isOn}
+          checked={charity}
           onChange={onChange}
-          loading={loading}
           style={{
             borderRadius: "50px",
             padding: "0",
@@ -58,18 +51,18 @@ const index = () => {
         <label>Name of the charity</label>
         <input
           type='text'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={charityName}
+          onChange={(e) => setCharityName(e.target.value)}
         />
       </div>
-      <div className={styles.input_wrap}>
+      {/* <div className={styles.input_wrap}>
         <label>Website</label>
         <input
           type='text'
           value={website}
           onChange={(e) => setWebsite(e.target.value)}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
