@@ -11,7 +11,7 @@ import ProfileContext from "@/context/profile";
 
 // icons
 import { BsCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
-import { FaChartLine } from "react-icons/fa";
+import { FaChartLine, FaCartArrowDown } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { IoIosChatbubbles } from "react-icons/io";
 
@@ -19,7 +19,7 @@ const Leftbar = () => {
   // state
   const [calls, setCalls] = useState(false);
   const [messages, setMessages] = useState(false);
-  const [payments, setPayments] = useState(false);
+  // const [payments, setPayments] = useState(false);
   const [settings, setSettings] = useState(false);
 
   // context
@@ -109,6 +109,16 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
+        <Link href='/pay-per-download'>
+          <a
+            className={
+              router.pathname === "/pay-per-download" ? styles.active : ""
+            }
+          >
+            <FaCartArrowDown />
+            <span>Pay Per Download</span>
+          </a>
+        </Link>
         <Link href='/public-profile'>
           <a
             className={
