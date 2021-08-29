@@ -116,6 +116,16 @@ const MobileNav = ({
               </Link>
             </div>
           )}
+          <Link href='/pay-per-download'>
+            <a
+              onClick={() => setOpen(false)}
+              className={
+                router.pathname === "/pay-per-download" ? styles.active : ""
+              }
+            >
+              <span>Pay Per Download</span>
+            </a>
+          </Link>
           <Link href='/public-profile'>
             <a
               onClick={() => setOpen(false)}
