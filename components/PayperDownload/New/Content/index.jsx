@@ -17,6 +17,7 @@ import { postMasterclass } from "@/utils/requests/masterclass";
 
 // components
 import Form from "../Form";
+import DropArea from "../DropArea";
 
 const index = () => {
   // context
@@ -24,6 +25,7 @@ const index = () => {
 
   // states
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState("");
 
   // router
   const router = useRouter();
@@ -52,7 +54,10 @@ const index = () => {
         <BsChevronLeft /> Back
       </a>
       <h2>New Pay Per Download</h2>
-      <Form handleSubmit={handleSubmit} buttonLoading={loading} />
+      <div className={styles.sections}>
+        <Form handleSubmit={handleSubmit} type={type} setType={setType} />
+        {type && <DropArea buttonLoading={loading} type={type} />}
+      </div>
     </div>
   );
 };

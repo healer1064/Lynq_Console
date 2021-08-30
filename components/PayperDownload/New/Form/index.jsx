@@ -1,6 +1,5 @@
 // libraries
 import { useState, useContext, useEffect } from "react";
-import { useRouter } from "next/router";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { toast } from "react-toastify";
@@ -19,24 +18,17 @@ import { listingPriceReq } from "@/utils/requests/calls/template";
 // icons
 import { BsExclamationCircleFill } from "react-icons/bs";
 
-// components
-import Loading from "@/components/common/Loading";
-
-const index = ({ handleSubmit, buttonLoading }) => {
+const index = ({ type, setType }) => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
   const [title, setTitle] = useState("");
-  const [type, setType] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [listingPrice, setListingPrice] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // router
-  const router = useRouter();
 
   // handle price change
   useEffect(() => {
@@ -200,44 +192,6 @@ helps your clients navigate on your public pofile'
         ></textarea>
         <span className={styles.desc_count}>{description.length}/600</span>
       </label>
-      <div className={styles.btns}>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            if (
-              title != "" &&
-              type != "" &&
-              category != "" &&
-              price != "" &&
-              description != ""
-            ) {
-              // handleSubmit({
-              //   name: title,
-              //   date,
-              //   type,
-              //   price,
-              //   revenue: 0,
-              //   description,
-              // });
-              alert("Submitted");
-            } else {
-              toast.info("Please fill all fields.");
-            }
-          }}
-          className={styles.save}
-        >
-          {buttonLoading ? <Loading /> : "Save"}
-        </button>
-        <button
-          className={styles.cancel}
-          onClick={(e) => {
-            e.preventDefault();
-            router.back();
-          }}
-        >
-          Cancel
-        </button>
-      </div>
     </form>
   );
 };
