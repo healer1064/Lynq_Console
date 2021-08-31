@@ -1,0 +1,158 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+    
+.form
+    width: 40%
+    label
+        width: 100%
+        @include flex
+        flex-direction: column
+        align-items: flex-start
+        margin-bottom: 10px
+        strong
+            font-size: 0.9rem
+            display: flex
+            align-items: center
+            span
+                margin: 0 8px
+                font-size: 0.8rem
+                color: $grey
+            svg
+                cursor: pointer
+                color: $grey
+                transition: all 0.5s
+                &:hover
+                    color: $black
+        select
+            width: 100%
+            cursor: pointer
+            height: 40px
+            border: 1px solid #9FA8B5
+            border-radius: 5px
+            padding: 0 24px
+            -moz-appearance: none
+            -webkit-appearance: none
+            background-image: url('../../../../public/img/appointment-select-arrow.svg')
+            background-repeat: no-repeat
+            background-position: top 12px right 16px
+            font-family: 'Open Sans'
+            font-size: 14px
+            line-height: 24px
+            &::-ms-expand
+                display: none
+            &:focus
+                outline: none
+        .length_select
+            width: 100%
+        input
+            width: 100%
+            height: 40px
+            border: 1px solid #9FA8B5
+            border-radius: 5px
+            padding: 0 24px
+            font-family: 'Open Sans'
+            font-size: 14px
+            line-height: 24px
+            &:focus
+                outline: none
+            &::placeholder
+                font-family: 'Open Sans'
+                font-size: 14px
+                line-height: 24px
+                color: #C9C9C9
+        .disabled
+            background: #7a7a7a !important
+        textarea
+            width: 100%
+            height: 310px
+            border: 1px solid #9FA8B5
+            border-radius: 5px
+            padding: 10px 24px 30px 24px
+            font-family: 'Open Sans'
+            font-size: 14px
+            line-height: 24px
+            resize: none
+            &:focus
+                outline: none
+            &::placeholder
+                font-family: 'Open Sans'
+                font-size: 14px
+                line-height: 24px
+                color: #C9C9C9
+        .price
+            width: 100%
+            height: 40px
+            border: 1px solid #9FA8B5
+            border-radius: 5px
+            padding: 3px 24px 3px 10px
+            display: flex
+            align-items: center
+
+            input
+                background: transparent
+                flex-grow: 1
+                width: 100%
+                height: 40px
+                border: none
+                border-radius: 5px
+                padding: 0px
+                padding-left: 10px !important
+                font-family: 'Open Sans'
+                font-size: 14px
+                line-height: 24px
+                &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
+                    -webkit-appearance: none
+                    margin: 0
+                input[type=number]
+                    -moz-appearance: textfield
+                &:focus
+                    outline: none
+                &::placeholder
+                    font-family: 'Open Sans'
+                    font-size: 14px
+                    line-height: 24px
+                    color: #C9C9C9
+            .price_img
+                height: 13px
+            .listing_loading
+                height: 25px
+                margin-left: 15px
+        .listing
+            border: none
+            height: 30px
+    .description
+        position: relative
+        .desc_count
+            position: absolute
+            right: 30px
+            bottom: 7px
+            color: #999
+            font-style: italic
+            font-size: 0.7rem
+    
+
+@media screen and ( max-width: $breakpointPhone )
+    .form
+        width: 100%
+
+        label
+            textarea
+                height: 480px
+    

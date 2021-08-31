@@ -15,6 +15,7 @@ import { handleFileInput } from "@/utils/helpers";
 
 // components
 import Loading from "@/components/common/Loading";
+import Video from "./Video";
 
 const index = ({ buttonLoading, type }) => {
   // router
@@ -24,16 +25,19 @@ const index = ({ buttonLoading, type }) => {
   const [selectedFile, setSelectedFile] = useState([]);
 
   // handle drop
-  const onDrop = useCallback((acceptedFiles) => {
-    if (type == "Video") {
-      setSelectedFile([handleFileInput(acceptedFiles[0])]);
-    } else {
-      setSelectedFile((prevState) => [
-        ...prevState,
-        handleFileInput(acceptedFiles[0]),
-      ]);
-    }
-  }, []);
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      if (type == "Video") {
+        setSelectedFile([handleFileInput(acceptedFiles[0])]);
+      } else {
+        setSelectedFile((prevState) => [
+          ...prevState,
+          handleFileInput(acceptedFiles[0]),
+        ]);
+      }
+    },
+    [type],
+  );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -52,12 +56,44 @@ const index = ({ buttonLoading, type }) => {
             <input
               id='dropzone-input'
               {...getInputProps()}
-              accept='.mp4,.avi,.mp3,.wav,.pdf,.doc,.docx,.png,.jpeg'
+              accept={
+                type == "Video"
+                  ? ".mp4,.avi,"
+                  : type == "Picture"
+                  ? ".png,.jpeg"
+                  : ".pdf,.doc,.docx,"
+              }
+              disabled={
+                type == "Picture"
+                  ? selectedFile.length > 9
+                  : type == "Document"
+                  ? selectedFile.length > 4
+                  : false
+              }
             />
             <>
-              <FiUploadCloud />
+              <span className={styles.svg_wrap}>
+                <FiUploadCloud />
+              </span>
               <h6>
-                Drop and drop, or <span>browse</span> your files
+                Drop and drop, or{" "}
+                <span
+                  style={{
+                    cursor:
+                      type == "Picture"
+                        ? selectedFile.length > 9
+                          ? "not-allowed"
+                          : "pointer"
+                        : type == "Document"
+                        ? selectedFile.length > 4
+                          ? "not-allowed"
+                          : "pointer"
+                        : "pointer",
+                  }}
+                >
+                  browse
+                </span>{" "}
+                your files
               </h6>
             </>
           </div>
@@ -74,6 +110,16 @@ const index = ({ buttonLoading, type }) => {
             />
           </p>
         ))}
+        {selectedFile.length > 0 &&
+          (type == "Video" ? (
+            <Video file={selectedFile[0]} />
+          ) : type == "Picture" ? (
+            <p className={styles.picture_doc}>
+              You can add up to 10 pictures max
+            </p>
+          ) : (
+            <p className={styles.picture_doc}>You can add up to 5 docs max</p>
+          ))}
       </div>
       <div className={styles.btns}>
         <button className={styles.save}>

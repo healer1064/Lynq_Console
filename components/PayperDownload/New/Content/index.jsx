@@ -53,7 +53,8 @@ const index = () => {
       <a className={styles.back} onClick={() => router.back()}>
         <BsChevronLeft /> Back
       </a>
-      <h2>New Pay Per Download</h2>
+      <h2>You can sell the content of your choice</h2>
+      <p>Video, pictures and documents are allowed.</p>
       <div className={styles.sections}>
         <Form handleSubmit={handleSubmit} type={type} setType={setType} />
         {type && <DropArea buttonLoading={loading} type={type} />}

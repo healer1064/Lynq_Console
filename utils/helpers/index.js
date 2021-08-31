@@ -44,19 +44,19 @@ const getHomeCurrentSession = (_data, _setData) => {
         appt.starting_date ? appt.starting_date : appt.date,
         appt.ending_date
           ? appt.ending_date
-          : moment(appt.date).add(appt.duration, "minutes")
+          : moment(appt.date).add(appt.duration, "minutes"),
       )
     ) {
       console.log("in between");
       _setData({
         time: `${formatTime(
           appt.starting_date ? appt.starting_date : appt.date,
-          format
+          format,
         )} - ${formatTime(
           appt.ending_date
             ? appt.ending_date
             : moment(appt.date).add(appt.duration, "minutes"),
-          format
+          format,
         )}`,
         id: appt.id,
         name: appt.activity_name ? appt.activity_name : appt.name,
@@ -83,7 +83,7 @@ const getHomeNextSession = (_data, _setData) => {
         time: time.isSame(start, "day")
           ? `${start.format(format)} - ${end.format(format)}`
           : `${start.format(format)} - ${end.format(format)} ${start.format(
-              "MMM DD YYYY"
+              "MMM DD YYYY",
             )}`,
         id: _data[i].id,
         name: _data[i].activity_name ? _data[i].activity_name : _data[i].name,
@@ -104,10 +104,10 @@ const sortCalendarList = (_list) => {
 
   let currentDate = new Date();
   let nextAppointments = _list.filter(
-    (item) => new Date(item.date) >= currentDate
+    (item) => new Date(item.date) >= currentDate,
   );
   let prevAppointments = _list.filter(
-    (item) => new Date(item.date) < currentDate
+    (item) => new Date(item.date) < currentDate,
   );
   nextAppointments = sortList(nextAppointments, 1);
   prevAppointments = sortList(prevAppointments, 2);
@@ -137,7 +137,7 @@ const timeDifferenceInMilliSeconds = (_date) => {
   var then = new Date();
 
   var ms = moment(now, "DD/MM/YYYY HH:mm:ss").diff(
-    moment(then, "DD/MM/YYYY HH:mm:ss")
+    moment(then, "DD/MM/YYYY HH:mm:ss"),
   );
   var d = moment.duration(ms);
   return d;
@@ -177,6 +177,14 @@ function intToRGB(i) {
   return "00000".substring(0, 6 - c.length) + c;
 }
 
+function hhmmss(secs) {
+  var minutes = Math.floor(secs / 60);
+  secs = secs % 60;
+  var hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+  return `${minutes.length > 1 ? minutes : `0${minutes}`}:${secs.toFixed()}`;
+}
+
 export {
   groupListInSectionsByDate,
   getCurrentDaySessions,
@@ -189,4 +197,5 @@ export {
   getLatestMessage,
   hashCode,
   intToRGB,
+  hhmmss,
 };

@@ -16,6 +16,7 @@ const Modal = ({
   subtitle,
   buttonText,
   date,
+  type,
 }) => {
   return (
     <Fade duration={600}>
@@ -26,18 +27,19 @@ const Modal = ({
         <div onClick={(e) => e.stopPropagation()}>
           <img
             onClick={() => setModal(false)}
-            src="/img/public-screen-close.svg"
-            alt="close"
+            src='/img/public-screen-close.svg'
+            alt='close'
           />
           <h6>{title}</h6>
           <p>{subtitle}</p>
           <p>
-            Scheduled at:{" "}
-            {`${moment(date).format("dddd, MMMM DD, YYYY")}
+            {type == "ppd"
+              ? `Date of upload: ${"08/12//2021"}`
+              : `Scheduled at: ${moment(date).format("dddd, MMMM DD, YYYY")}
             `}
           </p>
           <button style={{ position: "relative" }} onClick={onDelete}>
-            {loading && <Loading color="#EF7888" />}
+            {loading && <Loading color='#EF7888' />}
             {buttonText}
           </button>
         </div>
