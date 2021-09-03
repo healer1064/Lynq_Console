@@ -66,6 +66,7 @@ $breakpointPhone: 519px;
       color: $grey;
       cursor: default;
       font-size: 14px;
+      margin: 0;
 
       svg {
         cursor: pointer;
@@ -80,6 +81,11 @@ $breakpointPhone: 519px;
       font-size: 1rem;
       font-weight: 600;
       margin-top: 32px;
+      margin-bottom: 8px;
+    }
+    .number_of_files {
+      font-size: 1rem;
+      margin: 0;
     }
   }
 

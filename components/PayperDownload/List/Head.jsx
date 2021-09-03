@@ -67,7 +67,7 @@ const Head = ({ order, setOrder }) => {
         Revenue
         {order == "revenue_desc" ? <CaretUpOutlined /> : <CaretDownOutlined />}
       </p>
-      <p>Current Status</p>
+      <p>Status</p>
     </div>
   );
 };

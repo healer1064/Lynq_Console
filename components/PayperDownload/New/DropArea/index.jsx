@@ -114,11 +114,21 @@ const index = ({ buttonLoading, type }) => {
           (type == "Video" ? (
             <Video file={selectedFile[0]} />
           ) : type == "Picture" ? (
-            <p className={styles.picture_doc}>
-              You can add up to 10 pictures max
-            </p>
+            <>
+              <p className={styles.picture_doc}>
+                You can add up to 10 pictures
+              </p>
+              <h6 className={styles.number_of_files}>
+                {selectedFile.length + "/10"}
+              </h6>
+            </>
           ) : (
-            <p className={styles.picture_doc}>You can add up to 5 docs max</p>
+            <>
+              <p className={styles.picture_doc}>You can add up to 5 docs</p>
+              <h6 className={styles.number_of_files}>
+                {selectedFile.length + "/5"}
+              </h6>
+            </>
           ))}
       </div>
       <div className={styles.btns}>

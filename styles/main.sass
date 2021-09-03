@@ -47,6 +47,23 @@ body
       background-color: #aaa
       -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
 
+.ant-radio-inner
+  width: 22px !important
+  height: 22px !important
+  &:hover
+    border-color: $lavender !important
+    
+
+.ant-radio-inner::after
+  top: 3px !important
+  left: 3px !important
+  width: 14px !important
+  height: 14px !important
+  background: $lavender !important
+
+.ant-radio-checked .ant-radio-inner
+    border-color: $lavender !important
+
 .ant-switch-checked 
     background-color:$lavender !important
 
