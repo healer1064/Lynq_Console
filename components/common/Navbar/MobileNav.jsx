@@ -116,7 +116,7 @@ const MobileNav = ({
               </Link>
             </div>
           )}
-          <Link href='/pay-per-download'>
+          {/* <Link href='/pay-per-download'>
             <a
               onClick={() => setOpen(false)}
               className={
@@ -125,7 +125,7 @@ const MobileNav = ({
             >
               <span>Pay Per Download</span>
             </a>
-          </Link>
+          </Link> */}
           <Link href='/public-profile'>
             <a
               onClick={() => setOpen(false)}

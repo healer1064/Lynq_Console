@@ -109,7 +109,7 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
-        <Link href='/pay-per-download'>
+        {/* <Link href='/pay-per-download'>
           <a
             className={
               router.pathname === "/pay-per-download" ? styles.active : ""
@@ -118,7 +118,7 @@ const Leftbar = () => {
             <FaCartArrowDown />
             <span>Pay Per Download</span>
           </a>
-        </Link>
+        </Link> */}
         <Link href='/public-profile'>
           <a
             className={
