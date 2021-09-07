@@ -14,6 +14,7 @@ import { delSlotReq } from "@/utils/requests/settings/availabilities";
 // components
 import PageLoading from "@/components/common/PageLoading";
 import Row from "./Row";
+import Item from "@/components/Dashboard/Stats/Item";
 
 const days = [
   "SUNDAY",

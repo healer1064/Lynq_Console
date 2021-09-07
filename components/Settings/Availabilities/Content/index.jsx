@@ -56,7 +56,13 @@ const SettingsSetup = () => {
         <PageLoading />
       ) : (
         <>
-          <Table data={data} toggleSuccess={toggleSuccess} success={success} />
+          <Table
+            data={
+              data && data.filter((i) => i.start !== null && i.end !== null)
+            }
+            toggleSuccess={toggleSuccess}
+            success={success}
+          />
           <Notifications
             data={profile}
             delayedBookingHours={profile.delay_booking_hours}

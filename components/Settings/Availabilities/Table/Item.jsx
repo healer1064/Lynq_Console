@@ -21,7 +21,7 @@ const TableRowItem = ({ item, deleteTime, day, token, toggleSuccess }) => {
   );
 
   useEffect(() => {
-    updateTime(day, startTime, endTime);
+    if (startTime && endTime) updateTime(day, startTime, endTime);
   }, [startTime, endTime]);
 
   const updateTime = (day, start, end) => {
