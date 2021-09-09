@@ -32,6 +32,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [pickerDay, setPicker] = useState();
+  const [priceError, setPriceError] = useState(false);
 
   // router
   const router = useRouter();
@@ -122,7 +123,6 @@ const index = ({ handleSubmit, buttonLoading }) => {
           }}
         />
       </label>
-
       <label>
         <strong>Price</strong>
         <div className={styles.price}>
@@ -140,6 +140,9 @@ const index = ({ handleSubmit, buttonLoading }) => {
           />
         </div>
       </label>
+      {priceError && (
+        <p className={styles.price_error}>The price must be atleast $1.</p>
+      )}
       <label>
         <strong>Listing Price</strong>
         <div className={`${styles.price} ${styles.listing}`}>
@@ -186,6 +189,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
               description != ""
             ) {
               if (price > 0) {
+                setPriceError(false);
                 handleSubmit({
                   name: title,
                   date,
@@ -195,7 +199,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
                   description,
                 });
               } else {
-                toast.info("Price can't be less than $1.");
+                setPriceError(true);
               }
             } else {
               toast.info("Please fill all fields.");

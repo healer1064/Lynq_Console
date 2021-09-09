@@ -71,7 +71,7 @@ const index = ({ activePrivateSession }) => {
 
     setRequestSent(false);
     setActive(checked && slugData.active_private_session);
-    toast.success(checked ? "Activated" : "Disactivated");
+    toast.success(checked ? "Activated" : "Deactivated");
   }
 
   // handle click
@@ -79,10 +79,23 @@ const index = ({ activePrivateSession }) => {
     if (options.filter((item) => item.status == true).length === 0) {
       toast.info("Please select an option first.");
     } else {
-      setLoading(true);
-      const toBeExecuted = options.filter((d) => d.price && d.price != "");
+      const toBeExecuted = options;
 
-      debugger;
+      var stat = true;
+
+      toBeExecuted.forEach((element) => {
+        if (element.status) {
+          if (!element.price || element.price == "") {
+            toast.info("Please fill all fields");
+            stat = false;
+          }
+        }
+      });
+
+      if (!stat) {
+        return;
+      }
+
       const toBeDeleted = toBeExecuted.filter(
         (d) => d.id && d.status === false,
       );
@@ -92,6 +105,7 @@ const index = ({ activePrivateSession }) => {
       );
 
       toBeDeleted.forEach(async (d) => {
+        setLoading(true);
         await fetch(
           `https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
           {
@@ -105,6 +119,7 @@ const index = ({ activePrivateSession }) => {
       });
 
       toBeUpdated.forEach(async (d) => {
+        setLoading(true);
         await fetch(
           `https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
           {
@@ -121,6 +136,7 @@ const index = ({ activePrivateSession }) => {
       });
 
       toBeRecreated.forEach((d) => {
+        setLoading(true);
         const data = {
           id: uuidv4(),
           name: "string",
@@ -138,7 +154,7 @@ const index = ({ activePrivateSession }) => {
             d.id = data.id;
             setLoading(false);
             if (res.status == 200) {
-              toast.success("All good");
+              toast.success("Created successfully.");
             } else {
               toast.error("Failed to save template options.");
             }
@@ -149,7 +165,7 @@ const index = ({ activePrivateSession }) => {
           });
       });
 
-      !toBeExecuted.length && toast.info("Please fill all fields.");
+      // !toBeExecuted.length && toast.info("Please fill all fields.");
     }
   }, [token, options]);
 

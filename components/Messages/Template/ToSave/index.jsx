@@ -39,6 +39,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
   );
   const [loading, setLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [priceError, setPriceError] = useState(false);
 
   // get listing prce
   useEffect(() => {
@@ -64,9 +65,10 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
       toast.info("Please fill all the fields.");
     } else {
       if (price < 1) {
-        toast.info("Price can't be less than $1.");
+        setPriceError(true);
         return;
       }
+      setPriceError(false);
       setButtonLoading(true);
       const reqData = {
         name: "string",
@@ -135,6 +137,9 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
           />
         </span>
       </label>
+      {priceError && (
+        <p className={styles.price_error}>The price must be atleast $1.</p>
+      )}
       <label className={styles.listing}>
         <h6>
           Listing Price{" "}
