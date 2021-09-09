@@ -63,6 +63,10 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
     if (days == "" || price == "" || description == "") {
       toast.info("Please fill all the fields.");
     } else {
+      if (price < 1) {
+        toast.info("Price can't be less than $1.");
+        return;
+      }
       setButtonLoading(true);
       const reqData = {
         name: "string",

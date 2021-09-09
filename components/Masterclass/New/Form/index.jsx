@@ -133,7 +133,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
           />
           <input
             type='number'
-            min='0'
+            min='1'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             style={{ paddingLeft: "25px" }}
@@ -185,14 +185,18 @@ const index = ({ handleSubmit, buttonLoading }) => {
               price != "" &&
               description != ""
             ) {
-              handleSubmit({
-                name: title,
-                date,
-                duration,
-                price,
-                revenue: 0,
-                description,
-              });
+              if (price > 0) {
+                handleSubmit({
+                  name: title,
+                  date,
+                  duration,
+                  price,
+                  revenue: 0,
+                  description,
+                });
+              } else {
+                toast.info("Price can't be less than $1.");
+              }
             } else {
               toast.info("Please fill all fields.");
             }

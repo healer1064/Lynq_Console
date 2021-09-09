@@ -23,6 +23,7 @@ const SettingsCallSync = () => {
     if (profile) {
       getCalStatusReq(profile.id)
         .then((res) => {
+          console.log(res);
           setIsConnected(res.connected);
           setPageLoading(false);
         })
@@ -38,7 +39,7 @@ const SettingsCallSync = () => {
       <Head>
         <title>Settings Calendar | Lynq</title>
       </Head>
-      <div className="content-wrp">
+      <div className='content-wrp'>
         <>
           <Content
             isConnected={isConnected}

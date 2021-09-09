@@ -179,6 +179,7 @@ const index = () => {
           loading={deleteLoading}
           buttonText='Delete'
           title='Are you sure you want to delete this masterclass?'
+          date={data.date}
         />
       )}
     </>
