@@ -34,7 +34,7 @@ const index = ({ activePrivateSession }) => {
   useEffect(async () => {
     if (token) {
       const res = await fetch(
-        `https://api.lynq.app/account/event-type?t=${token}`,
+        `https://api.lynq.app/account/event-type?t=${token}`
       );
       const bulletpoints = await res.json();
       const sets = Object.values({
@@ -63,7 +63,7 @@ const index = ({ activePrivateSession }) => {
     };
     const message = await fetch(
       `https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
-      fetchOptions,
+      fetchOptions
     );
     slugData.active_private_session = (
       await message.json()
@@ -75,12 +75,12 @@ const index = ({ activePrivateSession }) => {
   }
 
   // handle click
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (options.filter((item) => item.status == true).length === 0) {
       toast.info("Please select an option first.");
     } else {
       const toBeExecuted = options;
-
+      console.log(toBeExecuted);
       var stat = true;
 
       toBeExecuted.forEach((element) => {
@@ -97,12 +97,21 @@ const index = ({ activePrivateSession }) => {
       }
 
       const toBeDeleted = toBeExecuted.filter(
-        (d) => d.id && d.status === false,
+        (d) => d.id && d.status === false
       );
-      const toBeUpdated = toBeExecuted.filter((d) => d.id && d.status === true);
+      // const toBeUpdated = toBeExecuted.filter((d) => d.id && d.status === true);
+      const toBeUpdated = toBeExecuted.filter(
+        (d) => d.id && d?.updated === true
+      );
       const toBeRecreated = toBeExecuted.filter(
-        (d) => !d.id && d.status === true,
+        (d) => !d.id && d.status === true
       );
+
+      console.log({
+        toBeDeleted,
+        toBeUpdated,
+        toBeRecreated,
+      });
 
       toBeDeleted.forEach(async (d) => {
         setLoading(true);
@@ -114,8 +123,17 @@ const index = ({ activePrivateSession }) => {
               Accept: "application/json",
               "Content-Type": "application/json",
             },
-          },
+          }
         );
+
+        setOptions(
+          options.map((item) =>
+            item.id !== d.id
+              ? item
+              : { duration: d.duration, status: false, tags: [] }
+          )
+        );
+        setLoading(false);
       });
 
       toBeUpdated.forEach(async (d) => {
@@ -129,8 +147,15 @@ const index = ({ activePrivateSession }) => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(d),
-          },
+          }
         );
+
+        setOptions(
+          options.map((item) =>
+            item.id !== d.id ? item : { ...item, updated: false }
+          )
+        );
+        setLoading(false);
         toast.success("Updated succesfully");
         toBeRecreated.length === 0 && setLoading(false);
       });
@@ -152,6 +177,13 @@ const index = ({ activePrivateSession }) => {
         postOneToOneOptionReq(token, data)
           .then((res) => {
             d.id = data.id;
+
+            setOptions(
+              options.map((item) =>
+                item.duration === d.duration ? { ...item, id: data.id } : item
+              )
+            );
+
             setLoading(false);
             if (res.status == 200) {
               toast.success("Created successfully.");
@@ -167,7 +199,7 @@ const index = ({ activePrivateSession }) => {
 
       // !toBeExecuted.length && toast.info("Please fill all fields.");
     }
-  }, [token, options]);
+  };
 
   return (
     <div className={styles.content}>
