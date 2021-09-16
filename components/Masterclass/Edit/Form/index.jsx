@@ -25,13 +25,15 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
 
   // states
   const [title, setTitle] = useState(data.name || "");
-  const [duration, setDuration] = useState(data.duration || "");
+  const [duration, setDuration] = useState(
+    { value: data.duration.toString(), label: `${data.duration} min` } || "",
+  );
   const [price, setPrice] = useState(data.price || "");
   const [listingPrice, setListingPrice] = useState("");
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(new Date(data.date) || null);
   const [description, setDescription] = useState(data.description);
   const [loading, setLoading] = useState(false);
-  const [pickerDay, setPicker] = useState();
+  const [pickerDay, setPicker] = useState(new Date(data.date) || null);
 
   // router
   const router = useRouter();
@@ -105,8 +107,8 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
             { value: "90", label: "90 min" },
             { value: "120", label: "120 min" },
           ]}
+          onChange={(e) => setDuration(e)}
           defaultValue={duration}
-          onChange={(e) => setDuration(e.value)}
         />
       </label>
       <label>
@@ -179,7 +181,7 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
             e.preventDefault();
             if (
               title != "" &&
-              duration != "" &&
+              duration &&
               date &&
               price != "" &&
               description != ""
@@ -187,7 +189,7 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
               handleSubmit({
                 name: title,
                 date,
-                duration,
+                duration: duration.value,
                 price,
                 revenue: 0,
                 description,
