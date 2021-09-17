@@ -166,10 +166,12 @@ const Item = ({ data, options, setOptions }) => {
                   for (const d of old) {
                     if (d.id === data.id) {
                       d.tags = tags;
+                      d.updated = true;
                       break;
+                    } else {
+                      d.updated = false;
                     }
                   }
-                  console.log(old);
                   return [...old];
                 });
               }}
@@ -178,10 +180,12 @@ const Item = ({ data, options, setOptions }) => {
                   for (const d of old) {
                     if (d.id === data.id) {
                       d.tags = tags;
+                      d.updated = true;
                       break;
+                    } else {
+                      d.updated = false;
                     }
                   }
-                  console.log(old);
                   return [...old];
                 });
               }}
