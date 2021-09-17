@@ -21,7 +21,7 @@ import Loading from "@/components/common/Loading";
 
 const index = ({ handleSubmit, buttonLoading, data }) => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // states
   const [title, setTitle] = useState(data.name || "");
@@ -34,6 +34,7 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
   const [description, setDescription] = useState(data.description);
   const [loading, setLoading] = useState(false);
   const [pickerDay, setPicker] = useState(new Date(data.date) || null);
+  const [priceError, setPriceError] = useState(false);
 
   // router
   const router = useRouter();
@@ -141,6 +142,9 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
           />
         </div>
       </label>
+      {priceError && (
+        <p className={styles.price_error}>The price must be atleast $1.</p>
+      )}
       <label>
         <strong>Listing Price</strong>
         <div className={`${styles.price} ${styles.listing}`}>
@@ -186,14 +190,31 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
               price != "" &&
               description != ""
             ) {
-              handleSubmit({
-                name: title,
-                date,
-                duration: duration.value,
-                price,
-                revenue: 0,
-                description,
-              });
+              if (!profile.can_create_free_activity) {
+                if (price > 0) {
+                  setPriceError(false);
+                  handleSubmit({
+                    name: title,
+                    date,
+                    duration: duration.value,
+                    price,
+                    revenue: 0,
+                    description,
+                  });
+                } else {
+                  setPriceError(true);
+                }
+              } else {
+                setPriceError(false);
+                handleSubmit({
+                  name: title,
+                  date,
+                  duration: duration.value,
+                  price,
+                  revenue: 0,
+                  description,
+                });
+              }
             } else {
               toast.info("Please fill all fields.");
             }

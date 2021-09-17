@@ -24,7 +24,7 @@ import Loading from "@/components/common/Loading";
 
 const index = ({ data, setState, responseRefresh, setActive }) => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // states
   const [days, setDays] = useState(
@@ -64,51 +64,96 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
     if (days == "" || price == "" || description == "") {
       toast.info("Please fill all the fields.");
     } else {
-      if (price < 1) {
-        setPriceError(true);
-        return;
-      }
-      setPriceError(false);
-      setButtonLoading(true);
-      const reqData = {
-        name: "string",
-        description,
-        enabled: true,
-        maxResponseDelay: days,
-        price,
-      };
-      if (data.length > 0) {
-        putMessageTemplate(token, data[0].id, reqData)
-          .then((res) => {
-            setButtonLoading(false);
-            if (res.status) {
+      if (!profile.can_create_free_activity) {
+        if (price < 1) {
+          setPriceError(true);
+          return;
+        }
+        setPriceError(false);
+        setButtonLoading(true);
+        const reqData = {
+          name: "string",
+          description,
+          enabled: true,
+          maxResponseDelay: days,
+          price,
+        };
+        if (data.length > 0) {
+          putMessageTemplate(token, data[0].id, reqData)
+            .then((res) => {
+              setButtonLoading(false);
+              if (res.status) {
+                toast.error("Failed to save the message template.");
+              } else {
+                responseRefresh();
+                setActive(true);
+                setState(1);
+              }
+            })
+            .catch(() => {
               toast.error("Failed to save the message template.");
-            } else {
-              responseRefresh();
-              setActive(true);
-              setState(1);
-            }
-          })
-          .catch(() => {
-            toast.error("Failed to save the message template.");
-            setButtonLoading(false);
-          });
+              setButtonLoading(false);
+            });
+        } else {
+          postMessageTemplate(token, reqData)
+            .then((res) => {
+              setButtonLoading(false);
+              if (res.status) {
+                toast.error("Failed to save the message template.");
+              } else {
+                responseRefresh();
+                setActive(true);
+                setState(1);
+              }
+            })
+            .catch(() => {
+              toast.error("Failed to save the message template.");
+              setButtonLoading(false);
+            });
+        }
       } else {
-        postMessageTemplate(token, reqData)
-          .then((res) => {
-            setButtonLoading(false);
-            if (res.status) {
+        setPriceError(false);
+        setButtonLoading(true);
+        const reqData = {
+          name: "string",
+          description,
+          enabled: true,
+          maxResponseDelay: days,
+          price,
+        };
+        if (data.length > 0) {
+          putMessageTemplate(token, data[0].id, reqData)
+            .then((res) => {
+              setButtonLoading(false);
+              if (res.status) {
+                toast.error("Failed to save the message template.");
+              } else {
+                responseRefresh();
+                setActive(true);
+                setState(1);
+              }
+            })
+            .catch(() => {
               toast.error("Failed to save the message template.");
-            } else {
-              responseRefresh();
-              setActive(true);
-              setState(1);
-            }
-          })
-          .catch(() => {
-            toast.error("Failed to save the message template.");
-            setButtonLoading(false);
-          });
+              setButtonLoading(false);
+            });
+        } else {
+          postMessageTemplate(token, reqData)
+            .then((res) => {
+              setButtonLoading(false);
+              if (res.status) {
+                toast.error("Failed to save the message template.");
+              } else {
+                responseRefresh();
+                setActive(true);
+                setState(1);
+              }
+            })
+            .catch(() => {
+              toast.error("Failed to save the message template.");
+              setButtonLoading(false);
+            });
+        }
       }
     }
   };

@@ -21,7 +21,7 @@ import Loading from "@/components/common/Loading";
 
 const index = ({ handleSubmit, buttonLoading }) => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // states
   const [title, setTitle] = useState("");
@@ -188,7 +188,21 @@ const index = ({ handleSubmit, buttonLoading }) => {
               price != "" &&
               description != ""
             ) {
-              if (price > 0) {
+              if (!profile.can_create_free_activity) {
+                if (price > 0) {
+                  setPriceError(false);
+                  handleSubmit({
+                    name: title,
+                    date,
+                    duration,
+                    price,
+                    revenue: 0,
+                    description,
+                  });
+                } else {
+                  setPriceError(true);
+                }
+              } else {
                 setPriceError(false);
                 handleSubmit({
                   name: title,
@@ -198,8 +212,6 @@ const index = ({ handleSubmit, buttonLoading }) => {
                   revenue: 0,
                   description,
                 });
-              } else {
-                setPriceError(true);
               }
             } else {
               toast.info("Please fill all fields.");
