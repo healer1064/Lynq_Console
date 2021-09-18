@@ -85,7 +85,8 @@ const index = ({ activePrivateSession }) => {
 
       toBeExecuted.forEach((element) => {
         if (element.status) {
-          if (!element.price || element.price == "") {
+          if (element?.price === undefined || element.price === "") {
+            console.log(element.price);
             toast.info("Please fill all fields");
             stat = false;
           }
