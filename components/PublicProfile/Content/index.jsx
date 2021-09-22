@@ -91,6 +91,7 @@ const index = ({ profile }) => {
       active_masterclass: true,
       charity,
       charity_name: charityName,
+      oneonone_bio: profile.oneonone_bio,
     };
     postProfileReq(token, reqData)
       .then((res) => {
