@@ -14,7 +14,7 @@ export const ProfileProvider = ({ children }) => {
   // states
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [slugData, setslugData] = useState(null);
+  const [slugData, setSlugData] = useState(null);
 
   // router
   const router = useRouter();
@@ -35,7 +35,7 @@ export const ProfileProvider = ({ children }) => {
         .catch(() => toast.error("Failed to get the profile!"));
       getPublicProfileReq(token)
         .then((res) => {
-          setslugData(res);
+          setSlugData(res);
         })
         .catch(() => toast.error("Failed to get the public profile!"));
     } else if (localStorage.getItem("linqToken") !== null) {
@@ -50,6 +50,7 @@ export const ProfileProvider = ({ children }) => {
         setToken,
         profile,
         slugData,
+        setSlugData,
       }}
     >
       {children}

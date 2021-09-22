@@ -20,7 +20,7 @@ import Loading from "@/components/common/Loading";
 
 const index = ({ activePrivateSession }) => {
   // context
-  const { token, slugData } = useContext(ProfileContext);
+  const { token, slugData, setSlugData } = useContext(ProfileContext);
 
   // states
   const [active, setActive] = useState(activePrivateSession);
@@ -84,7 +84,12 @@ const index = ({ activePrivateSession }) => {
       oneonone_bio: desc,
     };
     postProfileReq(token, reqData)
-      .then(() => setLoading(false))
+      .then((res) => {
+        setLoading(false);
+        if (!res.status) {
+          setSlugData(res);
+        }
+      })
       .catch((err) => {
         console.log(err);
         toast.error("Failed to update general information");

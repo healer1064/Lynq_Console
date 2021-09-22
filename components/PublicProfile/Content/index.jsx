@@ -23,7 +23,7 @@ import Loading from "@/components/common/Loading";
 
 const index = ({ profile }) => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, setSlugData } = useContext(ProfileContext);
 
   // states
   const [firstName, setFirstName] = useState("");
@@ -99,6 +99,7 @@ const index = ({ profile }) => {
         if (res.status) {
           toast.error("Failed to update the profile.");
         } else {
+          setSlugData(res);
           toast.success("Profile updated successfully.");
         }
       })

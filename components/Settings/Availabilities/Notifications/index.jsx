@@ -1,9 +1,12 @@
 // libraries
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 
 // styles
 import styles from "./styles.module.sass";
+
+// context
+import ProfileContext from "@/context/profile";
 
 // icons
 import { FaGlobeAmericas } from "react-icons/fa";
@@ -20,6 +23,9 @@ const SetupNotifications = ({
   token,
   toggleSuccess,
 }) => {
+  // context
+  const { setSlugData } = useContext(ProfileContext);
+
   // states
   const [delayBooking, setDelayBooking] = useState(
     delayedBookingHours == null || delayedBookingHours == ""
@@ -41,7 +47,12 @@ const SetupNotifications = ({
       timezone,
     };
     postProfileReq(token, reqData)
-      .then(() => toggleSuccess())
+      .then((res) => {
+        toggleSuccess();
+        if (!res.status) {
+          setSlugData(res);
+        }
+      })
       .catch(() => {
         toast.error("Failed to update timezone.");
       });

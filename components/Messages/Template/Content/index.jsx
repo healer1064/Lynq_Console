@@ -18,24 +18,25 @@ import { toast } from "react-toastify";
 
 const index = ({ data, responseRefresh }) => {
   // context
-  const { token, slugData } = useContext(ProfileContext);
+  const { token, slugData, setSlugData } = useContext(ProfileContext);
 
   // states
   const [active, setActive] = useState(slugData.active_message);
   const [view, setView] = useState(data.length > 0 ? 1 : 0);
   const [loading, setLoading] = useState(false);
 
-  console.log(slugData);
-
   // on switch change
   function onChange(checked) {
     if (data.length > 0) {
       setLoading(true);
       postProfileReq(token, { ...slugData, active_message: checked })
-        .then(() => {
+        .then((res) => {
           setLoading(false);
           responseRefresh();
-          setActive(checked);
+          if (!res.status) {
+            setActive(checked);
+            setSlugData(res);
+          }
         })
         .catch(() => {
           setLoading(false);
