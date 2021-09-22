@@ -1,6 +1,7 @@
 // libraries
 import { useState, useEffect, useContext } from "react";
 import Head from "next/head";
+import { toast } from "react-toastify";
 
 // context
 import ProfileContext from "@/context/profile";
@@ -45,7 +46,7 @@ const Account = () => {
       <Head>
         <title>Account | Lynq</title>
       </Head>
-      <div className="content-wrp">
+      <div className='content-wrp'>
         {!profile || !business ? (
           <PageLoading />
         ) : (

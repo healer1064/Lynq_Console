@@ -109,16 +109,18 @@ const Leftbar = () => {
             </Link>
           </div>
         )}
-        {/* <Link href='/pay-per-download'>
-          <a
-            className={
-              router.pathname === "/pay-per-download" ? styles.active : ""
-            }
-          >
-            <FaCartArrowDown />
-            <span>Pay Per Download</span>
-          </a>
-        </Link> */}
+        {slugData && slugData?.slug && slugData.slug === "lb" && (
+          <Link href='/pay-per-download'>
+            <a
+              className={
+                router.pathname === "/pay-per-download" ? styles.active : ""
+              }
+            >
+              <FaCartArrowDown />
+              <span>Pay Per Download</span>
+            </a>
+          </Link>
+        )}
         <Link href='/public-profile'>
           <a
             className={
