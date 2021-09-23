@@ -1,4 +1,5 @@
 // libraries
+import { useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Rotate from "react-reveal/Rotate";
@@ -6,6 +7,9 @@ import Fade from "react-reveal/Fade";
 
 // styles
 import styles from "./styles.module.sass";
+
+// profile
+import ProfileContext from "@/context/profile";
 
 // icons
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -24,6 +28,9 @@ const MobileNav = ({
 }) => {
   // router
   const router = useRouter();
+
+  // context
+  const { slugData } = useContext(ProfileContext);
 
   return (
     <div className={styles.mobile_nav}>
