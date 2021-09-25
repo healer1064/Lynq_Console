@@ -28,7 +28,6 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
   const [zip, setZip] = useState("");
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (profile) {
@@ -50,29 +49,34 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
       zip !== "" &&
       phone !== ""
     ) {
-      setLoading(true);
-      const reqData = {
-        fullname: name,
-        email,
-        address,
-        city,
-        zipCode: zip,
-        phoneNumber: phone,
-        profilePicture: "",
-      };
-      postProfileReq(token, reqData)
-        .then((res) => {
-          setLoading(false);
-          if (res.status == 200) {
-            toggleSuccess();
-          } else {
+      var regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
+      if (regexp.test(name)) {
+        setLoading(true);
+        const reqData = {
+          fullname: name,
+          email,
+          address,
+          city,
+          zipCode: zip,
+          phoneNumber: phone,
+          profilePicture: "",
+        };
+        postProfileReq(token, reqData)
+          .then((res) => {
+            setLoading(false);
+            if (res.status == 200) {
+              toggleSuccess();
+            } else {
+              toast.error("Failed to update profile information!");
+            }
+          })
+          .catch(() => {
+            setLoading(false);
             toast.error("Failed to update profile information!");
-          }
-        })
-        .catch(() => {
-          setLoading(false);
-          toast.error("Failed to update profile information!");
-        });
+          });
+      } else {
+        toast.info("Please type full name");
+      }
     } else {
       toast.info("Please fill all required fields!");
     }
@@ -90,24 +94,24 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
       </h3>
       {personalInfoShow ? (
         <>
-          <Input label="Name" type="text" state={name} setState={setName} />
+          <Input label='Name' type='text' state={name} setState={setName} />
           <Input
-            label="Email Address"
-            type="email"
+            label='Email Address'
+            type='email'
             state={email}
             setState={setEmail}
           />
           <Input
-            label="Address"
-            type="text"
+            label='Address'
+            type='text'
             state={address}
             setState={setAddress}
           />
-          <Input label="City" type="text" state={city} setState={setCity} />
-          <Input label="Zip Code" type="number" state={zip} setState={setZip} />
+          <Input label='City' type='text' state={city} setState={setCity} />
+          <Input label='Zip Code' type='number' state={zip} setState={setZip} />
           <Input
-            label="Phone Number"
-            type="phone"
+            label='Phone Number'
+            type='phone'
             state={phone}
             setState={setPhone}
           />

@@ -21,14 +21,19 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (fullName !== "" && email !== "" && password !== "" && terms === true) {
-      let name = fullName.split(" ");
-      signUp({
-        firstName: name[0],
-        lastName: name[1],
-        email: email,
-        password: password,
-        toc: terms,
-      });
+      var regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
+      if (regexp.test(fullName)) {
+        let name = fullName.split(" ");
+        signUp({
+          firstName: name[0],
+          lastName: name[1],
+          email: email,
+          password: password,
+          toc: terms,
+        });
+      } else {
+        toast.info("Please type full name");
+      }
     } else {
       toast.info("Please fill all fields!");
     }
@@ -46,8 +51,8 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
             onChange={(e) => {
               setFullName(e.target.value);
             }}
-            type="text"
-            placeholder="Enter your full name"
+            type='text'
+            placeholder='Enter your full name'
           />
         </div>
         <div className={styles.form_input}>
@@ -57,8 +62,8 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            type="email"
-            placeholder="Enter your email"
+            type='email'
+            placeholder='Enter your email'
           />
         </div>
         <div className={styles.form_input}>
@@ -69,19 +74,19 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
               setPassword(e.target.value);
             }}
             type={showPassword ? "text" : "password"}
-            placeholder="Enter your password"
+            placeholder='Enter your password'
           />
           <img
             style={{ bottom: "14px" }}
             src={showPassword ? "/img/show-password.svg" : "/img/pass-show.svg"}
-            alt=""
+            alt=''
             className={styles.show_password}
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
         <label className={styles.terms}>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={terms}
             onChange={(e) => {
               setTerms(e.target.checked);
@@ -90,7 +95,7 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
           <div className={styles.checkmark}></div>
           <span>
             I have read, and I accept the{" "}
-            <a href="/terms-and-conditions" target="_blank">
+            <a href='/terms-and-conditions' target='_blank'>
               <strong style={{ fontWeight: "bold", cursor: "pointer" }}>
                 Terms and Conditions.
               </strong>
@@ -100,7 +105,7 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
         <button className={styles.btn}>{loading && <Loading />}Sign Up</button>
         <span className={styles.login}>
           Already have an account?{" "}
-          <Link href="/login">
+          <Link href='/login'>
             <a>Log In</a>
           </Link>
         </span>
