@@ -12,7 +12,8 @@ import Loading from "@/components/common/Loading";
 
 const index = ({ setShowPassword, showPassword, signUp, loading }) => {
   // states
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [terms, setTerms] = useState(false);
@@ -20,20 +21,20 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
   // handle submit
   const onSubmit = (e) => {
     e.preventDefault();
-    if (fullName !== "" && email !== "" && password !== "" && terms === true) {
-      var regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
-      if (regexp.test(fullName)) {
-        let name = fullName.split(" ");
-        signUp({
-          firstName: name[0],
-          lastName: name[1],
-          email: email,
-          password: password,
-          toc: terms,
-        });
-      } else {
-        toast.info("Please type full name");
-      }
+    if (
+      firstName !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      password !== "" &&
+      terms === true
+    ) {
+      signUp({
+        firstName,
+        lastName,
+        email: email,
+        password: password,
+        toc: terms,
+      });
     } else {
       toast.info("Please fill all fields!");
     }
@@ -45,14 +46,25 @@ const index = ({ setShowPassword, showPassword, signUp, loading }) => {
         <h2>Sign Up</h2>
         <p>To Access the panel Register with following information</p>
         <div className={styles.form_input}>
-          <strong>Full Name</strong>
+          <strong>First Name</strong>
           <input
-            value={fullName}
+            value={firstName}
             onChange={(e) => {
-              setFullName(e.target.value);
+              setFirstName(e.target.value);
             }}
             type='text'
-            placeholder='Enter your full name'
+            placeholder='Enter your first name'
+          />
+        </div>
+        <div className={styles.form_input}>
+          <strong>Last Name</strong>
+          <input
+            value={lastName}
+            onChange={(e) => {
+              setLastName(e.target.value);
+            }}
+            type='text'
+            placeholder='Enter your last name'
           />
         </div>
         <div className={styles.form_input}>

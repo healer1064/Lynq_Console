@@ -21,7 +21,8 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
 
   // states
   const [personalInfoShow, setPersonalInfoShow] = useState(false);
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -29,9 +30,12 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
   const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(false);
 
+  console.log(profile);
+
   useEffect(() => {
     if (profile) {
-      setName(profile.fullname);
+      setFirstName(profile.firstname);
+      setLastName(profile.lastname);
       setAddress(profile.address);
       setEmail(profile.email);
       setCity(profile.city);
@@ -42,41 +46,39 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
 
   const updateProfile = () => {
     if (
-      name !== "" &&
+      firstName !== "" &&
+      lastName !== "" &&
       email !== "" &&
       address !== "" &&
       city !== "" &&
       zip !== "" &&
       phone !== ""
     ) {
-      var regexp = /[a-zA-Z]+\s+[a-zA-Z]+/g;
-      if (regexp.test(name)) {
-        setLoading(true);
-        const reqData = {
-          fullname: name,
-          email,
-          address,
-          city,
-          zipCode: zip,
-          phoneNumber: phone,
-          profilePicture: "",
-        };
-        postProfileReq(token, reqData)
-          .then((res) => {
-            setLoading(false);
-            if (res.status == 200) {
-              toggleSuccess();
-            } else {
-              toast.error("Failed to update profile information!");
-            }
-          })
-          .catch(() => {
-            setLoading(false);
+      setLoading(true);
+      const reqData = {
+        firstname: firstName,
+        lastname: lastName,
+        email,
+        address,
+        city,
+        zipCode: zip,
+        phoneNumber: phone,
+        profilePicture: "",
+      };
+      postProfileReq(token, reqData)
+        .then((res) => {
+          setLoading(false);
+          if (!res.error) {
+            toggleSuccess();
+            setPersonalInfoShow(false);
+          } else {
             toast.error("Failed to update profile information!");
-          });
-      } else {
-        toast.info("Please type full name");
-      }
+          }
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error("Failed to update profile information!");
+        });
     } else {
       toast.info("Please fill all required fields!");
     }
@@ -94,7 +96,18 @@ const PersonalInformation = ({ profile, toggleSuccess }) => {
       </h3>
       {personalInfoShow ? (
         <>
-          <Input label='Name' type='text' state={name} setState={setName} />
+          <Input
+            label='First Name'
+            type='text'
+            state={firstName}
+            setState={setFirstName}
+          />
+          <Input
+            label='Last Name'
+            type='text'
+            state={lastName}
+            setState={setLastName}
+          />
           <Input
             label='Email Address'
             type='email'

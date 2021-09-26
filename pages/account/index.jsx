@@ -38,7 +38,7 @@ const Account = () => {
   }, [token, success]);
 
   const toggleSuccess = () => {
-    setSuccess(!success);
+    setSuccess((prev) => !prev);
   };
 
   return (
