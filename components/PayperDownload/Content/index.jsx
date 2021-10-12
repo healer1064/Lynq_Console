@@ -1,7 +1,6 @@
 // libraries
 import { useState } from "react";
 import Link from "next/link";
-import { Dropdown, Button } from "antd";
 
 // styles
 import styles from "./styles.module.sass";
@@ -10,22 +9,21 @@ import styles from "./styles.module.sass";
 import { CaretDownOutlined } from "@ant-design/icons";
 
 // components
-import AddButton from "@/components/common/AddButton";
+import { Dropdown, Button, Tabs } from "antd";
+import New from "../New/Content";
 import DropdownMenu from "@/components/common/DropdownMenu";
 import List from "@/components/PayperDownload/List";
 
-const index = () =>
-  // { list }
-  {
-    // states
-    const [filter, setFilter] = useState("All");
+const index = () => {
+  // states
+  const [filter, setFilter] = useState("All");
 
-    return (
-      <div>
-        <Link href='/pay-per-download/new'>
-          <AddButton title='New PPD' />
-        </Link>
+  // tabs
+  const { TabPane } = Tabs;
 
+  return (
+    <Tabs defaultActiveKey='1'>
+      <TabPane tab='Catalog' key='1'>
         <Dropdown
           arrow
           overlay={
@@ -41,13 +39,20 @@ const index = () =>
             {filter} <CaretDownOutlined />
           </Button>
         </Dropdown>
-
         <List
           // list={list}
           filter={filter}
         />
-      </div>
-    );
-  };
+      </TabPane>
+      <TabPane tab='Content' key='2'>
+        <New />
+      </TabPane>
+    </Tabs>
+
+    // <Link href='/pay-per-download/new'>
+    //   <AddButton title='New PPD' />
+    // </Link>
+  );
+};
 
 export default index;

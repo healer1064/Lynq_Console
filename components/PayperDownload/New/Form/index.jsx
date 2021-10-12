@@ -4,6 +4,7 @@ import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { toast } from "react-toastify";
 import { Tooltip } from "antd";
+import router from "next/router";
 
 // styles
 import styles from "./styles.module.sass";
@@ -12,23 +13,35 @@ import "react-datepicker/dist/react-datepicker.css";
 // context
 import ProfileContext from "@/context/profile";
 
+// utils
+import { handleFileInput } from "@/utils/helpers";
+
 // requests
 import { listingPriceReq } from "@/utils/requests/calls/template";
 
 // icons
 import { BsExclamationCircleFill } from "react-icons/bs";
+import { setDate } from "date-fns";
+import { FaTrash } from "react-icons/fa";
 
-const index = ({ type, setType }) => {
+//
+import Loading from "@/components/common/Loading";
+
+const index = () => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [listingPrice, setListingPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [pages, setPages] = useState("");
+  const [date, setDate] = useState("");
+  const [thumbnail, setThumbnail] = useState(null);
+  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   // handle price change
   useEffect(() => {
@@ -48,50 +61,6 @@ const index = ({ type, setType }) => {
     }
   }, [price]);
 
-  const customStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      background: "#fff",
-      borderColor: state.isFocused ? "#9FA8B5" : "#9FA8B5",
-      minHeight: "40px",
-      height: "40px",
-      boxShadow: state.isFocused ? null : null,
-    }),
-
-    valueContainer: (provided, state) => ({
-      ...provided,
-      height: "40px",
-      padding: "0 6px",
-      paddingLeft: "24px",
-    }),
-
-    input: (provided, state) => ({
-      ...provided,
-      margin: "0px",
-    }),
-    indicatorSeparator: (state) => ({
-      display: "none",
-    }),
-    indicatorsContainer: (provided, state) => ({
-      ...provided,
-      height: "40px",
-    }),
-  };
-
-  const handleChange = (newValue, actionMeta) => {
-    console.group("Value Changed");
-    console.log(newValue);
-    console.log(`action: ${actionMeta.action}`);
-    console.groupEnd();
-  };
-
-  const handleInputChange = (inputValue, actionMeta) => {
-    console.group("Input Changed");
-    console.log(inputValue);
-    console.log(`action: ${actionMeta.action}`);
-    console.groupEnd();
-  };
-
   return (
     <form className={styles.form}>
       <label>
@@ -102,44 +71,14 @@ const index = ({ type, setType }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
       </label>
-      <label>
-        <strong>Type</strong>
-        <Select
-          styles={customStyles}
-          className={styles.length_select}
-          options={[
-            { value: "Video", label: "Video" },
-            { value: "Picture", label: "Picture" },
-            { value: "Document", label: "Document" },
-          ]}
-          defaultValue={type}
-          onChange={(e) => setType(e.value)}
-        />
-      </label>
-      <label>
-        <strong>
-          Category <span>(Optional)</span>{" "}
-          <Tooltip
-            title='You can add several items in a same category. This
-helps your clients navigate on your public pofile'
-          >
-            <BsExclamationCircleFill />
-          </Tooltip>
-        </strong>
-
-        <CreatableSelect
-          styles={customStyles}
-          className={styles.length_select}
-          isClearable
-          onChange={handleChange}
-          onInputChange={handleInputChange}
-          placeholder='Type or select...'
-          options={[
-            { value: "Test 1", label: "Test 1" },
-            { value: "Test 2", label: "Test 2" },
-            { value: "Test 3", label: "Test 3" },
-          ]}
-        />
+      <label className={styles.description}>
+        <strong>Description</strong>
+        <textarea
+          maxLength='600'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+        <span className={styles.desc_count}>{description.length}/600</span>
       </label>
       <label>
         <strong>Price</strong>
@@ -183,15 +122,73 @@ helps your clients navigate on your public pofile'
           )}
         </div>
       </label>
-      <label className={styles.description}>
-        <strong>Description</strong>
-        <textarea
-          maxLength='600'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-        <span className={styles.desc_count}>{description.length}/600</span>
+      <label className={styles.small}>
+        <strong>Date of creation</strong>
+        <div className={styles.price}>
+          <input
+            type='date'
+            min='0'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
       </label>
+      <label className={styles.small}>
+        <strong>Number of pages</strong>
+        <div className={styles.price}>
+          <input
+            type='number'
+            min='0'
+            value={pages}
+            onChange={(e) => setPages(e.target.value)}
+          />
+        </div>
+      </label>
+      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ""}`}>
+        <strong>Thumbnail</strong>
+        <div className={styles.price}>
+          <input
+            type='file'
+            accept='image/*'
+            onChange={(e) => setThumbnail(handleFileInput(e.target.files[0]))}
+          />
+          {thumbnail && <img src={thumbnail?.url} alt='thumbnail' />}
+          {thumbnail && (
+            <FaTrash
+              onClick={(e) => {
+                e.stopPropagation();
+                setThumbnail(null);
+              }}
+            />
+          )}
+        </div>
+      </label>
+      <label className={`${styles.small} ${file ? styles.file : ""}`}>
+        <strong>
+          File <span>(pdf only)</span>
+        </strong>
+        <div className={styles.price}>
+          <input
+            type='file'
+            accept='application/pdf'
+            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
+          />
+          {file && <span>{file?.fileObject.name}</span>}
+          {file && (
+            <FaTrash
+              onClick={(e) => {
+                e.stopPropagation();
+                setFile(null);
+              }}
+            />
+          )}
+        </div>
+      </label>
+      <div className={styles.btns}>
+        <button className={styles.save}>
+          {buttonLoading ? <Loading /> : "Save"}
+        </button>
+      </div>
     </form>
   );
 };

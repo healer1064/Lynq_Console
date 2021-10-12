@@ -116,8 +116,8 @@ const Leftbar = () => {
                 router.pathname === "/pay-per-download" ? styles.active : ""
               }
             >
-              <FaCartArrowDown />
-              <span>Pay Per Download</span>
+              {/* <FaCartArrowDown /> */}
+              <span>On-demand content</span>
             </a>
           </Link>
         )}
@@ -168,12 +168,12 @@ const Leftbar = () => {
         )}
         <Link href='/dashboard'>
           <a className={router.pathname === "/dashboard" ? styles.active : ""}>
-            <FaChartLine
+            {/* <FaChartLine
               color='white'
               style={{ marginRight: "8px" }}
               size={17}
-            />
-            <span>Dashboard</span>
+            /> */}
+            <span>Reports</span>
           </a>
         </Link>
         {/* <a onClick={() => setPayments(!payments)}>
@@ -226,12 +226,12 @@ const Leftbar = () => {
       </nav>
       <Link href='/account'>
         <div className={styles.profile}>
-          <div className={styles.profile_pic}>
+          {/* <div className={styles.profile_pic}>
             <img
               src={slugData?.public_image ?? "/img/profile-pic.png"}
               alt=''
             />
-          </div>
+          </div> */}
           <span>Account</span>
         </div>
       </Link>
