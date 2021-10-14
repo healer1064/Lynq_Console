@@ -1,17 +1,17 @@
 // libraries
-import { useState, useEffect, useContext } from "react";
-import Head from "next/head";
-import { toast } from "react-toastify";
+import { useState, useEffect, useContext } from 'react';
+import Head from 'next/head';
+import { toast } from 'react-toastify';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // requests
-import { getBusinessReq, getProfileReq } from "@/utils/requests/account";
+import { getBusinessReq, getProfileReq } from '@/utils/requests/account';
 
 // components
-import Content from "@/components/Account/Content";
-import PageLoading from "../../components/common/PageLoading";
+import Content from '@/components/Account/Content';
+import PageLoading from '../../components/common/PageLoading';
 
 const Account = () => {
   // context
@@ -28,12 +28,12 @@ const Account = () => {
         .then((res) => {
           setProfile(res);
         })
-        .catch(() => toast.error("Failed to get profile information!"));
-      getBusinessReq(token)
-        .then((res) => {
-          setBusiness(res);
-        })
-        .catch(() => toast.error("Failed to get business information!"));
+        .catch(() => toast.error('Failed to get profile information!'));
+      // getBusinessReq(token)
+      //   .then((res) => {
+      //     setBusiness(res);
+      //   })
+      //   .catch(() => toast.error("Failed to get business information!"));
     }
   }, [token, success]);
 
@@ -47,12 +47,13 @@ const Account = () => {
         <title>Account | Lynq</title>
       </Head>
       <div className='content-wrp'>
-        {!profile || !business ? (
+        {!profile ? (
+          // || !business
           <PageLoading />
         ) : (
           <Content
             profile={profile}
-            business={business}
+            // business={business}
             toggleSuccess={toggleSuccess}
           />
         )}

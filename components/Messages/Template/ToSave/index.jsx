@@ -1,26 +1,26 @@
 // libraries
-import { useState, useContext, useEffect } from "react";
-import { toast } from "react-toastify";
-import { Tooltip } from "antd";
+import { useState, useContext, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { Tooltip } from 'antd';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // icons
-import { BsExclamationCircleFill } from "react-icons/bs";
+import { BsExclamationCircleFill } from 'react-icons/bs';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // requests
-import { listingPriceReq } from "@/utils/requests/calls/template";
+import { listingPriceReq } from '@/utils/requests/calls/template';
 import {
   postMessageTemplate,
   putMessageTemplate,
-} from "@/utils/requests/messages";
+} from '@/utils/requests/messages';
 
 // components
-import Loading from "@/components/common/Loading";
+import Loading from '@/components/common/Loading';
 
 const index = ({ data, setState, responseRefresh, setActive }) => {
   // context
@@ -28,14 +28,14 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
 
   // states
   const [days, setDays] = useState(
-    data[0] ? (data[0].maxResponseDelay ? data[0].maxResponseDelay : "") : "",
+    data[0] ? (data[0].maxResponseDelay ? data[0].maxResponseDelay : '') : '',
   );
   const [price, setPrice] = useState(
-    data[0] ? (data[0].price ? data[0].price : "") : "",
+    data[0] ? (data[0].price ? data[0].price : '') : '',
   );
-  const [listingPrice, setListingPrice] = useState("");
+  const [listingPrice, setListingPrice] = useState('');
   const [description, setDescription] = useState(
-    data[0] ? (data[0].description ? data[0].description : "") : "",
+    data[0] ? (data[0].description ? data[0].description : '') : '',
   );
   const [loading, setLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -43,7 +43,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
 
   // get listing prce
   useEffect(() => {
-    if (price !== "") {
+    if (price !== '') {
       setLoading(true);
       listingPriceReq(token, price)
         .then((res) => {
@@ -52,17 +52,17 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
         })
         .catch(() => {
           setLoading(false);
-          toast.error("Failed to fetch listing price!");
+          toast.error('Failed to fetch listing price!');
         });
     } else {
-      setListingPrice("");
+      setListingPrice('');
     }
   }, [price]);
 
   // handle click
   const handleSave = () => {
-    if (days == "" || price == "" || description == "") {
-      toast.info("Please fill all the fields.");
+    if (days == '' || price == '' || description == '') {
+      toast.info('Please fill all the fields.');
     } else {
       if (!profile.can_create_free_activity) {
         if (price < 1) {
@@ -72,7 +72,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
         setPriceError(false);
         setButtonLoading(true);
         const reqData = {
-          name: "string",
+          name: 'string',
           description,
           enabled: true,
           maxResponseDelay: days,
@@ -83,7 +83,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
             .then((res) => {
               setButtonLoading(false);
               if (res.status) {
-                toast.error("Failed to save the message template.");
+                toast.error('Failed to save the message template.');
               } else {
                 responseRefresh();
                 setActive(true);
@@ -91,7 +91,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
               }
             })
             .catch(() => {
-              toast.error("Failed to save the message template.");
+              toast.error('Failed to save the message template.');
               setButtonLoading(false);
             });
         } else {
@@ -99,7 +99,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
             .then((res) => {
               setButtonLoading(false);
               if (res.status) {
-                toast.error("Failed to save the message template.");
+                toast.error('Failed to save the message template.');
               } else {
                 responseRefresh();
                 setActive(true);
@@ -107,7 +107,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
               }
             })
             .catch(() => {
-              toast.error("Failed to save the message template.");
+              toast.error('Failed to save the message template.');
               setButtonLoading(false);
             });
         }
@@ -115,7 +115,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
         setPriceError(false);
         setButtonLoading(true);
         const reqData = {
-          name: "string",
+          name: 'string',
           description,
           enabled: true,
           maxResponseDelay: days,
@@ -126,7 +126,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
             .then((res) => {
               setButtonLoading(false);
               if (res.status) {
-                toast.error("Failed to save the message template.");
+                toast.error('Failed to save the message template.');
               } else {
                 responseRefresh();
                 setActive(true);
@@ -134,7 +134,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
               }
             })
             .catch(() => {
-              toast.error("Failed to save the message template.");
+              toast.error('Failed to save the message template.');
               setButtonLoading(false);
             });
         } else {
@@ -142,7 +142,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
             .then((res) => {
               setButtonLoading(false);
               if (res.status) {
-                toast.error("Failed to save the message template.");
+                toast.error('Failed to save the message template.');
               } else {
                 responseRefresh();
                 setActive(true);
@@ -150,7 +150,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
               }
             })
             .catch(() => {
-              toast.error("Failed to save the message template.");
+              toast.error('Failed to save the message template.');
               setButtonLoading(false);
             });
         }
@@ -161,7 +161,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
   return (
     <div className={styles.content}>
       <label>
-        Max response time
+        Maximum delivery
         <span>
           <input
             value={days}
@@ -187,7 +187,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
       )}
       <label className={styles.listing}>
         <h6>
-          Listing Price{" "}
+          Listing Price{' '}
           <Tooltip
             className={styles.tooltip}
             title="The price a customer pays to purchase the service and that
@@ -221,7 +221,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
         <span>{description.length}/700</span>
       </div>
       <button onClick={handleSave}>
-        {buttonLoading ? <Loading /> : "Save"}
+        {buttonLoading ? <Loading /> : 'Save'}
       </button>
     </div>
   );

@@ -1,43 +1,38 @@
 // libraries
-import { useState, useContext, useEffect } from "react";
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
-import { toast } from "react-toastify";
-import { Tooltip } from "antd";
-import router from "next/router";
+import { useState, useContext, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 // styles
-import styles from "./styles.module.sass";
-import "react-datepicker/dist/react-datepicker.css";
+import styles from './styles.module.sass';
+import 'react-datepicker/dist/react-datepicker.css';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // utils
-import { handleFileInput } from "@/utils/helpers";
+import { handleFileInput } from '@/utils/helpers';
 
 // requests
-import { listingPriceReq } from "@/utils/requests/calls/template";
+import { listingPriceReq } from '@/utils/requests/calls/template';
 
 // icons
-import { BsExclamationCircleFill } from "react-icons/bs";
-import { setDate } from "date-fns";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash } from 'react-icons/fa';
 
-//
-import Loading from "@/components/common/Loading";
+// components
+import Select from 'react-select';
+import Loading from '@/components/common/Loading';
 
 const index = () => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [listingPrice, setListingPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [pages, setPages] = useState("");
-  const [date, setDate] = useState("");
+  const [title, setTitle] = useState('');
+  const [price, setPrice] = useState('');
+  const [listingPrice, setListingPrice] = useState('');
+  const [description, setDescription] = useState('');
+  const [pages, setPages] = useState('');
+  const [date, setDate] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -45,7 +40,7 @@ const index = () => {
 
   // handle price change
   useEffect(() => {
-    if (price !== "") {
+    if (price !== '') {
       setLoading(true);
       listingPriceReq(token, price)
         .then((res) => {
@@ -54,15 +49,71 @@ const index = () => {
         })
         .catch(() => {
           setLoading(false);
-          toast.error("Failed to fetch listing price!");
+          toast.error('Failed to fetch listing price!');
         });
     } else {
       setListingPrice(0);
     }
   }, [price]);
 
+  // select styles
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      background: '#fff',
+      borderColor: state.isFocused ? '#9FA8B5' : '#9FA8B5',
+      minHeight: '40px',
+      height: '40px',
+      boxShadow: state.isFocused ? null : null,
+    }),
+
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '40px',
+      padding: '0 6px',
+      paddingLeft: '24px',
+    }),
+
+    input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+    }),
+    indicatorSeparator: (state) => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '40px',
+    }),
+  };
+
+  const handleChange = (newValue, actionMeta) => {
+    console.group('Value Changed');
+    console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+  };
+
+  const handleInputChange = (inputValue, actionMeta) => {
+    console.group('Input Changed');
+    console.log(inputValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+  };
+
   return (
     <form className={styles.form}>
+      <label>
+        <strong>Type</strong>
+        <Select
+          styles={customStyles}
+          className={styles.length_select}
+          onChange={handleChange}
+          onInputChange={handleInputChange}
+          placeholder='Type or select...'
+          options={[{ value: 'eBook', label: 'eBook' }]}
+        />
+      </label>
       <label>
         <strong>Title</strong>
         <input
@@ -93,7 +144,7 @@ const index = () => {
             min='0'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            style={{ paddingLeft: "25px" }}
+            style={{ paddingLeft: '25px' }}
           />
         </div>
       </label>
@@ -116,13 +167,13 @@ const index = () => {
               type='number'
               min='0'
               disabled
-              value={loading ? "" : listingPrice}
-              style={{ paddingLeft: "25px" }}
+              value={loading ? '' : listingPrice}
+              style={{ paddingLeft: '25px' }}
             />
           )}
         </div>
       </label>
-      <label className={styles.small}>
+      {/* <label className={styles.small}>
         <strong>Date of creation</strong>
         <div className={styles.price}>
           <input
@@ -132,7 +183,7 @@ const index = () => {
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
-      </label>
+      </label> */}
       <label className={styles.small}>
         <strong>Number of pages</strong>
         <div className={styles.price}>
@@ -144,7 +195,7 @@ const index = () => {
           />
         </div>
       </label>
-      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ""}`}>
+      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ''}`}>
         <strong>Thumbnail</strong>
         <div className={styles.price}>
           <input
@@ -163,7 +214,7 @@ const index = () => {
           )}
         </div>
       </label>
-      <label className={`${styles.small} ${file ? styles.file : ""}`}>
+      <label className={`${styles.small} ${file ? styles.file : ''}`}>
         <strong>
           File <span>(pdf only)</span>
         </strong>
@@ -186,7 +237,7 @@ const index = () => {
       </label>
       <div className={styles.btns}>
         <button className={styles.save}>
-          {buttonLoading ? <Loading /> : "Save"}
+          {buttonLoading ? <Loading /> : 'Save'}
         </button>
       </div>
     </form>

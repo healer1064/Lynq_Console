@@ -8,9 +8,7 @@ import Fade from "react-reveal/Fade";
 import styles from "./styles.module.sass";
 
 // icons
-import { FiPauseCircle } from "react-icons/fi";
-import { BsPencilSquare } from "react-icons/bs";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { CaretRightOutlined } from "@ant-design/icons";
 
 // components
 import Modal from "@/components/common/Modal";
@@ -31,34 +29,20 @@ const Item = () => {
           className={styles.item}
         >
           <p>Test</p>
-          <p>Video</p>
           <p>08/12//2021</p>
           <p>$150</p>
           <p>45</p>
           <p>$6,750</p>
-          <p>Live</p>
-          <div className={styles.actions}>
-            <FiPauseCircle onClick={(e) => e.stopPropagation()} />
-            <BsPencilSquare onClick={(e) => e.stopPropagation()} />
-            <RiDeleteBin6Line
-              onClick={(e) => {
-                e.stopPropagation();
-                setDeleteModal(true);
-              }}
-            />
-          </div>
+          <CaretRightOutlined
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#7e88f4",
+            }}
+          />
         </div>
       </Fade>
-      {deleteModal && (
-        <Modal
-          setModal={setDeleteModal}
-          // onDelete={() => handleDelete(data.id)}
-          loading={deleteLoading}
-          buttonText='Delete'
-          title='Are you sure you want to delete this PPD?'
-          type='ppd'
-        />
-      )}
     </>
   );
 };

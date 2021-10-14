@@ -1,7 +1,7 @@
 // libraries
 import { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Tooltip } from "antd";
+import router from "next/router";
 
 // styles
 import styles from "./styles.module.sass";
@@ -10,23 +10,32 @@ import "react-datepicker/dist/react-datepicker.css";
 // context
 import ProfileContext from "@/context/profile";
 
+// utils
+import { handleFileInput } from "@/utils/helpers";
+
 // requests
 import { listingPriceReq } from "@/utils/requests/calls/template";
 
 // icons
-import { BsExclamationCircleFill } from "react-icons/bs";
+import { FaTrash } from "react-icons/fa";
 
 const index = () => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [price] = useState(10);
-  const [listingPrice, setListingPrice] = useState("");
+  const [title, setTitle] = useState("");
   const [description] = useState(
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   );
+  const [price, setPrice] = useState(10);
+  const [listingPrice, setListingPrice] = useState("");
+  const [pages, setPages] = useState("");
+  const [date, setDate] = useState("");
+  const [thumbnail, setThumbnail] = useState(null);
+  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   // handle price change
   useEffect(() => {
@@ -52,21 +61,10 @@ const index = () => {
         <strong>Title</strong>
         <input type='text' disabled value='Test' />
       </label>
-      <label>
-        <strong>Type</strong>
-        <input type='text' disabled value='Video' />
-      </label>
-      <label>
-        <strong>
-          Category <span>(Optional)</span>{" "}
-          <Tooltip
-            title='You can add several items in a same category. This
-helps your clients navigate on your public pofile'
-          >
-            <BsExclamationCircleFill />
-          </Tooltip>
-        </strong>
-        <input type='text' disabled value='Test1' />
+      <label className={styles.description}>
+        <strong>Description</strong>
+        <textarea disabled maxLength='600' value={description}></textarea>
+        <span className={styles.desc_count}>{description.length}/600</span>
       </label>
       <label>
         <strong>Price</strong>
@@ -109,11 +107,85 @@ helps your clients navigate on your public pofile'
           )}
         </div>
       </label>
-      <label className={styles.description}>
-        <strong>Description</strong>
-        <textarea disabled maxLength='600' value={description}></textarea>
-        <span className={styles.desc_count}>{description.length}/600</span>
+
+      <label className={styles.small}>
+        <strong>Date of creation</strong>
+        <div className={styles.price}>
+          <input
+            type='date'
+            min='0'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+        </div>
       </label>
+      <label className={styles.small}>
+        <strong>Number of pages</strong>
+        <div className={styles.price}>
+          <input
+            type='number'
+            min='0'
+            value={pages}
+            onChange={(e) => setPages(e.target.value)}
+          />
+        </div>
+      </label>
+      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ""}`}>
+        <strong>Thumbnail</strong>
+        <div className={styles.price}>
+          <input
+            type='file'
+            accept='image/*'
+            onChange={(e) => setThumbnail(handleFileInput(e.target.files[0]))}
+          />
+          {thumbnail && <img src={thumbnail?.url} alt='thumbnail' />}
+          {thumbnail && (
+            <FaTrash
+              onClick={(e) => {
+                e.stopPropagation();
+                setThumbnail(null);
+              }}
+            />
+          )}
+        </div>
+      </label>
+      <label className={`${styles.small} ${file ? styles.file : ""}`}>
+        <strong>
+          File <span>(pdf only)</span>
+        </strong>
+        <div className={styles.price}>
+          <input
+            type='file'
+            accept='application/pdf'
+            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
+          />
+          {file && <span>{file?.fileObject.name}</span>}
+          {file && (
+            <FaTrash
+              onClick={(e) => {
+                e.stopPropagation();
+                setFile(null);
+              }}
+            />
+          )}
+        </div>
+      </label>
+      <div className={styles.btns}>
+        <button className={styles.save}>
+          {buttonLoading ? <Loading /> : "Cancel"}
+        </button>
+        <button className={styles.save}>
+          {buttonLoading ? <Loading /> : "Delete"}
+        </button>
+      </div>
+      <div className={styles.btns}>
+        <button className={styles.save}>
+          {buttonLoading ? <Loading /> : "Pause"}
+        </button>
+        <button className={styles.save}>
+          {buttonLoading ? <Loading /> : "Reactivate"}
+        </button>
+      </div>
     </form>
   );
 };

@@ -11,8 +11,16 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 
 // components
 import { Tooltip } from "antd";
+import Loading from "@/components/common/Loading";
 
-const index = ({ charity, setCharity, charityName, setCharityName }) => {
+const index = ({
+  charity,
+  setCharity,
+  charityName,
+  setCharityName,
+  loading,
+  onSubmit,
+}) => {
   const onChange = (checked) => {
     if (charityName.length > 0) {
       setCharity(checked);
@@ -54,6 +62,11 @@ const index = ({ charity, setCharity, charityName, setCharityName }) => {
           value={charityName}
           onChange={(e) => setCharityName(e.target.value)}
         />
+      </div>
+      <div className={styles.text_uppercase}>
+        <button onClick={(e) => onSubmit(e)} style={{ position: "relative" }}>
+          {loading && <Loading />}Save Profile
+        </button>
       </div>
       {/* <div className={styles.input_wrap}>
         <label>Website</label>

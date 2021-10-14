@@ -1,20 +1,20 @@
 // libraries
-import { useState, useContext } from "react";
-import { Switch } from "antd";
+import { useState, useContext } from 'react';
+import { Switch } from 'antd';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // requests
-import { postProfileReq } from "@/utils/requests/public-profile";
+import { postProfileReq } from '@/utils/requests/public-profile';
 
 // components
-import ToSave from "../ToSave";
-import ToEdit from "../ToEdit";
-import { toast } from "react-toastify";
+import ToSave from '../ToSave';
+import ToEdit from '../ToEdit';
+import { toast } from 'react-toastify';
 
 const index = ({ data, responseRefresh }) => {
   // context
@@ -40,10 +40,10 @@ const index = ({ data, responseRefresh }) => {
         })
         .catch(() => {
           setLoading(false);
-          toast.error("Failed to change status");
+          toast.error('Failed to change status');
         });
     } else {
-      toast.info("Please save the template first.");
+      toast.info('Please save the template first.');
     }
   }
 
@@ -56,7 +56,7 @@ const index = ({ data, responseRefresh }) => {
           className={active ? styles.switch_on : styles.switch_off}
           loading={loading}
         />
-        <span>{active ? "Activate" : "Deactivate"}</span>
+        <span>{active ? 'Activated' : 'Deactivated'}</span>
       </div>
       <h3>Delivery Time</h3>
       <p>This indicates the maximum time you have to respond to the request</p>

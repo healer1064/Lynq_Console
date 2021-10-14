@@ -18,6 +18,12 @@ $blue: #2889F0
 $breakpointLaptop: 1399px
 $breakpointPhone: 519px
 
+.main_title
+    font-weight: bold
+    font-size: 18px
+    margin: 0
+    margin-bottom: 16px
+
 .table
     @include flex
     flex-direction: column
@@ -151,6 +157,10 @@ $breakpointPhone: 519px
             margin-top: 0px
 
 @media (max-width: $breakpointPhone)
+    .main_title
+        font-size: 20px
+        line-height: 24px
+        margin-bottom: 24px
     .table
         width: 100%
         margin: 0 0 32px

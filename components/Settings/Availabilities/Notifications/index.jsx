@@ -1,21 +1,21 @@
 // libraries
-import { useState, useEffect, useContext } from "react";
-import { toast } from "react-toastify";
+import { useState, useEffect, useContext } from 'react';
+import { toast } from 'react-toastify';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // icons
-import { FaGlobeAmericas } from "react-icons/fa";
+import { FaGlobeAmericas } from 'react-icons/fa';
 
 // requests
-import { postProfileReq } from "@/utils/requests/public-profile";
+import { postProfileReq } from '@/utils/requests/public-profile';
 
 // components
-import TimezoneDropdown from "./TimezoneDropdown";
+import TimezoneDropdown from './TimezoneDropdown';
 
 const SetupNotifications = ({
   delayedBookingHours,
@@ -28,8 +28,8 @@ const SetupNotifications = ({
 
   // states
   const [delayBooking, setDelayBooking] = useState(
-    delayedBookingHours == null || delayedBookingHours == ""
-      ? "0"
+    delayedBookingHours == null || delayedBookingHours == ''
+      ? '0'
       : delayedBookingHours,
   );
   const [timezone, setTimeZone] = useState(data.timezone);
@@ -54,13 +54,13 @@ const SetupNotifications = ({
         }
       })
       .catch(() => {
-        toast.error("Failed to update timezone.");
+        toast.error('Failed to update timezone.');
       });
   };
 
   return (
     <div className={styles.notifications}>
-      <div className={styles.card}>
+      {/* <div className={styles.card}>
         <div className={styles.title}>
           <img src='/img/notifications-buffers.svg' alt='' />
           <strong>Buffers</strong>
@@ -75,22 +75,23 @@ const SetupNotifications = ({
         <span>24 hours before event</span>
         <span>1 hour before event</span>
       </div>
+      */}
       <div className={styles.card}>
         <div className={styles.title}>
           <img
             src='/img/not-allow.svg'
             alt=''
-            style={{ height: "17px", width: "17px" }}
+            style={{ height: '17px', width: '17px' }}
           />
           <strong>Do Not Allow Clients To</strong>
         </div>
         <span className={styles.do_not_allow_clients}>
-          Schedule fewer than{" "}
+          Schedule fewer than{' '}
           <input
             type='number'
             value={delayBooking}
             onChange={(e) => setDelayBooking(e.target.value)}
-          />{" "}
+          />{' '}
           hours in advance
         </span>
       </div>
@@ -98,11 +99,11 @@ const SetupNotifications = ({
         <div className={styles.title}>
           <FaGlobeAmericas
             color='#7E88F4'
-            style={{ height: "17px", width: "17px" }}
+            style={{ height: '17px', width: '17px' }}
           />
           <strong>Select Timezone</strong>
         </div>
-        <span style={{ width: "100%" }} className={styles.do_not_allow_clients}>
+        <span style={{ width: '100%' }} className={styles.do_not_allow_clients}>
           <TimezoneDropdown setState={setTimeZone} state={timezone} />
         </span>
       </div>

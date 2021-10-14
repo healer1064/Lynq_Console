@@ -8,7 +8,6 @@ const Head = ({ order, setOrder }) => {
   return (
     <div className={styles.head}>
       <p>Title</p>
-      <p>Type</p>
       <p
         className={`${styles.cursor} ${
           order == "date_desc" || order == "date_asc" ? "" : styles.dull
@@ -64,10 +63,9 @@ const Head = ({ order, setOrder }) => {
           )
         }
       >
-        Revenue
+        Total Revenue
         {order == "revenue_desc" ? <CaretUpOutlined /> : <CaretDownOutlined />}
       </p>
-      <p>Status</p>
     </div>
   );
 };

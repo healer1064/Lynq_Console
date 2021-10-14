@@ -1,17 +1,18 @@
 // libraries
-import React from "react";
+import React from 'react';
 
 // styles
-import styles from "./styles.module.scss";
+import styles from './styles.module.scss';
 
 // icons
-import { CaretDownOutlined } from "@ant-design/icons";
-import { AiOutlineCalendar } from "react-icons/ai";
+import { CaretDownOutlined } from '@ant-design/icons';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { FaBook } from 'react-icons/fa';
 
 // components
-import { Dropdown, Button } from "antd";
-import DropdownMenu from "./DropdownMenu";
-import Item from "./Item";
+import { Dropdown, Button } from 'antd';
+import DropdownMenu from './DropdownMenu';
+import Item from './Item';
 
 const index = ({ data, period, setPeriod }) => {
   return (
@@ -103,6 +104,37 @@ const index = ({ data, period, setPeriod }) => {
           type='message'
           order={13}
           row='lower'
+        />
+      </div>
+      <div className={styles.list}>
+        <Item
+          name='Clicks on On-demand content'
+          number='-'
+          image='/img/dashboard-click.svg'
+        />
+        <Item
+          name='Total eBooks sold'
+          number='-'
+          image='/img/dashboard-ebook.svg'
+        />
+        <Item
+          name='Revenue from eBools'
+          number='$ -'
+          image='/img/dashboard-ebook.svg'
+        />
+      </div>
+      <div className={styles.list}>
+        <Item
+          name='Clicks on "Name of the button"'
+          number='-'
+          image='/img/dashboard-click.svg'
+        />
+      </div>
+      <div className={styles.list}>
+        <Item
+          name='Clicks on ”Name of the product”'
+          number='-'
+          image='/img/dashboard-click.svg'
         />
       </div>
     </div>

@@ -1,17 +1,18 @@
 // libraries
-import Head from "next/head";
-import { useState, useContext, useEffect } from "react";
-import { toast } from "react-toastify";
+import Head from 'next/head';
+import { useState, useContext, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // requests
-import { getPaymentsReq } from "@/utils/requests/payment/balance";
+import { getPaymentsReq } from '@/utils/requests/payment/balance';
+import { getBusinessReq } from '@/utils/requests/account';
 
 // components
-import PageLoading from "@/components/common/PageLoading";
-import Content from "@/components/Payment/Balance/Content";
+import PageLoading from '@/components/common/PageLoading';
+import Content from '@/components/Payment/Balance/Content';
 
 export default function Payment() {
   // context
@@ -19,6 +20,7 @@ export default function Payment() {
 
   // states
   const [payments, setPayments] = useState(null);
+  const [business, setBusiness] = useState(null);
   const [response, setResponse] = useState(false);
 
   useEffect(() => {
@@ -27,13 +29,18 @@ export default function Payment() {
         .then((res) => {
           setPayments(res);
         })
-        .catch(() => toast.error("Failed to fetch payment balance!"));
+        .catch(() => toast.error('Failed to fetch payment balance!'));
+      getBusinessReq(token)
+        .then((res) => {
+          setBusiness(res);
+        })
+        .catch(() => toast.error('Failed to get business information!'));
     }
   }, [token, response]);
 
   // refresh payment
   const toggleResponse = () => {
-    setResponse(!response);
+    setResponse((prevState) => !prevState);
   };
 
   return (
@@ -41,11 +48,15 @@ export default function Payment() {
       <Head>
         <title>Payment Balance | Lynq</title>
       </Head>
-      <div className="content-wrp ">
+      <div className='content-wrp '>
         {!payments ? (
           <PageLoading />
         ) : (
-          <Content payments={payments} toggleResponse={toggleResponse} />
+          <Content
+            payments={payments}
+            toggleResponse={toggleResponse}
+            business={business}
+          />
         )}
       </div>
     </>

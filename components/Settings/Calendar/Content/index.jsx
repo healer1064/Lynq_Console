@@ -1,12 +1,12 @@
 // libraries
-import React from "react";
-import Fade from "react-reveal/Fade";
+import React from 'react';
+import Fade from 'react-reveal/Fade';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // components
-import PageLoading from "@/components/common/PageLoading";
+import PageLoading from '@/components/common/PageLoading';
 
 const index = ({ isConnected, pageLoading, profile }) => {
   return (
@@ -18,11 +18,12 @@ const index = ({ isConnected, pageLoading, profile }) => {
           </div>
         ) : (
           <>
+            <h3>Synchronize your calendar</h3>
             <div className={styles.title}>
               You can connect your calendar with Lynq.
             </div>
             <div className={styles.calendar}>
-              <img src="/img/google-calendar.svg" alt="" />
+              <img src='/img/google-calendar.svg' alt='' />
               <a
                 href={
                   !isConnected
@@ -32,7 +33,7 @@ const index = ({ isConnected, pageLoading, profile }) => {
                       }`
                 }
               >
-                {isConnected ? "Disconnect" : "Connect"}
+                {isConnected ? 'Disconnect' : 'Connect'}
               </a>
             </div>
             <span className={styles.btm_txt}>

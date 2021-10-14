@@ -15,10 +15,12 @@ import {
 } from "@/utils/requests/public-profile";
 
 // components
+import { Tabs } from "antd";
 import ImageSelect from "../ImageSelect";
 import SlugComp from "../Slug";
 import Keywords from "../Keywords";
 import Charity from "../Charity";
+import SocialLinks from "../SocialLinks";
 import Loading from "@/components/common/Loading";
 
 const index = ({ profile }) => {
@@ -31,12 +33,16 @@ const index = ({ profile }) => {
   const [slug, setSlug] = useState("");
   const [desc, setDesc] = useState("");
   const [keywords, setKeywords] = useState([]);
+  const [socialLinks, setSocialLinks] = useState([""]);
   const [newSlug, setNewSlug] = useState("");
   const [image, setImage] = useState(null);
   const [charity, setCharity] = useState(false);
   const [charityName, setCharityName] = useState("");
   const [slugRule, setSlugRule] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // tabs pane
+  const { TabPane } = Tabs;
 
   useEffect(() => {
     if (profile) {
@@ -129,62 +135,79 @@ const index = ({ profile }) => {
 
   return (
     <div className={styles.edit_profile}>
-      <ImageSelect image={image} setImage={setImage} />
-      <SlugComp
-        slug={slug}
-        setSlug={setSlug}
-        slugRule={slugRule}
-        setSlugRule={setSlugRule}
-      />
-      <div>
-        <label>First Name*</label>
-        <input
-          type='text'
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Last Name*</label>
-        <input
-          type='text'
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-      </div>
-      <div className={styles.desc_wrap}>
-        <label>Description*</label>
-        <div
-          style={{
-            border: "1px solid #C0C0C9",
-            borderRadius: "5px",
-            width: "100%",
-          }}
-        >
-          <textarea
-            cols='30'
-            type='text'
-            value={desc}
-            onChange={(e) => {
-              setDesc(e.target.value);
-            }}
-            maxLength='700'
-          ></textarea>
-        </div>
-        <span className={styles.desc_count}>{desc.length}/700</span>
-      </div>
-      <Keywords keywords={keywords} setKeywords={setKeywords} />
-      <Charity
-        charity={charity}
-        setCharity={setCharity}
-        charityName={charityName}
-        setCharityName={setCharityName}
-      />
-      <div className={styles.text_uppercase}>
-        <button onClick={(e) => onSubmit(e)} style={{ position: "relative" }}>
-          {loading && <Loading />}Save Profile
-        </button>
-      </div>
+      <Tabs defaultActiveKey='1'>
+        <TabPane tab='General' key='1'>
+          <ImageSelect image={image} setImage={setImage} />
+          <SlugComp
+            slug={slug}
+            setSlug={setSlug}
+            slugRule={slugRule}
+            setSlugRule={setSlugRule}
+          />
+          <div>
+            <label>First Name*</label>
+            <input
+              type='text'
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Last Name*</label>
+            <input
+              type='text'
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className={styles.desc_wrap}>
+            <label>Description*</label>
+            <div
+              style={{
+                border: "1px solid #C0C0C9",
+                borderRadius: "5px",
+                width: "100%",
+              }}
+            >
+              <textarea
+                cols='30'
+                type='text'
+                value={desc}
+                onChange={(e) => {
+                  setDesc(e.target.value);
+                }}
+                maxLength='700'
+              ></textarea>
+            </div>
+            <span className={styles.desc_count}>{desc.length}/700</span>
+          </div>
+          <Keywords keywords={keywords} setKeywords={setKeywords} />
+          <div className={styles.text_uppercase}>
+            <button
+              onClick={(e) => onSubmit(e)}
+              style={{ position: "relative" }}
+            >
+              {loading && <Loading />}Save Profile
+            </button>
+          </div>
+        </TabPane>
+        <TabPane tab='Social links' key='2'>
+          <SocialLinks
+            socialLinks={socialLinks}
+            setSocialLinks={setSocialLinks}
+          />
+        </TabPane>
+        <TabPane tab='Charity' key='3'>
+          <Charity
+            charity={charity}
+            setCharity={setCharity}
+            charityName={charityName}
+            setCharityName={setCharityName}
+            loading={loading}
+            onSubmit={updateProfile}
+          />
+        </TabPane>
+      </Tabs>
     </div>
   );
 };

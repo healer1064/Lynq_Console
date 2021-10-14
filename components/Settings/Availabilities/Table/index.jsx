@@ -1,29 +1,29 @@
 // libraries
-import { useContext } from "react";
-import { toast } from "react-toastify";
+import { useContext } from 'react';
+import { toast } from 'react-toastify';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // requests
-import { delSlotReq } from "@/utils/requests/settings/availabilities";
+import { delSlotReq } from '@/utils/requests/settings/availabilities';
 
 // components
-import PageLoading from "@/components/common/PageLoading";
-import Row from "./Row";
-import Item from "@/components/Dashboard/Stats/Item";
+import PageLoading from '@/components/common/PageLoading';
+import Row from './Row';
+import Item from '@/components/Dashboard/Stats/Item';
 
 const days = [
-  "SUNDAY",
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY",
+  'SUNDAY',
+  'MONDAY',
+  'TUESDAY',
+  'WEDNESDAY',
+  'THURSDAY',
+  'FRIDAY',
+  'SATURDAY',
 ];
 
 const SetupTable = ({ data, toggleSuccess }) => {
@@ -37,11 +37,11 @@ const SetupTable = ({ data, toggleSuccess }) => {
         if (res.status == 200) {
           toggleSuccess();
         } else {
-          toast.error("Failed to remove the slot.");
+          toast.error('Failed to remove the slot.');
         }
       })
       .catch(() => {
-        toast.error("Failed to remove the slot.");
+        toast.error('Failed to remove the slot.');
       });
   };
 
@@ -50,29 +50,28 @@ const SetupTable = ({ data, toggleSuccess }) => {
     return slots;
   };
 
-  return (
-    <div className={styles.table}>
-      {!data ? (
-        <div className={styles.loading}>
-          <PageLoading />
-        </div>
-      ) : (
-        <>
-          <div className={styles.title}>Set your weekly hours</div>
-          {days.map((day, index) => {
-            return (
-              <Row
-                key={index}
-                day={day}
-                data={filterData(day.toLowerCase())}
-                deleteTime={removeTimeSlot}
-                toggleSuccess={toggleSuccess}
-              />
-            );
-          })}
-        </>
-      )}
+  return !data ? (
+    <div className={styles.loading}>
+      <PageLoading />
     </div>
+  ) : (
+    <>
+      <h3 className={styles.main_title}>Set your availabilitiy</h3>
+      <div className={styles.table}>
+        <div className={styles.title}>Set your weekly hours</div>
+        {days.map((day, index) => {
+          return (
+            <Row
+              key={index}
+              day={day}
+              data={filterData(day.toLowerCase())}
+              deleteTime={removeTimeSlot}
+              toggleSuccess={toggleSuccess}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 };
 

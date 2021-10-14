@@ -1,22 +1,22 @@
 // libraries
-import { useState, useEffect, useContext, useCallback } from "react";
-import { Switch } from "antd";
-import { toast } from "react-toastify";
-import { v4 as uuidv4 } from "uuid";
+import { useState, useEffect, useContext } from 'react';
+import { Switch } from 'antd';
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // requests
-import { postOneToOneOptionReq } from "@/utils/requests/calls/template";
-import { postProfileReq } from "@/utils/requests/public-profile";
+import { postOneToOneOptionReq } from '@/utils/requests/calls/template';
+import { postProfileReq } from '@/utils/requests/public-profile';
 
 // components
-import List from "../List";
-import Loading from "@/components/common/Loading";
+import List from '../List';
+import Loading from '@/components/common/Loading';
 
 const index = ({ activePrivateSession }) => {
   // context
@@ -24,7 +24,7 @@ const index = ({ activePrivateSession }) => {
 
   // states
   const [active, setActive] = useState(activePrivateSession);
-  const [desc, setDesc] = useState(slugData.oneonone_bio || "");
+  const [desc, setDesc] = useState(slugData.oneonone_bio || '');
   const [options, setOptions] = useState([
     { length: 15, status: false, tags: [] },
     { length: 30, status: false, tags: [] },
@@ -45,7 +45,7 @@ const index = ({ activePrivateSession }) => {
         60: { duration: 60, status: false, tags: [] },
         ...bulletpoints.reduce((acc, c) => {
           acc[c.duration] = c;
-          c["status"] = true;
+          c['status'] = true;
           return acc;
         }, {}),
       });
@@ -57,10 +57,10 @@ const index = ({ activePrivateSession }) => {
   async function onChange(checked) {
     setRequestSent(true);
     const fetchOptions = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
+        Accept: 'application/json',
+        'Content-type': 'application/json',
       },
     };
     const message = await fetch(
@@ -73,7 +73,7 @@ const index = ({ activePrivateSession }) => {
 
     setRequestSent(false);
     setActive(checked && slugData.active_private_session);
-    toast.success(checked ? "Activated" : "Deactivated");
+    toast.success(checked ? 'Activated' : 'Deactivated');
   }
 
   // handle 1-1 desc
@@ -92,7 +92,7 @@ const index = ({ activePrivateSession }) => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Failed to update general information");
+        toast.error('Failed to update general information');
       });
   };
 
@@ -100,7 +100,7 @@ const index = ({ activePrivateSession }) => {
   const handleClick = () => {
     if (desc.length > 0) {
       if (options.filter((item) => item.status == true).length === 0) {
-        toast.info("Please select an option first.");
+        toast.info('Please select an option first.');
       } else {
         updateProfile();
         const toBeExecuted = options;
@@ -109,9 +109,9 @@ const index = ({ activePrivateSession }) => {
 
         toBeExecuted.forEach((element) => {
           if (element.status) {
-            if (element?.price === undefined || element.price === "") {
+            if (element?.price === undefined || element.price === '') {
               console.log(element.price);
-              toast.info("Please fill all fields");
+              toast.info('Please fill all fields');
               stat = false;
             }
           }
@@ -143,10 +143,10 @@ const index = ({ activePrivateSession }) => {
           await fetch(
             `https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
             {
-              method: "DELETE",
+              method: 'DELETE',
               headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
               },
             },
           );
@@ -166,10 +166,10 @@ const index = ({ activePrivateSession }) => {
           await fetch(
             `https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
             {
-              method: "PUT",
+              method: 'PUT',
               headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
               },
               body: JSON.stringify(d),
             },
@@ -181,7 +181,7 @@ const index = ({ activePrivateSession }) => {
             ),
           );
           setLoading(false);
-          toast.success("Updated succesfully");
+          toast.success('Updated succesfully');
           toBeRecreated.length === 0 && setLoading(false);
         });
 
@@ -189,14 +189,14 @@ const index = ({ activePrivateSession }) => {
           setLoading(true);
           const data = {
             id: uuidv4(),
-            name: "string",
-            teacherId: "string",
+            name: 'string',
+            teacherId: 'string',
             description: d.description,
             tags: d.tags,
             duration: d.duration,
             price: d.price,
-            cancellation_policy: "string",
-            material_needed: "string",
+            cancellation_policy: 'string',
+            material_needed: 'string',
           };
 
           postOneToOneOptionReq(token, data)
@@ -213,21 +213,21 @@ const index = ({ activePrivateSession }) => {
 
               setLoading(false);
               if (res.status == 200) {
-                toast.success("Created successfully.");
+                toast.success('Created successfully.');
               } else {
-                toast.error("Failed to save template options.");
+                toast.error('Failed to save template options.');
               }
             })
             .catch(() => {
               setLoading(false);
-              toast.error("Failed to save template options.");
+              toast.error('Failed to save template options.');
             });
         });
 
         // !toBeExecuted.length && toast.info("Please fill all fields.");
       }
     } else {
-      toast.info("Please type general information first!");
+      toast.info('Please type general information first!');
     }
   };
 
@@ -240,9 +240,9 @@ const index = ({ activePrivateSession }) => {
           loading={requestSent}
           className={active ? styles.switch_on : styles.switch_off}
         />
-        <span>{active ? "Activated" : "Deactivated"}</span>
+        <span>{active ? 'Activated' : 'Deactivated'}</span>
       </div>
-      <h3>General Information</h3>
+      <h3>Description</h3>
       <div className={styles.textarea}>
         <textarea
           value={desc}
@@ -255,7 +255,7 @@ const index = ({ activePrivateSession }) => {
       <h3>Length</h3>
       <List options={options} setOptions={setOptions} />
       <button onClick={handleClick} className={styles.btn}>
-        {loading ? <Loading /> : "Save"}
+        {loading ? <Loading /> : 'Save'}
       </button>
     </div>
   );

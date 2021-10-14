@@ -25,7 +25,6 @@ const index = () => {
 
   // states
   const [loading, setLoading] = useState(false);
-  const [type, setType] = useState("");
 
   // router
   const router = useRouter();

@@ -1,12 +1,12 @@
 // libraries
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // components
-import MobileNav from "./MobileNav";
+import MobileNav from './MobileNav';
 
 const Navbar = ({ flag }) => {
   // states
@@ -15,14 +15,15 @@ const Navbar = ({ flag }) => {
   const [messages, setMessages] = useState(false);
   const [payment, setPayment] = useState(false);
   const [settings, setSettings] = useState(false);
+  const [plugins, setPlugins] = useState(false);
 
   // router
   const router = useRouter();
 
   // handle logout
   const logout = () => {
-    localStorage.removeItem("linqToken");
-    window.location.href = "https://lynq.app?logout=true";
+    localStorage.removeItem('linqToken');
+    window.location.href = 'https://lynq.app?logout=true';
   };
 
   return (
@@ -31,18 +32,18 @@ const Navbar = ({ flag }) => {
         <a
           className={styles.header_logo}
           onClick={() =>
-            flag == "404" ? (location.href = "/") : router.push("/")
+            flag == '404' ? (location.href = '/') : router.push('/')
           }
         >
           <img src='/img/lynq-logo.png' alt='' />
         </a>
-        {flag == "404" ? null : (
+        {flag == '404' ? null : (
           <div onClick={logout} className={styles.logout}>
             <img src='/img/logout.svg' alt='logout' />
             <p>Logout</p>
           </div>
         )}
-        {flag == "404" ? null : (
+        {flag == '404' ? null : (
           <div className={styles.burger_menu} onClick={() => setOpen(true)}>
             <img src='/img/burger-menu.svg' alt='' />
           </div>
@@ -60,6 +61,8 @@ const Navbar = ({ flag }) => {
           settings={settings}
           setSettings={setSettings}
           logout={logout}
+          plugins={plugins}
+          setPlugins={setPlugins}
         />
       )}
     </>
