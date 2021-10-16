@@ -1,37 +1,37 @@
 // libraries
-import { useState, useContext, useEffect } from "react";
-import { toast } from "react-toastify";
-import router from "next/router";
+import { useState, useContext, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import router from 'next/router';
 
 // styles
-import styles from "./styles.module.sass";
-import "react-datepicker/dist/react-datepicker.css";
+import styles from './styles.module.sass';
+import 'react-datepicker/dist/react-datepicker.css';
 
 // context
-import ProfileContext from "@/context/profile";
+import ProfileContext from '@/context/profile';
 
 // utils
-import { handleFileInput } from "@/utils/helpers";
+import { handleFileInput } from '@/utils/helpers';
 
 // requests
-import { listingPriceReq } from "@/utils/requests/calls/template";
+import { listingPriceReq } from '@/utils/requests/calls/template';
 
 // icons
-import { FaTrash } from "react-icons/fa";
+import { FaTrash } from 'react-icons/fa';
 
 const index = () => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState('');
   const [description] = useState(
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
   );
   const [price, setPrice] = useState(10);
-  const [listingPrice, setListingPrice] = useState("");
-  const [pages, setPages] = useState("");
-  const [date, setDate] = useState("");
+  const [listingPrice, setListingPrice] = useState('');
+  const [pages, setPages] = useState('');
+  const [date, setDate] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +39,7 @@ const index = () => {
 
   // handle price change
   useEffect(() => {
-    if (price !== "") {
+    if (price !== '') {
       setLoading(true);
       listingPriceReq(token, price)
         .then((res) => {
@@ -48,7 +48,7 @@ const index = () => {
         })
         .catch(() => {
           setLoading(false);
-          toast.error("Failed to fetch listing price!");
+          toast.error('Failed to fetch listing price!');
         });
     } else {
       setListingPrice(0);
@@ -58,15 +58,35 @@ const index = () => {
   return (
     <form className={styles.form}>
       <label>
-        <strong>Title</strong>
+        <strong>
+          Title <span>(max 42 characters)</span>
+        </strong>
         <input type='text' disabled value='Test' />
       </label>
-      <label className={styles.description}>
-        <strong>Description</strong>
-        <textarea disabled maxLength='600' value={description}></textarea>
-        <span className={styles.desc_count}>{description.length}/600</span>
+      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ''}`}>
+        <strong>Upload</strong>
+        <div className={styles.price}>
+          <input
+            type='file'
+            accept='image/*'
+            onChange={(e) => setThumbnail(handleFileInput(e.target.files[0]))}
+          />
+          {thumbnail && <img src={thumbnail?.url} alt='thumbnail' />}
+          {thumbnail && (
+            <FaTrash
+              className={styles.trash}
+              onClick={(e) => {
+                e.stopPropagation();
+                setThumbnail(null);
+              }}
+            />
+          )}
+        </div>
+        {thumbnail && (
+          <p className={styles.filename}>{thumbnail.fileObject.name}</p>
+        )}
       </label>
-      <label>
+      <label className={styles.small}>
         <strong>Price</strong>
         <div className={styles.price}>
           <img
@@ -75,14 +95,15 @@ const index = () => {
             alt='dollar'
           />
           <input
+            disabled
             type='number'
             min='0'
             value={10}
-            style={{ paddingLeft: "25px" }}
+            style={{ paddingLeft: '25px' }}
           />
         </div>
       </label>
-      <label>
+      <label className={styles.small}>
         <strong>Listing Price</strong>
         <div className={`${styles.price} ${styles.listing}`}>
           <img
@@ -101,8 +122,8 @@ const index = () => {
               type='number'
               min='0'
               disabled
-              value={loading ? "" : listingPrice}
-              style={{ paddingLeft: "25px" }}
+              value={loading ? '' : listingPrice}
+              style={{ paddingLeft: '25px' }}
             />
           )}
         </div>
@@ -111,45 +132,28 @@ const index = () => {
       <label className={styles.small}>
         <strong>Date of creation</strong>
         <div className={styles.price}>
-          <input
-            type='date'
-            min='0'
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
+          <input disabled value='10-01-2021' />
         </div>
       </label>
       <label className={styles.small}>
-        <strong>Number of pages</strong>
+        <strong>Status</strong>
         <div className={styles.price}>
-          <input
-            type='number'
-            min='0'
-            value={pages}
-            onChange={(e) => setPages(e.target.value)}
-          />
+          <input disabled value='Active' />
         </div>
       </label>
-      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ""}`}>
-        <strong>Thumbnail</strong>
+      <label className={styles.small}>
+        <strong>Total Revenue</strong>
         <div className={styles.price}>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={(e) => setThumbnail(handleFileInput(e.target.files[0]))}
+          <img
+            className={styles.price_img}
+            src='/img/dollar.svg'
+            alt='dollar'
           />
-          {thumbnail && <img src={thumbnail?.url} alt='thumbnail' />}
-          {thumbnail && (
-            <FaTrash
-              onClick={(e) => {
-                e.stopPropagation();
-                setThumbnail(null);
-              }}
-            />
-          )}
+          <input disabled value={4000} style={{ paddingLeft: '25px' }} />
         </div>
       </label>
-      <label className={`${styles.small} ${file ? styles.file : ""}`}>
+
+      {/* <label className={`${styles.small} ${file ? styles.file : ''}`}>
         <strong>
           File <span>(pdf only)</span>
         </strong>
@@ -169,21 +173,13 @@ const index = () => {
             />
           )}
         </div>
-      </label>
+      </label> */}
       <div className={styles.btns}>
         <button className={styles.save}>
-          {buttonLoading ? <Loading /> : "Cancel"}
+          {buttonLoading ? <Loading /> : 'Pause'}
         </button>
         <button className={styles.save}>
-          {buttonLoading ? <Loading /> : "Delete"}
-        </button>
-      </div>
-      <div className={styles.btns}>
-        <button className={styles.save}>
-          {buttonLoading ? <Loading /> : "Pause"}
-        </button>
-        <button className={styles.save}>
-          {buttonLoading ? <Loading /> : "Reactivate"}
+          {buttonLoading ? <Loading /> : 'Delete'}
         </button>
       </div>
     </form>

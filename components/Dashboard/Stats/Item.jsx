@@ -7,7 +7,17 @@ import ProfileContext from '@/context/profile';
 // styles
 import styles from './styles.module.scss';
 
-const Item = ({ name, number, image, percent, trend, type, order, row }) => {
+const Item = ({
+  name,
+  number,
+  image,
+  percent,
+  trend,
+  type,
+  order,
+  row,
+  contentSales,
+}) => {
   // context
   const { slugData } = useContext(ProfileContext);
 
@@ -63,6 +73,11 @@ const Item = ({ name, number, image, percent, trend, type, order, row }) => {
               Since yesterday
             </p>
           ))}
+        {contentSales && (
+          <p className={styles.content_sales}>
+            Content sales: <span>${contentSales}</span>
+          </p>
+        )}
       </div>
       <img src={image} alt={name} />
     </div>

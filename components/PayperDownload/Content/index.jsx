@@ -1,22 +1,22 @@
 // libraries
-import { useState } from "react";
-import Link from "next/link";
+import { useState } from 'react';
+import Link from 'next/link';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // icons
-import { CaretDownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined } from '@ant-design/icons';
 
 // components
-import { Dropdown, Button, Tabs } from "antd";
-import New from "../New/Content";
-import DropdownMenu from "@/components/common/DropdownMenu";
-import List from "@/components/PayperDownload/List";
+import { Dropdown, Button, Tabs } from 'antd';
+import New from '../New/Content';
+import DropdownMenu from '@/components/common/DropdownMenu';
+import List from '@/components/PayperDownload/List';
 
 const index = () => {
   // states
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState('All');
 
   // tabs
   const { TabPane } = Tabs;
@@ -30,7 +30,7 @@ const index = () => {
             <DropdownMenu
               state={filter}
               setState={setFilter}
-              data={["All", "Video", "Picture", "Document"]}
+              data={['All', 'Video', 'Picture', 'Document']}
             />
           }
           placement='bottomCenter'
@@ -44,7 +44,7 @@ const index = () => {
           filter={filter}
         />
       </TabPane>
-      <TabPane tab='Content' key='2'>
+      <TabPane tab='New content' key='2'>
         <New />
       </TabPane>
     </Tabs>

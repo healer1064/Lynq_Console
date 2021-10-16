@@ -106,7 +106,7 @@ const index = ({ data, period, setPeriod }) => {
           row='lower'
         />
       </div>
-      <div className={styles.list}>
+      {/* <div className={styles.list}>
         <Item
           name='Clicks on On-demand content'
           number='-'
@@ -122,12 +122,13 @@ const index = ({ data, period, setPeriod }) => {
           number='$ -'
           image='/img/dashboard-ebook.svg'
         />
-      </div>
+      </div> */}
       <div className={styles.list}>
         <Item
           name='Clicks on "Name of the button"'
           number='-'
           image='/img/dashboard-click.svg'
+          contentSales='20'
         />
       </div>
       <div className={styles.list}>
@@ -135,6 +136,7 @@ const index = ({ data, period, setPeriod }) => {
           name='Clicks on ”Name of the product”'
           number='-'
           image='/img/dashboard-click.svg'
+          contentSales='20'
         />
       </div>
     </div>

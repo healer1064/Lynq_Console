@@ -1,5 +1,5 @@
 .stats {
-  // background-color: #f5f5f5;
+  background-color: #f5f5f5;
   padding: 30px;
   margin-top: 20px;
   margin-bottom: 40px;
@@ -66,6 +66,16 @@
           .red {
             color: #cd3232;
             background: rgba(251, 152, 152, 0.4);
+          }
+        }
+        .content_sales {
+          font-size: 14px;
+          color: #777;
+          font-weight: 600;
+
+          span {
+            color: #000;
+            font-size: 16px;
           }
         }
       }
