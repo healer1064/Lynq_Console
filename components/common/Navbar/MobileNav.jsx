@@ -113,6 +113,18 @@ const MobileNav = ({
                   <span>On-demand content</span>
                 </a>
               </Link>
+              <Link href='/affiliate-marketing'>
+                <a
+                  onClick={() => setOpen(false)}
+                  className={
+                    router.pathname === '/affiliate-marketing'
+                      ? styles.active
+                      : ''
+                  }
+                >
+                  <span>My recommendations</span>
+                </a>
+              </Link>
             </div>
           )}
           {/* <a onClick={() => setMessages(!messages)}>

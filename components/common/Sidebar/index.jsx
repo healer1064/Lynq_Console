@@ -99,6 +99,17 @@ const Leftbar = () => {
                 <span>On-demand content</span>
               </a>
             </Link>
+            <Link href='/affiliate-marketing'>
+              <a
+                className={
+                  router.pathname === '/affiliate-marketing'
+                    ? styles.active
+                    : ''
+                }
+              >
+                <span>My recommendations</span>
+              </a>
+            </Link>
           </>
         )}
         <Link href='/dashboard'>
