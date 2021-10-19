@@ -9,6 +9,7 @@ import styles from './styles.module.sass';
 import ProfileContext from '@/context/profile';
 
 // requests
+import { getLinkReq } from '@/utils/requests/public-profile';
 import {
   postProfileReq,
   getSlugCheckReq,
@@ -40,6 +41,7 @@ const index = ({ profile }) => {
   const [charityName, setCharityName] = useState('');
   const [slugRule, setSlugRule] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [refetch, setRefetch] = useState(false);
 
   // tabs pane
   const { TabPane } = Tabs;
@@ -132,6 +134,22 @@ const index = ({ profile }) => {
       });
   };
 
+  useEffect(() => {
+    if (token) {
+      getLinkReq(token)
+        .then((res) => {
+          setExternalLinks(res);
+        })
+        .catch(() => {
+          toast.error('An error has occurred.');
+        });
+    }
+  }, [token, refetch]);
+
+  const refetchData = () => {
+    setRefetch((prevState) => !prevState);
+  };
+
   return (
     <div className={styles.edit_profile}>
       <Tabs defaultActiveKey='1'>
@@ -190,10 +208,10 @@ const index = ({ profile }) => {
             </button>
           </div>
         </TabPane>
-        <TabPane tab='External links' key='2'>
+        <TabPane tab='Links & buttons' key='2'>
           <ExternalLinks
             externalLinks={externalLinks}
-            setExternalLinks={setExternalLinks}
+            refetchData={refetchData}
           />
         </TabPane>
         <TabPane tab='Charity' key='3'>

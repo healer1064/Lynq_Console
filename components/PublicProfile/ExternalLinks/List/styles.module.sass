@@ -1,0 +1,85 @@
+.no_appointments
+  min-height: calc( 100vh - 100px )
+
+.list 
+    margin-top: 2rem
+
+    .head
+        width: 100%
+        background: rgba(126, 136, 244, 0.8)
+        display: grid
+        grid-template-columns: 1fr 1fr 2fr 0.5fr
+        padding: 15px 20px
+        border-top-left-radius: 8px
+        border-top-right-radius: 8px
+        p
+            width: 100%
+            margin: 0
+            color: white
+            font-size: 14px
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
+            -webkit-touch-callout: none
+            -webkit-user-select: none
+            -khtml-user-select: none
+            -moz-user-select: none
+            -ms-user-select: none
+            user-select: none
+            svg
+                margin-left: 20px
+                transition: all 0.5s
+    .icons
+        display: flex
+        align-items: center
+        svg
+            font-size: 22px
+            margin-inline: 10px
+            color: green
+            cursor: pointer
+            transition: 0.2s ease-in
+            &:last-child
+                color: red
+            &:hover
+                opacity: 0.7
+        .loading
+            height: 30px
+            background: transparent
+        .cursor
+            cursor: pointer 
+        .dull
+            svg
+                opacity: 0.5
+
+    .item 
+        display: grid
+        grid-template-columns: 1fr 1fr 2fr 0.5fr
+        align-items: center
+        width: 100%
+        padding: 15px 20px
+        cursor: pointer
+        background-color: #f9f9f9
+        transition: 1s all cubic-bezier(0.215, 0.61, 0.355, 1)
+        margin: 10px 0
+        &:hover 
+        background-color: #efefef
+        p
+            margin: 0
+            color: #000
+            font-size: 14px
+            font-weight: 400
+        .session_date
+            color: #7e88f4
+            display: flex
+            align-items: center
+
+@media (max-width: 519px)
+    .list
+        overflow-x: scroll
+        width: 100%
+        .head 
+            width: fit-content
+            grid-template-columns: 100px 100px 250px 70px
+        .item
+            grid-template-columns: 100px 100px 250px 70px
+            width: fit-content

@@ -1,18 +1,27 @@
 // libraries
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 
 // styles
 import styles from './styles.module.scss';
 
+// context
+import ProfileContext from '@/context/profile';
+
+// requests
+import { postLinkReq } from '@/utils/requests/public-profile';
+
 // components
 import Loading from '@/components/common/Loading';
 
-const AddModal = ({ setShowModal, setExternalLinks }) => {
+const AddModal = ({ setShowModal }) => {
   // states
   const [text, setText] = useState('');
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // context
+  const { token } = useContext(ProfileContext);
 
   // handle click
   const handleSave = (e) => {
@@ -22,8 +31,20 @@ const AddModal = ({ setShowModal, setExternalLinks }) => {
       toast.error('Please fill the fields first!');
     } else {
       setLoading(true);
-      setExternalLinks((prevState) => [...prevState, { text, url }]);
-      setShowModal(false);
+      postLinkReq(token, {
+        position: 10,
+        name: text,
+        url,
+        type: 'internal',
+        is_enable: true,
+        creation_date: new Date(),
+      })
+        .then((res) => {
+          setShowModal(false);
+          setText('');
+          setUrl('');
+        })
+        .catch(() => toast.error('An error has occurred.'));
     }
   };
 
