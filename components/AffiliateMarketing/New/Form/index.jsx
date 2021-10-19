@@ -22,9 +22,7 @@ const index = ({ setTab, setRefetch }) => {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [url, setUrl] = useState(
-    'https://www.amazon.com/dp/B07NJHYXMD/ref=sspa_dk_detail_2?psc=1&pd_rd_i=B07NJHYXMD&pd_rd_w=3b5Dz&pf_rd_p=9fd3ea7c-b77c-42ac-b43b-c872d3f37c38&pd_rd_wg=WzR5V&pf_rd_r=0MZ5RWW3DNEQKC46CBX0&pd_rd_r=7d889085-8fc4-4811-a8f8-73529cc62e76&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzSjdZSjNZOUVIWkYwJmVuY3J5cHRlZElkPUEwMjc4ODI5UlNPMldLVVJGN0c2JmVuY3J5cHRlZEFkSWQ9QTAwNjUyNDcxTE5OWllZMTdDS1k1JndpZGdldE5hbWU9c3BfZGV0YWlsJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==',
-  );
+  const [url, setUrl] = useState('');
   const [data, setData] = useState(null);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');

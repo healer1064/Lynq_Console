@@ -1,7 +1,7 @@
 // libraries
-import { useState, useContext, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import { useState, useContext } from 'react';
 import router from 'next/router';
+import { toast } from 'react-toastify';
 
 // styles
 import styles from './styles.module.sass';
@@ -10,176 +10,101 @@ import 'react-datepicker/dist/react-datepicker.css';
 // context
 import ProfileContext from '@/context/profile';
 
-// utils
-import { handleFileInput } from '@/utils/helpers';
-
 // requests
-import { listingPriceReq } from '@/utils/requests/calls/template';
+import {
+  putAffiliateMarketingReq,
+  deleteAffiliateMarketingReq,
+} from '@/utils/requests/affiliate-marketing';
 
-// icons
-import { FaTrash } from 'react-icons/fa';
+import Loading from '@/components/common/Loading';
 
-const index = () => {
+const index = ({ data }) => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [title, setTitle] = useState('');
-  const [description] = useState(
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  );
-  const [price, setPrice] = useState(10);
-  const [listingPrice, setListingPrice] = useState('');
-  const [pages, setPages] = useState('');
-  const [date, setDate] = useState('');
-  const [thumbnail, setThumbnail] = useState(null);
-  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState(data.name);
+  // const [price, setPrice] = useState('');
+  const [description, setDescription] = useState(data.review);
+  const [thumbnail] = useState(data.image_path);
   const [loading, setLoading] = useState(false);
-  const [buttonLoading, setButtonLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
-  // handle price change
-  useEffect(() => {
-    if (price !== '') {
-      setLoading(true);
-      listingPriceReq(token, price)
-        .then((res) => {
-          setLoading(false);
-          setListingPrice(res.simulated_price);
-        })
-        .catch(() => {
-          setLoading(false);
-          toast.error('Failed to fetch listing price!');
-        });
+  // params
+  const { id } = router.query;
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+    if (title == '' || thumbnail == '' || description == '') {
+      toast.info('Please fill all fields first');
     } else {
-      setListingPrice(0);
+      setLoading(true);
+      putAffiliateMarketingReq(token, id, {
+        name: title,
+        review: description,
+        price: 0,
+        image_path: thumbnail,
+        creation_date: new Date(),
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            setLoading(false);
+            toast.success('Saved successfully');
+          } else {
+            setLoading(false);
+            toast.error('An error has occurred');
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error('An error has occurred');
+        });
     }
-  }, [price]);
+  };
+
+  const handleDelete = () => {
+    setDeleteLoading(true);
+    deleteAffiliateMarketingReq(token, id)
+      .then(() => {
+        setDeleteLoading(false);
+        router.push('/affiliate-marketing');
+      })
+      .catch((err) => {
+        console.log(err);
+        setDeleteLoading(false);
+        toast.error('An error has occurred.');
+      });
+  };
 
   return (
     <form className={styles.form}>
       <label>
-        <strong>
-          Title <span>(max 42 characters)</span>
-        </strong>
-        <input type='text' disabled value='Test' />
+        <strong>Name</strong>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
       </label>
-      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ''}`}>
-        <strong>Upload</strong>
-        <div className={styles.price}>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={(e) => setThumbnail(handleFileInput(e.target.files[0]))}
-          />
-          {thumbnail && <img src={thumbnail?.url} alt='thumbnail' />}
-          {thumbnail && (
-            <FaTrash
-              className={styles.trash}
-              onClick={(e) => {
-                e.stopPropagation();
-                setThumbnail(null);
-              }}
-            />
-          )}
-        </div>
-        {thumbnail && (
-          <p className={styles.filename}>{thumbnail.fileObject.name}</p>
-        )}
+      <label>
+        <strong>Thumbnail</strong>
+        <img className={styles.main_image} src={thumbnail} alt={title} />
       </label>
-      <label className={styles.small}>
-        <strong>Price</strong>
-        <div className={styles.price}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          <input
-            disabled
-            type='number'
-            min='0'
-            value={10}
-            style={{ paddingLeft: '25px' }}
-          />
-        </div>
+      <label>
+        <strong>Why I recommend it</strong>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
       </label>
-      <label className={styles.small}>
-        <strong>Listing Price</strong>
-        <div className={`${styles.price} ${styles.listing}`}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          {loading ? (
-            <img
-              className={styles.listing_loading}
-              src='/img/Rolling-dark.svg'
-              alt='rolling'
-            />
-          ) : (
-            <input
-              type='number'
-              min='0'
-              disabled
-              value={loading ? '' : listingPrice}
-              style={{ paddingLeft: '25px' }}
-            />
-          )}
-        </div>
-      </label>
-
-      <label className={styles.small}>
-        <strong>Date of creation</strong>
-        <div className={styles.price}>
-          <input disabled value='10-01-2021' />
-        </div>
-      </label>
-      <label className={styles.small}>
-        <strong>Status</strong>
-        <div className={styles.price}>
-          <input disabled value='Active' />
-        </div>
-      </label>
-      <label className={styles.small}>
-        <strong>Total Revenue</strong>
-        <div className={styles.price}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          <input disabled value={4000} style={{ paddingLeft: '25px' }} />
-        </div>
-      </label>
-
-      {/* <label className={`${styles.small} ${file ? styles.file : ''}`}>
-        <strong>
-          File <span>(pdf only)</span>
-        </strong>
-        <div className={styles.price}>
-          <input
-            type='file'
-            accept='application/pdf'
-            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-          />
-          {file && <span>{file?.fileObject.name}</span>}
-          {file && (
-            <FaTrash
-              onClick={(e) => {
-                e.stopPropagation();
-                setFile(null);
-              }}
-            />
-          )}
-        </div>
-      </label> */}
       <div className={styles.btns}>
-        <button className={styles.save}>
-          {buttonLoading ? <Loading /> : 'Pause'}
+        <button className={styles.save} onClick={handleEdit}>
+          {loading ? 'Loading' : 'Save changes'}
         </button>
-        <button className={styles.save}>
-          {buttonLoading ? <Loading /> : 'Delete'}
+        <button
+          className={styles.delete}
+          onClick={(e) => {
+            e.preventDefault();
+            handleDelete();
+          }}
+        >
+          {deleteLoading ? 'Loading' : 'Delete'}
         </button>
       </div>
     </form>

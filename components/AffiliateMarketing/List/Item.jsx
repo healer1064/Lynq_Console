@@ -17,7 +17,7 @@ const Item = ({ data }) => {
     <>
       <Fade duration={800} delay={50}>
         <div
-          // onClick={() => router.push(`/pay-per-download/123`)}
+          onClick={() => router.push(`/affiliate-marketing/${data.id}`)}
           className={styles.item}
         >
           <p>{data.name}</p>

@@ -61,6 +61,10 @@ $breakpointPhone: 519px
                 outline: none
         .length_select
             width: 100%
+        .main_image
+            height: 200px
+            object-fit: cover
+            object-position: center
         input
             width: 100%
             height: 40px
@@ -216,6 +220,27 @@ $breakpointPhone: 519px
         color: #fff
         margin-right: 5px
         position: relative
+    .delete
+        background: #ED5E68
+        border-color: #ED5E68 !important
+        color: white
+
+.horizontal
+    display: flex
+    align-items: center
+
+    button
+        margin-top: 20px
+        margin-left: 20px
+        padding: 8px 15px
+        border: none
+        border-radius: 6px
+        cursor: pointer
+        transition: 0.2s ease-in
+
+        &:hover
+            opacity: 0.8
+
 
 @media screen and ( max-width: $breakpointPhone )
     .form

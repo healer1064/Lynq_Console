@@ -1,30 +1,57 @@
 // libraries
-import React from "react";
-import { useRouter } from "next/router";
+import React, { useState, useEffect, useContext } from 'react';
+import router from 'next/router';
+import { toast } from 'react-toastify';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
-// icons
-import { BsChevronLeft } from "react-icons/bs";
+// context
+import ProfileContext from '@/context/profile';
+
+// requests
+import { getAffiliateMarketingReq } from '@/utils/requests/affiliate-marketing';
 
 // components
-import Form from "../Form";
-import DropArea from "../DropArea";
+import Form from '../Form';
+import PageLoading from '@/components/common/PageLoading';
+
+// icons
+import { BsChevronLeft } from 'react-icons/bs';
 
 const index = () => {
-  // router
-  const router = useRouter();
+  // states
+  const [data, setData] = useState(null);
+
+  // context
+  const { token } = useContext(ProfileContext);
+
+  // params
+  const { id } = router.query;
+
+  useEffect(() => {
+    if (token) {
+      getAffiliateMarketingReq(token)
+        .then((res) => setData(res.filter((item) => item.id == id)[0]))
+        .catch(() => toast.error('An error has occurred.'));
+    }
+  }, [token]);
 
   return (
     <div className={styles.content}>
-      <a className={styles.back} onClick={() => router.back()}>
+      <a
+        className={styles.back}
+        onClick={() => router.push('/affiliate-marketing')}
+      >
         <BsChevronLeft /> Back
       </a>
-      <div className={styles.sections}>
-        <Form />
-        {/* <DropArea /> */}
-      </div>
+      {!data ? (
+        <PageLoading />
+      ) : (
+        <div className={styles.sections}>
+          <Form data={data} />
+        </div>
+      )}
     </div>
   );
 };
