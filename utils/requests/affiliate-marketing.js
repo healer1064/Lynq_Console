@@ -4,3 +4,34 @@ export const getProductRequest = async (asin) => {
   );
   return (await res).json();
 };
+
+export const postAffiliateMarketingReq = async (_token, _reqData) => {
+  const response = await fetch(
+    `https://api.lynq.app/console/affiliate_link?t=${_token}`,
+    {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(_reqData),
+    },
+  );
+
+  return await response;
+};
+
+export const getAffiliateMarketingReq = async (_token) => {
+  const response = await fetch(
+    `https://api.lynq.app/console/affiliate_link?t=${_token}`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  return await response.json();
+};

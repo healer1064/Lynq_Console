@@ -1,51 +1,50 @@
 // libraries
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useContext } from 'react';
 
-// styles
-import styles from './styles.module.sass';
+// content
+import ProfileContext from '@/context/profile';
 
-// icons
-import { CaretDownOutlined } from '@ant-design/icons';
+// requests
+import { getAffiliateMarketingReq } from '@/utils/requests/affiliate-marketing';
 
 // components
-import { Dropdown, Button, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import New from '../New/Content';
-import DropdownMenu from '@/components/common/DropdownMenu';
 import List from '@/components/AffiliateMarketing/List';
+import { toast } from 'react-toastify';
+import PageLoading from '@/components/common/PageLoading';
 
 const index = () => {
   // states
-  const [filter, setFilter] = useState('All');
+  const [tab, setTab] = useState('1');
+  const [list, setList] = useState(null);
+  const [refetch, setRefetch] = useState(false);
+
+  // content
+  const { token } = useContext(ProfileContext);
 
   // tabs
   const { TabPane } = Tabs;
 
+  useEffect(() => {
+    if (token) {
+      getAffiliateMarketingReq(token)
+        .then((res) => setList(res))
+        .catch(() => toast.error('An error has occurred'));
+    }
+  }, [token, refetch]);
+
   return (
-    <Tabs defaultActiveKey='2'>
+    <Tabs
+      defaultActiveKey={tab.toString()}
+      activeKey={tab}
+      onChange={(e) => setTab(e)}
+    >
       <TabPane tab='Catalog' key='1'>
-        <Dropdown
-          arrow
-          overlay={
-            <DropdownMenu
-              state={filter}
-              setState={setFilter}
-              data={['All', 'Video', 'Picture', 'Document']}
-            />
-          }
-          placement='bottomCenter'
-        >
-          <Button className={styles.dropdown_btn} size='large'>
-            {filter} <CaretDownOutlined />
-          </Button>
-        </Dropdown>
-        <List
-          // list={list}
-          filter={filter}
-        />
+        {!list ? <PageLoading /> : <List list={list} />}
       </TabPane>
       <TabPane tab='Product' key='2'>
-        <New />
+        <New setTab={setTab} setRefetch={setRefetch} />
       </TabPane>
     </Tabs>
 

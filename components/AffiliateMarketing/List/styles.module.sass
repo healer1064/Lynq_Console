@@ -8,7 +8,7 @@
         width: 100%
         background: rgba(126, 136, 244, 0.8)
         display: grid
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.3fr
+        grid-template-columns: 1fr 1fr 1fr 
         padding: 15px 20px
         border-top-left-radius: 8px
         border-top-right-radius: 8px
@@ -32,7 +32,7 @@
 
     .item 
         display: grid
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 0.3fr
+        grid-template-columns: 1fr 1fr 1fr
         align-items: center
         width: 100%
         padding: 15px 20px
@@ -47,6 +47,9 @@
             color: #000
             font-size: 14px
             font-weight: 400
+            white-space: nowrap
+            overflow: hidden
+            text-overflow: ellipsis
                 
 
 @media (max-width: 519px)
@@ -55,7 +58,7 @@
         width: 100%
         .head 
             width: fit-content
-            grid-template-columns: repeat(6, 200px)
+            grid-template-columns: repeat(3, 200px)
         .item
-            grid-template-columns: repeat(6, 200px)
+            grid-template-columns: repeat(3, 200px)
             width: fit-content
