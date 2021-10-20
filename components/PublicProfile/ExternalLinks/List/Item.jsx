@@ -32,7 +32,11 @@ const Item = ({ data, index, refetchData }) => {
 
   function onChange(checked) {
     setEditLoading(true);
-    putLinkReq(token, data.id, { ...data, is_enable: checked })
+    putLinkReq(token, data.id, {
+      ...data,
+      is_enable: checked,
+      type: 'external',
+    })
       .then(() => {
         setEditLoading(false);
         setStatus(checked);

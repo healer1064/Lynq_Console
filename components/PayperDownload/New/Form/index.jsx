@@ -14,13 +14,13 @@ import { handleFileInput } from '@/utils/helpers';
 
 // requests
 import { listingPriceReq } from '@/utils/requests/calls/template';
+import { postExclusiveContentReq } from '@/utils/requests/exclusive-content';
 
 // icons
 import { FaTrash } from 'react-icons/fa';
 import { HiDocument } from 'react-icons/hi';
 
 // components
-// import Select from 'react-select';
 import Loading from '@/components/common/Loading';
 
 const index = () => {
@@ -31,9 +31,6 @@ const index = () => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [listingPrice, setListingPrice] = useState('');
-  // const [description, setDescription] = useState('');
-  // const [pages, setPages] = useState('');
-  // const [date, setDate] = useState('');
   const [thumbnail, setThumbnail] = useState(null);
   // const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -57,66 +54,25 @@ const index = () => {
     }
   }, [price]);
 
-  // select styles
-  // const customStyles = {
-  //   control: (provided, state) => ({
-  //     ...provided,
-  //     background: '#fff',
-  //     borderColor: state.isFocused ? '#9FA8B5' : '#9FA8B5',
-  //     minHeight: '40px',
-  //     height: '40px',
-  //     boxShadow: state.isFocused ? null : null,
-  //   }),
-
-  //   valueContainer: (provided, state) => ({
-  //     ...provided,
-  //     height: '40px',
-  //     padding: '0 6px',
-  //     paddingLeft: '24px',
-  //   }),
-
-  //   input: (provided, state) => ({
-  //     ...provided,
-  //     margin: '0px',
-  //   }),
-  //   indicatorSeparator: (state) => ({
-  //     display: 'none',
-  //   }),
-  //   indicatorsContainer: (provided, state) => ({
-  //     ...provided,
-  //     height: '40px',
-  //   }),
-  // };
-
-  // const handleChange = (newValue, actionMeta) => {
-  //   console.group('Value Changed');
-  //   console.log(newValue);
-  //   console.log(`action: ${actionMeta.action}`);
-  //   console.groupEnd();
-  // };
-
-  // const handleInputChange = (inputValue, actionMeta) => {
-  //   console.group('Input Changed');
-  //   console.log(inputValue);
-  //   console.log(`action: ${actionMeta.action}`);
-  //   console.groupEnd();
-  // };
+  const handleSubmit = () => {
+    postExclusiveContentReq(token, {
+      description: title,
+      path: 'string',
+      thumbnailPath: 'string',
+      price,
+      ownerId: 'string',
+      creationDate: new Date(),
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => toast.error('An error has occurred.'));
+  };
 
   console.log(thumbnail);
 
   return (
     <form className={styles.form}>
-      {/* <label>
-        <strong>Type</strong>
-        <Select
-          styles={customStyles}
-          className={styles.length_select}
-          onChange={handleChange}
-          onInputChange={handleInputChange}
-          placeholder='Type or select...'
-          options={[{ value: 'document', label: 'Document' }]}
-        />
-      </label> */}
       <label>
         <strong>
           Title <span>(max 42 characters)</span>
@@ -125,17 +81,9 @@ const index = () => {
           type='text'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          maxLength='42'
         />
       </label>
-      {/* <label className={styles.description}>
-        <strong>Description</strong>
-        <textarea
-          maxLength='600'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-        <span className={styles.desc_count}>{description.length}/600</span>
-      </label> */}
       <label className={`${thumbnail ? styles.thumbnail : ''}`}>
         <strong>Upload</strong>
         <div className={styles.price}>
@@ -220,50 +168,6 @@ const index = () => {
           )}
         </div>
       </label>
-      {/* <label className={styles.small}>
-        <strong>Date of creation</strong>
-        <div className={styles.price}>
-          <input
-            type='date'
-            min='0'
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-      </label> */}
-      {/* <label className={styles.small}>
-        <strong>Number of pages</strong>
-        <div className={styles.price}>
-          <input
-            type='number'
-            min='0'
-            value={pages}
-            onChange={(e) => setPages(e.target.value)}
-          />
-        </div>
-      </label> */}
-
-      {/* <label className={`${styles.small} ${file ? styles.file : ''}`}>
-        <strong>
-          File <span>(pdf only)</span>
-        </strong>
-        <div className={styles.price}>
-          <input
-            type='file'
-            accept='application/pdf'
-            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-          />
-          {file && <span>{file?.fileObject.name}</span>}
-          {file && (
-            <FaTrash
-              onClick={(e) => {
-                e.stopPropagation();
-                setFile(null);
-              }}
-            />
-          )}
-        </div>
-      </label> */}
       <div className={styles.btns}>
         <button className={styles.save}>
           {buttonLoading ? <Loading /> : 'Save'}
