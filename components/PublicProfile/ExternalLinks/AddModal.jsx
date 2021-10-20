@@ -1,5 +1,5 @@
 // libraries
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 // styles
@@ -9,16 +9,23 @@ import styles from './styles.module.scss';
 import ProfileContext from '@/context/profile';
 
 // requests
-import { postLinkReq } from '@/utils/requests/public-profile';
+import { postLinkReq, putLinkReq } from '@/utils/requests/public-profile';
 
 // components
 import Loading from '@/components/common/Loading';
 
-const AddModal = ({ setShowModal }) => {
+const AddModal = ({ setShowModal, edit, data, refetchData }) => {
   // states
   const [text, setText] = useState('');
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (data && edit) {
+      setText(data.name);
+      setUrl(data.url);
+    }
+  }, [data]);
 
   // context
   const { token } = useContext(ProfileContext);
@@ -35,11 +42,31 @@ const AddModal = ({ setShowModal }) => {
         position: 10,
         name: text,
         url,
-        type: 'internal',
+        type: 'external',
         is_enable: true,
         creation_date: new Date(),
       })
-        .then((res) => {
+        .then(() => {
+          efetchData((prevState) => !prevState);
+          setShowModal(false);
+          setText('');
+          setUrl('');
+        })
+        .catch(() => toast.error('An error has occurred.'));
+    }
+  };
+
+  // handle click
+  const handleEdit = (e) => {
+    e.preventDefault();
+
+    if (text === '' && url === '') {
+      toast.error('Please fill the fields first!');
+    } else {
+      setLoading(true);
+      putLinkReq(token, data.id, { ...data, name: text, url })
+        .then(() => {
+          refetchData((prevState) => !prevState);
           setShowModal(false);
           setText('');
           setUrl('');
@@ -60,16 +87,35 @@ const AddModal = ({ setShowModal }) => {
             onChange={(e) => setText(e.target.value)}
           />
         </div>
-        <div>
-          <label>URL</label>
-          <input
-            placeholder='Enter the URL'
-            type='text'
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        </div>
-        <button onClick={(e) => handleSave(e)} style={{ position: 'relative' }}>
+        {edit ? (
+          data.type !== 'internal' && (
+            <div>
+              <label>URL</label>
+              <input
+                placeholder='Enter the URL'
+                type='text'
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </div>
+          )
+        ) : (
+          <div>
+            <label>URL</label>
+            <input
+              placeholder='Enter the URL'
+              type='text'
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+          </div>
+        )}
+        <button
+          onClick={(e) => {
+            edit ? handleEdit(e) : handleSave(e);
+          }}
+          style={{ position: 'relative' }}
+        >
           {loading && <Loading />}Save
         </button>
       </form>

@@ -1,5 +1,5 @@
 // libraries
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // styles
 import styles from './styles.module.scss';
@@ -13,8 +13,13 @@ import PageLoading from '@/components/common/PageLoading';
 const index = ({ externalLinks, refetchData }) => {
   // states
   const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState(false);
 
-  return !externalLinks ? (
+  useEffect(() => {
+    setData(externalLinks);
+  }, [externalLinks]);
+
+  return !data ? (
     <PageLoading />
   ) : (
     <>
@@ -24,9 +29,11 @@ const index = ({ externalLinks, refetchData }) => {
           style={{ width: '180px' }}
           onClick={() => setShowModal(true)}
         />
-        <List list={externalLinks} refetchData={refetchData} />
+        <List list={data} refetchData={refetchData} />
       </div>
-      {showModal && <AddModal setShowModal={setShowModal} />}
+      {showModal && (
+        <AddModal setShowModal={setShowModal} refetchData={refetchData} />
+      )}
     </>
   );
 };

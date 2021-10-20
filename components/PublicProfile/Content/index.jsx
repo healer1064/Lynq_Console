@@ -211,7 +211,7 @@ const index = ({ profile }) => {
         <TabPane tab='Links & buttons' key='2'>
           <ExternalLinks
             externalLinks={externalLinks}
-            refetchData={refetchData}
+            refetchData={setRefetch}
           />
         </TabPane>
         <TabPane tab='Charity' key='3'>

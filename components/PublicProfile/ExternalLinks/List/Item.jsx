@@ -23,6 +23,7 @@ import AddModal from '../AddModal';
 const Item = ({ data, index, refetchData }) => {
   // states
   const [status, setStatus] = useState(data.is_enable);
+  const [editLoading, setEditLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -30,13 +31,17 @@ const Item = ({ data, index, refetchData }) => {
   const { token } = useContext(ProfileContext);
 
   function onChange(checked) {
-    setStatus(checked);
+    setEditLoading(true);
     putLinkReq(token, data.id, { ...data, is_enable: checked })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        setEditLoading(false);
+        setStatus(checked);
         refetchData();
       })
-      .catch(() => toast.error('An error has occurred.'));
+      .catch(() => {
+        setEditLoading(false);
+        toast.error('An error has occurred.');
+      });
   }
 
   const handleDelete = () => {
@@ -56,10 +61,13 @@ const Item = ({ data, index, refetchData }) => {
     <>
       <Fade duration={800} delay={50}>
         <div className={styles.item}>
+          <p></p>
           <p>{index + 1}</p>
           <Switch
             onChange={onChange}
             checked={status}
+            loading={editLoading}
+            className={status ? styles.switch_on : styles.switch_off}
             style={{ width: '10px', borderRadius: '50px', padding: '0' }}
           />
           <p>{data.name}</p>
@@ -77,7 +85,14 @@ const Item = ({ data, index, refetchData }) => {
           </div>
         </div>
       </Fade>
-      {showModal && <AddModal setShowModal={setShowModal} />}
+      {showModal && (
+        <AddModal
+          setShowModal={setShowModal}
+          edit
+          data={data}
+          refetchData={refetchData}
+        />
+      )}
     </>
   );
 };
