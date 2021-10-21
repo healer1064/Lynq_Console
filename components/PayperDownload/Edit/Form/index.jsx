@@ -15,7 +15,7 @@ import { handleFileInput } from '@/utils/helpers';
 
 // requests
 import { listingPriceReq } from '@/utils/requests/calls/template';
-import { postExclusiveContentReq } from '@/utils/requests/exclusive-content';
+import { putExclusiveContentReq } from '@/utils/requests/exclusive-content';
 
 // icons
 import { FaTrash } from 'react-icons/fa';
@@ -25,15 +25,15 @@ import { HiDocument } from 'react-icons/hi';
 import Loading from '@/components/common/Loading';
 import router from 'next/router';
 
-const index = () => {
+const index = ({ data }) => {
   // context
   const { token } = useContext(ProfileContext);
 
   // states
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
+  const [title, setTitle] = useState(data.description);
+  const [price, setPrice] = useState(data.price);
   const [listingPrice, setListingPrice] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(data.path);
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [priceLoading, setPriceLoading] = useState(false);
@@ -64,16 +64,19 @@ const index = () => {
       return;
     }
     setButtonLoading(true);
-    postExclusiveContentReq(token, {
+    putExclusiveContentReq(token, data.id, {
       description: title,
-      path: 'string',
-      thumbnailPath: 'string',
+      path: data.path,
+      thumbnailPath: data.thumbnailPath,
       price,
       creationDate: new Date(),
     })
       .then((res) => {
-        console.log(res);
-        upload(res.id);
+        if (file.fileObject) {
+          upload(res.id);
+        } else {
+          router.back();
+        }
       })
       .catch(() => {
         setButtonLoading(false);
@@ -140,10 +143,11 @@ const index = () => {
             accept='application/msword, application/pdf, image/*, video/mp4'
             onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
           />
-          {file &&
-            (file.fileObject.type.includes('image') ? (
+          <img src={data.thumbnailPath} alt={data.description} />
+          {/* {file &&
+            (file?.fileObject.type.includes('image') ? (
               <img src={file?.url} alt='thumbnail' />
-            ) : file.fileObject.type.includes('video') ? (
+            ) : file?.fileObject.type.includes('video') ? (
               <video
                 width='320'
                 height='240'
@@ -159,8 +163,8 @@ const index = () => {
                 color='#ffca0a'
                 style={{ margin: '0 auto' }}
               />
-            ))}
-          {file && (
+            ))} */}
+          {/* {file && (
             <FaTrash
               className={styles.trash}
               onClick={(e) => {
@@ -168,9 +172,9 @@ const index = () => {
                 setFile(null);
               }}
             />
-          )}
+          )} */}
         </div>
-        {file && <p className={styles.filename}>{file.fileObject.name}</p>}
+        {/* {file && <p className={styles.filename}>{file.fileObject.name}</p>} */}
       </label>
       <label>
         <strong>Price</strong>

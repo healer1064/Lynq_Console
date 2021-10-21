@@ -13,7 +13,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 // components
 import Modal from '@/components/common/Modal';
 
-const Item = () => {
+const Item = ({ data }) => {
   // router
   const router = useRouter();
 
@@ -21,20 +21,30 @@ const Item = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  console.log(data);
+
   return (
     <>
       <Fade duration={800} delay={50}>
         <div
-          onClick={() => router.push(`/pay-per-download/123`)}
+          onClick={() => router.push(`/pay-per-download/${data.id}`)}
           className={styles.item}
         >
-          <p>Test</p>
-          <p>Document</p>
-          <p>08/12//2021</p>
-          <p>Active</p>
-          <p>$150</p>
-          {/* <p>45</p> */}
-          <p>$6,750</p>
+          <p>{data.description}</p>
+          <p>
+            {data.path.includes('.png') ||
+            data.path.includes('.jpg') ||
+            data.path.includes('.jpeg')
+              ? 'Picture'
+              : data.path.includes('.mp4' || '.avi' || '.mov')
+              ? 'Video'
+              : data.path.includes('.pdf')
+              ? 'Document'
+              : '-'}
+          </p>
+          <p>{moment(data.creationDate).format('MMMM DD,yyyy')}</p>
+          <p>-</p>
+          <p>{data.price ? '$' + data.price : '-'}</p>
           <CaretRightOutlined
             style={{
               display: 'flex',

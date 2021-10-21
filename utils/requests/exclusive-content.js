@@ -11,7 +11,22 @@ export const postExclusiveContentReq = async (_token, _reqData) => {
     },
   );
 
-  return await response;
+  return await response.json();
+};
+
+export const postExclusiveContentFileReq = async (_id, _token, _file) => {
+  var formData = new FormData();
+  formData.append('file', _file);
+
+  const response = await fetch(
+    `https://api.lynq.app/console/exclusive-content/upload/${_id}?t=${_token}`,
+    {
+      method: 'POST',
+      body: formData,
+    },
+  );
+
+  return await response.json();
 };
 
 export const putExclusiveContentReq = async (_token, _id, _reqData) => {

@@ -55,19 +55,6 @@ const Head = ({ order, setOrder }) => {
           <CaretDownOutlined />
         )}
       </p> */}
-      <p
-        className={`${styles.cursor} ${
-          order == 'revenue_desc' || order == 'revenue_asc' ? '' : styles.dull
-        }`}
-        onClick={() =>
-          setOrder((prevState) =>
-            prevState == 'revenue_asc' ? 'revenue_desc' : 'revenue_asc',
-          )
-        }
-      >
-        Total Revenue
-        {order == 'revenue_desc' ? <CaretUpOutlined /> : <CaretDownOutlined />}
-      </p>
     </div>
   );
 };

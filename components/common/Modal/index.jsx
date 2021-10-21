@@ -1,12 +1,12 @@
 // libraries
-import Fade from "react-reveal/Fade";
-import moment from "moment";
+import Fade from 'react-reveal/Fade';
+import moment from 'moment';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // components
-import Loading from "@/components/common/Loading";
+import Loading from '@/components/common/Loading';
 
 const Modal = ({
   setModal,
@@ -33,12 +33,12 @@ const Modal = ({
           <h6>{title}</h6>
           <p>{subtitle}</p>
           <p>
-            {type == "ppd"
-              ? `Date of upload: ${"08/12//2021"}`
-              : `Scheduled at: ${moment(date).format("dddd, MMMM DD, YYYY")}
+            {type == 'ppd'
+              ? ``
+              : `Scheduled at: ${moment(date).format('dddd, MMMM DD, YYYY')}
             `}
           </p>
-          <button style={{ position: "relative" }} onClick={onDelete}>
+          <button style={{ position: 'relative' }} onClick={onDelete}>
             {loading && <Loading color='#EF7888' />}
             {buttonText}
           </button>

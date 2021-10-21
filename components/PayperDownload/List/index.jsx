@@ -1,22 +1,19 @@
 // libraries
-import { useState, useEffect } from "react";
-import moment from "moment";
+import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 // styles
-import styles from "./styles.module.sass";
+import styles from './styles.module.sass';
 
 // components
-import EmptyData from "@/components/common/EmptyData";
-import Head from "./Head";
-import Item from "./Item";
+import EmptyData from '@/components/common/EmptyData';
+import Head from './Head';
+import Item from './Item';
 
-const index = ({
-  //  list,
-  filter,
-}) => {
+const index = ({ list, filter }) => {
   // states
-  // const [data, setData] = useState(list);
-  const [order, setOrder] = useState("");
+  const [data, setData] = useState(list);
+  const [order, setOrder] = useState('');
 
   // filter using filter
   // useEffect(() => {
@@ -64,20 +61,16 @@ const index = ({
   //   }
   // };
 
-  return (
-    // data.length === 0 ? (
-    //   <div className={styles.no_appointments}>
-    //     <EmptyData title='No masterclasses to show' />
-    //   </div>
-    // ) : (
+  return data.length === 0 ? (
+    <div className={styles.no_appointments}>
+      <EmptyData title='No exlusive content to show' />
+    </div>
+  ) : (
     <div className={styles.list}>
       <Head order={order} setOrder={setOrder} />
-      {/* {sortArray(data).map((item, index) => ( */}
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-      {/* ))} */}
+      {data.map((item, index) => (
+        <Item key={index} data={item} />
+      ))}
     </div>
   );
 };

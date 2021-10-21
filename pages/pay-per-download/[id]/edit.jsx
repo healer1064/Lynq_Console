@@ -12,7 +12,7 @@ import { getExclusiveContentReq } from '@/utils/requests/exclusive-content';
 
 // components
 import PageLoading from '@/components/common/PageLoading';
-import Content from '@/components/PayperDownload/Single/Content';
+import Content from '@/components/PayperDownload/Edit/Content';
 
 const index = () => {
   // context

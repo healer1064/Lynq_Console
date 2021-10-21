@@ -14,7 +14,7 @@ import New from '../New/Content';
 import DropdownMenu from '@/components/common/DropdownMenu';
 import List from '@/components/PayperDownload/List';
 
-const index = () => {
+const index = ({ list }) => {
   // states
   const [filter, setFilter] = useState('All');
 
@@ -39,19 +39,12 @@ const index = () => {
             {filter} <CaretDownOutlined />
           </Button>
         </Dropdown>
-        <List
-          // list={list}
-          filter={filter}
-        />
+        <List list={list} filter={filter} />
       </TabPane>
       <TabPane tab='New content' key='2'>
         <New />
       </TabPane>
     </Tabs>
-
-    // <Link href='/pay-per-download/new'>
-    //   <AddButton title='New PPD' />
-    // </Link>
   );
 };
 

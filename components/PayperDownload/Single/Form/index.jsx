@@ -1,188 +1,101 @@
 // libraries
-import { useState, useContext, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import router from 'next/router';
-
-// styles
-import styles from './styles.module.sass';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useState, useContext } from 'react';
+import { useRouter } from 'next/router';
+import moment from 'moment';
+import Fade from 'react-reveal/Fade';
 
 // context
 import ProfileContext from '@/context/profile';
 
-// utils
-import { handleFileInput } from '@/utils/helpers';
+// styles
+import styles from './styles.module.sass';
 
 // requests
-import { listingPriceReq } from '@/utils/requests/calls/template';
+import { deleteExclusiveContentReq } from '@/utils/requests/exclusive-content';
 
-// icons
-import { FaTrash } from 'react-icons/fa';
+// components
+import Modal from '@/components/common/Modal';
+import { toast } from 'react-toastify';
 
-const index = () => {
+const index = ({ data }) => {
   // context
   const { token } = useContext(ProfileContext);
 
-  // states
-  const [title, setTitle] = useState('');
-  const [description] = useState(
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  );
-  const [price, setPrice] = useState(10);
-  const [listingPrice, setListingPrice] = useState('');
-  const [pages, setPages] = useState('');
-  const [date, setDate] = useState('');
-  const [thumbnail, setThumbnail] = useState(null);
-  const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [buttonLoading, setButtonLoading] = useState(false);
+  // router
+  const router = useRouter();
 
-  // handle price change
-  useEffect(() => {
-    if (price !== '') {
-      setLoading(true);
-      listingPriceReq(token, price)
-        .then((res) => {
-          setLoading(false);
-          setListingPrice(res.simulated_price);
-        })
-        .catch(() => {
-          setLoading(false);
-          toast.error('Failed to fetch listing price!');
-        });
-    } else {
-      setListingPrice(0);
-    }
-  }, [price]);
+  // states
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [rejectLoading, setRejectLoading] = useState(false);
+
+  // handle reject
+  const handleReject = (_data) => {
+    setRejectLoading(true);
+    deleteExclusiveContentReq(token, _data.id)
+      .then((res) => {
+        setRejectLoading(false);
+        if (res.status === 200) {
+          setDeleteModal(false);
+          router.back();
+        } else {
+          toast.error(`Failed to delete exclusive content`);
+        }
+      })
+      .catch(() => {
+        setRejectLoading(false);
+        toast.error(`Failed to delete exclusive content`);
+      });
+  };
+
+  console.log(data);
 
   return (
-    <form className={styles.form}>
-      <label>
-        <strong>
-          Title <span>(max 42 characters)</span>
-        </strong>
-        <input type='text' disabled value='Test' />
-      </label>
-      <label className={`${styles.small} ${thumbnail ? styles.thumbnail : ''}`}>
-        <strong>Upload</strong>
-        <div className={styles.price}>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={(e) => setThumbnail(handleFileInput(e.target.files[0]))}
-          />
-          {thumbnail && <img src={thumbnail?.url} alt='thumbnail' />}
-          {thumbnail && (
-            <FaTrash
-              className={styles.trash}
-              onClick={(e) => {
-                e.stopPropagation();
-                setThumbnail(null);
-              }}
-            />
-          )}
+    <>
+      <Fade>
+        <div className={styles.request}>
+          <h2>Exclusive Content</h2>
+          <span className={styles.received_time}>
+            Creation date: {moment(data.creationDate).format('MMMM DD, yyyy')}
+          </span>
+          <div className={styles.info_col}>
+            <strong>Title</strong>
+            <p>{data.description || '0'}</p>
+          </div>
+          <div className={styles.info_col}>
+            <strong>Price</strong>
+            <p>${data.price || '0'}</p>
+          </div>
+          <div className={styles.info_col}>
+            <strong>File</strong>
+            <img src={data.thumbnailPath} alt='thumbnail' />
+          </div>
+          <div className={styles.btns}>
+            <button
+              className={styles.delete}
+              onClick={() => setDeleteModal(true)}
+            >
+              DELETE
+            </button>
+            <button
+              className={styles.reject}
+              onClick={() => router.push(`/pay-per-download/${data.id}/edit`)}
+            >
+              EDIT
+            </button>
+          </div>
         </div>
-        {thumbnail && (
-          <p className={styles.filename}>{thumbnail.fileObject.name}</p>
-        )}
-      </label>
-      <label className={styles.small}>
-        <strong>Price</strong>
-        <div className={styles.price}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          <input
-            disabled
-            type='number'
-            min='0'
-            value={10}
-            style={{ paddingLeft: '25px' }}
-          />
-        </div>
-      </label>
-      <label className={styles.small}>
-        <strong>Listing Price</strong>
-        <div className={`${styles.price} ${styles.listing}`}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          {loading ? (
-            <img
-              className={styles.listing_loading}
-              src='/img/Rolling-dark.svg'
-              alt='rolling'
-            />
-          ) : (
-            <input
-              type='number'
-              min='0'
-              disabled
-              value={loading ? '' : listingPrice}
-              style={{ paddingLeft: '25px' }}
-            />
-          )}
-        </div>
-      </label>
-
-      <label className={styles.small}>
-        <strong>Date of creation</strong>
-        <div className={styles.price}>
-          <input disabled value='10-01-2021' />
-        </div>
-      </label>
-      <label className={styles.small}>
-        <strong>Status</strong>
-        <div className={styles.price}>
-          <input disabled value='Active' />
-        </div>
-      </label>
-      <label className={styles.small}>
-        <strong>Total Revenue</strong>
-        <div className={styles.price}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          <input disabled value={4000} style={{ paddingLeft: '25px' }} />
-        </div>
-      </label>
-
-      {/* <label className={`${styles.small} ${file ? styles.file : ''}`}>
-        <strong>
-          File <span>(pdf only)</span>
-        </strong>
-        <div className={styles.price}>
-          <input
-            type='file'
-            accept='application/pdf'
-            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-          />
-          {file && <span>{file?.fileObject.name}</span>}
-          {file && (
-            <FaTrash
-              onClick={(e) => {
-                e.stopPropagation();
-                setFile(null);
-              }}
-            />
-          )}
-        </div>
-      </label> */}
-      <div className={styles.btns}>
-        <button className={styles.save}>
-          {buttonLoading ? <Loading /> : 'Pause'}
-        </button>
-        <button className={styles.save}>
-          {buttonLoading ? <Loading /> : 'Delete'}
-        </button>
-      </div>
-    </form>
+      </Fade>
+      {deleteModal && (
+        <Modal
+          setModal={setDeleteModal}
+          title='Delete exclusive content'
+          buttonText='Delete'
+          loading={rejectLoading}
+          onDelete={() => handleReject(data)}
+          type='ppd'
+        />
+      )}
+    </>
   );
 };
 
