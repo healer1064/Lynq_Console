@@ -14,7 +14,7 @@ import { postLinkReq, putLinkReq } from "@/utils/requests/public-profile";
 // components
 import Loading from "@/components/common/Loading";
 
-const AddModal = ({ setShowModal, edit, data, refetchData, setData }) => {
+const AddModal = ({ setShowModal, edit, data, setData }) => {
   // states
   const [text, setText] = useState("");
   const [url, setUrl] = useState("");
@@ -61,7 +61,7 @@ const AddModal = ({ setShowModal, edit, data, refetchData, setData }) => {
 
           console.log("[Error while create new Button]: ", e);
         })
-        .finally(() => setLoading(true));
+        .finally(() => setLoading(false));
     }
   };
 
@@ -76,7 +76,9 @@ const AddModal = ({ setShowModal, edit, data, refetchData, setData }) => {
       putLinkReq(token, data.id, { ...data, name: text, url })
         .then((res) => {
           setData((prevState) =>
-            prevState.length ? [...prevState, res] : [res]
+            prevState.map((e) =>
+              e.id === res.id ? { ...data, name: res.name, url: res.url } : e
+            )
           );
 
           setShowModal(false);
@@ -133,7 +135,7 @@ const AddModal = ({ setShowModal, edit, data, refetchData, setData }) => {
           }}
           style={{ position: "relative" }}
         >
-          {loading && <Loading />}Save
+          {loading ? <Loading /> : "Save"}
         </button>
       </form>
     </div>

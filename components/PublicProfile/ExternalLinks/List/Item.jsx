@@ -20,7 +20,7 @@ import { Switch } from "antd";
 import { toast } from "react-toastify";
 import AddModal from "../AddModal";
 
-const Item = ({ data, index, refetchData }) => {
+const Item = ({ data, index, refetchData, setData }) => {
   // states
   const [state, setState] = useState(data);
 
@@ -37,7 +37,7 @@ const Item = ({ data, index, refetchData }) => {
   const { token } = useContext(ProfileContext);
 
   // handler's
-  function onChange(checked) {
+  const onSwitch = (checked) => {
     setEditLoading(true);
 
     putLinkReq(token, state.id, {
@@ -54,7 +54,7 @@ const Item = ({ data, index, refetchData }) => {
         toast.error("An error has occurred.");
       })
       .finally(() => setEditLoading(false));
-  }
+  };
 
   const onChangeButtonPosition = (e, action) => {
     e.preventDefault();
@@ -63,7 +63,7 @@ const Item = ({ data, index, refetchData }) => {
 
     putLinkReq(token, state.id, {
       ...state,
-      position: (action === "DOWN" ? index + 1 : index - 1) - 1,
+      position: action === "DOWN" ? index + 1 : index - 1,
     })
       .then((res) => setState(res))
       .catch(() => toast.error("An error has occurred."))
@@ -111,8 +111,8 @@ const Item = ({ data, index, refetchData }) => {
           <p></p>
           <p>{index + 1}</p>
           <Switch
-            onChange={onChange}
             checked={status}
+            onChange={onSwitch}
             loading={editLoading}
             className={status ? styles.switch_on : styles.switch_off}
             style={{ width: "10px", borderRadius: "50px", padding: "0" }}
@@ -134,11 +134,11 @@ const Item = ({ data, index, refetchData }) => {
       </Fade>
       {showModal && (
         <AddModal
-          setShowModal={setShowModal}
           edit
           data={state}
-          setData={setState}
+          setData={setData}
           refetchData={refetchData}
+          setShowModal={setShowModal}
         />
       )}
     </>

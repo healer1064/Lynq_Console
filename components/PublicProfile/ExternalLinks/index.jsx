@@ -13,10 +13,10 @@ import PageLoading from "@/components/common/PageLoading";
 const index = ({ externalLinks, refetchData }) => {
   // states
 
-  console.log(externalLinks);
-
   const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(externalLinks);
+
+  useEffect(() => console.log(data), [data]);
 
   useEffect(() => {
     setData(externalLinks);
@@ -32,13 +32,13 @@ const index = ({ externalLinks, refetchData }) => {
           style={{ width: "180px" }}
           onClick={() => setShowModal(true)}
         />
-        <List list={data} refetchData={refetchData} />
+        <List setData={setData} list={data} refetchData={refetchData} />
       </div>
       {showModal && (
         <AddModal
-          setShowModal={setShowModal}
-          refetchData={refetchData}
           setData={setData}
+          refetchData={refetchData}
+          setShowModal={setShowModal}
         />
       )}
     </>
