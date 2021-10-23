@@ -1,23 +1,23 @@
 // libraries
-import React, { useState, useContext, useEffect } from 'react';
-import { toast } from 'react-toastify';
+import React, { useState, useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 
 // styles
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
 
 // context
-import ProfileContext from '@/context/profile';
+import ProfileContext from "@/context/profile";
 
 // requests
-import { postLinkReq, putLinkReq } from '@/utils/requests/public-profile';
+import { postLinkReq, putLinkReq } from "@/utils/requests/public-profile";
 
 // components
-import Loading from '@/components/common/Loading';
+import Loading from "@/components/common/Loading";
 
-const AddModal = ({ setShowModal, edit, data, refetchData }) => {
+const AddModal = ({ setShowModal, edit, data, refetchData, setData }) => {
   // states
-  const [text, setText] = useState('');
-  const [url, setUrl] = useState('');
+  const [text, setText] = useState("");
+  const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -34,44 +34,61 @@ const AddModal = ({ setShowModal, edit, data, refetchData }) => {
   const handleSave = (e) => {
     e.preventDefault();
 
-    if (text === '' && url === '') {
-      toast.error('Please fill the fields first!');
+    if (text === "" && url === "") {
+      toast.error("Please fill the fields first!");
     } else {
       setLoading(true);
+
       postLinkReq(token, {
         position: 10,
         name: text,
         url,
-        type: 'external',
+        type: "external",
         is_enable: true,
         creation_date: new Date(),
       })
-        .then(() => {
-          efetchData((prevState) => !prevState);
+        .then((res) => {
+          setData((prevState) =>
+            prevState.length ? [...prevState, res] : [res]
+          );
+
           setShowModal(false);
-          setText('');
-          setUrl('');
+          setText("");
+          setUrl("");
         })
-        .catch(() => toast.error('An error has occurred.'));
+        .catch((e) => {
+          toast.error("An error has occurred.");
+
+          console.log("[Error while create new Button]: ", e);
+        })
+        .finally(() => setLoading(true));
     }
   };
 
-  // handle click
   const handleEdit = (e) => {
     e.preventDefault();
 
-    if (text === '' && url === '') {
-      toast.error('Please fill the fields first!');
+    if (text === "" && url === "") {
+      toast.error("Please fill the fields first!");
     } else {
       setLoading(true);
+
       putLinkReq(token, data.id, { ...data, name: text, url })
-        .then(() => {
-          refetchData((prevState) => !prevState);
+        .then((res) => {
+          setData((prevState) =>
+            prevState.length ? [...prevState, res] : [res]
+          );
+
           setShowModal(false);
-          setText('');
-          setUrl('');
+          setText("");
+          setUrl("");
         })
-        .catch(() => toast.error('An error has occurred.'));
+        .catch(() => {
+          toast.error("An error has occurred.");
+
+          console.log("[Error while create new Button]: ", e);
+        })
+        .finally(() => setLoading(true));
     }
   };
 
@@ -81,19 +98,19 @@ const AddModal = ({ setShowModal, edit, data, refetchData }) => {
         <div>
           <label>Button Text</label>
           <input
-            type='text'
-            placeholder='Enter the text to display on the button'
+            type="text"
+            placeholder="Enter the text to display on the button"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
         </div>
         {edit ? (
-          data.type !== 'internal' && (
+          data.type !== "internal" && (
             <div>
               <label>URL</label>
               <input
-                placeholder='Enter the URL'
-                type='text'
+                placeholder="Enter the URL"
+                type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
@@ -103,8 +120,8 @@ const AddModal = ({ setShowModal, edit, data, refetchData }) => {
           <div>
             <label>URL</label>
             <input
-              placeholder='Enter the URL'
-              type='text'
+              placeholder="Enter the URL"
+              type="text"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
@@ -114,7 +131,7 @@ const AddModal = ({ setShowModal, edit, data, refetchData }) => {
           onClick={(e) => {
             edit ? handleEdit(e) : handleSave(e);
           }}
-          style={{ position: 'relative' }}
+          style={{ position: "relative" }}
         >
           {loading && <Loading />}Save
         </button>

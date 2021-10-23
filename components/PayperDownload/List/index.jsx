@@ -10,9 +10,11 @@ import EmptyData from '@/components/common/EmptyData';
 import Head from './Head';
 import Item from './Item';
 
+const LIST_DATA = [{id: 'sadas', price: 100, path: 'asdas.png'}]
+
 const index = ({ list, filter }) => {
   // states
-  const [data, setData] = useState(list);
+  const [data, setData] = useState(LIST_DATA);
   const [order, setOrder] = useState('');
 
   // filter using filter
