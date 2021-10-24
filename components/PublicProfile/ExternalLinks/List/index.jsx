@@ -26,6 +26,7 @@ const index = ({ list, refetchData, setData }) => {
       <Head />
       {state.map((item, index) => (
         <Item
+          allItems={list}
           setData={setData}
           key={index}
           data={item}

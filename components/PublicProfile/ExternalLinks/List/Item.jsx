@@ -5,6 +5,9 @@ import Fade from "react-reveal/Fade";
 // styles
 import styles from "./styles.module.sass";
 
+// utils
+import { sortBy } from "lodash";
+
 // context
 import ProfileContext from "@/context/profile";
 
@@ -20,7 +23,7 @@ import { Switch } from "antd";
 import { toast } from "react-toastify";
 import AddModal from "../AddModal";
 
-const Item = ({ data, index, refetchData, setData }) => {
+const Item = ({ data, index, refetchData, setData, allItems }) => {
   // states
   const [state, setState] = useState(data);
 
@@ -61,12 +64,49 @@ const Item = ({ data, index, refetchData, setData }) => {
 
     setChangePositionIsLoading(true);
 
+    const currentIndex = allItems.findIndex((e) => e.id === state.id);
+
     putLinkReq(token, state.id, {
       ...state,
-      position: action === "DOWN" ? index + 1 : index - 1,
+      position: action === "DOWN" ? state.position + 1 : state.position - 1,
     })
-      .then((res) => setState(res))
-      .catch(() => toast.error("An error has occurred."))
+      .then((firstRes) =>
+        putLinkReq(
+          token,
+          allItems[action === "DOWN" ? currentIndex + 1 : currentIndex - 1].id,
+          {
+            ...allItems[
+              action === "DOWN" ? currentIndex + 1 : currentIndex - 1
+            ],
+            position: state.position,
+          }
+        )
+          .then((secondRes) =>
+            setData((prevState) => {
+              const result = prevState.map((e) =>
+                e.id === firstRes.id
+                  ? firstRes
+                  : e.id === secondRes.id
+                  ? secondRes
+                  : e
+              );
+
+              setState(firstRes);
+
+              return sortBy(result, (e) => e.position);
+            })
+          )
+          .catch((e) => {
+            toast.error("An error has occurred.");
+
+            console.log("[Error while change button position]: ", e);
+          })
+      )
+      .catch((e) => {
+        toast.error("An error has occurred.");
+
+        console.log("[Error while change button position]: ", e);
+      })
       .finally(() => setChangePositionIsLoading(false));
   };
 
@@ -74,9 +114,13 @@ const Item = ({ data, index, refetchData, setData }) => {
     setLoading(true);
 
     deleteLinkReq(token, state.id)
-      .then((res) => setState(res))
-      .catch(() => {
+      .then((res) =>
+        setData((prevState) => prevState.filter((e) => e.id !== res.id))
+      )
+      .catch((e) => {
         toast.error("An error has occurred.");
+
+        console.log("[Error while change button position]: ", e);
       })
       .finally(() => setLoading(false));
   };
@@ -92,20 +136,26 @@ const Item = ({ data, index, refetchData, setData }) => {
               alt="rolling"
             />
           ) : (
-            <div className={styles.arrow_wrapper}>
-              <img
-                onClick={(e) => onChangeButtonPosition(e, "UP")}
-                className={styles.arrow}
-                src="/img/up-arrow.png"
-                alt="up-arrow"
-              />
-              <img
-                onClick={(e) => onChangeButtonPosition(e, "DOWN")}
-                className={styles.arrow}
-                src="/img/down-arrow.png"
-                alt="down-arrow"
-              />
-            </div>
+            allItems.length > 1 && (
+              <div className={styles.arrow_wrapper}>
+                {state.position !== 0 && (
+                  <img
+                    onClick={(e) => onChangeButtonPosition(e, "UP")}
+                    className={styles.arrow}
+                    src="/img/up-arrow.png"
+                    alt="up-arrow"
+                  />
+                )}
+                {state.position !== allItems.length - 1 && (
+                  <img
+                    onClick={(e) => onChangeButtonPosition(e, "DOWN")}
+                    className={styles.arrow}
+                    src="/img/down-arrow.png"
+                    alt="down-arrow"
+                  />
+                )}
+              </div>
+            )
           )}
 
           <p></p>

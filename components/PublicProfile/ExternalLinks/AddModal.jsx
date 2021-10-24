@@ -40,7 +40,7 @@ const AddModal = ({ setShowModal, edit, data, setData }) => {
       setLoading(true);
 
       postLinkReq(token, {
-        position: 10,
+        position: data.length ? data.length : 0,
         name: text,
         url,
         type: "external",

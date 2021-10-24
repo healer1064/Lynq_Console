@@ -2,6 +2,9 @@
 import { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
+// utils
+import { sortBy } from "lodash";
+
 // styles
 import styles from "./styles.module.sass";
 
@@ -138,10 +141,14 @@ const index = ({ profile }) => {
     if (token) {
       getLinkReq(token)
         .then((res) => {
-          setExternalLinks(res);
+          const finalResult = sortBy(res, (item) => item.position);
+
+          setExternalLinks(finalResult);
         })
-        .catch(() => {
+        .catch((e) => {
           toast.error("An error has occurred.");
+
+          console.log("[Error while getLinkReq]: ", e);
         });
     }
   }, [token, refetch]);
