@@ -16,8 +16,6 @@ const index = ({ externalLinks, refetchData }) => {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(externalLinks);
 
-  useEffect(() => console.log(data, "ExternalLinks"), [data]);
-
   useEffect(() => {
     setData(externalLinks);
   }, [externalLinks]);
