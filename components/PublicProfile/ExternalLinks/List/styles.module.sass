@@ -1,8 +1,9 @@
 .no_appointments
   min-height: calc( 100vh - 100px )
 
-.list 
+.list
     margin-top: 2rem
+
 
     .head
         width: 100%
@@ -45,23 +46,23 @@
         .loading
             height: 30px
             background: transparent
+            background-color: rgba(126, 136, 244, 0.8)
         .cursor
-            cursor: pointer 
+            cursor: pointer
         .dull
             svg
                 opacity: 0.5
 
-    .item 
+    .item
         display: grid
-        grid-template-columns: 0.3fr 1fr 1fr 2fr 0.5fr
+        grid-template-columns: 0.3fr 0.3fr 1fr 1fr 2fr 0.5fr
         align-items: center
         width: 100%
         padding: 15px 20px
-        cursor: pointer
         background-color: #f9f9f9
         transition: 1s all cubic-bezier(0.215, 0.61, 0.355, 1)
         margin: 10px 0
-        &:hover 
+        &:hover
         background-color: #efefef
         p
             margin: 0
@@ -76,12 +77,22 @@
             color: #7e88f4
             display: flex
             align-items: center
+        .arrow_wrapper
+            display: flex
+            flex-direction: column
+        .loading
+                height: 30px
+                background: transparent
+        .arrow
+            width: 20px
+            height: 20px
+            cursor: pointer
 
 @media (max-width: 519px)
     .list
         overflow-x: scroll
         width: 100%
-        .head 
+        .head
             width: fit-content
             grid-template-columns: 70px 100px 100px 250px 70px
         .item

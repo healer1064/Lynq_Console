@@ -1,100 +1,194 @@
 // libraries
-import React, { useState, useContext } from 'react';
-import Fade from 'react-reveal/Fade';
+import React, { useState, useContext, useEffect } from "react";
+import Fade from "react-reveal/Fade";
 
 // styles
-import styles from './styles.module.sass';
+import styles from "./styles.module.sass";
+
+// utils
+import { sortBy } from "lodash";
 
 // context
-import ProfileContext from '@/context/profile';
+import ProfileContext from "@/context/profile";
 
 // requests
-import { putLinkReq, deleteLinkReq } from '@/utils/requests/public-profile';
+import { putLinkReq, deleteLinkReq } from "@/utils/requests/public-profile";
 
 // icons
-import { FiEdit } from 'react-icons/fi';
-import { MdDelete } from 'react-icons/md';
+import { FiEdit } from "react-icons/fi";
+import { MdDelete } from "react-icons/md";
 
 // components
-import { Switch } from 'antd';
-import { toast } from 'react-toastify';
-import AddModal from '../AddModal';
+import { Switch } from "antd";
+import { toast } from "react-toastify";
+import AddModal from "../AddModal";
 
-const Item = ({ data, index, refetchData }) => {
+const Item = ({ data, index, refetchData, setData, allItems }) => {
   // states
-  const [status, setStatus] = useState(data.is_enable);
-  const [editLoading, setEditLoading] = useState(false);
+  const [state, setState] = useState(data);
+
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [status, setStatus] = useState(state.is_enable);
+  const [editLoading, setEditLoading] = useState(false);
+  const [changePositionIsLoading, setChangePositionIsLoading] = useState(false);
+
+  // Effect's
+  useEffect(() => setState(data), [data]);
 
   // context
   const { token } = useContext(ProfileContext);
 
-  function onChange(checked) {
+  // handler's
+  const onSwitch = (checked) => {
     setEditLoading(true);
-    putLinkReq(token, data.id, {
-      ...data,
+
+    putLinkReq(token, state.id, {
+      ...state,
       is_enable: checked,
-      type: 'external',
+      type: "external",
     })
-      .then(() => {
-        setEditLoading(false);
+      .then((res) => {
+        setState(res);
+
         setStatus(checked);
-        refetchData();
       })
       .catch(() => {
-        setEditLoading(false);
-        toast.error('An error has occurred.');
-      });
-  }
+        toast.error("An error has occurred.");
+      })
+      .finally(() => setEditLoading(false));
+  };
+
+  const onChangeButtonPosition = (e, action) => {
+    e.preventDefault();
+
+    setChangePositionIsLoading(true);
+
+    const currentIndex = allItems.findIndex((e) => e.id === state.id);
+
+    putLinkReq(token, state.id, {
+      ...state,
+      position: action === "DOWN" ? state.position + 1 : state.position - 1,
+    })
+      .then((firstRes) =>
+        putLinkReq(
+          token,
+          allItems[action === "DOWN" ? currentIndex + 1 : currentIndex - 1].id,
+          {
+            ...allItems[
+              action === "DOWN" ? currentIndex + 1 : currentIndex - 1
+            ],
+            position: state.position,
+          }
+        )
+          .then((secondRes) =>
+            setData((prevState) => {
+              const result = prevState.map((e) =>
+                e.id === firstRes.id
+                  ? firstRes
+                  : e.id === secondRes.id
+                  ? secondRes
+                  : e
+              );
+
+              setState(firstRes);
+
+              return sortBy(result, (e) => e.position);
+            })
+          )
+          .catch((e) => {
+            toast.error("An error has occurred.");
+
+            console.log("[Error while change button position]: ", e);
+          })
+      )
+      .catch((e) => {
+        toast.error("An error has occurred.");
+
+        console.log("[Error while change button position]: ", e);
+      })
+      .finally(() => setChangePositionIsLoading(false));
+  };
 
   const handleDelete = () => {
     setLoading(true);
-    deleteLinkReq(token, data.id)
-      .then(() => {
-        setLoading(false);
-        refetchData();
+
+    deleteLinkReq(token, state.id)
+      .then((res) =>
+        setData((prevState) => prevState.filter((e) => e.id !== res.id))
+      )
+      .catch((e) => {
+        toast.error("An error has occurred.");
+
+        console.log("[Error while change button position]: ", e);
       })
-      .catch(() => {
-        setLoading(false);
-        toast.error('An error has occurred.');
-      });
+      .finally(() => setLoading(false));
   };
 
   return (
     <>
       <Fade duration={800} delay={50}>
         <div className={styles.item}>
+          {changePositionIsLoading ? (
+            <img
+              className={styles.loading}
+              src="/img/Rolling-dark.svg"
+              alt="rolling"
+            />
+          ) : (
+            allItems.length > 1 && (
+              <div className={styles.arrow_wrapper}>
+                {state.position !== 0 && (
+                  <img
+                    onClick={(e) => onChangeButtonPosition(e, "UP")}
+                    className={styles.arrow}
+                    src="/img/up-arrow.png"
+                    alt="up-arrow"
+                  />
+                )}
+                {state.position !== allItems.length - 1 && (
+                  <img
+                    onClick={(e) => onChangeButtonPosition(e, "DOWN")}
+                    className={styles.arrow}
+                    src="/img/down-arrow.png"
+                    alt="down-arrow"
+                  />
+                )}
+              </div>
+            )
+          )}
+
           <p></p>
           <p>{index + 1}</p>
           <Switch
-            onChange={onChange}
             checked={status}
+            onChange={onSwitch}
             loading={editLoading}
             className={status ? styles.switch_on : styles.switch_off}
-            style={{ width: '10px', borderRadius: '50px', padding: '0' }}
+            style={{ width: "10px", borderRadius: "50px", padding: "0" }}
           />
-          <p>{data.name}</p>
+          <p>{state.name}</p>
           <div className={styles.icons}>
             <FiEdit onClick={() => setShowModal(true)} />
             {loading ? (
               <img
                 className={styles.loading}
-                src='/img/Rolling-dark.svg'
-                alt='rolling'
+                src="/img/Rolling-dark.svg"
+                alt="rolling"
               />
             ) : (
-              data.type !== 'internal' && <MdDelete onClick={handleDelete} />
+              state.type !== "internal" && <MdDelete onClick={handleDelete} />
             )}
           </div>
         </div>
       </Fade>
       {showModal && (
         <AddModal
-          setShowModal={setShowModal}
           edit
-          data={data}
+          data={state}
+          setData={setData}
           refetchData={refetchData}
+          setShowModal={setShowModal}
         />
       )}
     </>

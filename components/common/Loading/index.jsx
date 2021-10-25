@@ -1,18 +1,14 @@
 // styles
-import styles from "./styles.module.css";
+import styles from "./styles.module.scss";
 
 const Loading = ({ color }) => {
   return (
-    <div
-      className={styles.loading}
-      style={{
-        background: color || "#7E88F4",
-      }}
-    >
-      <div className={styles.dot_pulse} data-title=".dot-pulse">
-        <div className={styles.stage}>
-          <div className={styles.dot_pulse}></div>
-        </div>
+    <div className={styles.box}>
+      <div class={styles.container}>
+        <span class={styles.circle}></span>
+        <span class={styles.circle}></span>
+        <span class={styles.circle}></span>
+        <span class={styles.circle}></span>
       </div>
     </div>
   );

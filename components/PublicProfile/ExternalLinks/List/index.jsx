@@ -1,27 +1,39 @@
 // libraries
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 
 // styles
-import styles from './styles.module.sass';
+import styles from "./styles.module.sass";
 
 // components
-import EmptyData from '@/components/common/EmptyData';
-import Head from './Head';
-import Item from './Item';
+import EmptyData from "@/components/common/EmptyData";
+import Head from "./Head";
+import Item from "./Item";
 
-const index = ({ list, refetchData }) => {
+const index = ({ list, refetchData, setData }) => {
   // states
-  const [data] = useState(list);
+  const [state, setState] = useState(list);
 
-  return data && data.length === 0 ? (
+  useEffect(() => {
+    setState(list);
+  }, [list]);
+
+  return state && state.length === 0 ? (
     <div className={styles.no_appointments}>
-      <EmptyData title='No buttons to show' />
+      <EmptyData title="No buttons to show" />
     </div>
   ) : (
     <div className={styles.list}>
       <Head />
-      {data.map((item, index) => (
-        <Item key={index} data={item} index={index} refetchData={refetchData} />
+      {state.map((item, index) => (
+        <Item
+          allItems={list}
+          setData={setData}
+          key={index}
+          data={item}
+          allItems={list}
+          index={index}
+          refetchData={refetchData}
+        />
       ))}
     </div>
   );
