@@ -233,7 +233,7 @@ const index = ({ activePrivateSession }) => {
 
   return (
     <div className={styles.content}>
-      <div className={styles.switch_wrap}>
+      {/* <div className={styles.switch_wrap}>
         <Switch
           checked={active}
           onChange={onChange}
@@ -241,7 +241,7 @@ const index = ({ activePrivateSession }) => {
           className={active ? styles.switch_on : styles.switch_off}
         />
         <span>{active ? 'Activated' : 'Deactivated'}</span>
-      </div>
+      </div> */}
       <h3>Description</h3>
       <div className={styles.textarea}>
         <textarea

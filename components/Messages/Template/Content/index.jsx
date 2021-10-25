@@ -49,7 +49,7 @@ const index = ({ data, responseRefresh }) => {
 
   return (
     <div className={styles.content}>
-      <div className={styles.switch_wrap}>
+      {/* <div className={styles.switch_wrap}>
         <Switch
           checked={active}
           onChange={onChange}
@@ -57,7 +57,7 @@ const index = ({ data, responseRefresh }) => {
           loading={loading}
         />
         <span>{active ? 'Activated' : 'Deactivated'}</span>
-      </div>
+      </div> */}
       <h3>Delivery Time</h3>
       <p>This indicates the maximum time you have to respond to the request</p>
       {view == 0 ? (
