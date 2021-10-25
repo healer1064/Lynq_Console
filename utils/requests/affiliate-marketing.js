@@ -64,5 +64,5 @@ export const deleteAffiliateMarketingReq = async (_token, _id) => {
     },
   );
 
-  return await response.json();
+  return await response;
 };
