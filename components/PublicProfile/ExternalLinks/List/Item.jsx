@@ -50,7 +50,6 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
     putLinkReq(token, state.id, {
       ...state,
       is_enable: checked,
-      type: "external",
     })
       .then((res) => {
         setState(res);
