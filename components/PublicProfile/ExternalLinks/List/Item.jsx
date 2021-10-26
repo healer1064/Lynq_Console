@@ -6,7 +6,7 @@ import Fade from "react-reveal/Fade";
 import styles from "./styles.module.sass";
 
 // utils
-import { first, sortBy } from "lodash";
+import { sortBy } from "lodash";
 
 // context
 import ProfileContext from "@/context/profile";

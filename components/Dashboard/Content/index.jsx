@@ -14,8 +14,6 @@ import SearchInput from "@/components/common/SearchInput";
 import Table from "../Table";
 
 const index = ({ clients, stats, period, setPeriod }) => {
-  console.log(stats);
-
   // states
   const [response, setResponse] = useState(null);
   const [filteredData, setFilteredData] = useState(null);
