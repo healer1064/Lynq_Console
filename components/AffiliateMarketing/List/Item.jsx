@@ -11,8 +11,6 @@ const Item = ({ data }) => {
   // router
   const router = useRouter();
 
-  console.log(data);
-
   return (
     <>
       <Fade duration={800} delay={50}>
