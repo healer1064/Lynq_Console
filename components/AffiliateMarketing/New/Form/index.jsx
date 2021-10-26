@@ -97,9 +97,9 @@ const index = ({ setTab, setRefetch }) => {
     <form className={styles.form}>
       <div className={styles.horizontal}>
         <label>
-          <strong>Enter the product URL</strong>
+          <strong>Enter the Amazon Product URL</strong>
           <input
-            type='Enter the product URL'
+            type='Enter the Amazon Product URL'
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
@@ -114,7 +114,7 @@ const index = ({ setTab, setRefetch }) => {
           <label>
             <strong>Name</strong>
             <input
-              type='Enter the product URL'
+              type='Enter the Amazon Product URL'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
