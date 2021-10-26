@@ -78,7 +78,7 @@ const MobileNav = ({
                     router.pathname === '/calls/requests' ? styles.active : ''
                   }
                 >
-                  1-1 video call
+                  Live private session
                 </span>
               </Link>
               <Link href='/masterclass'>
@@ -100,7 +100,7 @@ const MobileNav = ({
                       : ''
                   }
                 >
-                  Video message
+                  Personalized request
                 </span>
               </Link>
               <Link href='/pay-per-download'>
@@ -110,7 +110,7 @@ const MobileNav = ({
                     router.pathname === '/pay-per-download' ? styles.active : ''
                   }
                 >
-                  <span>On-demand content</span>
+                  <span>Exclusive content</span>
                 </a>
               </Link>
               <Link href='/affiliate-marketing'>
@@ -122,7 +122,7 @@ const MobileNav = ({
                       : ''
                   }
                 >
-                  <span>My recommendations</span>
+                  <span>Affiliation product</span>
                 </a>
               </Link>
             </div>
@@ -169,7 +169,7 @@ const MobileNav = ({
               onClick={() => setOpen(false)}
               className={router.pathname === '/dashboard' ? styles.active : ''}
             >
-              <span>Reports</span>
+              <span>Analytics</span>
             </a>
           </Link>
           <Link href='/payment/balance'>
