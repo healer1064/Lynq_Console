@@ -34,7 +34,11 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
   const [changePositionIsLoading, setChangePositionIsLoading] = useState(false);
 
   // Effect's
-  useEffect(() => setState(data), [data]);
+  useEffect(() => {
+    setState(data);
+
+    setStatus(data.is_enable);
+  }, [data]);
 
   // context
   const { token } = useContext(ProfileContext);
@@ -46,7 +50,6 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
     putLinkReq(token, state.id, {
       ...state,
       is_enable: checked,
-      type: "external",
     })
       .then((res) => {
         setState(res);
@@ -90,6 +93,8 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
                   ? secondRes
                   : e
               );
+
+              setStatus(firstRes.is_enable);
 
               setState(firstRes);
 
