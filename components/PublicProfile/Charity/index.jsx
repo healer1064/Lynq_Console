@@ -65,7 +65,7 @@ const index = ({
       </div>
       <div className={styles.text_uppercase}>
         <button onClick={(e) => onSubmit(e)} style={{ position: "relative" }}>
-          {loading && <Loading />}Save Profile
+          {loading && <Loading />}Save
         </button>
       </div>
       {/* <div className={styles.input_wrap}>
