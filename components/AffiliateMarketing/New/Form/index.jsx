@@ -73,6 +73,12 @@ const index = ({ setTab, setRefetch }) => {
         .then((res) => {
           if (res.status == 200) {
             setLoading(false);
+            setUrl('');
+            setData(null);
+            setTitle('');
+            setPrice('');
+            setDescription('');
+            setThumbnail(null);
             setRefetch((prevState) => !prevState);
             setTab('1');
           } else {
