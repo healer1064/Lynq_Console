@@ -65,9 +65,11 @@ const index = ({ data }) => {
   const handleDelete = () => {
     setDeleteLoading(true);
     deleteAffiliateMarketingReq(token, id)
-      .then(() => {
-        setDeleteLoading(false);
-        router.push('/affiliate-marketing');
+      .then((response) => {
+        if (response.status === 200) {
+          setDeleteLoading(false);
+          router.push('/affiliate-marketing');
+        }
       })
       .catch((err) => {
         console.log(err);
