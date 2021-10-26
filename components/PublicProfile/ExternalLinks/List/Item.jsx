@@ -6,7 +6,7 @@ import Fade from "react-reveal/Fade";
 import styles from "./styles.module.sass";
 
 // utils
-import { sortBy } from "lodash";
+import { first, sortBy } from "lodash";
 
 // context
 import ProfileContext from "@/context/profile";
@@ -34,7 +34,11 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
   const [changePositionIsLoading, setChangePositionIsLoading] = useState(false);
 
   // Effect's
-  useEffect(() => setState(data), [data]);
+  useEffect(() => {
+    setState(data);
+
+    setStatus(data.is_enable);
+  }, [data]);
 
   // context
   const { token } = useContext(ProfileContext);
@@ -90,6 +94,8 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
                   ? secondRes
                   : e
               );
+
+              setStatus(firstRes.is_enable);
 
               setState(firstRes);
 
