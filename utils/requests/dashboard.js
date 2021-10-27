@@ -22,7 +22,7 @@ const getStatsReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/stats?t=${_token}`,
+    `https://api.lynq.app/console/stats?t=${_token}`,
     config,
   );
 
