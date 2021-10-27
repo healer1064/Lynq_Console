@@ -22,7 +22,7 @@ $breakpointPhone: 519px
     @include flex
     flex-direction: row
     column-gap: 1rem
-    width: 100% !important
+    width: calc(72.22% - 32px) !important
     .card
         margin-top: 16px
         width: 100%
@@ -85,7 +85,7 @@ $breakpointPhone: 519px
 
 @media (max-width: $breakpointPhone)
     .notifications
-        width: 100%
+        width: 100% !important
         flex-direction: column
 
         .card
