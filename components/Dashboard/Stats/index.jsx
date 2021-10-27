@@ -45,7 +45,7 @@ const index = ({ data, period, setPeriod }) => {
         />
       </div>
       <div>
-        <h5>Revenue</h5>
+        <h5 className={styles.box}>Revenue</h5>
         <div className={styles.list}>
           {data.finance.map((item, index) => (
             <Item
@@ -57,7 +57,7 @@ const index = ({ data, period, setPeriod }) => {
         </div>
       </div>
       <div>
-        <h5>Clicks</h5>
+        <h5 className={styles.box}>Clicks</h5>
         <div className={styles.list}>
           {data.performance.map((item, index) => (
             <Item
