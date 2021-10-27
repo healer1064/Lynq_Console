@@ -163,7 +163,7 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
             )
           )}
 
-          <p></p>
+          {/* <p></p> */}
           <p>{index + 1}</p>
           <Switch
             checked={status}
