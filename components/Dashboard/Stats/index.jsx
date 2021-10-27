@@ -28,29 +28,51 @@ const index = ({ data, period, setPeriod }) => {
           </Button>
         </Dropdown>
       </div>
-      <div className={styles.list}>
+      <div className={`${styles.highlight} ${styles.list}`}>
         <Item
           name='Total revenue'
-          number={`$${data.global.revenue}`}
+          number={`$${data?.revenue}`}
           percent='+8.85'
           image='/img/dashboard-dollar.svg'
           trend='up'
         />
         <Item
           name='Profile visits'
-          number={data.global.clicks}
+          number={data?.visits}
           percent='-7.78'
           image='/img/dashboard-trend.svg'
           trend='down'
         />
       </div>
+      <div>
+        <h5>Revenue</h5>
+        <div className={styles.list}>
+          {data.finance.map((item, index) => (
+            <Item
+              name={item.name}
+              number={`$${item?.revenue}`}
+              key={index}
+            />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h5>Clicks</h5>
+        <div className={styles.list}>
+          {data.performance.map((item, index) => (
+            <Item
+              name={item.name}
+              number={item.clicks}
+              key={index}
+            />
+          ))}
+        </div>
+      </div>
+      {/*
       <div className={styles.list}>
         <Item
           name='Clicks on 1:1 video calls'
           number={data.private_session.clicks}
-          percent='+11.3'
-          image='/img/dashboard-click.svg'
-          trend='up'
           type='1-1'
           order={1}
           row='upper'
@@ -58,9 +80,6 @@ const index = ({ data, period, setPeriod }) => {
         <Item
           name='Clicks on masterclasses'
           number={data.masterclass.clicks}
-          percent='+11.3'
-          image='/img/dashboard-click.svg'
-          trend='up'
           type='masterclass'
           order={2}
           row='upper'
@@ -68,9 +87,6 @@ const index = ({ data, period, setPeriod }) => {
         <Item
           name='Clicks on video messages'
           number={data.message.clicks}
-          percent='+11.3'
-          image='/img/dashboard-click.svg'
-          trend='up'
           type='message'
           order={3}
           row='upper'
@@ -78,9 +94,6 @@ const index = ({ data, period, setPeriod }) => {
         <Item
           name='Total 1:1 video calls purchased'
           number={data.private_session.revenue}
-          percent='+11.3'
-          image='/img/dashboard-cart.svg'
-          trend='up'
           type='1-1'
           order={11}
           row='lower'
@@ -88,9 +101,6 @@ const index = ({ data, period, setPeriod }) => {
         <Item
           name='Total masterclasses purchased'
           number={data.masterclass.revenue}
-          percent='+11.3'
-          image='/img/dashboard-cart.svg'
-          trend='up'
           type='masterclass'
           order={12}
           row='lower'
@@ -98,9 +108,6 @@ const index = ({ data, period, setPeriod }) => {
         <Item
           name='Total video messages purchased'
           number={data.message.revenue}
-          percent='+11.3'
-          image='/img/dashboard-cart.svg'
-          trend='up'
           type='message'
           order={13}
           row='lower'
@@ -123,22 +130,7 @@ const index = ({ data, period, setPeriod }) => {
           image='/img/dashboard-ebook.svg'
         />
       </div> */}
-      <div className={styles.list}>
-        <Item
-          name='Clicks on "Name of the button"'
-          number='-'
-          image='/img/dashboard-click.svg'
-          contentSales='20'
-        />
-      </div>
-      <div className={styles.list}>
-        <Item
-          name='Clicks on ”Name of the product”'
-          number='-'
-          image='/img/dashboard-click.svg'
-          contentSales='20'
-        />
-      </div>
+     
     </div>
   );
 };
