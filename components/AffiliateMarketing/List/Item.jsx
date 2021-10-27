@@ -20,7 +20,6 @@ const Item = ({ data }) => {
         >
           <p>{data.name}</p>
           <p>{moment(data.creation_date).format('DD MMMM, yyyy')}</p>
-          <p>-</p>
         </div>
       </Fade>
     </>
