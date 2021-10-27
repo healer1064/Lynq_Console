@@ -6,7 +6,6 @@ const Head = () => {
     <div className={styles.head}>
       <p>Product</p>
       <p>Date of creation</p>
-      <p>Number of clicks</p>
     </div>
   );
 };
