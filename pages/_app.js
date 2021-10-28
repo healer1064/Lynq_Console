@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
 import TagManager from "react-gtm-module";
-
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import createCache from '@emotion/cache';
+import theme from '../utils/theme';
 // styles
 import "../styles/main.sass";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,6 +19,8 @@ import { ProfileProvider } from "../context/profile";
 import PageLoading from "@/components/common/PageLoading";
 import Navbar from "@/components/common/Navbar";
 import Sidebar from "@/components/common/Sidebar";
+
+export const cache = createCache({ key: 'css', prepend: true });
 
 function MyApp({ Component, pageProps }) {
   // states
@@ -103,7 +108,10 @@ function MyApp({ Component, pageProps }) {
       ) : (
         <>
           <ToastContainer />
-          <Component {...pageProps} />
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
         </>
       )}
     </ProfileProvider>
