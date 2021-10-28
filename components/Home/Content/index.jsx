@@ -51,7 +51,7 @@ const index = ({
     opened: true,
     title: 'First Step',
     content: '<p>Want to start using Lynq but not sure where to begin?</p><p>Check out this short video on the basics, or watch more detailed walkthroughs on our YouTube channel.</p>',
-    link: '',
+    link: 'https://youtube.com/',
     linkText: 'Watch Video',
     cookieName: 'enable-home-popup'
   }

@@ -62,7 +62,7 @@ export default function GlobalPopUp({ content }) {
     Cookies.set(content.cookieName, 'true', {
       path: '/',
     });
-
+    if (typeof window !== 'undefined') window.open(content.link);
     setOpen(false);
   };
 

@@ -47,7 +47,7 @@ const index = () => {
     opened: true,
     title: 'Affiliation',
     content: '<p>You need to be an Amazon affiliate before using this plug-in.</p><p>Check this video to see how to create your account in 2 min.</p>',
-    link: '',
+    link: 'https://youtube.com/',
     linkText: 'Watch Video',
     cookieName: 'enable-affiliation-popup'
   }
