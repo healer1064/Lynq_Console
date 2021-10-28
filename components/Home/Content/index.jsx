@@ -1,7 +1,8 @@
 // libraries
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import Fade from "react-reveal/Fade";
+import Cookies from 'js-cookie'
 
 // stlyes
 import styles from "./styles.module.sass";
@@ -18,6 +19,7 @@ import NextSession from "../NextSession";
 import SlugDetails from "../SlugDetails";
 import List from "../List";
 import Calendar from "../Calendar";
+import GlobalPopUp from '../../GlobalPopUp';
 
 const index = ({
   currSession,
@@ -31,12 +33,28 @@ const index = ({
 
   // states
   const [currWeek, setCurrWeek] = useState(getCurrentWeek());
+  const [isEnabled, setisEnabled] = useState(false);
 
   // handle change
   const handleChange = (_start, _end) => {
     setCurrWeek({ weekStart: _start, weekEnd: _end });
     onWeekChange(_start, _end);
   };
+
+  useEffect(()=>{
+    if (!Cookies.get('enable-home-popup')) {
+      setisEnabled(true); //Modal does not open if cookie exists
+    }
+  },[])
+
+  const popupContent = {
+    opened: true,
+    title: 'First Step',
+    content: '<p>Want to start using Lynq but not sure where to begin?</p><p>Check out this short video on the basics, or watch more detailed walkthroughs on our YouTube channel.</p>',
+    link: '',
+    linkText: 'Watch Video',
+    cookieName: 'enable-home-popup'
+  }
 
   return (
     <>
@@ -58,6 +76,7 @@ const index = ({
             <Calendar currDate={currWeek} handleChange={handleChange} />
           </div>
         </div>
+        {isEnabled ? <GlobalPopUp content={popupContent} /> : ''}
       </Fade>
     </>
   );
