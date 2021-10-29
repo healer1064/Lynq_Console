@@ -8,6 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import Cookies from 'js-cookie'
+import CloseIcon from '@material-ui/icons/Close';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -17,7 +18,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     padding: theme.spacing(1),
   },
   '& h2, & button': {
-    fontWeight: '700'
+    fontWeight: '700',
+    '& button': {
+      float: 'right'
+    }
   },
   '& button.mainButton': {
     background: theme.palette.primary.main,
@@ -44,6 +48,7 @@ const BootstrapDialogTitle = (props) => {
             color: (theme) => theme.palette.grey[500],
           }}
         >
+          <CloseIcon className='closeButton' />
         </IconButton>
       ) : null}
     </DialogTitle>
@@ -66,14 +71,18 @@ export default function GlobalPopUp({ content }) {
     setOpen(false);
   };
 
+  const handleCloseButton = () => {
+    setOpen(false);
+  }
+
   return (
     <div>
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={handleCloseButton}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseButton}>
           {content.title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
