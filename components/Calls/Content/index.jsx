@@ -62,7 +62,7 @@ const index = ({
         />
         <Notifications
           data={slugData}
-          delayedBookingHours={slugData.delay_booking_hours}
+          delayedBookingHours={slugData?.delay_booking_hours}
           token={token}
           toggleSuccess={toggleSuccess}
         />

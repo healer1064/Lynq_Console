@@ -2,10 +2,13 @@
 import { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { Tooltip } from "antd";
 
 // styles
 import styles from './styles.module.sass';
 import 'react-datepicker/dist/react-datepicker.css';
+
+import { RiUploadCloudFill, RiDeleteBin6Fill } from "react-icons/ri";
 
 // context
 import ProfileContext from '@/context/profile';
@@ -19,11 +22,14 @@ import { postExclusiveContentReq } from '@/utils/requests/exclusive-content';
 
 // icons
 import { FaTrash } from 'react-icons/fa';
+import { BsExclamationCircleFill } from "react-icons/bs";
+import { BiDollar } from "react-icons/bi";
 import { HiDocument } from 'react-icons/hi';
 
 // components
 import Loading from '@/components/common/Loading';
 import router from 'next/router';
+import AttachmentModal from "../../../Messages/Conversations/Chat/AttachmentModal";
 
 const index = () => {
   // context
@@ -132,9 +138,29 @@ const index = () => {
           maxLength='42'
         />
       </label>
-      <label className={`${file ? styles.thumbnail : ''}`}>
-        <strong>Upload</strong>
-        <div className={styles.price}>
+      {/* <div className={styles.price}> */}
+      <label className={`${styles.uploadWrapper} ${file ? styles.thumbnail : ''}`}>
+        <p><strong>Upload your file</strong></p>
+        <div className={styles.dropzone}>
+            <div className={styles.input_wrap}>
+              <input
+                type='file'
+                id='dropzone-input'
+                accept='application/msword, application/pdf, image/*, video/mp4'
+                onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
+              />
+              <>
+                <RiUploadCloudFill />
+                <h6>Drop or select your file</h6>
+                <p>
+                  Video (mp4, avi), Picture (jpeg, png), Audio (mp3, wav),
+                  Document (pdf, docx, doc)
+                  <br /> Max 400 MB
+                </p>
+              </>
+            </div>
+        </div>
+        
           <input
             type='file'
             accept='application/msword, application/pdf, image/*, video/mp4'
@@ -169,40 +195,47 @@ const index = () => {
               }}
             />
           )}
-        </div>
+        {/* </div> */}
         {file && <p className={styles.filename}>{file.fileObject.name}</p>}
       </label>
-      <label>
-        <strong>Price</strong>
-        <div className={styles.price}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
+      {/* // </div> */}
+      <div className={styles.price}>
+      <label htmlFor="price">
+        <p>Price</p>
+        {/* <div className={styles.price}> */}
+        <span>
+                <BiDollar />
           <input
             type='number'
+            id="price"
             min='0'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            style={{ paddingLeft: '25px' }}
           />
-        </div>
+          </span>
+        {/* </div> */}
       </label>
-      <label>
-        <strong>Listing Price</strong>
-        <div className={`${styles.price} ${styles.listing}`}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          {priceLoading ? (
-            <img
-              className={styles.listing_loading}
-              src='/img/Rolling-dark.svg'
-              alt='rolling'
-            />
+      <label className={styles.listing}>
+        <p>Listing Price
+        <Tooltip
+          className={styles.tooltip}
+          title="The price a customer pays to purchase the service and that
+                  includes Lynq's fees."
+        >
+          <BsExclamationCircleFill />
+        </Tooltip>
+        </p>
+        {price != "" && (
+          <span>
+            <BiDollar />
+            <input id="listing-price" value={listingPrice} disabled />
+            {priceLoading && (
+              <img src="/img/Rolling-dark.svg" alt="rolling" />
+            )}{" "}
+          </span>
+        )}
+          {/* {priceLoading ? (
+           <BiDollar />
           ) : (
             <input
               type='number'
@@ -211,9 +244,9 @@ const index = () => {
               value={priceLoading ? '' : listingPrice}
               style={{ paddingLeft: '25px' }}
             />
-          )}
-        </div>
+          )} */}
       </label>
+      </div>
       <div className={styles.btns}>
         <button className={styles.save} onClick={handleSubmit}>
           {buttonLoading ? <Loading /> : 'Save'}

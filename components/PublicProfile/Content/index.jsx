@@ -90,8 +90,8 @@ const index = ({ profile }) => {
       slug,
       name: `${firstName} ${lastName}`,
       public_image: image,
-      delay_booking_hours: profile.delay_booking_hours
-        ? profile.delay_booking_hours
+      delay_booking_hours: profile?.delay_booking_hours
+        ? profile?.delay_booking_hours
         : 0,
       timezone: profile.timezone ? profile.timezone : "",
       bio: desc,

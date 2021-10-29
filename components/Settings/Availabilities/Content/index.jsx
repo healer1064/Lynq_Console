@@ -65,7 +65,7 @@ const SettingsSetup = () => {
           />
           <Notifications
             data={profile}
-            delayedBookingHours={profile.delay_booking_hours}
+            delayedBookingHours={profile?.delay_booking_hours}
             token={token}
             toggleSuccess={toggleSuccess}
           />
