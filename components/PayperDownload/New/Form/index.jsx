@@ -1,8 +1,9 @@
 // libraries
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Tooltip } from "antd";
+import { useDropzone } from "react-dropzone";
 
 // styles
 import styles from './styles.module.sass';
@@ -44,6 +45,16 @@ const index = () => {
   const [loading, setLoading] = useState(false);
   const [priceLoading, setPriceLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
+
+  // handle drop
+  const onDrop = useCallback((acceptedFiles) => {
+    setFile(handleFileInput(acceptedFiles[0]));
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
 
   // handle price change
   useEffect(() => {
@@ -89,13 +100,10 @@ const index = () => {
 
   const upload = async (_id) => {
     const formData = new FormData();
-    formData.append('file', file?.fileObject);
-
+    formData.append('file', file);
     axios
       .post(
-        `https://api.lynq.app/console/exclusive-content/upload/${_id}?t=${token}`,
-        formData,
-        {
+        `https://api.lynq.app/exclusive-content/adm/upload/${_id}?t=${token}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (progressEvent) => {
             setProgress(
@@ -142,37 +150,14 @@ const index = () => {
       <label className={`${styles.uploadWrapper} ${file ? styles.thumbnail : ''}`}>
         <p><strong>Upload your file</strong></p>
         <div className={styles.dropzone}>
-            <div className={styles.input_wrap}>
-              <input
-                type='file'
-                id='dropzone-input'
-                accept='application/msword, application/pdf, image/*, video/mp4'
-                onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-              />
-              <>
-                <RiUploadCloudFill />
-                <h6>Drop or select your file</h6>
-                <p>
-                  Video (mp4, avi), Picture (jpeg, png), Audio (mp3, wav),
-                  Document (pdf, docx, doc)
-                  <br /> Max 400 MB
-                </p>
-              </>
-            </div>
-        </div>
-        
-          <input
-            type='file'
-            accept='application/msword, application/pdf, image/*, video/mp4'
-            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-          />
+        <div className={styles.uploadContainer}>
           {file &&
             (file.fileObject.type.includes('image') ? (
-              <img src={file?.url} alt='thumbnail' />
+              <img src={file?.url} alt='thumbnail' height='150px' />
             ) : file.fileObject.type.includes('video') ? (
               <video
                 width='320'
-                height='240'
+                height='150'
                 controls
                 controlslist='nodownload noremoteplayback noplaybackrate foobar'
               >
@@ -186,17 +171,36 @@ const index = () => {
                 style={{ margin: '0 auto' }}
               />
             ))}
-          {file && (
-            <FaTrash
+        {file && <p className={styles.filename}>{file.fileObject.name}
+        <FaTrash
               className={styles.trash}
               onClick={(e) => {
                 e.stopPropagation();
                 setFile(null);
               }}
             />
-          )}
-        {/* </div> */}
-        {file && <p className={styles.filename}>{file.fileObject.name}</p>}
+        </p>}
+        </div>
+        {!file && (
+            <div className={styles.input_wrap} {...getRootProps()}>
+              <input
+                type='file'
+                id='dropzone-input'
+                {...getInputProps()}
+                accept='image/*, video/mp4'
+                // onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
+              />
+              <>
+                <RiUploadCloudFill />
+                <h6>Drop or select your file</h6>
+                <p>
+                  Video (mp4, avi), Picture (jpeg, png)
+                  <br /> Max 400 MB
+                </p>
+              </>
+            </div>
+        )}
+        </div>
       </label>
       {/* // </div> */}
       <div className={styles.price}>
@@ -219,7 +223,7 @@ const index = () => {
         <p>Listing Price
         <Tooltip
           className={styles.tooltip}
-          title="The price a customer pays to purchase the service and that
+          title="The price a customer pays to purchase the content and that
                   includes Lynq's fees."
         >
           <BsExclamationCircleFill />
@@ -250,6 +254,15 @@ const index = () => {
       <div className={styles.btns}>
         <button className={styles.save} onClick={handleSubmit}>
           {buttonLoading ? <Loading /> : 'Save'}
+        </button>
+        <button
+          className={styles.cancel}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Cancel
         </button>
       </div>
     </form>
