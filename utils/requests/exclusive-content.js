@@ -1,6 +1,6 @@
 export const postExclusiveContentReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/exclusive-content/adm?t=${_token}`,
+    `https://api.lynq.app/console/exclusive-content?t=${_token}`,
     {
       method: 'POST',
       headers: {
@@ -19,7 +19,7 @@ export const postExclusiveContentFileReq = async (_id, _token, _file) => {
   formData.append('file', _file);
 
   const response = await fetch(
-    `https://api.lynq.app/exclusive-content/adm/upload/${_id}?t=${_token}`,
+    `https://api.lynq.app/console/exclusive-content/upload/${_id}?t=${_token}`,
     {
       method: 'POST',
       body: formData,
@@ -31,7 +31,7 @@ export const postExclusiveContentFileReq = async (_id, _token, _file) => {
 
 export const putExclusiveContentReq = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/exclusive-content/adm/${_id}?t=${_token}`,
+    `https://api.lynq.app/console/exclusive-content/${_id}?t=${_token}`,
     {
       method: 'PUT',
       headers: {
@@ -47,7 +47,7 @@ export const putExclusiveContentReq = async (_token, _id, _reqData) => {
 
 export const getExclusiveContentReq = async (_token) => {
   const response = await fetch(
-    `https://api.lynq.app/exclusive-content/adm?t=${_token}`,
+    `https://api.lynq.app/console/exclusive-content?t=${_token}`,
     {
       method: 'GET',
       headers: {
@@ -62,7 +62,7 @@ export const getExclusiveContentReq = async (_token) => {
 
 export const deleteExclusiveContentReq = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/exclusive-content/adm/${_id}?t=${_token}`,
+    `https://api.lynq.app/console/exclusive-content/${_id}?t=${_token}`,
     {
       method: 'DELETE',
       headers: {

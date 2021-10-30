@@ -13,7 +13,6 @@ import Item from './Item';
 const LIST_DATA = [{id: 'sadas', price: 100, path: 'asdas.png'}]
 
 const index = ({ list, filter }) => {
-  console.log('ARUN', list, filter)
   // states
   const [data, setData] = useState(list);
   const [order, setOrder] = useState('');
