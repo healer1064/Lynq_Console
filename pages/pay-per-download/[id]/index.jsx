@@ -23,7 +23,6 @@ const index = () => {
 
   // router
   const { id } = router.query;
-  console.log('Arun Jha list', list)
 
   useEffect(() => {
     if (token) {
@@ -32,14 +31,12 @@ const index = () => {
           if (res.error) {
             toast.error('Failed to get exclusive content.');
           } else {
-            console.log('Arun Jha list >', id, res?.content)
             setList(res?.content.filter((item) => item.id == id));
           }
         })
         .catch(() => toast.error('Failed to get exclusive content.'));
     }
   }, [token]);
-  console.log('Arun Jha list', list)
   return (
     <div className='content-wrp'>
       <Head>
