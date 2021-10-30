@@ -14,6 +14,7 @@ import PageLoading from '@/components/common/PageLoading';
 import Content from '@/components/PayperDownload/Content';
 
 const index = () => {
+  console.log('arun jha')
   // context
   const { token } = useContext(ProfileContext);
 

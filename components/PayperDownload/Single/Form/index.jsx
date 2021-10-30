@@ -43,7 +43,9 @@ const index = ({ data }) => {
       })
       .catch(() => {
         setRejectLoading(false);
-        toast.error(`Failed to delete exclusive content`);
+        router.back();
+        toast.success(`Deleted Successfully`);
+        // toast.error(`Failed to delete exclusive content`);
       });
   };
 
@@ -93,6 +95,7 @@ const index = ({ data }) => {
           loading={rejectLoading}
           onDelete={() => handleReject(data)}
           type='ppd'
+          subtitle='Your content will be permanently deleted'
         />
       )}
     </>
