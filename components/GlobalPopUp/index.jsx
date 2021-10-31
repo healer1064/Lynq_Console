@@ -63,11 +63,11 @@ BootstrapDialogTitle.propTypes = {
 export default function GlobalPopUp({ content }) {
   const [open, setOpen] = React.useState(content.opened);
 
-  const handleClose = () => {
+  const handleClose = (hasLink) => {
     Cookies.set(content.cookieName, 'true', {
       path: '/',
     });
-    if (typeof window !== 'undefined') window.open(content.link);
+    if (typeof window !== 'undefined' && hasLink) window.open(content.link);
     setOpen(false);
   };
 
@@ -82,14 +82,14 @@ export default function GlobalPopUp({ content }) {
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseButton}>
+        <BootstrapDialogTitle id="customized-dialog-title" onClose={() => handleClose()}>
           {content.title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <div dangerouslySetInnerHTML={{__html: content.content}} />
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} className='mainButton'>
+          <Button autoFocus onClick={() => handleClose('openLink')} className='mainButton'>
             {content.linkText}
           </Button>
         </DialogActions>
