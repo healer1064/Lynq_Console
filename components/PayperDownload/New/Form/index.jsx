@@ -32,7 +32,7 @@ import Loading from '@/components/common/Loading';
 import router from 'next/router';
 import AttachmentModal from "../../../Messages/Conversations/Chat/AttachmentModal";
 
-const index = () => {
+const index = ({ refreshResponse }) => {
   // context
   const { token } = useContext(ProfileContext);
 
@@ -100,7 +100,7 @@ const index = () => {
 
   const upload = async (_id) => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', file?.fileObject);
     axios
       .post(
         `https://aks.lynq.app/legacy/exclusive-content/adm/upload/${_id}?t=${token}`, formData, {
@@ -115,7 +115,8 @@ const index = () => {
         },
       )
       .then((res) => {
-        router.push('/pay-per-download');
+        refreshResponse()
+        if (typeof window !== 'undefined') document.querySelector('.ant-tabs-nav-list .ant-tabs-tab').click();
         setButtonLoading(false);
       })
       .catch((err) => {
@@ -182,7 +183,8 @@ const index = () => {
         </p>}
         </div>
         {!file && (
-            <div className={styles.input_wrap} {...getRootProps()}>
+            <div className={styles.input_wrap}>
+              <div {...getRootProps()}>
               <input
                 type='file'
                 id='dropzone-input'
@@ -190,6 +192,7 @@ const index = () => {
                 accept='image/*, video/mp4'
                 // onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
               />
+              </div>
               <>
                 <RiUploadCloudFill />
                 <h6>Drop or select your file</h6>
