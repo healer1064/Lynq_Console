@@ -24,18 +24,18 @@ const index = () => {
   const [isEnabled, setisEnabled] = useState(false);
 
   // content
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // tabs
   const { TabPane } = Tabs;
 
   useEffect(() => {
-    if (token) {
-      getAffiliateMarketingReq(token)
+    if (profile?.id) {
+      getAffiliateMarketingReq(profile.id)
         .then((res) => setList(res))
         .catch(() => toast.error('An error has occurred'));
     }
-  }, [token, refetch]);
+  }, [profile?.id, refetch]);
 
   useEffect(()=>{
     if (!Cookies.get('enable-affiliation-popup')) {

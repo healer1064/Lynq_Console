@@ -20,7 +20,7 @@ import Loading from '@/components/common/Loading';
 
 const index = ({ data }) => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // states
   const [title, setTitle] = useState(data.name);

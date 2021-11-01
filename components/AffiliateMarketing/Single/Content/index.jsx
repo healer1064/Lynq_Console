@@ -24,18 +24,18 @@ const index = () => {
   const [data, setData] = useState(null);
 
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // params
   const { id } = router.query;
 
   useEffect(() => {
-    if (token) {
-      getAffiliateMarketingReq(token)
+    if (profile?.id) {
+      getAffiliateMarketingReq(profile.id)
         .then((res) => setData(res.filter((item) => item.id == id)[0]))
         .catch(() => toast.error('An error has occurred.'));
     }
-  }, [token]);
+  }, [profile?.id]);
 
   return (
     <div className={styles.content}>

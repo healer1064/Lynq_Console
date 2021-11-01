@@ -5,7 +5,7 @@ const getMessageTemplate = async (_token) => {
     "Content-Type": "application/json",
   };
   const response = await fetch(
-    `https://api.lynq.app/feat/message?t=${_token}`,
+    `https://aks.lynq.app/legacy/feat/message?t=${_token}`,
     config,
   );
   return await response.json();
@@ -13,7 +13,7 @@ const getMessageTemplate = async (_token) => {
 
 const postMessageTemplate = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/feat/message?t=${_token}`,
+    `https://aks.lynq.app/legacy/feat/message?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -28,7 +28,7 @@ const postMessageTemplate = async (_token, _reqData) => {
 
 const putMessageTemplate = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/feat/message/${_id}?t=${_token}
+    `https://aks.lynq.app/legacy/feat/message/${_id}?t=${_token}
 `,
     {
       method: "PUT",
@@ -49,7 +49,7 @@ const getAsyncReq = async (_token) => {
     "Content-Type": "application/json",
   };
   const response = await fetch(
-    `https://api.lynq.app/async/requests?t=${_token}`,
+    `https://aks.lynq.app/legacy/async/requests?t=${_token}`,
     config,
   );
   return await response.json();
@@ -60,7 +60,7 @@ const postDocReq = async (_id, _token, _videoFile) => {
   formData.append("image", _videoFile);
 
   const response = await fetch(
-    `https://api.lynq.app/async/${_id}/upload?t=${_token}`,
+    `https://aks.lynq.app/legacy/async/${_id}/upload?t=${_token}`,
     {
       method: "POST",
       body: formData,
@@ -76,7 +76,7 @@ const postMsgReq = async (_token, _id, _message) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/async/${_id}/message?t=${_token}`,
+    `https://aks.lynq.app/legacy/async/${_id}/message?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -91,7 +91,7 @@ const postMsgReq = async (_token, _id, _message) => {
 
 const postAckReq = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/async/${_id}/ack?t=${_token}`,
+    `https://aks.lynq.app/legacy/async/${_id}/ack?t=${_token}`,
     {
       method: "POST",
       headers: {

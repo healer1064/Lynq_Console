@@ -36,7 +36,7 @@ const index = ({ activePrivateSession }) => {
   useEffect(async () => {
     if (token) {
       const res = await fetch(
-        `https://api.lynq.app/account/event-type?t=${token}`,
+        `https://aks.lynq.app/legacy/account/event-type?t=${token}`,
       );
       const bulletpoints = await res.json();
       const sets = Object.values({
@@ -64,7 +64,7 @@ const index = ({ activePrivateSession }) => {
       },
     };
     const message = await fetch(
-      `https://api.lynq.app/account/public-profile/toggle-feature/private-session?t=${token}`,
+      `https://aks.lynq.app/legacy/account/public-profile/toggle-feature/private-session?t=${token}`,
       fetchOptions,
     );
     slugData.active_private_session = (
@@ -141,7 +141,7 @@ const index = ({ activePrivateSession }) => {
         toBeDeleted.forEach(async (d) => {
           setLoading(true);
           await fetch(
-            `https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
+            `https://aks.lynq.app/legacy/account/event-type/${d.id}?t=${token}`,
             {
               method: 'DELETE',
               headers: {
@@ -164,7 +164,7 @@ const index = ({ activePrivateSession }) => {
         toBeUpdated.forEach(async (d) => {
           setLoading(true);
           await fetch(
-            `https://api.lynq.app/account/event-type/${d.id}?t=${token}`,
+            `https://aks.lynq.app/legacy/account/event-type/${d.id}?t=${token}`,
             {
               method: 'PUT',
               headers: {
