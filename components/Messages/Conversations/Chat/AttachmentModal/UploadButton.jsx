@@ -21,7 +21,7 @@ const UploadButton = ({ file, id, token, onUpload }) => {
     formData.append("image", file);
 
     axios
-      .post(`https://api.lynq.app/async/${id}/upload?t=${token}`, formData, {
+      .post(`https://aks.lynq.app/legacy/async/${id}/upload?t=${token}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (progressEvent) => {
           setProgress(

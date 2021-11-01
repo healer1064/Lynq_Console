@@ -7,7 +7,7 @@ export const getProductRequest = async (asin) => {
 
 export const postAffiliateMarketingReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/console/affiliate_link?t=${_token}`,
+    `https://aks.lynq.app/legacy/product-recommendations/adm?t=${_token}`,
     {
       method: 'POST',
       headers: {
@@ -23,7 +23,7 @@ export const postAffiliateMarketingReq = async (_token, _reqData) => {
 
 export const putAffiliateMarketingReq = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/console/affiliate_link/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/product-recommendations/adm/${_id}?t=${_token}`,
     {
       method: 'PUT',
       headers: {
@@ -39,7 +39,7 @@ export const putAffiliateMarketingReq = async (_token, _id, _reqData) => {
 
 export const getAffiliateMarketingReq = async (_token) => {
   const response = await fetch(
-    `https://api.lynq.app/console/affiliate_link?t=${_token}`,
+    `https://aks.lynq.app/legacy/product-recommendations?uid=${_token}`,
     {
       method: 'GET',
       headers: {
@@ -54,7 +54,7 @@ export const getAffiliateMarketingReq = async (_token) => {
 
 export const deleteAffiliateMarketingReq = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/console/affiliate_link/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/product-recommendations/adm/${_id}?t=${_token}`,
     {
       method: 'DELETE',
       headers: {

@@ -8,7 +8,7 @@ const getProfileReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/profile?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/profile?t=${_token}`,
     config
   );
 
@@ -17,7 +17,7 @@ const getProfileReq = async (_token) => {
 
 const postProfileReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/profile?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/profile?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -41,7 +41,7 @@ const getBusinessReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/business?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/business?t=${_token}`,
     config
   );
 
@@ -50,7 +50,7 @@ const getBusinessReq = async (_token) => {
 
 const postBusinessReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/business?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/business?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -66,7 +66,7 @@ const postBusinessReq = async (_token, _reqData) => {
 
 const postPassChangeReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/new-password?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/new-password?t=${_token}`,
     {
       method: "POST",
       headers: {

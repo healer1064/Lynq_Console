@@ -1,5 +1,5 @@
 const postSigninReq = async (_reqData) => {
-  const response = await fetch(`https://api.lynq.app/account/signin`, {
+  const response = await fetch(`https://aks.lynq.app/legacy/account/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -1,6 +1,6 @@
 const postSupportReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/support-request?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/support-request?t=${_token}`,
     {
       method: "POST",
       headers: {

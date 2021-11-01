@@ -59,7 +59,7 @@ const index = ({ setTab, setRefetch }) => {
     } else {
       setLoading(true);
       postAffiliateMarketingReq(token, {
-        // id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        id: '1c22c98f-fc59-4287-8ab3-88cadd708c0a',
         // ownerId: 'string',
         name: title,
         // description: 'string',
@@ -67,6 +67,7 @@ const index = ({ setTab, setRefetch }) => {
         // enabled: 'string',
         price: 0,
         image_path: thumbnail,
+        url: url
         // cta: 'string',
         // creation_date: '2021-10-19T08:41:29.400Z',
       })

@@ -5,7 +5,7 @@ const getCallsList = async (_token) => {
     "Content-Type": "application/json",
   };
   const response = await fetch(
-    `https://api.lynq.app/account/appointments?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/appointments?t=${_token}`,
     config
   );
 

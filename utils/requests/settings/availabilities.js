@@ -8,7 +8,7 @@ const getSlotsReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/working-slots?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/working-slots?t=${_token}`,
     config
   );
   return await response.json();
@@ -16,7 +16,7 @@ const getSlotsReq = async (_token) => {
 
 const delSlotReq = async (_id, _token) => {
   const response = await fetch(
-    `https://api.lynq.app/account/working-slots/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/working-slots/${_id}?t=${_token}`,
     {
       method: "DELETE",
       headers: {
@@ -31,7 +31,7 @@ const delSlotReq = async (_id, _token) => {
 
 const postToggleSlotReq = async (_token, _day) => {
   const response = await fetch(
-    `https://api.lynq.app/account/working-slots/toggle-enable?t=${_token}&day=${_day}`,
+    `https://aks.lynq.app/legacy/account/working-slots/toggle-enable?t=${_token}&day=${_day}`,
     {
       method: "POST",
       headers: {
@@ -46,7 +46,7 @@ const postToggleSlotReq = async (_token, _day) => {
 
 const postAddSlotReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/working-slots?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/working-slots?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -62,7 +62,7 @@ const postAddSlotReq = async (_token, _reqData) => {
 
 const putUpdateSlotReq = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/working-slots/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/working-slots/${_id}?t=${_token}`,
     {
       method: "PUT",
       headers: {

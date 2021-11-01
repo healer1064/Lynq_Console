@@ -90,7 +90,7 @@ const index = ({ data }) => {
 
     axios
       .post(
-        `https://api.lynq.app/console/exclusive-content/upload/${_id}?t=${token}`,
+        `https://aks.lynq.app/legacy/exclusive-content/upload/${_id}?t=${token}`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },

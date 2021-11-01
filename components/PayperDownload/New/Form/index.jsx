@@ -103,7 +103,7 @@ const index = () => {
     formData.append('file', file);
     axios
       .post(
-        `https://api.lynq.app/exclusive-content/adm/upload/${_id}?t=${token}`, formData, {
+        `https://aks.lynq.app/legacy/exclusive-content/adm/upload/${_id}?t=${token}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (progressEvent) => {
             setProgress(

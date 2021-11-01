@@ -6,7 +6,7 @@ const getProfileReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/public-profile?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/public-profile?t=${_token}`,
     config
   );
 
@@ -18,7 +18,7 @@ const postProfilePicReq = async (_token, _imageFile) => {
   formData.append("image", _imageFile);
 
   const response = await fetch(
-    `https://api.lynq.app/account/public-profile/upload_picture?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/public-profile/upload_picture?t=${_token}`,
     {
       method: "POST",
       body: formData,
@@ -30,7 +30,7 @@ const postProfilePicReq = async (_token, _imageFile) => {
 
 const postProfileReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/account/public-profile?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/public-profile?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -46,7 +46,7 @@ const postProfileReq = async (_token, _reqData) => {
 
 const getSlugCheckReq = async (_slug) => {
   const response = await fetch(
-    `https://api.lynq.app/account/public-profile/is-available/${_slug}`,
+    `https://aks.lynq.app/legacy/account/public-profile/is-available/${_slug}`,
     {
       method: "GET",
     }
@@ -56,7 +56,7 @@ const getSlugCheckReq = async (_slug) => {
 
 const postLinkReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/console/buttons?t=${_token}`,
+    `https://aks.lynq.app/legacy/buttons?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -72,7 +72,7 @@ const postLinkReq = async (_token, _reqData) => {
 
 const getLinkReq = async (_token) => {
   const response = await fetch(
-    `https://api.lynq.app/console/buttons?t=${_token}`,
+    `https://aks.lynq.app/legacy/buttons?t=${_token}`,
     {
       method: "GET",
       headers: {
@@ -87,7 +87,7 @@ const getLinkReq = async (_token) => {
 
 const putLinkReq = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/console/buttons/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/buttons/${_id}?t=${_token}`,
     {
       method: "PUT",
       headers: {
@@ -103,7 +103,7 @@ const putLinkReq = async (_token, _id, _reqData) => {
 
 const deleteLinkReq = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/console/buttons/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/buttons/${_id}?t=${_token}`,
     {
       method: "DELETE",
       headers: {

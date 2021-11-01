@@ -1,5 +1,5 @@
 const postSignupReq = async (_data) => {
-  const response = await fetch(`https://api.lynq.app/account/signup`, {
+  const response = await fetch(`https://aks.lynq.app/legacy/account/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
