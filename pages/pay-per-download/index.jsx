@@ -19,6 +19,12 @@ const index = () => {
 
   // states
   const [list, setList] = useState(null);
+  const [response, setResponse] = useState(false);
+
+  // refresh response
+  const refreshResponse = () => {
+    setResponse((prevState) => !prevState);
+  };
 
   useEffect(() => {
     if (token) {
@@ -32,14 +38,14 @@ const index = () => {
         })
         .catch(() => toast.error('Failed to get masterclasses.'));
     }
-  }, [token]);
+  }, [token, response]);
 
   return (
     <div className='content-wrp'>
       <Head>
         <title>Pay Per Download | Lynq</title>
       </Head>
-      {!list ? <PageLoading /> : <Content list={list?.content} />}
+      {!list ? <PageLoading /> : <Content refreshResponse={refreshResponse} list={list?.content} />}
     </div>
   );
 };
