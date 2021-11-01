@@ -56,7 +56,7 @@ const getSlugCheckReq = async (_slug) => {
 
 const postLinkReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/buttons?t=${_token}`,
+    `https://aks.lynq.app/legacy/console/buttons?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -72,7 +72,7 @@ const postLinkReq = async (_token, _reqData) => {
 
 const getLinkReq = async (_token) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/buttons?t=${_token}`,
+    `https://aks.lynq.app/legacy/console/buttons?t=${_token}`,
     {
       method: "GET",
       headers: {
@@ -87,7 +87,7 @@ const getLinkReq = async (_token) => {
 
 const putLinkReq = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/buttons/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/console/buttons/${_id}?t=${_token}`,
     {
       method: "PUT",
       headers: {
@@ -103,7 +103,7 @@ const putLinkReq = async (_token, _id, _reqData) => {
 
 const deleteLinkReq = async (_token, _id) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/buttons/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/console/buttons/${_id}?t=${_token}`,
     {
       method: "DELETE",
       headers: {
