@@ -9,6 +9,7 @@ import styles from './styles.module.sass';
 import EmptyData from '@/components/common/EmptyData';
 import Head from './Head';
 import Item from './Item';
+import Pagination from '../../common/Pagination';
 
 const LIST_DATA = [{id: 'sadas', price: 100, path: 'asdas.png'}]
 
@@ -16,6 +17,8 @@ const index = ({ list, filter }) => {
   // states
   const [data, setData] = useState(list);
   const [order, setOrder] = useState('');
+  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
 
   // filter using filter
   useEffect(() => {
@@ -73,6 +76,11 @@ const index = ({ list, filter }) => {
       {sortArray(data).map((item, index) => (
         <Item key={index} data={item} />
       ))}
+      <Pagination
+          filteredData={data}
+          setPageSize={setPageSize}
+          setPageNumber={setPageNumber}
+        />
     </div>
   );
 };
