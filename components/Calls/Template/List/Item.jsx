@@ -34,6 +34,7 @@ const Item = ({ data, options, setOptions }) => {
   const [descriptions, setDescriptions] = useState(data.tags);
   const [loading, setLoading] = useState(false);
   const [oldPrice, setOldPrice] = useState(-1);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setPrice(data.price);
@@ -93,7 +94,7 @@ const Item = ({ data, options, setOptions }) => {
 
   // handle price change
   useEffect(() => {
-    if (price) {
+    if (price && !error) {
       setLoading(true);
       listingPriceReq(token, price)
         .then((res) => {
@@ -108,6 +109,11 @@ const Item = ({ data, options, setOptions }) => {
       setListingPrice("");
     }
   }, [price]);
+
+  const handleOnBlur = (e) => {
+    if (e.target.value < 1) setError(true)
+    else setError(false);
+  }
 
   return (
     <div className={styles.item}>
@@ -130,10 +136,12 @@ const Item = ({ data, options, setOptions }) => {
                   onChange={(e) => {
                     setPrice(e.target.value);
                   }}
+                  onBlur={handleOnBlur}
                   type="number"
                 />
               </span>
             </label>
+            {error && <span className={styles.error}>The minimum price is $1</span>}
             <label
               className={styles.listing}
               onClick={(e) => e.stopPropagation()}

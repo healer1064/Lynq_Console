@@ -45,6 +45,7 @@ const index = ({ refreshResponse }) => {
   const [loading, setLoading] = useState(false);
   const [priceLoading, setPriceLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   // handle drop
   const onDrop = useCallback((acceptedFiles) => {
@@ -58,7 +59,7 @@ const index = ({ refreshResponse }) => {
 
   // handle price change
   useEffect(() => {
-    if (price !== '') {
+    if (price !== '' || error) {
       setPriceLoading(true);
       listingPriceReq(token, price)
         .then((res) => {
@@ -78,6 +79,9 @@ const index = ({ refreshResponse }) => {
     e.preventDefault();
     if (title == '' || price == '' || !file) {
       toast.info('Please fill all fields!');
+      return;
+    } else if (error) {
+      toast.error('The minimum price is $1');
       return;
     }
     setButtonLoading(true);
@@ -133,6 +137,11 @@ const index = ({ refreshResponse }) => {
         }
       });
   };
+
+  const handleOnBlur = (e) => {
+    if (e.target.value < 1) setError(true)
+    else setError(false);
+  }
 
   return (
     <form className={styles.form}>
@@ -218,10 +227,12 @@ const index = ({ refreshResponse }) => {
             min='0'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            onBlur={handleOnBlur}
           />
           </span>
         {/* </div> */}
       </label>
+      {error && <span className={styles.error}>The minimum price is $1</span>}
       <label className={styles.listing}>
         <p>Listing Price
         <Tooltip
