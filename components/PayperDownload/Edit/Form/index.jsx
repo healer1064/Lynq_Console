@@ -222,6 +222,15 @@ const index = ({ data }) => {
         <button className={styles.save} onClick={handleSubmit}>
           {buttonLoading ? <Loading /> : 'Save'}
         </button>
+        <button
+          className={styles.cancel}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Cancel
+        </button>
       </div>
     </form>
   );
