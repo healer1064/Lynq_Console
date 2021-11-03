@@ -40,6 +40,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
   const [loading, setLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
   const [priceError, setPriceError] = useState(false);
+  const [error, setError] = useState(false);
 
   // get listing prce
   useEffect(() => {
@@ -65,8 +66,9 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
       toast.info('Please fill all the fields.');
     } else {
       if (!profile.can_create_free_activity) {
-        if (price < 1) {
+        if (price < 1) { 
           setPriceError(true);
+          toast.error('The minimum price is $1');
           return;
         }
         setPriceError(false);
@@ -158,6 +160,11 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
     }
   };
 
+  const handleOnBlur = (e) => {
+    if (e.target.value < 1) setError(true)
+    else setError(false);
+  }
+
   return (
     <div className={styles.content}>
       <label>
@@ -179,12 +186,14 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             type='number'
+            onBlur={handleOnBlur}
           />
         </span>
       </label>
-      {priceError && (
+      {/* {priceError && (
         <p className={styles.price_error}>The price must be atleast $1.</p>
-      )}
+      )} */}
+      {error && <span className={styles.price_error}>The minimum price is $1</span>}
       <label className={styles.listing}>
         <h6>
           Listing Price{' '}
