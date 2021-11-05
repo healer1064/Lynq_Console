@@ -49,12 +49,13 @@ const index = ({ business, toggleSuccess }) => {
       setLoading(true);
       const reqData = {
         id: "",
-        accountID: "",
-        businessName: businessName,
-        bankName: bank,
+        account_id: "",
+        business_name: businessName,
+        bank_name: bank,
         iban,
-        accountNumber: account,
-        routingNumber: routing,
+        account_number: account,
+        routing_number: routing,
+        userId: ''
       };
 
       postBusinessReq(token, reqData)

@@ -7,7 +7,7 @@ const getPaymentsReq = async (_token) => {
     },
   };
   const response = await fetch(
-    `https://aks.lynq.app/legacy/account/balance?t=${_token}`,
+    `https://aks.lynq.app/payments/balance?t=${_token}`,
     config
   );
   return await response.json();
@@ -15,7 +15,7 @@ const getPaymentsReq = async (_token) => {
 
 const postRequestPaymentReq = async (_token) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/account/balance/request_payment?t=${_token}`,
+    `https://aks.lynq.app/payments/cashout?t=${_token}`,
     {
       method: "POST",
       headers: {

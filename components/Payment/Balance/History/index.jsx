@@ -23,7 +23,7 @@ const PaymentHistory = ({ data }) => {
         {data && data.length === 0 ? (
           <EmptyData title="No payment history to show" flag="payment" />
         ) : (
-          data.map((item, index) => {
+          data && data.map((item, index) => {
             return (
               <div key={index} className={styles.table_body}>
                 <p>{moment(item.requestDate).format("MMM DD, YYYY")}</p>

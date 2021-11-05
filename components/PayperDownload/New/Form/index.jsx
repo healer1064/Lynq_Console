@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Tooltip } from "antd";
 import { useDropzone } from "react-dropzone";
+import { Progress } from "antd";
 
 // styles
 import styles from './styles.module.sass';
@@ -40,7 +41,7 @@ const index = ({ refreshResponse }) => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [listingPrice, setListingPrice] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState([]);
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [priceLoading, setPriceLoading] = useState(false);
@@ -49,8 +50,24 @@ const index = ({ refreshResponse }) => {
 
   // handle drop
   const onDrop = useCallback((acceptedFiles) => {
+    // setFile([handleFileInput(acceptedFiles[0])]);
     setFile(handleFileInput(acceptedFiles[0]));
   }, []);
+
+  // handle drop
+  // const onDrop = useCallback(
+  //   (acceptedFiles) => {
+  //     if (type == "Video") {
+  //       setFile([handleFileInput(acceptedFiles[0])]);
+  //     } else {
+  //       setFile((prevState) => [
+  //         ...prevState,
+  //         handleFileInput(acceptedFiles[0]),
+  //       ]);
+  //     }
+  //   },
+  //   [type],
+  // );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
@@ -162,9 +179,9 @@ const index = ({ refreshResponse }) => {
         <div className={styles.dropzone}>
         <div className={styles.uploadContainer}>
           {file &&
-            (file.fileObject.type.includes('image') ? (
+            (file?.fileObject?.type.includes('image') ? (
               <img src={file?.url} alt='thumbnail' height='150px' />
-            ) : file.fileObject.type.includes('video') ? (
+            ) : file?.fileObject?.type.includes('video') ? (
               <video
                 width='320'
                 height='150'
@@ -181,7 +198,7 @@ const index = ({ refreshResponse }) => {
                 style={{ margin: '0 auto' }}
               />
             ))}
-        {file && <p className={styles.filename}>{file.fileObject.name}
+        {file && <p className={styles.filename}>{file?.fileObject?.name}
         <FaTrash
               className={styles.trash}
               onClick={(e) => {
@@ -279,6 +296,11 @@ const index = ({ refreshResponse }) => {
           Cancel
         </button>
       </div>
+      {progress && (
+        <div className={styles.progress_bar}>
+          <Progress percent={progress} strokeColor='#7E88F4' />
+        </div>
+      )}
     </form>
   );
 };

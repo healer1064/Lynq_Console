@@ -41,7 +41,7 @@ const getBusinessReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://aks.lynq.app/legacy/account/business?t=${_token}`,
+    `https://aks.lynq.app/payments/finance-details?t=${_token}`,
     config
   );
 
@@ -50,7 +50,7 @@ const getBusinessReq = async (_token) => {
 
 const postBusinessReq = async (_token, _reqData) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/account/business?t=${_token}`,
+    `https://aks.lynq.app/payments/finance-details?t=${_token}`,
     {
       method: "POST",
       headers: {
