@@ -59,11 +59,11 @@ const RequestPayment = ({ data, toggleResponse }) => {
 
   return (
     <div className={styles.request}>
-      <p className={styles.temporary_balance}>
+      {/* <p className={styles.temporary_balance}>
         Temporary Balance: ${data.temporary_balance}
-      </p>
+      </p> */}
       <p className={styles.final_balance}>
-        Final Balance: ${data.final_balance}
+        Final Balance: ${data.balance.toFixed(2)}
       </p>
       <span className={styles.final_note}>
         The final balance corresponds to the sessions that were performed at the
