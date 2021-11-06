@@ -134,7 +134,7 @@ const index = () => {
               onClick={toggleParticipantsDrawer}
               className={styles.participants}
             >
-              {data.attendees.length}
+              {data?.attendees?.length}
             </p>
           </div>
           <div className={styles.info_col}>
