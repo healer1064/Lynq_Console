@@ -24,13 +24,13 @@ const index = ({ list, filter }) => {
   useEffect(() => {
     if (filter == "All") {
       setData(list);
-    } else if (filter == "Upcoming") {
-      const arr = list.filter((item) => new Date(item.date) > new Date());
+    } else if (filter == "Video") {
+      const arr = list.filter((item) => item.type == "video");
       setData(arr);
-    } else if (filter == "Expired") {
+    } else if (filter == "Picture") {
       setData(
         list.filter(
-          (item) => moment(item.date).add(item.duration, "minutes") < moment(),
+          (item) => item.type == "images"
         ),
       );
     }
@@ -52,9 +52,9 @@ const index = ({ list, filter }) => {
       case "price_desc":
         return array.sort((a, b) => b.price - a.price);
       case "attendees_asc":
-        return array.sort((a, b) => a.attendees.length - b.attendees.length);
+        return array.sort((a, b) => a.attendees?.length - b.attendees?.length);
       case "attendees_desc":
-        return array.sort((a, b) => b.attendees.length - a.attendees.length);
+        return array.sort((a, b) => b.attendees?.length - a.attendees?.length);
       case "revenue_asc":
         return array.sort((a, b) => a.revenue - b.revenue);
       case "revenue_desc":
@@ -65,6 +65,7 @@ const index = ({ list, filter }) => {
         );
     }
   };
+
 
   return data.length === 0 ? (
     <div className={styles.no_appointments}>

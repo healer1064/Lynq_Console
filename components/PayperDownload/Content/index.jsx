@@ -30,7 +30,7 @@ const index = ({ list, refreshResponse }) => {
             <DropdownMenu
               state={filter}
               setState={setFilter}
-              data={['All', 'Video', 'Picture', 'Document']}
+              data={['All', 'Video', 'Picture']}
             />
           }
           placement='bottomCenter'
