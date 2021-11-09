@@ -41,7 +41,7 @@ const index = ({ refreshResponse }) => {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [listingPrice, setListingPrice] = useState('');
-  const [file, setFile] = useState([]);
+  const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [priceLoading, setPriceLoading] = useState(false);
