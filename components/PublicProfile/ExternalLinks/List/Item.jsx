@@ -1,6 +1,7 @@
 // libraries
 import React, { useState, useContext, useEffect } from "react";
 import Fade from "react-reveal/Fade";
+import Link from 'next/link'
 
 // styles
 import styles from "./styles.module.sass";
@@ -129,7 +130,6 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
       })
       .finally(() => setLoading(false));
   };
-
   return (
     <>
       <Fade duration={800} delay={50}>
@@ -159,6 +159,7 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
                     alt="down-arrow"
                   />
                 )}
+                
               </div>
             )
           )}
@@ -169,9 +170,10 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
             checked={status}
             onChange={onSwitch}
             loading={editLoading}
-            className={status ? styles.switch_on : styles.switch_off}
+            className={`${styles.switchButton} ${status ? styles.switch_on : styles.switch_off}`}
             style={{ width: "10px", borderRadius: "50px", padding: "0" }}
           />
+          <p><Link href={state.url} passHref><a>Manage</a></Link></p>
           <p>{state.name}</p>
           <div className={styles.icons}>
             <FiEdit onClick={() => setShowModal(true)} />
