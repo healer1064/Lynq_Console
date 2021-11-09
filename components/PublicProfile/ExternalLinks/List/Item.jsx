@@ -164,7 +164,6 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
             )
           )}
 
-          {/* <p></p> */}
           <p>{index + 1}</p>
           <Switch
             checked={status}
@@ -173,7 +172,7 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
             className={`${styles.switchButton} ${status ? styles.switch_on : styles.switch_off}`}
             style={{ width: "10px", borderRadius: "50px", padding: "0" }}
           />
-          <p><Link href={state.url} passHref><a>Manage</a></Link></p>
+          <p>{state.position < 5 ?<Link href={state.url} passHref><a>Manage</a></Link> : ''}</p>
           <p>{state.name}</p>
           <div className={styles.icons}>
             <FiEdit onClick={() => setShowModal(true)} />
