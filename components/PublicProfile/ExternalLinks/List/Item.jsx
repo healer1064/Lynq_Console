@@ -130,6 +130,7 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
       })
       .finally(() => setLoading(false));
   };
+  console.log('Arun Jha state', state)
   return (
     <>
       <Fade duration={800} delay={50}>
@@ -172,7 +173,7 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
             className={`${styles.switchButton} ${status ? styles.switch_on : styles.switch_off}`}
             style={{ width: "10px", borderRadius: "50px", padding: "0" }}
           />
-          <p>{state.position < 5 ?<Link href={state.url} passHref><a>Manage</a></Link> : ''}</p>
+          <p>{state.feature_path  && <Link href={state.feature_path} passHref><a>Manage {state.original_feature_name}</a></Link>}</p>
           <p>{state.name}</p>
           <div className={styles.icons}>
             <FiEdit onClick={() => setShowModal(true)} />
