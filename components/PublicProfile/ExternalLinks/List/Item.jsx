@@ -130,7 +130,6 @@ const Item = ({ data, index, refetchData, setData, allItems }) => {
       })
       .finally(() => setLoading(false));
   };
-  console.log('Arun Jha state', state)
   return (
     <>
       <Fade duration={800} delay={50}>

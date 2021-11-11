@@ -1,6 +1,6 @@
 const listingPriceReq = async (_token, _price) => {
   const response = await fetch(
-    `https://aks.lynq.app/legacy/account/event-type/simulate?t=${_token}&price=${_price}`,
+    `https://aks.lynq.app/legacy/account/simulate?t=${_token}&price=${_price}`,
     {
       method: "GET",
       headers: {
