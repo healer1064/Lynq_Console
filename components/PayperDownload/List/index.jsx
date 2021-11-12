@@ -30,7 +30,7 @@ const index = ({ list, filter }) => {
     } else if (filter == "Picture") {
       setData(
         list.filter(
-          (item) => item.type == "images"
+          (item) => item.type == "image"
         ),
       );
     }
