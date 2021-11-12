@@ -138,6 +138,10 @@ const index = ({ refreshResponse }) => {
       .then((res) => {
         refreshResponse()
         if (typeof window !== 'undefined') document.querySelector('.ant-tabs-nav-list .ant-tabs-tab').click();
+        setTitle('')
+        setPrice('');
+        setListingPrice('');
+        setFile(null);
         setButtonLoading(false);
       })
       .catch((err) => {
