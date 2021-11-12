@@ -99,7 +99,7 @@ const Item = ({ data, options, setOptions }) => {
       listingPriceReq(token, price)
         .then((res) => {
           setLoading(false);
-          setListingPrice(res.simulated_price);
+          setListingPrice(res.total);
         })
         .catch(() => {
           setLoading(false);

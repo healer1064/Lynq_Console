@@ -81,7 +81,7 @@ const index = ({ refreshResponse }) => {
       listingPriceReq(token, price)
         .then((res) => {
           setPriceLoading(false);
-          setListingPrice(res.simulated_price);
+          setListingPrice(res.total);
         })
         .catch(() => {
           setPriceLoading(false);

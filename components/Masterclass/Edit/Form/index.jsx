@@ -46,7 +46,7 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
       listingPriceReq(token, price)
         .then((res) => {
           setLoading(false);
-          setListingPrice(res.simulated_price);
+          setListingPrice(res.total);
         })
         .catch(() => {
           setLoading(false);
