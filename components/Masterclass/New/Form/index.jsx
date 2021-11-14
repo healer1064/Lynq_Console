@@ -33,6 +33,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
   const [loading, setLoading] = useState(false);
   const [pickerDay, setPicker] = useState();
   const [priceError, setPriceError] = useState(false);
+  const [error, setError] = useState(false);
 
   // router
   const router = useRouter();
@@ -44,7 +45,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
       listingPriceReq(token, price)
         .then((res) => {
           setLoading(false);
-          setListingPrice(res.simulated_price);
+          setListingPrice(res.total);
         })
         .catch(() => {
           setLoading(false);
@@ -84,6 +85,11 @@ const index = ({ handleSubmit, buttonLoading }) => {
       height: "40px",
     }),
   };
+
+  const handleOnBlur = (e) => {
+    if (e.target.value < 1) setError(true)
+    else setError(false);
+  }
 
   return (
     <form className={styles.form}>
@@ -137,12 +143,14 @@ const index = ({ handleSubmit, buttonLoading }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             style={{ paddingLeft: "25px" }}
+            onBlur={handleOnBlur}
           />
         </div>
       </label>
-      {priceError && (
+      {error && <span className={styles.price_error}>The minimum price is $1</span>}
+      {/* {priceError && (
         <p className={styles.price_error}>The price must be atleast $1.</p>
-      )}
+      )} */}
       <label>
         <strong>Listing Price</strong>
         <div className={`${styles.price} ${styles.listing}`}>
@@ -189,7 +197,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
               description != ""
             ) {
               if (!profile.can_create_free_activity) {
-                if (price > 0) {
+                if (price >= 1) {
                   setPriceError(false);
                   handleSubmit({
                     name: title,
@@ -202,6 +210,8 @@ const index = ({ handleSubmit, buttonLoading }) => {
                 } else {
                   setPriceError(true);
                 }
+              } else if (error) {
+                toast.error("The minimum price is $1");
               } else {
                 setPriceError(false);
                 handleSubmit({

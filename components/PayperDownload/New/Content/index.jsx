@@ -19,7 +19,7 @@ import { postMasterclass } from "@/utils/requests/masterclass";
 import Form from "../Form";
 import DropArea from "../DropArea";
 
-const index = () => {
+const index = ({ refreshResponse }) => {
   // context
   const { token } = useContext(ProfileContext);
 
@@ -50,7 +50,7 @@ const index = () => {
   return (
     <div className={styles.content}>
       <div className={styles.sections}>
-        <Form handleSubmit={handleSubmit} />
+        <Form refreshResponse={refreshResponse} handleSubmit={handleSubmit} />
         {/* <DropArea buttonLoading={loading} type={type} /> */}
       </div>
     </div>

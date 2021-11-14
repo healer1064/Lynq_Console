@@ -5,7 +5,7 @@ const getRequestReq = async (_token) => {
     "Content-Type": "application/json",
   };
   const response = await fetch(
-    `https://api.lynq.app/account/appointments/requests?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/appointments/requests?t=${_token}`,
     config,
   );
   return await response.json();
@@ -13,7 +13,7 @@ const getRequestReq = async (_token) => {
 
 const postAcceptReq = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/account/appointments/${_id}/accept?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/appointments/${_id}/accept?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -27,7 +27,7 @@ const postAcceptReq = async (_token, _id) => {
 
 const postRejectReq = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/account/appointments/${_id}/cancel?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/appointments/${_id}/cancel?t=${_token}`,
     {
       method: "POST",
       headers: {

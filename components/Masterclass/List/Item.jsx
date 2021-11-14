@@ -28,7 +28,7 @@ const Item = ({ data }) => {
         <p>{moment(date).format("MM/DD/yyyy")}</p>
         <p>{duration} mins</p>
         <p>${price}</p>
-        <p>{attendees.length}</p>
+        <p>{attendees?.length}</p>
         <p>${revenue}</p>
         <CaretRightOutlined
           style={{

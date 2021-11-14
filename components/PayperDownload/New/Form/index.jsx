@@ -1,11 +1,16 @@
 // libraries
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { Tooltip } from "antd";
+import { useDropzone } from "react-dropzone";
+import { Progress } from "antd";
 
 // styles
 import styles from './styles.module.sass';
 import 'react-datepicker/dist/react-datepicker.css';
+
+import { RiUploadCloudFill, RiDeleteBin6Fill } from "react-icons/ri";
 
 // context
 import ProfileContext from '@/context/profile';
@@ -19,13 +24,16 @@ import { postExclusiveContentReq } from '@/utils/requests/exclusive-content';
 
 // icons
 import { FaTrash } from 'react-icons/fa';
+import { BsExclamationCircleFill } from "react-icons/bs";
+import { BiDollar } from "react-icons/bi";
 import { HiDocument } from 'react-icons/hi';
 
 // components
 import Loading from '@/components/common/Loading';
 import router from 'next/router';
+import AttachmentModal from "../../../Messages/Conversations/Chat/AttachmentModal";
 
-const index = () => {
+const index = ({ refreshResponse }) => {
   // context
   const { token } = useContext(ProfileContext);
 
@@ -38,15 +46,42 @@ const index = () => {
   const [loading, setLoading] = useState(false);
   const [priceLoading, setPriceLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  // handle drop
+  const onDrop = useCallback((acceptedFiles) => {
+    // setFile([handleFileInput(acceptedFiles[0])]);
+    setFile(handleFileInput(acceptedFiles[0]));
+  }, []);
+
+  // handle drop
+  // const onDrop = useCallback(
+  //   (acceptedFiles) => {
+  //     if (type == "Video") {
+  //       setFile([handleFileInput(acceptedFiles[0])]);
+  //     } else {
+  //       setFile((prevState) => [
+  //         ...prevState,
+  //         handleFileInput(acceptedFiles[0]),
+  //       ]);
+  //     }
+  //   },
+  //   [type],
+  // );
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: false,
+  });
 
   // handle price change
   useEffect(() => {
-    if (price !== '') {
+    if (price !== '' || error) {
       setPriceLoading(true);
       listingPriceReq(token, price)
         .then((res) => {
           setPriceLoading(false);
-          setListingPrice(res.simulated_price);
+          setListingPrice(res.total);
         })
         .catch(() => {
           setPriceLoading(false);
@@ -61,6 +96,9 @@ const index = () => {
     e.preventDefault();
     if (title == '' || price == '' || !file) {
       toast.info('Please fill all fields!');
+      return;
+    } else if (error) {
+      toast.error('The minimum price is $1');
       return;
     }
     setButtonLoading(true);
@@ -84,12 +122,9 @@ const index = () => {
   const upload = async (_id) => {
     const formData = new FormData();
     formData.append('file', file?.fileObject);
-
     axios
       .post(
-        `https://api.lynq.app/console/exclusive-content/upload/${_id}?t=${token}`,
-        formData,
-        {
+        `https://aks.lynq.app/legacy/exclusive-content/adm/upload/${_id}?t=${token}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: (progressEvent) => {
             setProgress(
@@ -101,7 +136,12 @@ const index = () => {
         },
       )
       .then((res) => {
-        router.push('/pay-per-download');
+        refreshResponse()
+        if (typeof window !== 'undefined') document.querySelector('.ant-tabs-nav-list .ant-tabs-tab').click();
+        setTitle('')
+        setPrice('');
+        setListingPrice('');
+        setFile(null);
         setButtonLoading(false);
       })
       .catch((err) => {
@@ -119,6 +159,11 @@ const index = () => {
       });
   };
 
+  const handleOnBlur = (e) => {
+    if (e.target.value < 1) setError(true)
+    else setError(false);
+  }
+
   return (
     <form className={styles.form}>
       <label>
@@ -132,21 +177,18 @@ const index = () => {
           maxLength='42'
         />
       </label>
-      <label className={`${file ? styles.thumbnail : ''}`}>
-        <strong>Upload</strong>
-        <div className={styles.price}>
-          <input
-            type='file'
-            accept='application/msword, application/pdf, image/*, video/mp4'
-            onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-          />
+      {/* <div className={styles.price}> */}
+      <label className={`${styles.uploadWrapper} ${file ? styles.thumbnail : ''}`}>
+        <p><strong>Upload your file</strong></p>
+        <div className={styles.dropzone}>
+        <div className={styles.uploadContainer}>
           {file &&
-            (file.fileObject.type.includes('image') ? (
-              <img src={file?.url} alt='thumbnail' />
-            ) : file.fileObject.type.includes('video') ? (
+            (file?.fileObject?.type.includes('image') ? (
+              <img src={file?.url} alt='thumbnail' height='150px' />
+            ) : file?.fileObject?.type.includes('video') ? (
               <video
                 width='320'
-                height='240'
+                height='150'
                 controls
                 controlslist='nodownload noremoteplayback noplaybackrate foobar'
               >
@@ -160,49 +202,79 @@ const index = () => {
                 style={{ margin: '0 auto' }}
               />
             ))}
-          {file && (
-            <FaTrash
+        {file && <p className={styles.filename}>{file?.fileObject?.name}
+        <FaTrash
               className={styles.trash}
               onClick={(e) => {
                 e.stopPropagation();
                 setFile(null);
               }}
             />
-          )}
+        </p>}
         </div>
-        {file && <p className={styles.filename}>{file.fileObject.name}</p>}
+        {!file && (
+            <div className={styles.input_wrap}>
+              <div {...getRootProps()}>
+              <input
+                type='file'
+                id='dropzone-input'
+                {...getInputProps()}
+                accept='image/*, video/mp4'
+                // onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
+              />
+              </div>
+              <>
+                <RiUploadCloudFill />
+                <h6>Drop or select your file</h6>
+                <p>
+                  Video (mp4, avi), Picture (jpeg, png)
+                  <br /> Max 400 MB
+                </p>
+              </>
+            </div>
+        )}
+        </div>
       </label>
-      <label>
-        <strong>Price</strong>
-        <div className={styles.price}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
+      {/* // </div> */}
+      <div className={styles.price}>
+      <label htmlFor="price">
+        <p>Price</p>
+        {/* <div className={styles.price}> */}
+        <span>
+                <BiDollar />
           <input
             type='number'
+            id="price"
             min='0'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
-            style={{ paddingLeft: '25px' }}
+            onBlur={handleOnBlur}
           />
-        </div>
+          </span>
+        {/* </div> */}
       </label>
-      <label>
-        <strong>Listing Price</strong>
-        <div className={`${styles.price} ${styles.listing}`}>
-          <img
-            className={styles.price_img}
-            src='/img/dollar.svg'
-            alt='dollar'
-          />
-          {priceLoading ? (
-            <img
-              className={styles.listing_loading}
-              src='/img/Rolling-dark.svg'
-              alt='rolling'
-            />
+      {error && <span className={styles.error}>The minimum price is $1</span>}
+      <label className={styles.listing}>
+        <p>Listing Price
+        <Tooltip
+          className={styles.tooltip}
+          title="The price a customer pays to purchase the content and that
+                  includes Lynq's fees."
+        >
+          <BsExclamationCircleFill />
+        </Tooltip>
+        </p>
+        {price != "" && (
+          <span>
+            <BiDollar />
+            <input id="listing-price" value={listingPrice} disabled />
+            {priceLoading && (
+              <img src="/img/Rolling-dark.svg" alt="rolling" />
+            )}{" "}
+          </span>
+        )}
+          {/* {priceLoading ? (
+           <BiDollar />
           ) : (
             <input
               type='number'
@@ -211,14 +283,28 @@ const index = () => {
               value={priceLoading ? '' : listingPrice}
               style={{ paddingLeft: '25px' }}
             />
-          )}
-        </div>
+          )} */}
       </label>
+      </div>
       <div className={styles.btns}>
         <button className={styles.save} onClick={handleSubmit}>
           {buttonLoading ? <Loading /> : 'Save'}
         </button>
+        <button
+          className={styles.cancel}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Cancel
+        </button>
       </div>
+      {progress && (
+        <div className={styles.progress_bar}>
+          <Progress percent={progress} strokeColor='#7E88F4' />
+        </div>
+      )}
     </form>
   );
 };

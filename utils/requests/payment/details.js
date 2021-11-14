@@ -8,7 +8,7 @@ const getDetailsReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/clients?t=${_token}&period=TODAY`,
+    `https://aks.lynq.app/legacy/account/clients?t=${_token}&period=TODAY`,
     config
   );
   return await response.json();

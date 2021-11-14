@@ -11,8 +11,6 @@ const Item = ({ data }) => {
   // router
   const router = useRouter();
 
-  console.log(data);
-
   return (
     <>
       <Fade duration={800} delay={50}>
@@ -22,7 +20,6 @@ const Item = ({ data }) => {
         >
           <p>{data.name}</p>
           <p>{moment(data.creation_date).format('DD MMMM, yyyy')}</p>
-          <p>-</p>
         </div>
       </Fade>
     </>

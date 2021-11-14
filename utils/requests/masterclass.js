@@ -1,6 +1,6 @@
 export const postMasterclass = async (_token, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/feat/masterclass?t=${_token}`,
+    `https://aks.lynq.app/legacy/feat/masterclass?t=${_token}`,
     {
       method: "POST",
       headers: {
@@ -15,7 +15,7 @@ export const postMasterclass = async (_token, _reqData) => {
 
 export const putMasterclass = async (_token, _id, _reqData) => {
   const response = await fetch(
-    `https://api.lynq.app/feat/masterclass/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/feat/masterclass/${_id}?t=${_token}`,
     {
       method: "PUT",
       headers: {
@@ -30,7 +30,7 @@ export const putMasterclass = async (_token, _id, _reqData) => {
 
 export const getMasterclass = async (_token) => {
   const response = await fetch(
-    `https://api.lynq.app/feat/masterclass?t=${_token}`,
+    `https://aks.lynq.app/legacy/feat/masterclass?t=${_token}`,
     {
       method: "GET",
       headers: {
@@ -44,7 +44,7 @@ export const getMasterclass = async (_token) => {
 
 export const deleteMasterclass = async (_token, _id) => {
   const response = await fetch(
-    `https://api.lynq.app/feat/masterclass/${_id}?t=${_token}`,
+    `https://aks.lynq.app/legacy/feat/masterclass/${_id}?t=${_token}`,
     {
       method: "DELETE",
       headers: {
@@ -65,7 +65,7 @@ export const getMasterclassSlots = async (_token, _date, _id) => {
     },
   };
   const response = await fetch(
-    `https://api.lynq.app/account/public-profile/availability?t=${_token}&start=${moment(
+    `https://aks.lynq.app/legacy/account/public-profile/availability?t=${_token}&start=${moment(
       _date,
     ).format("yyyy-MM-DD")}&end=${moment(_date)
       .add(5, "days")

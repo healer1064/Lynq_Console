@@ -29,7 +29,7 @@ const index = () => {
   const forgotPassword = () => {
     async function forgot() {
       const response = await fetch(
-        `https://api.lynq.app/account/reset-password?email=${emailInput}`,
+        `https://aks.lynq.app/legacy/account/reset-password?email=${emailInput}`,
         {
           method: "POST",
           headers: {

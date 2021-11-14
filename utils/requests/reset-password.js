@@ -1,7 +1,7 @@
 const postResetPassReq = async (_code, _password) => {
   const _reqData = { newPassword: _password };
   const response = await fetch(
-    `https://api.lynq.app/account/reset-password/${_code}`,
+    `https://aks.lynq.app/legacy/account/reset-password/${_code}`,
     {
       method: "POST",
       headers: {

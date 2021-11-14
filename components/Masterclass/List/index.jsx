@@ -47,9 +47,9 @@ const index = ({ list, filter }) => {
       case "price_desc":
         return array.sort((a, b) => b.price - a.price);
       case "attendees_asc":
-        return array.sort((a, b) => a.attendees.length - b.attendees.length);
+        return array.sort((a, b) => a?.attendees?.length - b?.attendees?.length);
       case "attendees_desc":
-        return array.sort((a, b) => b.attendees.length - a.attendees.length);
+        return array.sort((a, b) => b?.attendees?.length - a?.attendees?.length);
       case "revenue_asc":
         return array.sort((a, b) => a.revenue - b.revenue);
       case "revenue_desc":

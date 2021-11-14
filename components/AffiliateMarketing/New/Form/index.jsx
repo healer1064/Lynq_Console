@@ -59,7 +59,7 @@ const index = ({ setTab, setRefetch }) => {
     } else {
       setLoading(true);
       postAffiliateMarketingReq(token, {
-        // id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        id: '1c22c98f-fc59-4287-8ab3-88cadd708c0a',
         // ownerId: 'string',
         name: title,
         // description: 'string',
@@ -67,12 +67,19 @@ const index = ({ setTab, setRefetch }) => {
         // enabled: 'string',
         price: 0,
         image_path: thumbnail,
+        url: url
         // cta: 'string',
         // creation_date: '2021-10-19T08:41:29.400Z',
       })
         .then((res) => {
           if (res.status == 200) {
             setLoading(false);
+            setUrl('');
+            setData(null);
+            setTitle('');
+            setPrice('');
+            setDescription('');
+            setThumbnail(null);
             setRefetch((prevState) => !prevState);
             setTab('1');
           } else {
@@ -91,9 +98,9 @@ const index = ({ setTab, setRefetch }) => {
     <form className={styles.form}>
       <div className={styles.horizontal}>
         <label>
-          <strong>Enter the product URL</strong>
+          <strong>Enter the Amazon Product URL</strong>
           <input
-            type='Enter the product URL'
+            type='Enter the Amazon Product URL'
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
@@ -108,7 +115,7 @@ const index = ({ setTab, setRefetch }) => {
           <label>
             <strong>Name</strong>
             <input
-              type='Enter the product URL'
+              type='Enter the Amazon Product URL'
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />

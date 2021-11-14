@@ -79,7 +79,7 @@ const Item = ({
           </p>
         )}
       </div>
-      <img src={image} alt={name} />
+      {image && <img src={image} alt={name} />}
     </div>
   );
 };

@@ -46,7 +46,7 @@ const index = ({ data }) => {
       listingPriceReq(token, price)
         .then((res) => {
           setPriceLoading(false);
-          setListingPrice(res.simulated_price);
+          setListingPrice(res.total);
         })
         .catch(() => {
           setPriceLoading(false);
@@ -90,7 +90,7 @@ const index = ({ data }) => {
 
     axios
       .post(
-        `https://api.lynq.app/console/exclusive-content/upload/${_id}?t=${token}`,
+        `https://aks.lynq.app/legacy/exclusive-content/upload/${_id}?t=${token}`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -221,6 +221,15 @@ const index = ({ data }) => {
       <div className={styles.btns}>
         <button className={styles.save} onClick={handleSubmit}>
           {buttonLoading ? <Loading /> : 'Save'}
+        </button>
+        <button
+          className={styles.cancel}
+          onClick={(e) => {
+            e.preventDefault();
+            router.back();
+          }}
+        >
+          Cancel
         </button>
       </div>
     </form>

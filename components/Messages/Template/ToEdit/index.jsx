@@ -37,7 +37,7 @@ const index = ({ setState, data }) => {
           </Tooltip>
         </h6>{' '}
         <span>
-          ${data[0] ? (data[0].displayPrice ? data[0].displayPrice : 0) : 0}
+          ${data[0] ? (data[0].pricing ? data[0].pricing.total : 0) : 0}
         </span>
       </label>
       <div className={styles.desc_box}>

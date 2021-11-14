@@ -31,19 +31,18 @@ const index = () => {
           if (res.error) {
             toast.error('Failed to get exclusive content.');
           } else {
-            setList(res?.content.filter((item) => item.id == id)[0]);
+            setList(res?.content.filter((item) => item.id == id));
           }
         })
         .catch(() => toast.error('Failed to get exclusive content.'));
     }
   }, [token]);
-
   return (
     <div className='content-wrp'>
       <Head>
         <title>Pay Per Download | Lynq</title>
       </Head>
-      {!list ? <PageLoading /> : <Content list={list} />}
+      {!list ? <PageLoading /> : <Content list={list[0]} />}
     </div>
   );
 };

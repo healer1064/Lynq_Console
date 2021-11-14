@@ -14,7 +14,7 @@ import New from '../New/Content';
 import DropdownMenu from '@/components/common/DropdownMenu';
 import List from '@/components/PayperDownload/List';
 
-const index = ({ list }) => {
+const index = ({ list, refreshResponse }) => {
   // states
   const [filter, setFilter] = useState('All');
 
@@ -30,7 +30,7 @@ const index = ({ list }) => {
             <DropdownMenu
               state={filter}
               setState={setFilter}
-              data={['All', 'Video', 'Picture', 'Document']}
+              data={['All', 'Video', 'Picture']}
             />
           }
           placement='bottomCenter'
@@ -42,7 +42,7 @@ const index = ({ list }) => {
         <List list={list} filter={filter} />
       </TabPane>
       <TabPane tab='New content' key='2'>
-        <New />
+        <New refreshResponse={refreshResponse} />
       </TabPane>
     </Tabs>
   );

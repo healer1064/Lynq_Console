@@ -8,7 +8,7 @@ const getClientsReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/account/clients?t=${_token}`,
+    `https://aks.lynq.app/legacy/account/clients?t=${_token}`,
     config,
   );
   return await response.json();
@@ -22,7 +22,7 @@ const getStatsReq = async (_token) => {
   };
 
   const response = await fetch(
-    `https://api.lynq.app/stats?t=${_token}`,
+    `https://aks.lynq.app/legacy/stats?t=${_token}`,
     config,
   );
 

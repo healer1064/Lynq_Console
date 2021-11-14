@@ -1,10 +1,10 @@
 // Mixins
 @mixin flex
-  display: -webkit-box
-  display: -moz-box
-  display: -ms-flexbox
-  display: -webkit-flex
-  display: flex
+    display: -webkit-box
+    display: -moz-box
+    display: -ms-flexbox
+    display: -webkit-flex
+    display: flex
 
 // Colors
 $black: #303030
@@ -19,9 +19,11 @@ $breakpointLaptop: 1399px
 $breakpointPhone: 519px
 
 .notifications
-    @include flex
-    flex-direction: column
-    width: calc(100% - 72.06%)
+    display: grid
+    grid-template-columns: 1fr 1fr
+    width: calc(72.06% - 32px)
+    grid-column-gap: 1rem
+
     .card
         margin-top: 16px
         width: 100%
@@ -42,12 +44,12 @@ $breakpointPhone: 519px
             strong
                 margin-left: 8px
                 font-weight: 600
-                font-size: 16px
+                font-size: 12px
                 line-height: 20px
                 color: $black
         span
             margin-bottom: 8px
-            font-size: 18px
+            font-size: 12px
             line-height: 22px
             color: $black
             &:last-child
@@ -66,7 +68,7 @@ $breakpointPhone: 519px
             outline: none
 
     input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button 
+    input::-webkit-inner-spin-button
         -webkit-appearance: none
         margin: 0
 
@@ -82,9 +84,12 @@ $breakpointPhone: 519px
                 font-size: 14px
                 line-height: 17px
 
-@media (max-width: $breakpointPhone)       
+@media (max-width: $breakpointPhone)
     .notifications
-        width: 100%
+        display: block
+        width: 100% !important
+        flex-direction: column
+
         .card
             margin-bottom: 12px
             padding: 16px
