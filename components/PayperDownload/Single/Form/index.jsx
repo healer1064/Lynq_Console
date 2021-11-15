@@ -3,6 +3,8 @@ import { useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import Fade from 'react-reveal/Fade';
+import ReactPlayer from 'react-player/lazy'
+
 
 // context
 import ProfileContext from '@/context/profile';
@@ -69,7 +71,13 @@ const index = ({ data }) => {
           </div>
           <div className={styles.info_col}>
             <strong>File</strong>
-            <img src={data.thumbnailPath} alt='thumbnail' />
+            {data.type == 'video' ? (
+              <ReactPlayer url={data.path} controls width="100%" height="300px" />
+            ) : (
+              <img src={data.thumbnailPath} alt='thumbnail' />
+            )}
+
+
           </div>
           <div className={styles.btns}>
             <button
