@@ -2,6 +2,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import ReactPlayer from 'react-player/lazy'
 
 // styles
 import styles from './styles.module.sass';
@@ -143,7 +144,12 @@ const index = ({ data }) => {
             accept='application/msword, application/pdf, image/*, video/mp4'
             onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
           />
-          <img src={data.thumbnailPath} alt={data.description} />
+          {data.type == 'video' ? (
+            <ReactPlayer url={data.path} controls width="100%" height="100px" />
+          ) : (
+            <img src={data.thumbnailPath} alt='thumbnail' />
+          )}
+          {/* <img src={data.thumbnailPath} alt={data.description} /> */}
           {/* {file &&
             (file?.fileObject.type.includes('image') ? (
               <img src={file?.url} alt='thumbnail' />
@@ -164,7 +170,7 @@ const index = ({ data }) => {
                 style={{ margin: '0 auto' }}
               />
             ))} */}
-          {/* {file && (
+          {file && (
             <FaTrash
               className={styles.trash}
               onClick={(e) => {
@@ -172,7 +178,7 @@ const index = ({ data }) => {
                 setFile(null);
               }}
             />
-          )} */}
+          )}
         </div>
         {/* {file && <p className={styles.filename}>{file.fileObject.name}</p>} */}
       </label>
