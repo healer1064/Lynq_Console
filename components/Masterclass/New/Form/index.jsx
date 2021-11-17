@@ -87,7 +87,7 @@ const index = ({ handleSubmit, buttonLoading }) => {
   };
 
   const handleOnBlur = (e) => {
-    if (e.target.value < 1) setError(true)
+    if (e.target.value < 1 && !profile.can_create_free_activity) setError(true)
     else setError(false);
   }
 

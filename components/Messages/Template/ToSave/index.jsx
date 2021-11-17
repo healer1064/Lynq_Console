@@ -41,7 +41,6 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const [priceError, setPriceError] = useState(false);
   const [error, setError] = useState(false);
-
   // get listing prce
   useEffect(() => {
     if (price !== '') {
@@ -161,7 +160,7 @@ const index = ({ data, setState, responseRefresh, setActive }) => {
   };
 
   const handleOnBlur = (e) => {
-    if (e.target.value < 1) setError(true)
+    if (e.target.value < 1 && !profile?.can_create_free_activity) setError(true)
     else setError(false);
   }
 
