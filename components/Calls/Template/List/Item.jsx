@@ -26,7 +26,7 @@ import { FaOldRepublic } from "react-icons/fa";
 
 const Item = ({ data, options, setOptions }) => {
   // context
-  const { token } = useContext(ProfileContext);
+  const { token, profile } = useContext(ProfileContext);
 
   // state
   const [price, setPrice] = useState(data.price);
@@ -111,7 +111,7 @@ const Item = ({ data, options, setOptions }) => {
   }, [price]);
 
   const handleOnBlur = (e) => {
-    if (e.target.value < 1) setError(true)
+    if (e.target.value < 1 && !profile.can_create_free_activity) setError(true)
     else setError(false);
   }
 
