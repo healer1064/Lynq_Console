@@ -21,7 +21,7 @@ const Item = ({ data }) => {
     <Fade duration={800} delay={50}>
       <div
         onClick={() => router.push(`/masterclass/${id}`)}
-        className={styles.item}
+        className={`${styles.item} ${styles[status.toLowerCase()]}`}
       >
         <p>{name}</p>
         <p>{status}</p>

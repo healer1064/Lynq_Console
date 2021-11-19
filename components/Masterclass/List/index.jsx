@@ -19,15 +19,12 @@ const index = ({ list, filter }) => {
   useEffect(() => {
     if (filter == "All") {
       setData(list);
-    } else if (filter == "Upcoming") {
-      const arr = list.filter((item) => new Date(item.date) > new Date());
-      setData(arr);
-    } else if (filter == "Expired") {
-      setData(
-        list.filter(
-          (item) => moment(item.date).add(item.duration, "minutes") < moment(),
-        ),
-      );
+    } else if (filter == "Completed") {
+      setData(list.filter((item) => item.status == "COMPLETED"))
+    } else if (filter == "Scheduled") {
+      setData(list.filter((item) => item.status == "SCHEDULED"));
+    } else if (filter == "Cancelled") {
+      setData(list.filter((item) => item.status === 'CANCELLED'));
     }
   }, [list, filter]);
 

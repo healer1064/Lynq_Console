@@ -30,7 +30,7 @@ const index = ({ list }) => {
           <DropdownMenu
             state={filter}
             setState={setFilter}
-            data={['All', 'Upcoming', 'Expired']}
+            data={['All', 'Completed', 'Scheduled', 'Cancelled']}
           />
         }
         placement='bottomCenter'
