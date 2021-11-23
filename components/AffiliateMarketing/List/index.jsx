@@ -12,7 +12,7 @@ import Item from './Item';
 const index = ({ list }) => {
   return list.length === 0 ? (
     <div className={styles.no_appointments}>
-      <EmptyData title='No masterclasses to show' />
+      <EmptyData title='The list is empty' />
     </div>
   ) : (
     <div className={styles.list}>

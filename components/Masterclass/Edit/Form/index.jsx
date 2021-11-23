@@ -87,6 +87,11 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
     }),
   };
 
+  const handleOnBlur = (e) => {
+    if (e.target.value < 1 && !profile?.can_create_free_activity) setError(true)
+    else setError(false);
+  }
+
   return (
     <form className={styles.form}>
       <label>
@@ -139,6 +144,7 @@ const index = ({ handleSubmit, buttonLoading, data }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             style={{ paddingLeft: "25px" }}
+            onBlur={handleOnBlur}
           />
         </div>
       </label>
