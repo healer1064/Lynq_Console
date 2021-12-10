@@ -1,0 +1,188 @@
+on:
+  push:
+    branches:
+      - master
+
+env:
+  REGISTRY_NAME: lynqregistry42
+  CLUSTER_NAME: lynqaks
+  CLUSTER_RESOURCE_GROUP: lynqrg
+  PROD_DOMAIN: console.lynq.com
+  PROD_NAMESPACE: console
+  NON_PROD_NAMESPACE: console-non-prod
+  DEV_NAMESPACE: console-dev
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+    - uses: actions/checkout@master
+    
+    # Connect to Azure Container registry (ACR)
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }} 
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    # Container build and push to a Azure Container registry (ACR)
+    - run: |
+        docker build -f Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/console:${{ github.sha }} .
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/console:${{ github.sha }}
+    
+    # Set the target Azure Kubernetes Service (AKS) cluster. 
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.DEV_NAMESPACE }} --dry-run -o json | kubectl apply -f -
+    
+    # Create imagepullsecret for Azure Container registry (ACR)
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.DEV_NAMESPACE }}
+
+    - name: Helm tool installer
+      uses: Azure/setup-helm@v1
+
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy
+      run: >
+        helm upgrade 
+        --install console
+        --namespace=${{ env.DEV_NAMESPACE }}
+        --set imagePullPolicy=Always
+        --set image.tag=${{ github.sha }}
+        --set ingress.hosts[0].host=${{ env.DEV_NAMESPACE }}.lynq.com
+        --set ingress.hosts[0].paths[0].backend.serviceName=${{ env.DEV_NAMESPACE }}.lynq.com
+        --set ingress.hosts[0].paths[0].backend.path=/
+        './helm'
+
+  deploy-non-prod:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+    - uses: actions/checkout@master
+    
+    # Connect to Azure Container registry (ACR)
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }} 
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    # Container build and push to a Azure Container registry (ACR)
+    - run: |
+        docker build -f Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/console:${{ github.sha }} .
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/console:${{ github.sha }}
+    
+    # Set the target Azure Kubernetes Service (AKS) cluster. 
+    - uses: azure/aks-set-context@v1
+      with:
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.NON_PROD_NAMESPACE }} --dry-run -o json | kubectl apply -f -
+    
+    # Create imagepullsecret for Azure Container registry (ACR)
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NON_PROD_NAMESPACE }}
+
+    - name: Helm tool installer
+      uses: Azure/setup-helm@v1
+
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy
+      run: >
+        helm upgrade 
+        --install console
+        --namespace=${{ env.NON_PROD_NAMESPACE }}
+        --set imagePullPolicy=Always
+        --set image.tag=${{ github.sha }}
+        --set ingress.hosts[0].host=${{ env.NON_PROD_NAMESPACE }}.lynq.com
+        --set ingress.hosts[0].paths[0].backend.serviceName=${{ env.NON_PROD_NAMESPACE }}.lynq.com
+        --set ingress.hosts[0].paths[0].backend.path=/
+        './helm'
+
+  deploy-prod:
+      runs-on: ubuntu-latest
+      environment: dev
+      steps:
+      - uses: actions/checkout@master
+      
+      # Connect to Azure Container registry (ACR)
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }} 
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      # Container build and push to a Azure Container registry (ACR)
+      - run: |
+          docker build -f Dockerfile -t ${{ env.REGISTRY_NAME }}.azurecr.io/console:${{ github.sha }} .
+          docker push ${{ env.REGISTRY_NAME }}.azurecr.io/console:${{ github.sha }}
+      
+      # Set the target Azure Kubernetes Service (AKS) cluster. 
+      - uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+      
+      # Create namespace if doesn't exist
+      - run: |
+          kubectl create namespace ${{ env.PROD_NAMESPACE }} --dry-run -o json | kubectl apply -f -
+      
+      # Create imagepullsecret for Azure Container registry (ACR)
+      - uses: azure/k8s-create-secret@v1
+        with:
+          container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+          namespace: ${{ env.PROD_NAMESPACE }}
+
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v1
+
+      - name: Azure Login
+        uses: Azure/login@v1.1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy
+        run: >
+          helm upgrade 
+          --install console
+          --namespace=${{ env.PROD_NAMESPACE }}
+          --set imagePullPolicy=Always
+          --set image.tag=${{ github.sha }}
+          --set ingress.hosts[0].host=${{ env.PROD_DOMAIN }}
+          --set ingress.hosts[0].paths[0].backend.serviceName=${{ env.PROD_DOMAIN }}
+          --set ingress.hosts[0].paths[0].backend.path=/
+          './helm'
