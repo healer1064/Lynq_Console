@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   REGISTRY_NAME: lynqregistry42
@@ -186,4 +186,3 @@ jobs:
           --set ingress.hosts[0].paths[0].backend.serviceName=${{ env.PROD_DOMAIN }}
           --set ingress.hosts[0].paths[0].backend.path=/
           './helm'
-
