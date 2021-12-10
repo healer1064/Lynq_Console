@@ -186,3 +186,4 @@ jobs:
           --set ingress.hosts[0].paths[0].backend.serviceName=${{ env.PROD_DOMAIN }}
           --set ingress.hosts[0].paths[0].backend.path=/
           './helm'
+
