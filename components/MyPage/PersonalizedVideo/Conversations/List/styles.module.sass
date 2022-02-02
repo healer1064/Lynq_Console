@@ -1,0 +1,97 @@
+.list
+    width: 350px
+    border-right: 1px solid #ccc
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: 10px 0
+    height: calc(100vh - 90px - 60px)
+    overflow-y: scroll
+
+    &::-webkit-scrollbar-track
+	    border-radius: 10px
+	    background-color: #F5F5F5
+        -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
+ 
+    &::-webkit-scrollbar
+        width: 10px
+        background-color: #F5F5F5
+ 
+    &::-webkit-scrollbar-thumb
+        border-radius: 10px
+        background-color: #aaa
+        -webkit-box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.3)
+
+    .list_self
+        padding: 10px 0px
+        width: 100%
+
+        .item
+            padding: 13px
+            border-top: 1px solid #ccc
+            border-bottom: 1px solid #ccc
+            display: flex
+            align-items: center
+            position: relative
+            cursor: pointer
+            transition: all 200ms
+            span
+                height: 35px
+                width: 35px
+                border-radius: 50%
+                display: flex
+                align-items: center
+                justify-content: center
+                color: white
+                font-size: 0.9rem
+                font-weight: 600
+                margin-right: 10px
+            p
+                margin: 0
+                flex-grow: 1
+                font-size: 0.85rem
+            .bold
+                font-weight: bold
+            h6
+                position: absolute
+                top: 5px
+                right: 5px
+                font-size: 0.55rem
+                color: #777
+
+            &:not(:last-child)
+                border-bottom: none
+            &:hover
+                opacity: 0.6
+
+.hide
+    display: flex
+.show
+    display: flex
+                
+@media (max-width: 1399px)
+    .list
+        height: calc(100vh - 66px)
+        width: 300px
+        .list_self
+            padding: 10px 0px
+            .item
+                padding: 10px
+
+@media (max-width: 519px)
+    .list
+        width: 100%
+        border-right: none
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding: 10px 0
+
+        .list_self
+
+            .item
+                padding: 12px
+    .hide
+        display: none
+    .show
+        display: flex

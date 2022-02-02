@@ -1,0 +1,38 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+.exclusive_wrap
+  .back_btn_div
+    display: flex
+    justify-content: left
+    align-items: center
+    margin-bottom: 20px
+    p
+      font-weight: bold
+      font-size: 24px
+      line-height: 33px
+      color: #000000
+      margin: 0 0 0 10px
+
+  .profile_div
+    border: 1px solid #D9E0E9
+    padding: 40px
+    border-radius: 5px;
+
+    .dropdown_btn
+      width: 280px
+      display: flex !important
+      align-items: center !important
+      justify-content: space-between !important
+      margin: 20px 0 !important
+
+@media (max-width: 519px)
+  .dropdown_btn
+    width: 100%
+    
+  

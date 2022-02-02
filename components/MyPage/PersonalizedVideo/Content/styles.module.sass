@@ -1,0 +1,44 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+.personalized_wrap
+  .back_btn_div
+    display: flex
+    justify-content: left
+    align-items: center
+    margin-bottom: 20px
+    p
+      font-weight: bold
+      font-size: 24px
+      line-height: 33px
+      color: #000000
+      margin: 0 0 0 10px
+
+  .profile_div
+    position: relative
+    .hide
+      position: absolute
+      background: #060606
+      border: 1px solid #C0C0C9
+      box-sizing: border-box
+      border-radius: 5px
+      width: 133px
+      height: 40px
+      right: 40px
+      color: white
+      display: flex
+      justify-content: center
+      align-items: center
+      z-index: 100;
+    border: 1px solid #D9E0E9
+    padding: 40px
+    border-radius: 5px;
+
+@media (max-width: 519px)
+  .edit_profile
+    padding: 0 0 16px

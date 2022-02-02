@@ -223,7 +223,7 @@ body
   align-items: stretch
   justify-content: flex-end
   flex-grow: 1
-  margin-top: 90px
+  margin-top: 80px
 
 .wrp-1
   flex-direction: row !important
@@ -233,10 +233,10 @@ body
     flex-direction: column !important
 
 .content-wrp
-  width: calc(100% - 17.78%)
+  width: calc(100% - 219px)
   min-height: calc(100vh - 90px)
   background: #FFF
-  padding: 16px 64px 0 32px
+  padding: 16px
   @include flex
   flex-direction: column
 
@@ -278,7 +278,14 @@ body
   margin-left: 0px !important
   color: $lavender !important
 
-            
+.signup-after
+  background: #C7C9FA;
+  @include flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+
 @media (max-width: $breakpointLaptop)
   .home
     &-wrp

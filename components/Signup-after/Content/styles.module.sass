@@ -1,0 +1,132 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+.profile_header_logo
+    height: 36px
+    margin: 36px 0 30px
+    
+.signup_edit_profile
+    background: white;
+    width: 650px
+    @include flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 44px 10px;
+    margin-bottom: 80px;
+
+    h2
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 33px;
+        text-align: center;
+        color: #000000;
+
+    button
+        background: #7E88F4
+        border-radius: 5px
+        border: none
+        outline: none
+        font-weight: bold
+        font-size: 12px
+        line-height: 16px
+        color: #FFFFFF
+        padding: 12px 24px
+        margin-right: 16px
+        cursor: pointer
+        
+        &:focus
+            border: none
+            outline: none
+    label
+        font-weight: 600
+        font-size: 14px
+        line-height: 19px
+        color: #303030
+        span
+            font-size: 12px
+            font-weight: 300
+
+    input
+        display: block
+        width: 345px;
+        height: 35px;
+        border: 1px solid #C0C0C9
+        box-sizing: border-box
+        border-radius: 5px
+        margin-top: 8px
+        margin-bottom: 16px
+        padding: 0 10px
+        &:focus
+            outline: none
+    .desc_wrap
+        width: 50%
+        position: relative
+    
+    .text_uppercase
+        button
+            width: 146px;
+            height: 44px;
+            border-radius: 30px;
+            background: #5A27E7;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 22px;
+    
+    .dropzone_div
+        margin: 0 0 15px
+    
+        .dropzone_section
+            width: 345px
+            align-items: center
+            border: dashed 2px #C0C0C9
+            border-radius: 5px
+            @include flex
+            height: 100px
+            justify-content: center
+            margin-top: 5px
+
+            .dropzone_img_div
+                @include flex
+
+                img
+                    padding: 0 20px 0 20px
+                p
+                    width: 203px
+                    @include flex
+                    flex-direction: column
+                    align-items: flex-start
+                    margin: 0
+        
+    .return_to_login
+        margin-top: 10px
+
+@media (max-width: 519px)
+    .edit_profile
+        padding: 0 0 16px
+        h3
+            font-weight: 600
+            font-size: 22px
+            line-height: 27px
+            margin-bottom: 24px
+        button
+            font-weight: 600
+            font-size: 10px
+            line-height: 16px
+            padding: 10px 24px
+            margin-right: 12px
+            margin-bottom: 12px
+        label
+            line-height: 17px
+        input
+            width: 100%
+            height: 48px
+            margin-top: 12px
+            margin-bottom: 24px

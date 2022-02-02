@@ -1,0 +1,41 @@
+.charity {
+  width: 40%;
+  margin-bottom: 30px;
+  margin-top: 50px;
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+
+    h6 {
+      margin: 0;
+      color: #7e88f4;
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-left: 10px;
+      }
+    }
+  }
+  .input_wrap {
+    width: 100%;
+
+    label {
+      width: 100%;
+      font-size: 16px;
+    }
+    input {
+      width: 100%;
+      font-size: 11px;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+}

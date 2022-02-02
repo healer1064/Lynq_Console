@@ -1,0 +1,67 @@
+.video {
+  display: table;
+  h6 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+
+    span {
+      font-weight: 400;
+    }
+  }
+  h5 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .radio_group {
+    display: flex;
+    margin-bottom: 24px;
+
+    label {
+      &:last-child {
+        margin-right: 0 !important;
+      }
+    }
+    .radio {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+
+      span {
+        padding: 0 !important;
+      }
+
+      img {
+        width: 150px;
+        margin-bottom: 8px;
+      }
+    }
+  }
+  h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .preview_text {
+    font-size: 12px;
+    font-style: italic;
+  }
+  @media screen and (max-width: 519px) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+
+    .radio_group {
+      .radio {
+        img {
+          width: 100px;
+        }
+      }
+    }
+  }
+}
