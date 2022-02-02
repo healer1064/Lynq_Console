@@ -14,6 +14,7 @@ import { Dropdown, Button, Tabs } from 'antd';
 import New from '../New/Content';
 import DropdownMenu from '@/components/common/DropdownMenu';
 import List from '@/components/MyPage/ExclusiveContent/List';
+import Setup from '../Setup/Content';
 
 const index = ({ list, refreshResponse }) => {
   // states
@@ -53,6 +54,9 @@ const index = ({ list, refreshResponse }) => {
             </TabPane>
             <TabPane tab='New content' key='2'>
               <New refreshResponse={refreshResponse} />
+            </TabPane>
+            <TabPane tab='Set Up' key='3'>
+              <Setup refreshResponse={refreshResponse}/>
             </TabPane>
           </Tabs>
         </div>

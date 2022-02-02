@@ -1,0 +1,96 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.content
+  margin-top: 20px
+  margin-bottom: 50px
+  .back
+    text-decoration: none
+    font-weight: 600
+    font-size: 16px
+    line-height: 20px
+    color: #39BDCD
+    margin-bottom: 20px
+    cursor: pointer
+    display: flex
+    align-items: center
+    transition: opacity 200ms
+    &:hover
+        opacity: 0.7
+    svg
+        margin-right: 5px
+        font-size: 14px
+  h2
+      font-weight: 700
+      font-size: 18px
+      line-height: 29px
+      color: $black
+      margin: 0
+  p
+      font-weight: 400
+      font-size: 16px
+      line-height: 29px
+      color: $black
+      margin-bottom: 24px
+
+  strong
+      font-weight: 600
+      font-size: 16px
+      line-height: 20px
+      margin-bottom: 12px
+  .sections
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    .title_div
+    .description_div
+      .plan_title
+        font-style: normal
+        font-weight: bold
+        font-size: 24px
+        line-height: 33px
+        color: #000000
+        margin: 30px 0
+    .col_div
+      display: flex
+      flex-direction: column
+      margin-top: 10px
+      label
+        font-size: 1.2rem
+        font-weight: 600
+        cursor: context-menu
+        margin-bottom: 8px
+      input
+        height: 40px
+        width: 50%
+        border: 1px gray solid
+        border-radius: 8px
+        padding: 0 5px
+        color: #777
+
+@media screen and ( max-width: 519px )
+  .content
+    .back
+      font-size: 14px
+      line-height: 19px
+      margin-bottom: 16px
+    .sections
+      flex-direction: column
+  

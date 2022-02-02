@@ -1,0 +1,113 @@
+const test_data = [
+    {
+        "date": "2022-01-30",
+        "appointments": [
+            {
+                "id": "74f45346-9d0f-46c8-81e1-058de4e88ec5",
+                "price": null,
+                "displayFees": 1.9,
+                "displayPrice": 1.9,
+                "basePriceTeacher": null,
+                "type": "INTERNAL",
+                "activity": null,
+                "timezone": "America/New_York",
+                "pricing": null,
+                "whoTriggerCancellation": null,
+                "cancelRequester": null,
+                "profile_id": "88c92c7b-dfc5-4224-8375-12926c57d813",
+                "starting_date": "2022-01-30T16:00:00Z",
+                "create_date": "2022-01-12T15:26:04.448631Z",
+                "update_date": null,
+                "ending_date": "2022-01-30T16:30:00Z",
+                "activity_id": "940653d3-0a62-445b-a64c-40b1107efe79",
+                "activity_name": "1:1",
+                "summary": "not_google_calendar",
+                "status": "CONFIRMED",
+                "email": "ddkwdkwk@kjkjkjk.com",
+                "stripe_payment_intent_id": null,
+                "stripe_payment_secret_id": null,
+                "first_name": "nkkjkjk",
+                "last_name": "dwdwdw",
+                "session_duration": 30,
+                "from_teacher": false,
+                "cancellation_allowance": 6,
+                "note_to_teacher": "",
+                "payment_uri": null
+            }
+        ]
+    },
+    {
+        "date": "2022-02-03",
+        "appointments": [
+            {
+                "id": "74f45346-9d0f-46c8-81e1-058de4e88ec5",
+                "price": null,
+                "displayFees": 1.9,
+                "displayPrice": 1.9,
+                "basePriceTeacher": null,
+                "type": "INTERNAL",
+                "activity": null,
+                "timezone": "America/New_York",
+                "pricing": null,
+                "whoTriggerCancellation": null,
+                "cancelRequester": null,
+                "profile_id": "88c92c7b-dfc5-4224-8375-12926c57d813",
+                "starting_date": "2022-01-30T16:00:00Z",
+                "create_date": "2022-01-12T15:26:04.448631Z",
+                "update_date": null,
+                "ending_date": "2022-01-30T16:30:00Z",
+                "activity_id": "940653d3-0a62-445b-a64c-40b1107efe79",
+                "activity_name": "1:1",
+                "summary": "not_google_calendar",
+                "status": "CONFIRMED",
+                "email": "ddkwdkwk@kjkjkjk.com",
+                "stripe_payment_intent_id": null,
+                "stripe_payment_secret_id": null,
+                "first_name": "nkkjkjk",
+                "last_name": "dwdwdw",
+                "session_duration": 30,
+                "from_teacher": false,
+                "cancellation_allowance": 6,
+                "note_to_teacher": "",
+                "payment_uri": null
+            }
+        ]
+    },
+    {
+        "date": "2022-02-04",
+        "appointments": [
+            {
+                "id": "74f45346-9d0f-46c8-81e1-058de4e88ec5",
+                "price": null,
+                "displayFees": 1.9,
+                "displayPrice": 1.9,
+                "basePriceTeacher": null,
+                "type": "INTERNAL",
+                "activity": null,
+                "timezone": "America/New_York",
+                "pricing": null,
+                "whoTriggerCancellation": null,
+                "cancelRequester": null,
+                "profile_id": "88c92c7b-dfc5-4224-8375-12926c57d813",
+                "starting_date": "2022-01-30T16:00:00Z",
+                "create_date": "2022-01-12T15:26:04.448631Z",
+                "update_date": null,
+                "ending_date": "2022-01-30T16:30:00Z",
+                "activity_id": "940653d3-0a62-445b-a64c-40b1107efe79",
+                "activity_name": "1:1",
+                "summary": "not_google_calendar",
+                "status": "CONFIRMED",
+                "email": "ddkwdkwk@kjkjkjk.com",
+                "stripe_payment_intent_id": null,
+                "stripe_payment_secret_id": null,
+                "first_name": "nkkjkjk",
+                "last_name": "dwdwdw",
+                "session_duration": 30,
+                "from_teacher": false,
+                "cancellation_allowance": 6,
+                "note_to_teacher": "",
+                "payment_uri": null
+            }
+        ]
+    }
+]
