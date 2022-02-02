@@ -166,7 +166,7 @@ const index = ({ refreshResponse }) => {
 
   return (
     <form className={styles.form}>
-      <label>
+      {/*<label>
         <strong>
           Title <span>(max 42 characters)</span>
         </strong>
@@ -177,7 +177,6 @@ const index = ({ refreshResponse }) => {
           maxLength='42'
         />
       </label>
-      {/* <div className={styles.price}> */}
       <label className={`${styles.uploadWrapper} ${file ? styles.thumbnail : ''}`}>
         <p><strong>Upload your file</strong></p>
         <div className={styles.dropzone}>
@@ -234,8 +233,18 @@ const index = ({ refreshResponse }) => {
             </div>
         )}
         </div>
+      </label>*/}
+      <label>
+        <strong>
+          Description
+        </strong>
+        <textarea
+          type='text'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          rows="4"
+        />
       </label>
-      {/* // </div> */}
       <div className={styles.price}>
       <label htmlFor="price">
         <p>Price</p>
