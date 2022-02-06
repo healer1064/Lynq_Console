@@ -73,15 +73,15 @@ const index = ({ list, filter }) => {
     </div>
   ) : (
     <div className={styles.list}>
-      <Head order={order} setOrder={setOrder} />
+      {/*<Head order={order} setOrder={setOrder} />*/}
       {sortArray(data).map((item, index) => (
         <Item key={index} data={item} />
       ))}
-      <Pagination
+      {/*<Pagination
           filteredData={data}
           setPageSize={setPageSize}
           setPageNumber={setPageNumber}
-        />
+        />*/}
     </div>
   );
 };

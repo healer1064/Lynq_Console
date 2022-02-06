@@ -3,6 +3,7 @@
     border-right: 1px solid #ccc
     display: flex
     flex-direction: column
+    flex: 0 0 350px
     align-items: center
     padding: 10px 0
     height: calc(100vh - 90px - 60px)
@@ -35,29 +36,50 @@
             position: relative
             cursor: pointer
             transition: all 200ms
-            span
-                height: 35px
-                width: 35px
-                border-radius: 50%
+            .avatar
+                width: 50px
+                height: 50px
+                border-radius: 100%
+            .div_wrap
                 display: flex
+                justify-content: space-between
                 align-items: center
-                justify-content: center
-                color: white
-                font-size: 0.9rem
-                font-weight: 600
-                margin-right: 10px
-            p
-                margin: 0
-                flex-grow: 1
-                font-size: 0.85rem
-            .bold
-                font-weight: bold
-            h6
-                position: absolute
-                top: 5px
-                right: 5px
-                font-size: 0.55rem
-                color: #777
+                width: -webkit-fill-available
+                padding-left: 20px
+                .name_div
+                    p
+                        margin: 0
+                    .name_p
+                        font-family: Inter
+                        font-style: normal
+                        font-weight: bold
+                        font-size: 16px
+                        line-height: 22px
+                        color: #000000
+                        margin-bottom: 5px
+                    label
+                        margin-left: 8px
+                .date_div
+                    display: flex
+                    flex-direction: column
+                    align-items: flex-end
+                    label
+                        font-weight: normal
+                        font-size: 14px
+                        line-height: 20px
+                        text-align: right
+                        color: #999CA0
+                        display: block
+                    span
+                        width: 20px
+                        background: #C7C9FA
+                        border-radius: 20px
+                        font-weight: 600
+                        font-size: 14px
+                        line-height: 20px
+                        text-align: center
+                        color: #101011
+                        margin-top: 5px
 
             &:not(:last-child)
                 border-bottom: none

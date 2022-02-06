@@ -166,75 +166,7 @@ const index = ({ refreshResponse }) => {
 
   return (
     <form className={styles.form}>
-      {/*<label>
-        <strong>
-          Title <span>(max 42 characters)</span>
-        </strong>
-        <input
-          type='text'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          maxLength='42'
-        />
-      </label>
-      <label className={`${styles.uploadWrapper} ${file ? styles.thumbnail : ''}`}>
-        <p><strong>Upload your file</strong></p>
-        <div className={styles.dropzone}>
-        <div className={styles.uploadContainer}>
-          {file &&
-            (file?.fileObject?.type.includes('image') ? (
-              <img src={file?.url} alt='thumbnail' height='150px' />
-            ) : file?.fileObject?.type.includes('video') ? (
-              <video
-                width='320'
-                height='150'
-                controls
-                controlslist='nodownload noremoteplayback noplaybackrate foobar'
-              >
-                <source src={file?.url} type='video/mp4' />
-                Your browser does not support the video tag.
-              </video>
-            ) : (
-              <HiDocument
-                size='4rem'
-                color='#ffca0a'
-                style={{ margin: '0 auto' }}
-              />
-            ))}
-        {file && <p className={styles.filename}>{file?.fileObject?.name}
-        <FaTrash
-              className={styles.trash}
-              onClick={(e) => {
-                e.stopPropagation();
-                setFile(null);
-              }}
-            />
-        </p>}
-        </div>
-        {!file && (
-            <div className={styles.input_wrap}>
-              <div {...getRootProps()}>
-              <input
-                type='file'
-                id='dropzone-input'
-                {...getInputProps()}
-                accept='image/*, video/mp4'
-                // onChange={(e) => setFile(handleFileInput(e.target.files[0]))}
-              />
-              </div>
-              <>
-                <RiUploadCloudFill />
-                <h6>Drop or select your file</h6>
-                <p>
-                  Video (mp4, avi), Picture (jpeg, png)
-                  <br /> Max 400 MB
-                </p>
-              </>
-            </div>
-        )}
-        </div>
-      </label>*/}
-      <label>
+      <label className={styles.description_div}>
         <strong>
           Description
         </strong>
@@ -242,59 +174,126 @@ const index = ({ refreshResponse }) => {
           type='text'
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          rows="4"
         />
       </label>
+
       <div className={styles.price}>
-      <label htmlFor="price">
-        <p>Price</p>
-        {/* <div className={styles.price}> */}
-        <span>
-                <BiDollar />
-          <input
-            type='number'
-            id="price"
-            min='0'
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            onBlur={handleOnBlur}
-          />
-          </span>
-        {/* </div> */}
-      </label>
-      {error && <span className={styles.error}>The minimum price is $1</span>}
-      <label className={styles.listing}>
-        <p>Listing Price
-        <Tooltip
-          className={styles.tooltip}
-          title="The price a customer pays to purchase the content and that
-                  includes Lynq's fees."
-        >
-          <BsExclamationCircleFill />
-        </Tooltip>
-        </p>
-        {price != "" && (
+        <div className={styles.price_input}>
+          <p>Price for 1 month</p>
           <span>
             <BiDollar />
-            <input id="listing-price" value={listingPrice} disabled />
-            {priceLoading && (
-              <img src="/img/Rolling-dark.svg" alt="rolling" />
-            )}{" "}
-          </span>
-        )}
-          {/* {priceLoading ? (
-           <BiDollar />
-          ) : (
             <input
               type='number'
+              id="price"
               min='0'
-              disabled
-              value={priceLoading ? '' : listingPrice}
-              style={{ paddingLeft: '25px' }}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              onBlur={handleOnBlur}
             />
-          )} */}
-      </label>
+          </span>
+        </div>
+        {error && <span className={styles.error}>The minimum price is $1</span>}
+        <label className={styles.listing}>
+          <p>
+            <Tooltip
+              className={styles.tooltip}
+              title="The price a customer pays to purchase the content and that
+                      includes Lynq's fees."
+            >
+              <BsExclamationCircleFill />
+            </Tooltip>
+            Listing Price
+          </p>
+          {price != "" && (
+            <span>
+              <BiDollar />
+              <input id="listing-price" value={listingPrice} disabled />
+              {priceLoading && (
+                <img src="/img/Rolling-dark.svg" alt="rolling" />
+              )}{" "}
+            </span>
+          )}
+        </label>
       </div>
+
+      <div className={styles.price}>
+        <div className={styles.price_input}>
+          <p>Price for 3 month</p>
+          <span>
+            <BiDollar />
+            <input
+              type='number'
+              id="price"
+              min='0'
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              onBlur={handleOnBlur}
+            />
+          </span>
+        </div>
+        {error && <span className={styles.error}>The minimum price is $1</span>}
+        <label className={styles.listing}>
+          <p>
+            <Tooltip
+              className={styles.tooltip}
+              title="The price a customer pays to purchase the content and that
+                      includes Lynq's fees."
+            >
+              <BsExclamationCircleFill />
+            </Tooltip>
+            Listing Price
+          </p>
+          {price != "" && (
+            <span>
+              <BiDollar />
+              <input id="listing-price" value={listingPrice} disabled />
+              {priceLoading && (
+                <img src="/img/Rolling-dark.svg" alt="rolling" />
+              )}{" "}
+            </span>
+          )}
+        </label>
+      </div>
+
+      <div className={styles.price}>
+        <div className={styles.price_input}>
+          <p>Price for 6 month</p>
+          <span>
+            <BiDollar />
+            <input
+              type='number'
+              id="price"
+              min='0'
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              onBlur={handleOnBlur}
+            />
+          </span>
+        </div>
+        {error && <span className={styles.error}>The minimum price is $1</span>}
+        <label className={styles.listing}>
+          <p>
+            <Tooltip
+              className={styles.tooltip}
+              title="The price a customer pays to purchase the content and that
+                      includes Lynq's fees."
+            >
+              <BsExclamationCircleFill />
+            </Tooltip>
+            Listing Price
+          </p>
+          {price != "" && (
+            <span>
+              <BiDollar />
+              <input id="listing-price" value={listingPrice} disabled />
+              {priceLoading && (
+                <img src="/img/Rolling-dark.svg" alt="rolling" />
+              )}{" "}
+            </span>
+          )}
+        </label>
+      </div>
+
       <div className={styles.btns}>
         <button className={styles.save} onClick={handleSubmit}>
           {buttonLoading ? <Loading /> : 'Save'}

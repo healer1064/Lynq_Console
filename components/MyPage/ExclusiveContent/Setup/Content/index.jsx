@@ -81,7 +81,6 @@ const index = ({ refreshResponse }) => {
           <p className={styles.plan_title}>Subscription plan</p>
           <Form refreshResponse={refreshResponse} handleSubmit={handleSubmit} />
         </div>
-        {/* <DropArea buttonLoading={loading} type={type} /> */}
       </div>
     </div>
   );

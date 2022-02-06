@@ -28,16 +28,17 @@ const index = ({ list, refreshResponse, data }) => {
         <div className={styles.profile_div}>
           <div style={{ paddingLeft: '10px' }}>
             <Tabs defaultActiveKey='1'>
-              <TabPane tab='Conversations' key='1'>
+              <TabPane tab='Set Up' key='2'>
+                <Template data={data} responseRefresh={refreshResponse} />
+              </TabPane>
+              <TabPane tab='Chat' key='1'>
                 {list.length > 0 ? (
                   <Conversations list={list} refreshResponse={refreshResponse} />
                 ) : (
                   <EmptyConversation />
                 )}
               </TabPane>
-              <TabPane tab='Template' key='2'>
-                <Template data={data} responseRefresh={refreshResponse} />
-              </TabPane>
+              
             </Tabs>
           </div>
         </div>

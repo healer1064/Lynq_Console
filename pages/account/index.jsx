@@ -29,11 +29,11 @@ const Account = () => {
           setProfile(res);
         })
         .catch(() => toast.error('Failed to get profile information!'));
-      // getBusinessReq(token)
-      //   .then((res) => {
-      //     setBusiness(res);
-      //   })
-      //   .catch(() => toast.error("Failed to get business information!"));
+      getBusinessReq(token)
+        .then((res) => {
+          setBusiness(res);
+        })
+        .catch(() => toast.error("Failed to get business information!"));
     }
   }, [token, success]);
 
@@ -47,13 +47,12 @@ const Account = () => {
         <title>Account | Lynq</title>
       </Head>
       <div className='content-wrp'>
-        {!profile ? (
-          // || !business
+        {!profile || !business ? (
           <PageLoading />
         ) : (
           <Content
             profile={profile}
-            // business={business}
+            business={business}
             toggleSuccess={toggleSuccess}
           />
         )}

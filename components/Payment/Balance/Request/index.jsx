@@ -63,7 +63,7 @@ const RequestPayment = ({ data, toggleResponse }) => {
         Temporary Balance: ${data.temporary_balance}
       </p> */}
       <p className={styles.final_balance}>
-        Final Balance: ${data.balance.toFixed(2)}
+        Current Balance: ${data.balance.toFixed(2)}
       </p>
       <span className={styles.final_note}>
         The final balance corresponds to the sessions that were performed at the
@@ -91,8 +91,7 @@ const RequestPayment = ({ data, toggleResponse }) => {
       )}
       {payment === "missing" && (
         <p className={styles.final_account_note}>
-          You need to fill your account and routing number in Account/ Business
-          and Payments before we can proceed to payment.
+          You need to provide your bank information in settings.
         </p>
       )}
     </div>

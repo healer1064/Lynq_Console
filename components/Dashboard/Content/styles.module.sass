@@ -18,6 +18,19 @@ $blue: #2889F0
 $breakpointLaptop: 1399px
 $breakpointPhone: 519px
 
+.dashboard_wrap
+    .back_btn_div
+        display: flex
+        justify-content: left
+        align-items: center
+        margin-bottom: 20px
+        p
+            font-weight: bold
+            font-size: 24px
+            line-height: 33px
+            color: #000000
+            margin: 0 0 0 10px
+
 .stats_title
     margin: 0
     font-weight: 700
@@ -27,6 +40,9 @@ $breakpointPhone: 519px
     @include flex
     flex-direction: column
     margin-top: 10px
+    border: 1px solid #D9E0E9
+    padding: 30px 20px
+    border-radius: 5px
     .top
         @include flex
         align-items: flex-end

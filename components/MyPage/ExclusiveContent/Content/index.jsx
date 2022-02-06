@@ -19,6 +19,7 @@ import Setup from '../Setup/Content';
 const index = ({ list, refreshResponse }) => {
   // states
   const [filter, setFilter] = useState('All');
+  const [add, setAdd] = useState(false);
 
   // tabs
   const { TabPane } = Tabs;
@@ -34,8 +35,11 @@ const index = ({ list, refreshResponse }) => {
         </Link>
         <div className={styles.profile_div}>
           <Tabs defaultActiveKey='1'>
-            <TabPane tab='Catalog' key='1'>
-              <Dropdown
+            <TabPane tab='Set Up' key='1'>
+              <Setup refreshResponse={refreshResponse}/>
+            </TabPane>
+            <TabPane tab='Content' key='2'>
+              {/*<Dropdown
                 arrow
                 overlay={
                   <DropdownMenu
@@ -49,14 +53,11 @@ const index = ({ list, refreshResponse }) => {
                 <Button className={styles.dropdown_btn} size='large'>
                   {filter} <CaretDownOutlined />
                 </Button>
-              </Dropdown>
+              </Dropdown>*/}
+              {
+                !add ? <button onClick={() => setAdd(true)} className={styles.add_btn}>Add a new content</button> : <New refreshResponse={refreshResponse} />
+              }
               <List list={list} filter={filter} />
-            </TabPane>
-            <TabPane tab='New content' key='2'>
-              <New refreshResponse={refreshResponse} />
-            </TabPane>
-            <TabPane tab='Set Up' key='3'>
-              <Setup refreshResponse={refreshResponse}/>
             </TabPane>
           </Tabs>
         </div>

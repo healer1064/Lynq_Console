@@ -37,7 +37,7 @@ const Item = ({ data, setRecipient, refreshResponse }) => {
 
   return (
     <div className={styles.item} onClick={() => onClick(data)}>
-      <span
+      {/*<span
         style={{
           background: `#${intToRGB(
             hashCode(`${data.customerFirstName} ${data.customerLastName}`),
@@ -47,19 +47,33 @@ const Item = ({ data, setRecipient, refreshResponse }) => {
         {`${data.customerFirstName} ${data.customerLastName}`
           .match(/\b(\w)/g)
           .join("")}
-      </span>
-      <p
+      </span>*/}
+      <img src="/img/avatar-1.png" className={styles.avatar}/>
+      <div className={styles.div_wrap}>
+        <div className={styles.name_div}>
+          <p className={styles.name_p}>{data.customerFirstName} {data.customerLastName}</p>
+          <p>
+            <img src="/svg/video-camera.svg"/>
+            <label>Video</label>
+          </p>
+        </div>
+        <div className={styles.date_div}>
+          <label>
+            {moment(
+              data.content.length > 0
+                ? data.content.sort((a, b) => {
+                    return new Date(b.sentDate) - new Date(a.sentDate);
+                  })[0].sentDate
+                : data.requestDate,
+            ).format("MM/DD/yyyy")}
+          </label>
+          <span>1</span>
+        </div>
+      </div>
+      {/*<p
         className={data.acknowledge ? "" : styles.bold}
-      >{`${data.customerFirstName} ${data.customerLastName}`}</p>
-      <h6>
-        {moment(
-          data.content.length > 0
-            ? data.content.sort((a, b) => {
-                return new Date(b.sentDate) - new Date(a.sentDate);
-              })[0].sentDate
-            : data.requestDate,
-        ).format("MM/DD/yyyy")}
-      </h6>
+      >{`${data.customerFirstName} ${data.customerLastName}`}</p>*/}
+      
     </div>
   );
 };

@@ -1,5 +1,6 @@
 // libraries
 import React from 'react';
+import { Chart } from "react-google-charts";
 
 // styles
 import styles from './styles.module.scss';
@@ -14,10 +15,31 @@ import { Dropdown, Button } from 'antd';
 import DropdownMenu from './DropdownMenu';
 import Item from './Item';
 
+export const line_data = [
+  ["Year", "Sales", "Expenses"],
+  ["2004", 1000, 400],
+  ["2005", 1170, 460],
+  ["2006", 660, 1120],
+  ["2007", 1030, 540],
+];
+
+export const options = {
+  title: "Company Performance",
+  curveType: "function",
+  legend: { position: "bottom" },
+};
+
 const index = ({ data, period, setPeriod }) => {
   return (
     <div className={styles.stats}>
-      <div className={styles.head}>
+      <Chart
+        chartType="LineChart"
+        width="100%"
+        height="400px"
+        data={line_data}
+        options={options}
+      />
+      {/* <div className={styles.head}>
         <Dropdown
           arrow
           overlay={<DropdownMenu state={period} setState={setPeriod} />}
@@ -27,8 +49,8 @@ const index = ({ data, period, setPeriod }) => {
             <AiOutlineCalendar /> {period} <CaretDownOutlined />
           </Button>
         </Dropdown>
-      </div>
-      <div className={`${styles.highlight} ${styles.list}`}>
+      </div> */}
+      {/* <div className={`${styles.highlight} ${styles.list}`}>
         <Item
           name='Total revenue'
           number={`$${data?.revenue}`}
@@ -55,8 +77,8 @@ const index = ({ data, period, setPeriod }) => {
             />
           ))}
         </div>
-      </div>
-      <div>
+      </div> */}
+      {/* <div>
         <h5 className={styles.box}>Clicks</h5>
         <div className={styles.list}>
           {data.performance.map((item, index) => (
@@ -67,9 +89,8 @@ const index = ({ data, period, setPeriod }) => {
             />
           ))}
         </div>
-      </div>
-      {/*
-      <div className={styles.list}>
+      </div> */}
+      {/* <div className={styles.list}>
         <Item
           name='Clicks on 1:1 video calls'
           number={data.private_session.clicks}
@@ -112,7 +133,7 @@ const index = ({ data, period, setPeriod }) => {
           order={13}
           row='lower'
         />
-      </div>
+      </div> */}
       {/* <div className={styles.list}>
         <Item
           name='Clicks on On-demand content'

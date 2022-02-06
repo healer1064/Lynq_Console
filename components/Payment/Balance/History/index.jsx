@@ -26,7 +26,7 @@ const PaymentHistory = ({ data }) => {
           data && data.map((item, index) => {
             return (
               <div key={index} className={styles.table_body}>
-                <p>{moment(item.requestDate).format("MMM DD, YYYY")}</p>
+                <p>{moment(item.requestDate).format("MM/DD/YYYY")}</p>
                 <p data-tip={item.transferNumber}>
                   {item.transferNumber || "null"}
                 </p>

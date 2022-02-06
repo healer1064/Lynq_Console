@@ -20,13 +20,27 @@ $breakpointPhone: 519px
     
 .form
     width: 40%
+    .description_div
+        textarea
+            width: 100%
+            display: block
+            border: 1px solid #ccc
+            border-radius: 8px
+            min-height: 200px
+            color: #777
+            max-height: 200px
+            padding: 6px
+            font-size: 1rem
+            font-style: italic
+            margin-top: 15px;
+            &:focus
+                outline: none
     .uploadWrapper
         margin-bottom: 25px
         display: block
         p
             margin-bottom: 0px
-            margin-top: 20px
-        
+            margin-top: 20px   
     .error 
         color: red
         font-size: 14px
@@ -76,20 +90,60 @@ $breakpointPhone: 519px
         width: 100%
         display: flex
         flex-direction: column
+        margin-bottom: 15px;
+        .price_input
+            display: flex
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            p
+                width: 150px
+                font-size: 1rem
+                margin: 12px 0 0
+                font-weight: 600
+            span
+                width: 200px
+                display: flex
+                align-items: center
+                justify-content: space-between
+                height: 35px
+                border-radius: 8px
+                border: 1px solid #ccc
+                padding: 0 5px
+                margin: 12px 0
+                svg
+                    font-size: 1rem
+                    margin: 0
+                    color: #777
+                input
+                    flex-grow: 1
+                    width: 80px
+                    height: 100%
+                    border: none
+                    padding: 0 5px
+                    color: #777
+                    &:focus
+                        outline: none
+                    &:disabled
+                        background: white
+                input::-webkit-outer-spin-button, input::-webkit-inner-spin-button
+                    -webkit-appearance: none
+                    margin: 0
+                input[type=number]
+                    -moz-appearance: textfield
         label
             font-size: 1rem
             margin-bottom: 5px
             font-weight: 600
             display: flex
-            align-items: center
+            align-items: center;
             p
                 width: 150px
                 font-size: 1rem
                 margin-bottom: 0px
                 font-weight: 600
             span
-                width: 150px
-                margin-left: 10px
+                width: 200px
                 display: flex
                 align-items: center
                 justify-content: space-between
@@ -119,11 +173,10 @@ $breakpointPhone: 519px
                     -moz-appearance: textfield
         .listing
             p
-                margin: 10px 0
                 display: flex
                 align-items: center
                 svg
-                    margin-left: 10px
+                    margin-right: 10px
                     color: #777
             span
                 border: none
@@ -169,126 +222,6 @@ $breakpointPhone: 519px
                 color: #ccc
                 font-size: 0.8rem
                 font-style: italic
-    label
-        width: 100%
-        margin-bottom: 10px
-        strong
-            display: flex
-            align-items: center
-            span
-                margin: 0 8px
-                font-size: 0.8rem
-                color: $grey
-            svg
-                cursor: pointer
-                color: $grey
-                transition: all 0.5s
-                &:hover
-                    color: $black
-        select
-            width: 100%
-            cursor: pointer
-            height: 40px
-            border: 1px solid #9FA8B5
-            border-radius: 5px
-            padding: 0 24px
-            -moz-appearance: none
-            -webkit-appearance: none
-            background-repeat: no-repeat
-            background-position: top 12px right 16px
-            font-family: 'Open Sans'
-            font-size: 14px
-            line-height: 24px
-            &::-ms-expand
-                display: none
-            &:focus
-                outline: none
-        .length_select
-            width: 100%
-        input
-            width: 100%
-            height: 40px
-            border: 1px solid #9FA8B5
-            border-radius: 5px
-            padding: 0 24px
-            font-family: 'Open Sans'
-            line-height: 24px
-            &:focus
-                outline: none
-            &::placeholder
-                font-family: 'Open Sans'
-                font-size: 14px
-                line-height: 24px
-                color: #C9C9C9
-        .filename
-            margin: 0
-            font-style: italic
-            color: #777
-            font-size: 12px
-            svg
-                font-size: 16px
-        .disabled
-            background: #7a7a7a !important
-        input[type=file]
-            display: none
-        textarea
-            width: 100%
-            height: 310px
-            border: 1px solid #9FA8B5
-            border-radius: 5px
-            padding: 10px 24px 30px 24px
-            font-family: 'Open Sans'
-            font-size: 14px
-            line-height: 24px
-            resize: none
-            &:focus
-                outline: none
-            &::placeholder
-                font-family: 'Open Sans'
-                font-size: 14px
-                line-height: 24px
-                color: #C9C9C9
-        .price
-            width: 100%
-            height: 40px
-            border: 1px solid #9FA8B5
-            border-radius: 5px
-            padding: 3px 24px 3px 10px
-            display: flex
-            align-items: center
-
-            input
-                background: transparent
-                flex-grow: 1
-                width: 100%
-                height: 40px
-                border: none
-                border-radius: 5px
-                padding: 0px
-                padding-left: 10px !important
-                font-family: 'Open Sans'
-                line-height: 24px
-                &::-webkit-outer-spin-button, &::-webkit-inner-spin-button
-                    -webkit-appearance: none
-                    margin: 0
-                input[type=number]
-                    -moz-appearance: textfield
-                    cursor: pointer
-                &:focus
-                    outline: none
-                &::placeholder
-                    font-family: 'Open Sans'
-                    font-size: 14px
-                    line-height: 24px
-                    color: #C9C9C9
-            .price_img
-                height: 13px
-            .listing_loading
-                height: 25px
-                margin-left: 15px
-        .listing
-            border: none
-            height: 30px
     .description
         position: relative
         .desc_count
@@ -302,7 +235,6 @@ $breakpointPhone: 519px
         width: 50%
         cursor: pointer
         position: relative
-
     .thumbnail
         position: relative
         .price
@@ -351,21 +283,32 @@ $breakpointPhone: 519px
             font-size: 16px
             line-height: 20px
             transition: all 200ms
+            display: flex
+            justify-content: center
+            align-items: center
             &:focus
                 outline: none
             &:hover
-                opacity: 0.7;
-    .save
-        font-weight: 600
-        background: $lavender
-        color: #fff
-        margin-right: 5px
-        position: relative
-    .cancel
-        background: #FFF
-        color: $lavender
-        font-weight: 400
-        margin-right: 24px
+                opacity: 0.7
+        .save
+            font-weight: 600
+            color: #fff
+            margin-right: 5px
+            position: relative
+            width: 146px;
+            height: 44px;
+            background: #5A27E7
+            border-radius: 100px
+        .cancel
+            color: #5A27E7
+            font-weight: 400
+            margin-right: 24px
+            width: 146px;
+            height: 44px;
+            background: #FFFFFF;
+            border: 2px solid #5A27E7
+            box-sizing: border-box
+            border-radius: 100px
 
 @media screen and ( max-width: $breakpointPhone )
     .form

@@ -1,5 +1,7 @@
 // libraries
 import { useEffect, useState } from "react";
+import Fade from 'react-reveal/Fade';
+import Link from "next/link";
 
 // styles
 import styles from "./styles.module.sass";
@@ -92,33 +94,26 @@ const index = ({ clients, stats, period, setPeriod }) => {
   }, [response, order, pageNumber, pageSize, filteredData]);
 
   return (
-    <Tabs defaultActiveKey="1">
-      <TabPane tab="Dashboard" key="1">
-        <Stats data={stats} period={period} setPeriod={setPeriod} />
-      </TabPane>
-      <TabPane tab="Clients" key="2">
-        <div className={styles.clients}>
-          <div className={styles.top}>
-            <div className={`invitations-menu-search ${styles.search_wrap}`}>
-              <SearchInput
-                setState={setSearchTerm}
-                placeholder="First and last name"
-              />
-            </div>
+    // <Tabs defaultActiveKey="1">
+    //   <TabPane tab="Dashboard" key="1">
+    //     <Stats data={stats} period={period} setPeriod={setPeriod} />
+    //   </TabPane>
+    //   <TabPane tab="Clients" key="2">
+    <div className={styles.dashboard_wrap}>
+      <Fade>
+        <Link href={`/my-page`}>
+          <div className={styles.back_btn_div}>
+            <img src="/svg/arrow-back.svg" alt="arrow-back"/>
+            <p>Dashboard</p>
           </div>
-          {data && (
-            <Table
-              setPageSize={setPageSize}
-              setPageNumber={setPageNumber}
-              order={order}
-              filteredData={filteredData}
-              setOrder={setOrder}
-              data={data}
-            />
-          )}
+        </Link>
+        <div className={styles.clients}>
+          <Stats data={stats} period={period} setPeriod={setPeriod} />
         </div>
-      </TabPane>
-    </Tabs>
+      </Fade>
+    </div>
+    //   </TabPane>
+    // </Tabs>
   );
 };
 
