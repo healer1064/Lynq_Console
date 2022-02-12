@@ -37,12 +37,16 @@ const Navbar = ({ flag }) => {
         >
           <img src='/img/lynq-logo.png' alt='' />
         </a>
-        {flag == '404' ? null : (
+        <div className={styles.slug_url}>
+          <span>lynq.app/lamm</span>
+          <span>copy</span>
+        </div>
+        {/* {flag == '404' ? null : (
           <div onClick={logout} className={styles.logout}>
             <img src='/img/logout.svg' alt='logout' />
             <p>Logout</p>
           </div>
-        )}
+        )} */}
         {flag == '404' ? null : (
           <div className={styles.burger_menu} onClick={() => setOpen(true)}>
             <img src='/img/burger-menu.svg' alt='' />

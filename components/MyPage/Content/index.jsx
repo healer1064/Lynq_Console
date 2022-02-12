@@ -57,7 +57,7 @@ const index = ({ payments, toggleResponse, business }) => {
               </Link>
             </Grid>
             <Grid item xs={12} sm={4} md={4}>
-              <Link href={`/my-page/project`}>
+              <Link href={`/my-page/my-project`}>
                 <div className={styles.Icon_div}>
                   <img src="/svg/back-project.svg" className={styles.Icon_svg}/>
                   <label>Back a project</label>

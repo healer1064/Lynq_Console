@@ -1,0 +1,172 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.content
+  margin-top: 20px
+  margin-bottom: 50px
+
+  .sections
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    .switch_wrap
+      display: flex
+      align-items: center
+      margin-bottom: 20px
+      .switch_on
+          background: #7E88F4
+      .switch_off
+          background: rgba(0, 0, 0, 0.5)
+      span
+          margin-left: 10px
+          font-size: 14px
+          font-weight: 700
+    
+    .description_div
+      h2
+        margin: 20px 0
+        font-family: Open Sans
+        font-style: normal
+        font-weight: bold
+        font-size: 24px
+        line-height: 33px
+        color: #000000
+      .description
+        font-style: normal
+        font-weight: 600
+        font-size: 14px
+        line-height: 19px
+        color: #303030
+      .card
+        background: #FFFFFF
+        border: 1px solid #D9E0E9
+        box-sizing: border-box
+        box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
+        border-radius: 10px
+        padding: 15px 167px 15px 24px
+        width: 515px
+        .title_div
+          margin-bottom: 20px
+        .title
+          font-style: normal
+          font-weight: bold
+          font-size: 14px
+          line-height: 19px
+          color: #303030
+          margin-bottom: 0
+        .subtitle
+          font-style: italic
+          font-weight: normal
+          font-size: 11px
+          line-height: 15px
+          color: #C7C9FA
+        .price_setting
+          display: flex
+          justify-content: space-between
+          align-item: center
+          margin-bottom: 5px
+          label
+            font-style: normal
+            font-weight: normal
+            font-size: 14px
+            line-height: 19px
+            color: #303030
+          .proInput
+            width: 56px
+            height: 26px
+            background: #FFFFFF
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 5px 0 5px 10px
+            position: relative
+            label
+              position: absolute
+              right: 0px
+              top: 3px
+              color: #999
+            input
+              position: absolute
+              right: 3
+              top: 0
+              padding-right: 4px
+              width: 60%
+              border: none
+              &:focus
+                outline: none
+        .checkbox_div
+          margin-top: 10px
+          display: flex
+          justify-content: space-between
+          align-items: center
+          div
+            width: 80%    
+    
+    .btns
+      margin-block: 50px
+      @include flex
+      button
+        width: 140px
+        height: 50px
+        border: 1px solid $lavender
+        border-radius: 5px
+        padding: 13px 0
+        cursor: pointer
+        text-transform: uppercase
+        font-size: 16px
+        line-height: 20px
+        transition: all 200ms
+        display: flex
+        justify-content: center
+        align-items: center
+        &:focus
+            outline: none
+        &:hover
+            opacity: 0.7
+      .save
+        font-weight: 600
+        color: #fff
+        margin-right: 5px
+        position: relative
+        width: 146px;
+        height: 44px;
+        background: #5A27E7
+        border-radius: 100px
+      .cancel
+        color: #5A27E7
+        font-weight: 400
+        margin-right: 24px
+        width: 146px;
+        height: 44px;
+        background: #FFFFFF;
+        border: 2px solid #5A27E7
+        box-sizing: border-box
+        border-radius: 100px
+        
+@media screen and ( max-width: 519px )
+  .content
+    .back
+      font-size: 14px
+      line-height: 19px
+      margin-bottom: 16px
+    .sections
+      flex-direction: column
+  

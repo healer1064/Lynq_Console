@@ -1,0 +1,312 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+.content
+    padding: 20px
+    width: 685px
+    h2 
+        font-weight: bold
+        font-size: 24px
+        line-height: 33px
+        margin-bottom: 30px
+    .switch_wrap
+        display: flex
+        align-items: center
+        margin-bottom: 20px
+        .switch_on
+            background: #7E88F4
+        .switch_off
+            background: rgba(0, 0, 0, 0.5)
+        span
+            margin-left: 10px
+            font-size: 14px
+            font-weight: 700
+    .section
+        margin-bottom: 20px
+        position: relative
+        p
+            font-weight: 600
+            font-size: 14px
+            line-height: 19px
+            color: #303030
+            margin-bottom: 10px
+        label
+            display: block
+            margin: 10px
+        .title_input
+            width: 100%
+            height: 40px
+            left: 301px
+            top: 290px
+            background: #FFFFFF
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 0 10px
+        .dollar_input
+            width: 100%
+            height: 40px
+            left: 301px
+            top: 290px
+            background: #FFFFFF
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 0 10px
+            display: flex
+            align-items: center
+            img
+                height: 12px
+                width: 12px
+            input
+                padding: 0 5px
+                width: 100%
+                -moz-box-flex: 1
+                flex-grow: 1
+                border: none
+                background: transparent
+                &:focus
+                    outline: none;
+        .sd_textarea
+            width: 100%
+            height: 56px
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 5px 10px
+        .d_textarea
+            width: 100%
+            height: 100px
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 5px 10px
+        .vr_textarea
+            width: 100%
+            height: 100px
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 5px 10px
+        .the_count
+            display: flex
+            justify-content: end
+            position: absolute
+            bottom: 5px
+            width: 100%
+            padding: 0 15px
+        .price_input
+            width: 195px
+            height: 35px
+            background: #FFFFFF
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 0 10px
+            label
+                display: block
+                margin: 10px
+
+    .uploadWrapper
+        margin-bottom: 25px
+        display: block
+        p
+            margin-bottom: 0px
+            margin-top: 20px
+        .dropzone
+            width: 100%
+            height: 200px
+            border: 1px solid #ccc
+            border-radius: 8px
+            margin-top: 5px
+            display: flex
+            flex-direction: column
+            justify-content: center
+            align-items: center
+            cursor: pointer
+            position: relative
+            .uploadContainer
+                position: absolute
+                top: 5px
+            svg
+                color: #aaa
+                font-size: 4rem
+            h6
+                margin: 10px 0
+                font-size: 0.9rem
+                text-align: center
+                color: #aaa
+            p
+                margin: 0
+                font-size: 0.8rem
+                text-align: center
+                color: #aaa
+            .input_wrap
+                cursor: pointer
+                padding: 15px
+                width: 100%
+                height: 100%
+                display: flex
+                flex-direction: column
+                align-items: center
+                justify-content: center
+                &:focus
+                    outline: none
+                input
+                    &:focus
+                        outline: none
+        .filename
+            margin: 0
+            font-style: italic
+            color: #777
+            font-size: 12px
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            svg
+                font-size: 16px
+        label
+            width: 100%
+            margin-bottom: 10px
+            strong
+                display: flex
+                align-items: center
+                span
+                    margin: 0 8px
+                    font-size: 0.8rem
+                    color: $grey
+                svg
+                    cursor: pointer
+                    color: $grey
+                    transition: all 0.5s
+                    &:hover
+                        color: $black
+            select
+                width: 100%
+                cursor: pointer
+                height: 40px
+                border: 1px solid #9FA8B5
+                border-radius: 5px
+                padding: 0 24px
+                -moz-appearance: none
+                -webkit-appearance: none
+                background-image: url('../../../../../public/img/appointment-select-arrow.svg')
+                background-repeat: no-repeat
+                background-position: top 12px right 16px
+                font-family: 'Open Sans'
+                font-size: 14px
+                line-height: 24px
+                &::-ms-expand
+                    display: none
+                &:focus
+                    outline: none
+            input
+                width: 100%
+                height: 40px
+                border: 1px solid #9FA8B5
+                border-radius: 5px
+                padding: 0 24px
+                font-family: 'Open Sans'
+                line-height: 24px
+                &:focus
+                    outline: none
+                &::placeholder
+                    font-family: 'Open Sans'
+                    font-size: 14px
+                    line-height: 24px
+                    color: #C9C9C9
+            .filename
+                margin: 0
+                font-style: italic
+                color: #777
+                font-size: 12px
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                svg
+                    font-size: 16px
+            input[type=file]
+                display: none
+            textarea
+                width: 100%
+                height: 310px
+                border: 1px solid #9FA8B5
+                border-radius: 5px
+                padding: 10px 24px 30px 24px
+                font-family: 'Open Sans'
+                font-size: 14px
+                line-height: 24px
+                resize: none
+                &:focus
+                    outline: none
+                &::placeholder
+                    font-family: 'Open Sans'
+                    font-size: 14px
+                    line-height: 24px
+                    color: #C9C9C9
+        .thumbnail
+            position: relative
+    .date_input
+        margin-bottom: 10px
+        display: block
+        width: fit-content
+        input
+            border: 1px solid #C0C0C9
+            box-sizing: border-box
+            border-radius: 5px
+            padding: 5px
+    .btns
+        margin-block: 50px
+        @include flex
+        button
+            @include flex
+            justify-content: center
+            align-items: center
+            padding: 13px 0
+            cursor: pointer
+            font-size: 16px
+            line-height: 20px
+            transition: all 200ms
+            &:focus
+                outline: none
+            &:hover
+                opacity: 0.7;
+    .save
+        font-weight: 600
+        color: #fff
+        margin-right: 5px
+        position: relative
+        width: 146px;
+        height: 44px;
+        background: #5A27E7;
+        border-radius: 100px;
+    .cancel
+        color: #5A27E7
+        font-weight: 400
+        margin-right: 24px
+        width: 146px
+        height: 44px
+        background: #FFFFFF
+        border: 2px solid #5A27E7
+        box-sizing: border-box
+        border-radius: 100px
+
+@media screen and ( max-width: 519px )
+    .content
+        padding: 10px

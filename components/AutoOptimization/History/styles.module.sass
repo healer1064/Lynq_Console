@@ -1,0 +1,98 @@
+// Mixins
+@mixin flex
+  display: -webkit-box
+  display: -moz-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+
+// Colors
+$black: #303030
+$black-2: #5C5C5C
+$lavender: #7E88F4
+$grey: #838383
+$super-grey: #C9C9C9
+$blue: #2889F0
+
+// Breakpoints
+$breakpointLaptop: 1399px
+$breakpointPhone: 519px
+
+.content
+  margin-top: 20px
+  margin-bottom: 50px
+
+  .sections
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    .switch_wrap
+      display: flex
+      align-items: center
+      margin-bottom: 20px
+      .switch_on
+          background: #7E88F4
+      .switch_off
+          background: rgba(0, 0, 0, 0.5)
+      span
+          margin-left: 10px
+          font-size: 14px
+          font-weight: 700
+    
+    .description_div
+      display: flex
+      justify-content: space-evenly
+      .card
+        background: #FFFFFF
+        border: 1px solid #D9E0E9
+        box-sizing: border-box
+        box-shadow: 1px 2px 16px rgba(0, 0, 0, 0.08)
+        border-radius: 10px
+        padding: 15px 167px 15px 24px
+        width: 515px
+        .title
+          font-style: normal
+          font-weight: bold
+          font-size: 14px
+          line-height: 19px
+          color: #C7C9FA
+          margin-bottom: 20px
+        .row
+          display: flex
+          margin: 15px 0
+          .col_1
+            width: 145px
+            font-family: Open Sans
+            font-style: normal
+            font-weight: bold
+            font-size: 14px
+            line-height: 19px
+            color: #303030
+          .col_2
+            display: flex
+            flex-direction: column
+            font-family: Open Sans
+            font-style: normal
+            font-weight: bold
+            font-size: 14px
+            line-height: 19px
+            color: #C8C8D0
+            label
+              &:nth-child(2)
+                font-style: italic
+                font-weight: normal
+                font-size: 14px
+                line-height: 19px
+                color: #3AC740
+                margin: 5px 0
+
+@media screen and ( max-width: 519px )
+  .content
+    .back
+      font-size: 14px
+      line-height: 19px
+      margin-bottom: 16px
+    .sections
+      flex-direction: column
+  
