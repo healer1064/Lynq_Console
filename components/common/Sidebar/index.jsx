@@ -45,11 +45,6 @@ const Leftbar = () => {
         
         <Link href='/dashboard'>
           <a className={router.pathname === '/dashboard' ? styles.active : ''}>
-            {/* <FaChartLine
-              color='white'
-              style={{ marginRight: "8px" }}
-              size={17}
-            /> */}
             <img src='/svg/analytics_white.svg' alt="analytics"/>
             <span>Analytics</span>
           </a>
@@ -63,13 +58,6 @@ const Leftbar = () => {
             <img src='/svg/attach_money_white.svg' alt="income"/>
             <span>Earning</span>
           </a>
-          {/* <p
-            className={
-              router.pathname === "/payment/balance" ? styles.active : ""
-            }
-          >
-            Balance
-          </p> */}
         </Link>
         <Link href='/client'>
           <a
@@ -182,12 +170,6 @@ const Leftbar = () => {
           </>
         )} */}
       </nav>
-
-      {/* <Link href='/account'>
-        <div className={styles.profile}>
-          <span>Setting</span>
-        </div>
-      </Link> */}
     </div>
   );
 };
