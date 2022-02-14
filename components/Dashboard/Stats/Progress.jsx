@@ -17,7 +17,7 @@ const Progress = ({
 
   return (
     <div className={styles.progress}>
-      <img src="./img/icon_percentage.jpg" alt={name} />
+      <img src="/img/icon_percentage.jpg" alt={name} />
       <div className={styles.progressbar}>
         <ProgressBar completed={percentage} bgColor={"#FCAE73"} height={"10px"} isLabelVisible={false}/>
         <label>{label}</label>

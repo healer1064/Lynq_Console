@@ -38,7 +38,7 @@ const Leftbar = () => {
               router.pathname === '/my-page' ? styles.active : ''
             }
           >
-            <img src='./svg/insert_emoticon_white.svg' alt="analytics"/>
+            <img src='/svg/insert_emoticon_white.svg' alt="analytics"/>
             <span>My page</span>
           </a>
         </Link>
@@ -50,7 +50,7 @@ const Leftbar = () => {
               style={{ marginRight: "8px" }}
               size={17}
             /> */}
-            <img src='./svg/analytics_white.svg' alt="analytics"/>
+            <img src='/svg/analytics_white.svg' alt="analytics"/>
             <span>Analytics</span>
           </a>
         </Link>
@@ -60,7 +60,7 @@ const Leftbar = () => {
               router.pathname === '/payment/balance' ? styles.active : ''
             }
           >
-            <img src='./svg/attach_money_white.svg' alt="income"/>
+            <img src='/svg/attach_money_white.svg' alt="income"/>
             <span>Earning</span>
           </a>
           {/* <p
@@ -77,7 +77,7 @@ const Leftbar = () => {
               router.pathname === '/client' ? styles.active : ''
             }
           >
-            <img src='./svg/person_white.svg' alt="client"/>
+            <img src='/svg/person_white.svg' alt="client"/>
             <span>Client</span>
           </a>
         </Link>
@@ -87,7 +87,7 @@ const Leftbar = () => {
               router.pathname === '/auto-optimization' ? styles.active : ''
             }
           >
-            <img src='./svg/broken_image_white.svg' alt="auto_pilot"/>
+            <img src='/svg/broken_image_white.svg' alt="auto_pilot"/>
             <span>Auto pilot</span>
           </a>
         </Link>
@@ -97,7 +97,7 @@ const Leftbar = () => {
               router.pathname === '/account' ? styles.active : ''
             }
           >
-            <img src='./svg/settings_white.svg' alt="setting"/>
+            <img src='/svg/settings_white.svg' alt="setting"/>
             <span>Setting</span>
           </a>
         </Link>
