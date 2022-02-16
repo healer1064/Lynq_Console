@@ -44,10 +44,14 @@ const home = () => {
     id: null,
   });
 
+  console.log('home', data);
+
   useEffect(() => {
+    console.log('home', token);
     if (token) {
       getCallsList(token)
         .then((calls) => {
+          console.log('home', calls);
           getMasterclass(token)
             .then((masterclasses) => {
               if (masterclasses.error) {
