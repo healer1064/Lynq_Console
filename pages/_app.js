@@ -30,11 +30,14 @@ function MyApp({ Component, pageProps }) {
   // router
   const router = useRouter();
 
+  console.log('apps', preLoading);
   useEffect(() => {
+    console.log('apps', router.query.token);
     if (router.query.token) {
       localStorage.setItem("linqToken", router.query.token);
     }
     setTimeout(() => {
+      console.log('apps', 'setTimeout');
       if (
         router.pathname != "/signup-after" &&
         router.pathname != "/plans" &&
@@ -75,9 +78,10 @@ function MyApp({ Component, pageProps }) {
     }, 500);
 
     return () => {
+      console.log('apps', 'return');
       setSidebar(true);
     };
-  }, [router.query?.token]);
+  }, []);
 
   useEffect(() => {
     TagManager.initialize({ gtmId: "GTM-K2DPJPZ" });
@@ -86,7 +90,24 @@ function MyApp({ Component, pageProps }) {
   console.log('apps', preLoading);
   return (
     <ProfileProvider>
-      {sidebar ? (
+      {preLoading ? (
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            position: "fixed",
+            left: "0",
+            top: "0",
+            right: "0",
+            bottom: "0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <PageLoading />
+        </div>
+      ) : sidebar ? (
         <div className='main-wrp'>
           <ToastContainer />
           <Navbar />
