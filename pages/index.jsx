@@ -102,6 +102,7 @@ const home = () => {
     setRefetch((prevState) => !prevState);
   };
 
+  console.log("index.jsx:");
   return (
     <div className="home-wrp">
       <Head>
