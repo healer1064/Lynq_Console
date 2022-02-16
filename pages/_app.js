@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }) {
     }
     setTimeout(() => {
       if (
-        // router.pathname != "/signup-after" &&
+        router.pathname != "/signup-after" &&
         router.pathname != "/plans" &&
         router.pathname != "/signup" &&
         router.pathname != "/login" &&
@@ -51,7 +51,7 @@ function MyApp({ Component, pageProps }) {
       }
       if (!localStorage.getItem("linqToken")) {
         if (
-          // router.pathname != "/signup-after" &&
+          router.pathname != "/signup-after" &&
           router.pathname != "/plans" &&
           router.pathname != "/signup" &&
           router.pathname != "/login" &&
