@@ -108,8 +108,7 @@ const home = () => {
         <title>Home | Lynq</title>
       </Head>
       {!data ? (
-        // <PageLoading />
-        <h1>Stress</h1>
+        <PageLoading />
       ) : (
         <Content
           currSession={currSession}

@@ -96,7 +96,8 @@ function MyApp({ Component, pageProps }) {
             justifyContent: "center",
           }}
         >
-          <PageLoading />
+          <h1>Stress</h1>
+
         </div>
       ) : sidebar ? (
         <div className='main-wrp'>
