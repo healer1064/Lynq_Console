@@ -1,6 +1,5 @@
 // libraries
 import React from 'react';
-import { Chart } from "react-google-charts";
 import dynamic from 'next/dynamic';
 const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 import Select from 'react-select'
