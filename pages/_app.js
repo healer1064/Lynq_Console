@@ -98,7 +98,6 @@ function MyApp({ Component, pageProps }) {
             bottom: "0",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
           }}
         >
           <PageLoading />
