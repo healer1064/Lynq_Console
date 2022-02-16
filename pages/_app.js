@@ -85,24 +85,8 @@ function MyApp({ Component, pageProps }) {
 
   console.log('apps', preLoading);
   return (
-    <ProfileProvider>
-      {preLoading ? (
-        <div
-          style={{
-            height: "100vh",
-            width: "100vw",
-            position: "fixed",
-            left: "0",
-            top: "0",
-            right: "0",
-            bottom: "0",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <PageLoading />
-        </div>
-      ) : sidebar ? (
+    <div>
+      {sidebar ? (
         <div className='main-wrp'>
           <ToastContainer />
           <Navbar />
@@ -120,7 +104,7 @@ function MyApp({ Component, pageProps }) {
           </ThemeProvider>
         </>
       )}
-    </ProfileProvider>
+    </div>
   );
 }
 
