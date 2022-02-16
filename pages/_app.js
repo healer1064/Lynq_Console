@@ -85,7 +85,7 @@ function MyApp({ Component, pageProps }) {
 
   console.log('apps', preLoading);
   return (
-    <div>
+    <ProfileProvider>
       {sidebar ? (
         <div className='main-wrp'>
           <ToastContainer />
@@ -104,7 +104,7 @@ function MyApp({ Component, pageProps }) {
           </ThemeProvider>
         </>
       )}
-    </div>
+    </ProfileProvider>
   );
 }
 
