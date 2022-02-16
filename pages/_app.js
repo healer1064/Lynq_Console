@@ -49,6 +49,9 @@ function MyApp({ Component, pageProps }) {
       } else {
         setSidebar(false);
       }
+
+      console.log('apps', router);
+      console.log('apps', localStorage.getItem("linqToken"));
       if (!localStorage.getItem("linqToken")) {
         if (
           router.pathname != "/signup-after" &&
@@ -59,6 +62,7 @@ function MyApp({ Component, pageProps }) {
           router.pathname != "/terms-and-conditions" &&
           !router.pathname.includes("/reset-password/")
         ) {
+          console.log('apps', 'go plans');
           window.location.href = "/plans";
           setSidebar(true);
         } else {
@@ -79,6 +83,7 @@ function MyApp({ Component, pageProps }) {
     TagManager.initialize({ gtmId: "GTM-K2DPJPZ" });
   }, []);
 
+  console.log('apps', preLoading);
   return (
     <ProfileProvider>
       {preLoading ? (
