@@ -30,14 +30,11 @@ function MyApp({ Component, pageProps }) {
   // router
   const router = useRouter();
 
-  console.log('apps', preLoading);
   useEffect(() => {
-    console.log('apps', router.query.token);
     if (router.query.token) {
       localStorage.setItem("linqToken", router.query.token);
     }
     setTimeout(() => {
-      console.log('apps', 'setTimeout');
       if (
         router.pathname != "/signup-after" &&
         router.pathname != "/plans" &&
@@ -52,9 +49,6 @@ function MyApp({ Component, pageProps }) {
       } else {
         setSidebar(false);
       }
-
-      console.log('apps', router);
-      console.log('apps', localStorage.getItem("linqToken"));
       if (!localStorage.getItem("linqToken")) {
         if (
           router.pathname != "/signup-after" &&
@@ -65,7 +59,6 @@ function MyApp({ Component, pageProps }) {
           router.pathname != "/terms-and-conditions" &&
           !router.pathname.includes("/reset-password/")
         ) {
-          console.log('apps', 'go plans');
           window.location.href = "/plans";
           setSidebar(true);
         } else {
@@ -78,21 +71,31 @@ function MyApp({ Component, pageProps }) {
     }, 500);
 
     return () => {
-      console.log('apps', 'return');
       setSidebar(true);
     };
-  }, []);
+  }, [router.query?.token]);
 
   useEffect(() => {
-    console.log('apps', 'TagManager');
     TagManager.initialize({ gtmId: "GTM-K2DPJPZ" });
   }, []);
-  alert("apps infinite");
-  console.log('apps', preLoading);
+
   return (
     <ProfileProvider>
       {preLoading ? (
-        <div>
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            position: "fixed",
+            left: "0",
+            top: "0",
+            right: "0",
+            bottom: "0",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <PageLoading />
         </div>
       ) : sidebar ? (
