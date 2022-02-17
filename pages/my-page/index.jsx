@@ -19,17 +19,17 @@ export default function Payment() {
   const { token } = useContext(ProfileContext);
 
   // states
-  const [payments, setPayments] = useState(null);
+  // const [payments, setPayments] = useState(null);
   const [business, setBusiness] = useState(null);
   const [response, setResponse] = useState(false);
 
   useEffect(() => {
     if (token) {
-      getPaymentsReq(token)
-        .then((res) => {
-          setPayments(res);
-        })
-        .catch(() => toast.error('Failed to fetch payment balance!'));
+      // getPaymentsReq(token)
+      //   .then((res) => {
+      //     setPayments(res);
+      //   })
+      //   .catch(() => toast.error('Failed to fetch payment balance!'));
       getBusinessReq(token)
         .then((res) => {
           setBusiness(res);
@@ -49,15 +49,10 @@ export default function Payment() {
         <title>My page | Lynq</title>
       </Head>
       <div className='content-wrp '>
-        {!payments ? (
-          <PageLoading />
-        ) : (
-          <Content
-            payments={payments}
-            toggleResponse={toggleResponse}
-            business={business}
-          />
-        )}
+        <Content
+          toggleResponse={toggleResponse}
+          business={business}
+        />
       </div>
     </>
   );

@@ -9,7 +9,7 @@ import styles from './styles.module.sass';
 // components
 import { Tabs } from 'antd';
 
-const index = ({ payments, toggleResponse, business }) => {
+const index = ({ toggleResponse, business }) => {
   // tabs pane
   const { TabPane } = Tabs;
 
