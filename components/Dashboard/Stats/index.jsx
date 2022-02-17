@@ -1,7 +1,7 @@
 // libraries
 import React from 'react';
-import dynamic from 'next/dynamic';
-const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
+// import dynamic from 'next/dynamic';
+// const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 import Select from 'react-select'
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -158,14 +158,14 @@ const index = ({ data, period, setPeriod }) => {
           />
       </label>
       </div>
-      <div className={styles.chart_div}>
+      {/*<div className={styles.chart_div}>
         <div className={styles.line_chart}>
           <ApexCharts options={apexoptions} series={series} type="line" height={400} />
         </div>
         <div className={styles.donut_chart}>
           <ApexCharts options={donut_options} series={donut_options.series} type="donut" height={400} />
         </div>
-      </div>
+      </div>*/}
       <div className={styles.total_info}>
         <Card
           name='Total clicks'
